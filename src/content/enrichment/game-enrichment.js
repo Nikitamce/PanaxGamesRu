@@ -382,39 +382,6 @@ function renderPlayerStatsCard(steam, charts) {
     `;
   }
 
-  const breakdown = parsePanaxCommunityNumbers();
-  let progressHtml = '';
-  if (breakdown && breakdown.totalActive > 0) {
-    const beatenPct = Math.round((breakdown.beaten / breakdown.totalActive) * 100) || 0;
-    const playingPct = Math.round((breakdown.playing / breakdown.totalActive) * 100) || 0;
-    const backlogPct = Math.round((breakdown.backlog / breakdown.totalActive) * 100) || 0;
-    const pausedPct = Math.round((breakdown.paused / breakdown.totalActive) * 100) || 0;
-    const droppedPct = Math.round((breakdown.dropped / breakdown.totalActive) * 100) || 0;
-
-    progressHtml = `
-      <div class="panax-progress-bar-container">
-        <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom: 0.4rem;">
-          <span>Прогресс игроков Panax:</span>
-          <span style="color:#10b981;">${beatenPct}% завершили</span>
-        </div>
-        <div class="panax-progress-bar">
-          <div class="panax-progress-seg beaten" style="width: ${beatenPct}%" title="Пройдено: ${breakdown.beaten} (${beatenPct}%)"></div>
-          <div class="panax-progress-seg playing" style="width: ${playingPct}%" title="Играют: ${breakdown.playing} (${playingPct}%)"></div>
-          <div class="panax-progress-seg backlog" style="width: ${backlogPct}%" title="В планах: ${breakdown.backlog} (${backlogPct}%)"></div>
-          <div class="panax-progress-seg paused" style="width: ${pausedPct}%" title="Пауза: ${breakdown.paused} (${pausedPct}%)"></div>
-          <div class="panax-progress-seg dropped" style="width: ${droppedPct}%" title="Брошено: ${breakdown.dropped} (${droppedPct}%)"></div>
-        </div>
-        <div class="panax-progress-legend">
-          <span class="panax-legend-item"><span class="panax-legend-dot" style="background:#10b981;"></span>Пройдено (${breakdown.beaten})</span>
-          <span class="panax-legend-item"><span class="panax-legend-dot" style="background:#3b82f6;"></span>Играют (${breakdown.playing})</span>
-          <span class="panax-legend-item"><span class="panax-legend-dot" style="background:#8b5cf6;"></span>В планах (${breakdown.backlog})</span>
-          <span class="panax-legend-item"><span class="panax-legend-dot" style="background:#f59e0b;"></span>Пауза (${breakdown.paused})</span>
-          <span class="panax-legend-item"><span class="panax-legend-dot" style="background:#ef4444;"></span>Брошено (${breakdown.dropped})</span>
-        </div>
-      </div>
-    `;
-  }
-
   return `
     <div class="panax-plus-card" id="panax-players-card">
       <div class="panax-plus-title">
@@ -423,52 +390,8 @@ function renderPlayerStatsCard(steam, charts) {
       </div>
       ${onlineBadge}
       ${statsGrid}
-      ${progressHtml}
     </div>
   `;
-}
-
-function parsePanaxCommunityNumbers() {
-  const html = document.body?.innerHTML || '';
-
-  const mBeaten = html.match(/"status_beaten_cnt":\s*(\d+)/);
-  const mPlaying = html.match(/"status_playing_cnt":\s*(\d+)/);
-  const mBacklog = html.match(/"status_backlog_cnt":\s*(\d+)/);
-  const mPaused = html.match(/"status_paused_cnt":\s*(\d+)/);
-  const mQuit = html.match(/"status_quit_cnt":\s*(\d+)/);
-  const mWishlist = html.match(/"status_wishlist_cnt":\s*(\d+)/);
-  const mTotal = html.match(/"status_total_cnt":\s*(\d+)/);
-
-  if (mBeaten || mPlaying || mBacklog || mTotal) {
-    const beaten = Number(mBeaten?.[1] || 0);
-    const playing = Number(mPlaying?.[1] || 0);
-    const backlog = Number(mBacklog?.[1] || 0);
-    const paused = Number(mPaused?.[1] || 0);
-    const dropped = Number(mQuit?.[1] || 0);
-    const wishlist = Number(mWishlist?.[1] || 0);
-    const totalActive = beaten + playing + backlog + paused + dropped;
-    if (totalActive > 0 || beaten > 0) {
-      return { beaten, playing, backlog, paused, dropped, wishlist, totalActive: totalActive || 1 };
-    }
-  }
-
-  // Fallback: parse numbers near labels in body text
-  const text = document.body?.textContent || '';
-  const parseNum = (label) => {
-    const rx = new RegExp(`(\\d+)\\s*\\n?\\s*${label}|${label}\\s*\\n?\\s*(\\d+)`, 'i');
-    const m = text.match(rx);
-    if (!m) return 0;
-    return Number(m[1] || m[2] || 0);
-  };
-
-  const beaten = parseNum('Пройдено') || parseNum('Beaten');
-  const playing = parseNum('Играю') || parseNum('Playing');
-  const backlog = parseNum('В планах') || parseNum('Backlog');
-  const paused = parseNum('Пауза') || parseNum('Paused');
-  const dropped = parseNum('Брошено') || parseNum('Quit');
-  const totalActive = beaten + playing + backlog + paused + dropped;
-
-  return { beaten, playing, backlog, paused, dropped, totalActive };
 }
 
 async function loadGameData(title) {
