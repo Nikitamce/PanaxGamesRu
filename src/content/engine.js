@@ -10,6 +10,21 @@ const ATTR_OK = new Set([
   'data-placeholder',
 ]);
 
+const MONTHS_LOWER = {
+  jan: 'янв', january: 'января',
+  feb: 'фев', february: 'февраля',
+  mar: 'мар', march: 'марта',
+  apr: 'апр', april: 'апреля',
+  may: 'мая',
+  jun: 'июн', june: 'июня',
+  jul: 'июл', july: 'июля',
+  aug: 'авг', august: 'августа',
+  sep: 'сен', sept: 'сен', september: 'сентября',
+  oct: 'окт', october: 'октября',
+  nov: 'ноя', november: 'ноября',
+  dec: 'дек', december: 'декабря',
+};
+
 const MONTHS_SHORT = {
   Jan: 'янв', Feb: 'фев', Mar: 'мар', Apr: 'апр', May: 'мая', Jun: 'июн',
   Jul: 'июл', Aug: 'авг', Sep: 'сен', Oct: 'окт', Nov: 'ноя', Dec: 'дек',
@@ -602,12 +617,12 @@ export function createEngine(dict) {
         }
       }
 
-      // 1. Check your profile to see what's new
+      // 1. Check your profile to see what's new - only touch target leaf or direct paragraph
       for (const p of el.querySelectorAll('p, div, span')) {
         const t = normalizeKey(p.textContent || '');
-        if (/Check your/i.test(t) && /see what['’]s new/i.test(t)) {
+        if (/Check your/i.test(t) && /see what['’]s new/i.test(t) && p.childElementCount <= 2) {
           const link = p.querySelector('a, span');
-          if (link) {
+          if (link && link.childElementCount === 0) {
             link.textContent = 'профиль';
             for (const n of p.childNodes) {
               if (n.nodeType === 3) {
@@ -615,7 +630,7 @@ export function createEngine(dict) {
                 else if (/see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
               }
             }
-          } else {
+          } else if (p.childElementCount === 0) {
             p.textContent = 'Загляните в свой профиль, чтобы узнать, что нового.';
           }
         }
@@ -633,14 +648,15 @@ export function createEngine(dict) {
         }
       }
 
-      // 3. Get it on Steam for $X before the sale ends on Month Day
+      // 3. Get it on Steam for $X before the sale ends on Month Day - only leaf element!
       for (const p of el.querySelectorAll('p, div, span')) {
+        if (p.childElementCount > 0) continue; // Never wipe containers with game titles or icons!
         const t = normalizeKey(p.textContent || '');
         if (/Get it/i.test(t) && /Steam/i.test(t) && /sale ends/i.test(t)) {
-          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
+          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
           if (m) {
             const monKey = m[2].toLowerCase();
-            const mon = MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
+            const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
             const day = parseInt(m[3], 10);
             const year = m[4] ? ` ${m[4]}` : '';
             p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
