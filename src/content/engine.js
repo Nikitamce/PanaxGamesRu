@@ -597,7 +597,7 @@ export function createEngine(dict) {
       if (node.nodeType !== 1) return;
       if (['IMG', 'SVG', 'TIME', 'VIDEO'].includes(node.tagName)) return;
       const t = normalizeKey(node.textContent || '');
-      if (t.length > 200 && !/commented on your post|liked your post|started following|is now|sale ends|Get it on Steam|Get it|Level Up|Check your profile|dropped a new post/i.test(t)) return;
+      if (t.length > 100 && !/commented on your post|liked your post|started following/i.test(t)) return;
       for (const child of node.childNodes) take(child);
     };
     for (const child of el.childNodes) {

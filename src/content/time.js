@@ -104,20 +104,6 @@ export function splitNotice(raw) {
   if ((m = text.match(/^(.+?)\s+just dropped a new post$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'опубликовал(а) новый пост' };
   }
-  if ((m = text.match(/^(?:Level\s*Up!?|Уровень\s*Up!?)\s*(.*)$/i))) {
-    return { name: 'Новый уровень!', ru: m[1] ? ` ${m[1]}` : '' };
-  }
-  if (/^Check your (?:profile|Профиль) (?:to|До) see what['’]s new\.?$/i.test(text)) {
-    return { name: '', ru: 'Загляните в профиль, чтобы узнать, что нового.' };
-  }
-  if ((m = text.match(/^(.+?)\s+is now\s+(\d+)%\s+off$/i))) {
-    return { name: m[1], ru: ` — скидка ${m[2]}%` };
-  }
-  if ((m = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i))) {
-    const mon = MONTHS[m[2].toLowerCase()] || m[2];
-    const day = parseInt(m[3], 10);
-    return { name: '', ru: `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${m[4] ? ` ${m[4]}` : ''}` };
-  }
   if ((m = text.match(/^and\s+(\d+)\s+others?\s+liked your post$/i))) {
     return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш пост` };
   }
@@ -186,6 +172,16 @@ export function translateNotice(raw, context = '') {
     const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
     const day = parseInt(saleBody[3], 10);
     return `Купите в Steam за ${saleBody[1].trim()} до окончания скидки ${day} ${mon}${saleBody[4] ? ` ${saleBody[4]}` : ''}`;
+  }
+  const likedGames = text.match(/^Liked\s+(\d+\+?)\s+games?$/i);
+  if (likedGames) {
+    return `Понравилось ${likedGames[1]} игр`;
+  }
+  const dateMatch = text.match(/^([a-zA-Z]+)\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+  if (dateMatch && MONTHS[dateMatch[1].toLowerCase()]) {
+    const mon = MONTHS[dateMatch[1].toLowerCase()];
+    const day = parseInt(dateMatch[2], 10);
+    return `${day} ${mon}${dateMatch[3] ? ` ${dateMatch[3]}` : ''}`;
   }
   if (/^updates$/i.test(text)) return 'Обновления';
   if (/^highlights$/i.test(text)) return 'Главное';

@@ -19,51 +19,95 @@ function getGameTitleFromDom() {
   const h1 = document.querySelector('h1');
   if (h1 && h1.textContent?.trim()) return h1.textContent.trim();
 
-  // Try meta tags
   const metaOg = document.querySelector('meta[property="og:title"]');
   if (metaOg?.content) {
-    return metaOg.content.replace(/\s*\|\s*PANAX.*$/i, '').trim();
+    const t = metaOg.content.replace(/\s*\|\s*PANAX.*$/i, '').trim();
+    if (t && t !== 'PANAX') return t;
+  }
+
+  const header = document.querySelector('div[class*="text-2xl"], div[class*="text-xl"], h2');
+  if (header && header.textContent?.trim()) {
+    const text = header.textContent.trim();
+    if (text.length < 80 && !text.includes('\n')) return text;
   }
 
   return '';
 }
 
-function getGameYearFromDom() {
-  const text = document.body?.textContent || '';
-  const m = text.match(/\b(19\d\d|20\d\d)\b/);
-  return m ? Number(m[1]) : null;
+function findSectionCard(keywords) {
+  const normKeywords = keywords.map((k) => k.toLowerCase());
+  const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, div, span, p');
+
+  for (const el of elements) {
+    if (el.children.length > 2) continue;
+    const text = (el.textContent || '').trim().toLowerCase();
+    if (!text) continue;
+
+    for (const kw of normKeywords) {
+      if (text === kw || (text.startsWith(kw) && text.length < kw.length + 15)) {
+        let cur = el;
+        let bestCard = el.parentElement;
+        while (cur && cur.parentElement && cur.parentElement !== document.body) {
+          const p = cur.parentElement;
+          if (p === document.body) break;
+          const cls = cur.className || '';
+          if (cur.tagName === 'SECTION' || /rounded|bg-|space-y|border|card/i.test(cls)) {
+            const h = cur.offsetHeight || cur.getBoundingClientRect().height;
+            if (h > 40 && h < 1200) {
+              bestCard = cur;
+              break;
+            }
+          }
+          cur = p;
+        }
+        return bestCard;
+      }
+    }
+  }
+  return null;
 }
 
 /**
- * Identify active tab: 'about' | 'players' | 'community'
+ * Identify active tab: 'about' | 'players'
  */
 function getActiveTab() {
-  // Find tab buttons
-  const buttons = document.querySelectorAll('button, [role="tab"], a');
-  for (const btn of buttons) {
-    const text = (btn.textContent || '').trim().toLowerCase();
-    const isActive =
-      btn.getAttribute('aria-selected') === 'true' ||
-      btn.className?.includes('active') ||
-      btn.querySelector('div[class*="underline"], span[class*="border"], hr');
-
-    if (text.includes('о игре') || text.includes('about')) {
-      if (btn.classList.contains('border-b') || btn.querySelector('[class*="border"]') || btn.getAttribute('data-state') === 'active') {
+  const allElements = document.querySelectorAll('button, [role="tab"], div, a, span');
+  for (const el of allElements) {
+    const text = (el.textContent || '').trim().toLowerCase();
+    if (text === 'о игре' || text === 'about') {
+      const container = el.closest('button, [role="tab"], div[class*="cursor-pointer"]') || el;
+      if (
+        container.getAttribute('aria-selected') === 'true' ||
+        container.className?.includes('border-b') ||
+        container.querySelector('div[class*="border"], div[class*="bg-white"], span[class*="border"]') ||
+        container.nextElementSibling?.className?.includes('border') ||
+        container.nextElementSibling?.className?.includes('bg-white')
+      ) {
         return 'about';
+      }
+    }
+    if (text === 'данные игроков' || text === 'players' || text === 'player stats') {
+      const container = el.closest('button, [role="tab"], div[class*="cursor-pointer"]') || el;
+      if (
+        container.getAttribute('aria-selected') === 'true' ||
+        container.className?.includes('border-b') ||
+        container.querySelector('div[class*="border"], div[class*="bg-white"], span[class*="border"]') ||
+        container.nextElementSibling?.className?.includes('border') ||
+        container.nextElementSibling?.className?.includes('bg-white')
+      ) {
+        return 'players';
       }
     }
   }
 
-  // Fallback: check content visible on page
-  const pageText = document.body?.textContent || '';
-  if (pageText.includes('How Long To Beat') || pageText.includes('Платформы') || pageText.includes('Platforms')) {
-    return 'about';
-  }
-  if (pageText.includes('Игроки с этой игрой') || pageText.includes('Players with this game') || pageText.includes('Как вам?')) {
-    return 'players';
-  }
+  // Fallback: check which card is visible in DOM
+  const hltb = findSectionCard(['how long to beat', 'платформы', 'platforms']);
+  if (hltb && hltb.offsetParent !== null) return 'about';
 
-  return 'players';
+  const players = findSectionCard(['игроки с этой игрой', 'players with this game', 'как вам?', 'how was it?']);
+  if (players && players.offsetParent !== null) return 'players';
+
+  return 'about';
 }
 
 function renderRatingsCard(oc, mc, steam, proton) {
@@ -111,7 +155,13 @@ function renderRatingsCard(oc, mc, steam, proton) {
     `;
   }
 
-  if (!badgesHtml) return '';
+  if (!badgesHtml) {
+    badgesHtml = `
+      <span style="font-size: 0.85rem; color: #9ca3af; margin-right: 0.5rem;">Критики ещё не оценили игру. Проверить:</span>
+      <a class="panax-badge panax-badge-oc" href="https://opencritic.com/search?criteria=${encodeURIComponent(activeGameTitle)}" target="_blank" rel="noopener noreferrer">OpenCritic ↗</a>
+      <a class="panax-badge panax-badge-mc" href="https://www.metacritic.com/search/${encodeURIComponent(activeGameTitle)}/" target="_blank" rel="noopener noreferrer">Metacritic ↗</a>
+    `;
+  }
 
   return `
     <div class="panax-plus-card" id="panax-ratings-card">
@@ -186,10 +236,17 @@ function renderQuickLinks(title, steam, oc, mc) {
 
   if (oc?.url) {
     links.push(`<a class="panax-quick-btn" href="${oc.url}" target="_blank" rel="noopener noreferrer">OpenCritic</a>`);
+  } else {
+    links.push(`<a class="panax-quick-btn" href="https://opencritic.com/search?criteria=${encTitle}" target="_blank" rel="noopener noreferrer">OpenCritic</a>`);
   }
+
   if (mc?.url) {
     links.push(`<a class="panax-quick-btn" href="${mc.url}" target="_blank" rel="noopener noreferrer">Metacritic</a>`);
+  } else {
+    links.push(`<a class="panax-quick-btn" href="https://www.metacritic.com/search/${encTitle}/" target="_blank" rel="noopener noreferrer">Metacritic</a>`);
   }
+
+  links.push(`<a class="panax-quick-btn" href="https://www.youtube.com/results?search_query=${encTitle}+gameplay+trailer" target="_blank" rel="noopener noreferrer">YouTube</a>`);
   links.push(`<a class="panax-quick-btn" href="https://www.igdb.com/search?q=${encTitle}" target="_blank" rel="noopener noreferrer">IGDB</a>`);
 
   return `
@@ -214,41 +271,43 @@ function renderPlayerStatsCard(steam, charts) {
         <span>${steam.currentPlayers.toLocaleString('ru-RU')} игроков онлайн (Steam)</span>
       </div>
     `;
-  }
-
-  let statsGrid = '';
-  if (charts?.peak24h || charts?.allTimePeak) {
-    statsGrid = `
-      <div class="panax-steam-stats-grid">
-        ${charts.peak24h ? `
-          <div class="panax-stat-box">
-            <span class="label">Пик за 24 часа</span>
-            <span class="val">${charts.peak24h.toLocaleString('ru-RU')}</span>
-          </div>
-        ` : ''}
-        ${charts.allTimePeak ? `
-          <div class="panax-stat-box">
-            <span class="label">Рекорд онлайна</span>
-            <span class="val">${charts.allTimePeak.toLocaleString('ru-RU')}</span>
-          </div>
-        ` : ''}
+  } else {
+    onlineBadge = `
+      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af;">
+        <span class="panax-online-dot" style="background: #6b7280;"></span>
+        <span>Steam: Игра не представлена на платформе</span>
       </div>
     `;
   }
 
-  // Parse Panax community counters from page
+  let statsGrid = '';
+  if (charts?.peak24h != null || charts?.allTimePeak != null) {
+    statsGrid = `
+      <div class="panax-stats-grid">
+        <div class="panax-stat-box">
+          <span class="val">${charts.peak24h?.toLocaleString('ru-RU') || '—'}</span>
+          <span class="lbl">Пик за 24ч (Steam)</span>
+        </div>
+        <div class="panax-stat-box">
+          <span class="val">${charts.allTimePeak?.toLocaleString('ru-RU') || '—'}</span>
+          <span class="lbl">Пик за всё время</span>
+        </div>
+      </div>
+    `;
+  }
+
   const breakdown = parsePanaxCommunityNumbers();
   let progressHtml = '';
   if (breakdown && breakdown.totalActive > 0) {
-    const beatenPct = Math.round((breakdown.beaten / breakdown.totalActive) * 100);
-    const playingPct = Math.round((breakdown.playing / breakdown.totalActive) * 100);
-    const backlogPct = Math.round((breakdown.backlog / breakdown.totalActive) * 100);
-    const pausedPct = Math.round((breakdown.paused / breakdown.totalActive) * 100);
-    const droppedPct = Math.round((breakdown.dropped / breakdown.totalActive) * 100);
+    const beatenPct = Math.round((breakdown.beaten / breakdown.totalActive) * 100) || 0;
+    const playingPct = Math.round((breakdown.playing / breakdown.totalActive) * 100) || 0;
+    const backlogPct = Math.round((breakdown.backlog / breakdown.totalActive) * 100) || 0;
+    const pausedPct = Math.round((breakdown.paused / breakdown.totalActive) * 100) || 0;
+    const droppedPct = Math.round((breakdown.dropped / breakdown.totalActive) * 100) || 0;
 
     progressHtml = `
       <div class="panax-progress-bar-container">
-        <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom: 0.4rem;">
           <span>Прогресс игроков Panax:</span>
           <span style="color:#10b981;">${beatenPct}% завершили</span>
         </div>
@@ -270,8 +329,6 @@ function renderPlayerStatsCard(steam, charts) {
     `;
   }
 
-  if (!onlineBadge && !statsGrid && !progressHtml) return '';
-
   return `
     <div class="panax-plus-card" id="panax-players-card">
       <div class="panax-plus-title">
@@ -287,8 +344,6 @@ function renderPlayerStatsCard(steam, charts) {
 
 function parsePanaxCommunityNumbers() {
   const text = document.body?.textContent || '';
-  // Try to find numbers above or below status labels
-  // Labels: Играю, Пройдено, Желаемое, В планах, Пауза, Брошено
   const parseNum = (label) => {
     const rx = new RegExp(`(\\d+)\\s*\\n?\\s*${label}|${label}\\s*\\n?\\s*(\\d+)`, 'i');
     const m = text.match(rx);
@@ -330,60 +385,62 @@ async function loadGameData(title) {
       activeSteamCharts = charts;
     }
   } catch (err) {
-    console.error('[PANAX RU] Error fetching enrichments:', err);
+    console.debug('[PANAX RU] Error fetching enrichments:', err);
   } finally {
     isFetching = false;
   }
 }
 
 function findMountTarget(tab) {
-  // Look for main content container
-  const main = document.querySelector('main');
-  if (!main) return null;
-
   if (tab === 'about') {
-    // Mount below How Long To Beat or Platforms section
-    const hltb = [...main.querySelectorAll('*')].find((el) =>
-      el.textContent?.includes('How Long To Beat') && el.children.length > 0
-    );
-    if (hltb) {
-      // Find suitable card container
-      const card = hltb.closest('div[class*="rounded"], section, div');
-      if (card && card.parentElement) {
-        return { parent: card.parentElement, before: card.nextSibling };
-      }
+    const hltb = findSectionCard(['how long to beat']);
+    if (hltb?.parentElement) {
+      return { parent: hltb.parentElement, before: hltb.nextSibling };
+    }
+    const plat = findSectionCard(['платформы', 'platforms']);
+    if (plat?.parentElement) {
+      return { parent: plat.parentElement, before: plat.nextSibling };
     }
   }
 
   if (tab === 'players') {
-    // Mount below "Игроки с этой игрой" or ratings grid
-    const playersBlock = [...main.querySelectorAll('*')].find((el) =>
-      (el.textContent?.includes('Игроки с этой игрой') || el.textContent?.includes('Players with this game')) &&
-      el.children.length > 0
-    );
-    if (playersBlock) {
-      const card = playersBlock.closest('div[class*="rounded"], section, div');
-      if (card && card.parentElement) {
-        return { parent: card.parentElement, before: card.nextSibling };
+    const players = findSectionCard(['игроки с этой игрой', 'players with this game']);
+    if (players?.parentElement) {
+      return { parent: players.parentElement, before: players.nextSibling };
+    }
+    const rate = findSectionCard(['как вам?', 'how was it?']);
+    if (rate?.parentElement) {
+      return { parent: rate.parentElement, before: rate.nextSibling };
+    }
+  }
+
+  const tabBtn = document.querySelectorAll('button, [role="tab"]');
+  for (const btn of tabBtn) {
+    const t = (btn.textContent || '').trim().toLowerCase();
+    if (t.includes('о игре') || t.includes('данные игроков')) {
+      const tabsRow = btn.closest('div[class*="flex"], div[class*="tabs"], nav') || btn.parentElement;
+      if (tabsRow?.parentElement) {
+        const next = tabsRow.nextElementSibling;
+        if (next) return { parent: next, before: null };
       }
     }
   }
 
-  // Fallback: bottom of main
-  return { parent: main, before: null };
+  const mainDiv = document.querySelector('body > div');
+  return { parent: mainDiv || document.body, before: null };
 }
 
 function injectUi() {
+  if (!location.pathname.includes('/game-detail/')) return;
   const currentTitle = getGameTitleFromDom();
   if (!currentTitle) return;
 
   const tab = getActiveTab();
 
   if (tab === 'about') {
-    // Remove player stats card if present
-    document.getElementById('panax-players-card')?.remove();
+    document.getElementById('panax-players-card-container')?.remove();
 
-    if (!document.getElementById('panax-ratings-card') && (activeOcData || activeMcData || activeSteamData || activeProtonData)) {
+    if (!document.getElementById('panax-about-enrichment')) {
       const target = findMountTarget('about');
       if (target?.parent) {
         const container = document.createElement('div');
@@ -397,10 +454,9 @@ function injectUi() {
       }
     }
   } else if (tab === 'players') {
-    // Remove about cards if present
     document.getElementById('panax-about-enrichment')?.remove();
 
-    if (!document.getElementById('panax-players-card')) {
+    if (!document.getElementById('panax-players-card-container')) {
       const target = findMountTarget('players');
       if (target?.parent) {
         const container = document.createElement('div');
@@ -413,39 +469,57 @@ function injectUi() {
 }
 
 export function startEnrichment() {
-  if (!location.pathname.includes('/game-detail/')) return;
+  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) return;
 
-  const title = getGameTitleFromDom();
-  if (title && title !== activeGameTitle) {
-    activeGameTitle = title;
-    activeSteamData = null;
-    activeSteamCharts = null;
-    activeOcData = null;
-    activeMcData = null;
-    activeProtonData = null;
+  let lastUrl = location.href;
 
-    loadGameData(title).then(() => {
-      injectUi();
-    });
-  } else {
-    injectUi();
-  }
+  function tick() {
+    if (!location.pathname.includes('/game-detail/')) {
+      document.getElementById('panax-about-enrichment')?.remove();
+      document.getElementById('panax-players-card-container')?.remove();
+      activeGameTitle = '';
+      return;
+    }
 
-  // Re-check on URL/tab changes
-  const observer = new MutationObserver(() => {
-    if (!location.pathname.includes('/game-detail/')) return;
-    const newTitle = getGameTitleFromDom();
-    if (newTitle && newTitle !== activeGameTitle) {
-      activeGameTitle = newTitle;
-      loadGameData(newTitle).then(() => injectUi());
+    const title = getGameTitleFromDom();
+    if (title && title !== activeGameTitle) {
+      activeGameTitle = title;
+      loadGameData(title).then(() => injectUi());
     } else {
       injectUi();
     }
+  }
+
+  window.addEventListener('popstate', tick);
+  const origPushState = history.pushState;
+  history.pushState = function (...args) {
+    origPushState.apply(this, args);
+    setTimeout(tick, 100);
+  };
+  const origReplaceState = history.replaceState;
+  history.replaceState = function (...args) {
+    origReplaceState.apply(this, args);
+    setTimeout(tick, 100);
+  };
+
+  tick();
+
+  let timer = null;
+  const obs = new MutationObserver(() => {
+    if (timer) return;
+    timer = setTimeout(() => {
+      timer = null;
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        tick();
+      } else if (location.pathname.includes('/game-detail/')) {
+        tick();
+      }
+    }, 150);
   });
 
-  observer.observe(document.body || document.documentElement, {
+  obs.observe(document.body || document.documentElement, {
     childList: true,
     subtree: true,
   });
 }
-
