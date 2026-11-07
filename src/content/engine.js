@@ -602,10 +602,26 @@ export function createEngine(dict) {
   function paintNotice(el) {
     if (!el || el.nodeType !== 1 || el.childElementCount > 40) return false;
 
-    // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts)
+    // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts, reply to comments)
     const rawText = el.textContent || '';
-    if (/(?:Level\s*Up|Уровень\s*Up|Check your|is now|Get it|sale ends|just dropped a new post)/i.test(rawText)) {
-      // 0. AjFletch27 just dropped a new post
+    if (/(?:Level\s*Up|Уровень\s*Up|Check your|is now|Get it|sale ends|just dropped a new post|replied\s+(?:on|to)\s+your)/i.test(rawText)) {
+      // 0. Reply on your comment / replied to your comment
+      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+        const t = normalizeKey(p.textContent || '');
+        if (/replied (?:on|to) your/i.test(t)) {
+          for (const n of p.childNodes) {
+            if (n.nodeType === 3) {
+              if (/replied (?:on|to) your comment/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your comment/gi, 'ответил на ваш комментарий');
+              } else if (/replied (?:on|to) your/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your/gi, 'ответил на ваш');
+              }
+            }
+          }
+        }
+      }
+
+      // 0.1. AjFletch27 just dropped a new post
       for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
         const t = normalizeKey(p.textContent || '');
         if (/just dropped a new post/i.test(t)) {
@@ -692,7 +708,7 @@ export function createEngine(dict) {
       if (node.nodeType !== 1) return;
       if (['IMG', 'SVG', 'TIME', 'VIDEO'].includes(node.tagName)) return;
       const t = normalizeKey(node.textContent || '');
-      if (t.length > 100 && !/commented on your post|liked your post|started following/i.test(t)) return;
+      if (t.length > 100 && !/commented on your post|replied (?:on|to) your|liked your post|started following/i.test(t)) return;
       for (const child of node.childNodes) take(child);
     };
     for (const child of el.childNodes) {

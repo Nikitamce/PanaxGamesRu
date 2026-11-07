@@ -99,6 +99,8 @@ export function splitNotice(raw) {
   if (!text || text.length > 160) return null;
   let m;
   if (/^commented on your post$/i.test(text)) return { name: '', ru: 'прокомментировал ваш пост' };
+  if (/^replied on your comment$/i.test(text)) return { name: '', ru: 'ответил на ваш комментарий' };
+  if (/^replied to your comment$/i.test(text)) return { name: '', ru: 'ответил на ваш комментарий' };
   if (/^started following$/i.test(text)) return { name: '', ru: 'подписался' };
   if (/^just dropped a new post$/i.test(text)) return { name: '', ru: 'опубликовал(а) новый пост' };
   if ((m = text.match(/^(.+?)\s+just dropped a new post$/i)) && m[1].length < 60) {
@@ -109,6 +111,9 @@ export function splitNotice(raw) {
   }
   if ((m = text.match(/^(.+?)\s+commented on your post$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'прокомментировал ваш пост' };
+  }
+  if ((m = text.match(/^(.+?)\s+replied (?:on|to) your comment$/i)) && m[1].length < 60) {
+    return { name: m[1], ru: 'ответил на ваш комментарий' };
   }
   if ((m = text.match(/^(.+?)\s+started following$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'подписался' };
@@ -226,6 +231,8 @@ export function translateNotice(raw, context = '') {
   if (/^edit profile$/i.test(text)) return 'Редактировать профиль';
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
   if (/^commented on your post$/i.test(text)) return 'прокомментировал ваш пост';
+  if (/^replied (?:on|to) your comment$/i.test(text)) return 'ответил на ваш комментарий';
+  if (/^replied (?:on|to) your$/i.test(text)) return 'ответил на ваш';
   if (/^started following$/i.test(text)) return 'подписался';
   if (/^liked your post$/i.test(text)) {
     return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш пост' : 'оценил ваш пост';
@@ -238,6 +245,8 @@ export function translateNotice(raw, context = '') {
   }
   const namedComment = text.match(/^(.+?)\s+commented on your post$/i);
   if (namedComment && namedComment[1].length < 80) return `${namedComment[1]} прокомментировал ваш пост`;
+  const namedReplied = text.match(/^(.+?)\s+replied (?:on|to) your comment$/i);
+  if (namedReplied && namedReplied[1].length < 80) return `${namedReplied[1]} ответил на ваш комментарий`;
   const namedLike = text.match(/^(.+?)\s+liked your post$/i);
   if (namedLike && !/\band\b/i.test(namedLike[1]) && namedLike[1].length < 80) {
     return `${namedLike[1]} оценил ваш пост`;
