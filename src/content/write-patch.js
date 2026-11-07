@@ -32,6 +32,11 @@ export function startWritePatch(dict) {
 
   // Hardcoded / stubborn chrome React keeps restoring
   const pairs = [
+    ['Public', dict.Public || 'Публичный'],
+    ['Private', dict.Private || 'Приватный'],
+    ['Followers only', dict['Followers only'] || 'Только подписчики'],
+    ['just dropped a new post', 'опубликовал новый пост'],
+    ['dropped a new post', 'опубликовал новый пост'],
     ['Add to Wishlist', dict['Add to Wishlist'] || 'В желаемое'],
     ['Add to wishlist', dict['Add to Wishlist'] || 'В желаемое'],
     ['View Details', dict['View Details'] || 'Подробнее'],

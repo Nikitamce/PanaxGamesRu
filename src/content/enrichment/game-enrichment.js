@@ -105,25 +105,40 @@ function findSectionCard(keywords) {
   return null;
 }
 
+function findTabsBar() {
+  const bars = document.querySelectorAll('div, nav');
+  for (const bar of bars) {
+    if (bar.children.length >= 2 && bar.children.length <= 6) {
+      const t = (bar.textContent || '').toLowerCase();
+      const hasPlayersTab = t.includes('данные игроков') || t.includes('player data');
+      const hasAboutTab = t.includes('о игре') || t.includes('about');
+      if (hasPlayersTab && hasAboutTab) return bar;
+    }
+  }
+  return null;
+}
+
 /**
  * Identify active tab: 'about' | 'players' | 'community'
  */
 function getActiveTab() {
   if (userSelectedTab) return userSelectedTab;
 
-  // 1. Content-based detection (most accurate indicator of rendered panel)
+  const tabsBar = findTabsBar();
+
+  // 1. Content-based detection below the tabs bar
   const candidates = document.querySelectorAll('h1, h2, h3, h4, div, span, p');
   for (const h of candidates) {
     if (h.children.length > 2) continue;
     const txt = (h.textContent || '').trim().toLowerCase();
-    if (txt === 'how long to beat' || txt === 'платформы' || txt === 'platforms') {
+    // Note: check that element is positioned below tabs bar if tabsBar exists
+    if (tabsBar && (h.compareDocumentPosition(tabsBar) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+      continue; // Skip elements that appear ABOVE the tabs bar (like genres/platforms in header)
+    }
+
+    if (txt === 'how long to beat') {
       if (h.offsetParent !== null && h.getBoundingClientRect().height > 0) return 'about';
     }
-  }
-
-  for (const h of candidates) {
-    if (h.children.length > 2) continue;
-    const txt = (h.textContent || '').trim().toLowerCase();
     if (
       txt.startsWith('как вам?') ||
       txt.startsWith('how was it?') ||
@@ -135,32 +150,23 @@ function getActiveTab() {
   }
 
   // 2. Check tab container row
-  const bars = document.querySelectorAll('div, nav');
-  for (const bar of bars) {
-    if (bar.children.length >= 2 && bar.children.length <= 6) {
-      const t = (bar.textContent || '').toLowerCase();
-      const hasPlayersTab = t.includes('данные игроков') || t.includes('player data');
-      const hasAboutTab = t.includes('о игре') || t.includes('about');
+  if (tabsBar) {
+    for (const tabEl of tabsBar.children) {
+      const tabText = (tabEl.textContent || '').toLowerCase();
+      const cls = String(tabEl.className || '');
+      const isAria = tabEl.getAttribute('aria-selected') === 'true' || tabEl.getAttribute('data-state') === 'active';
+      const hasUnderline = !!tabEl.querySelector('div[class*="bg-white"], div[class*="border"], span[class*="border"], hr');
+      const isBrightWhite = /\btext-white\b(?!\/)/.test(cls) && !/\b(?:text-white\/\d+|opacity-\d+)\b/.test(cls);
 
-      if (hasPlayersTab && hasAboutTab) {
-        for (const tabEl of bar.children) {
-          const tabText = (tabEl.textContent || '').toLowerCase();
-          const cls = String(tabEl.className || '');
-          const isAria = tabEl.getAttribute('aria-selected') === 'true' || tabEl.getAttribute('data-state') === 'active';
-          const hasUnderline = !!tabEl.querySelector('div[class*="bg-white"], div[class*="border"], span[class*="border"], hr');
-          const isBrightWhite = /\btext-white\b(?!\/)/.test(cls) && !/\b(?:text-white\/\d+|opacity-\d+)\b/.test(cls);
-
-          if (isAria || hasUnderline || isBrightWhite) {
-            if (tabText.includes('данные игроков') || tabText.includes('player data')) {
-              return 'players';
-            }
-            if (tabText.includes('о игре') || tabText.includes('about')) {
-              return 'about';
-            }
-            if (tabText.includes('сообщество') || tabText.includes('community')) {
-              return 'community';
-            }
-          }
+      if (isAria || hasUnderline || isBrightWhite) {
+        if (tabText.includes('данные игроков') || tabText.includes('player data')) {
+          return 'players';
+        }
+        if (tabText.includes('о игре') || tabText.includes('about')) {
+          return 'about';
+        }
+        if (tabText.includes('сообщество') || tabText.includes('community')) {
+          return 'community';
         }
       }
     }
@@ -511,15 +517,25 @@ function findMountTarget(tab) {
   if (tab === 'players') {
     const players = findSectionCard(['игроки с этой игрой', 'players with this game']);
     if (players?.parentElement) {
-      return { parent: players.parentElement, before: players.nextSibling };
+      return { parent: players.parentElement, before: players };
     }
     const rate = findSectionCard(['как вам?', 'how was it?']);
     if (rate?.parentElement) {
-      return { parent: rate.parentElement, before: rate.nextSibling };
+      return { parent: rate.parentElement, before: rate };
     }
     const ratingsSec = findSectionCard(['оценки', 'ratings']);
     if (ratingsSec?.parentElement) {
-      return { parent: ratingsSec.parentElement, before: ratingsSec.nextSibling };
+      return { parent: ratingsSec.parentElement, before: ratingsSec };
+    }
+
+    // Direct mount right below tabs bar if found
+    const tabsBar = findTabsBar();
+    if (tabsBar?.parentElement) {
+      const next = tabsBar.nextElementSibling;
+      if (next && next !== tabsBar) {
+        return { parent: next, before: next.firstChild };
+      }
+      return { parent: tabsBar.parentElement, before: tabsBar.nextSibling };
     }
   }
 
@@ -610,6 +626,42 @@ export async function startEnrichment() {
   if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) return;
 
   await loadSettings();
+
+  // Capture-phase listener for instant tab switching detection
+  document.addEventListener(
+    'click',
+    (e) => {
+      let cur = e.target;
+      let depth = 0;
+      while (cur && depth < 5 && cur !== document.body) {
+        const t = (cur.textContent || '').trim().toLowerCase();
+        if (t === 'данные игроков' || t === 'player data') {
+          userSelectedTab = 'players';
+          document.getElementById('panax-about-enrichment')?.remove();
+          injectUi();
+          setTimeout(injectUi, 50);
+          setTimeout(injectUi, 200);
+          break;
+        } else if (t === 'о игре' || t === 'about') {
+          userSelectedTab = 'about';
+          document.getElementById('panax-players-card-container')?.remove();
+          injectUi();
+          setTimeout(injectUi, 50);
+          setTimeout(injectUi, 200);
+          break;
+        } else if (t === 'сообщество' || t === 'community') {
+          userSelectedTab = 'community';
+          document.getElementById('panax-about-enrichment')?.remove();
+          document.getElementById('panax-players-card-container')?.remove();
+          injectUi();
+          break;
+        }
+        cur = cur.parentElement;
+        depth += 1;
+      }
+    },
+    true,
+  );
 
   // Instant update on popup toggle
   if (typeof chrome !== 'undefined' && chrome.storage?.onChanged) {

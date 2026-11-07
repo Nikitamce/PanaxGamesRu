@@ -1,6 +1,6 @@
 {
   "name": "panax-ru",
-  "version": "0.2.73",
+  "version": "0.2.74",
   "private": true,
   "description": "Русский интерфейс для panaxgames.com (Chrome MV3)",
   "scripts": {
