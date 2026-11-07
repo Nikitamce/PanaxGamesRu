@@ -658,6 +658,16 @@ export function createEngine(dict) {
         markPill(el);
         return true;
       }
+      if (/^no comments yet\.?$/i.test(text) && !el.querySelector('svg, img, input, textarea')) {
+        el.textContent = 'Комментариев пока нет';
+        markPill(el);
+        return true;
+      }
+      if (/^no comments yet\.\s*be the first!?$/i.test(text) && !el.querySelector('svg, img, input, textarea')) {
+        el.textContent = 'Комментариев пока нет. Будьте первым!';
+        markPill(el);
+        return true;
+      }
       if (/^check your profile to see what['’`]?s new\.?$/i.test(text)) {
         if (!el.querySelector('svg, img, input, textarea')) {
           const style = el.firstElementChild?.getAttribute('style');

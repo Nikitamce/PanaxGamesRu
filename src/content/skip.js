@@ -163,6 +163,8 @@ export function isChromeContext(el) {
  */
 export function shouldSkipRoot(el) {
   if (!el || el.nodeType !== 1) return false;
+  const raw = el.textContent || '';
+  if (/^no comments yet/i.test(raw.trim())) return false;
   for (const sel of SKIP_ROOT_SELECTORS) {
     try {
       if (el.matches?.(sel) || el.closest?.(sel)) return true;
@@ -180,6 +182,7 @@ export function shouldSkipRoot(el) {
  */
 export function shouldSkipProse(el, text) {
   if (!el || !text) return false;
+  if (/^no comments yet/i.test(text.trim())) return false;
   // Posts are word-split spans. Any exact dict hit ("Post", "Like", "On", "To")
   // would rewrite user text. Translate only inside UI chrome.
   if (!isChromeContext(el)) return true;

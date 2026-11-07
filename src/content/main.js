@@ -71,7 +71,7 @@ function boot() {
   if (!document.getElementById('panax-ru-badge') && !/#panax-ru-hide-badge\b/.test(location.hash)) {
     const badge = document.createElement('div');
     badge.id = 'panax-ru-badge';
-    badge.textContent = 'PANAX RU 0.2.72';
+    badge.textContent = 'PANAX RU 0.2.82';
     (document.body || document.documentElement).appendChild(badge);
   }
 
@@ -107,7 +107,7 @@ function boot() {
     /* ignore */
   }
 
-  console.info(`[PANAX RU] PANAX RU 0.2.72 · v0.2.72 · ${Object.keys(dict).length} strings · active`);
+  console.info(`[PANAX RU] PANAX RU 0.2.82 · v0.2.82 · ${Object.keys(dict).length} strings · active`);
 }
 
 function start() {
