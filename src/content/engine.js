@@ -602,27 +602,35 @@ export function createEngine(dict) {
   function paintNotice(el) {
     if (!el || el.nodeType !== 1 || el.childElementCount > 40) return false;
 
-    // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts, reply to comments)
+    // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts, reply/like on comments/posts)
     const rawText = el.textContent || '';
-    if (/(?:Level\s*Up|Уровень\s*Up|Log in daily|Check your|is now|Get it|sale ends|just dropped a new post|replied\s+(?:on|to)\s+your)/i.test(rawText)) {
+    if (/(?:Level\s*Up|Уровень\s*Up|Log in daily|Check your|is now|Get it|sale ends|just dropped a new post|replied\s+(?:on|to)\s+your|(?:liked|нравится)\s+your|commented\s+on\s+your)/i.test(rawText)) {
       const nodes = [el, ...el.querySelectorAll('p, div, span, a, li, h2, h3, h4')];
 
-      // 0. Reply on your comment / replied to your comment
+      // 0. Reply / like / comment on your comment / post / review
       for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/replied (?:on|to) your/i.test(t) && t.length < 160) {
+        if (/(?:replied (?:on|to)|liked|нравится|commented on)\s+your/i.test(t) && t.length < 160) {
           for (const n of p.childNodes) {
             if (n.nodeType === 3) {
-              if (/replied (?:on|to) your (?:comment|комментарий)/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your (?:comment|комментарий)/gi, 'ответил на ваш комментарий');
-              } else if (/replied (?:on|to) your/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your/gi, 'ответил на ваш');
-              }
+              n.nodeValue = n.nodeValue
+                .replace(/replied (?:on|to) your (?:comment|комментарий)/gi, 'ответил на ваш комментарий')
+                .replace(/replied (?:on|to) your/gi, 'ответил на ваш')
+                .replace(/(?:liked|нравится) your (?:comment|комментарий)/gi, 'оценил ваш комментарий')
+                .replace(/(?:liked|нравится) your (?:post|пост)/gi, 'оценил ваш пост')
+                .replace(/(?:liked|нравится) your (?:review|рецензию|обзор)/gi, 'оценил вашу рецензию')
+                .replace(/(?:liked|нравится) your/gi, 'оценил ваш')
+                .replace(/commented on your (?:post|пост)/gi, 'прокомментировал ваш пост')
+                .replace(/commented on your/gi, 'прокомментировал ваш');
             }
           }
-          const cLink = p.querySelector('a, span');
-          if (cLink && cLink.childElementCount === 0 && /^(?:comment|Комментарий)$/i.test(normalizeKey(cLink.textContent || ''))) {
-            cLink.textContent = 'комментарий';
+          for (const cLink of p.querySelectorAll('a, span')) {
+            if (cLink.childElementCount > 0) continue;
+            const cText = normalizeKey(cLink.textContent || '');
+            if (/^(?:comment|Комментарий)$/i.test(cText)) cLink.textContent = 'комментарий';
+            else if (/^(?:post|Пост)$/i.test(cText)) cLink.textContent = 'пост';
+            else if (/^(?:liked|Нравится)$/i.test(cText)) cLink.textContent = 'оценил';
+            else if (/^your$/i.test(cText)) cLink.textContent = 'ваш';
           }
         }
       }
@@ -683,12 +691,12 @@ export function createEngine(dict) {
       // 2. <Game> is now <N>%
       for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/\bis now\s+\d+%/i.test(t) && t.length < 160 && !p.querySelector('img, svg')) {
+        if (/\bis now\s+\d+%/i.test(t) && t.length < 220) {
           const walkIsNow = (node) => {
             for (const n of node.childNodes) {
               if (n.nodeType === 3 && /\bis now\b/i.test(n.nodeValue)) {
                 n.nodeValue = n.nodeValue.replace(/\bis now\s+(\d+)%(?:\s*off)?/gi, '— скидка $1%').replace(/\bis now\b/gi, '— скидка');
-              } else if (n.nodeType === 1) {
+              } else if (n.nodeType === 1 && n.tagName !== 'IMG' && n.tagName !== 'SVG') {
                 walkIsNow(n);
               }
             }
@@ -724,7 +732,7 @@ export function createEngine(dict) {
       if (node.nodeType !== 1) return;
       if (['IMG', 'SVG', 'TIME', 'VIDEO'].includes(node.tagName)) return;
       const t = normalizeKey(node.textContent || '');
-      if (t.length > 100 && !/commented on your post|replied (?:on|to) your|liked your post|started following/i.test(t)) return;
+      if (t.length > 100 && !/commented on|replied (?:on|to)|(?:liked|нравится)\s+(?:your|ваш)|started following/i.test(t)) return;
       for (const child of node.childNodes) take(child);
     };
     for (const child of el.childNodes) {

@@ -98,31 +98,49 @@ export function splitNotice(raw) {
   const text = clean(raw);
   if (!text || text.length > 160) return null;
   let m;
-  if (/^commented on your post$/i.test(text)) return { name: '', ru: 'прокомментировал ваш пост' };
-  if (/^replied on your comment$/i.test(text)) return { name: '', ru: 'ответил на ваш комментарий' };
-  if (/^replied to your comment$/i.test(text)) return { name: '', ru: 'ответил на ваш комментарий' };
+  if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return { name: '', ru: 'прокомментировал ваш пост' };
+  if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return { name: '', ru: 'ответил на ваш комментарий' };
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return { name: '', ru: 'оценил ваш комментарий' };
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return { name: '', ru: 'оценил ваш пост' };
+  if (/^(?:liked|нравится|оценил)\s+(?:your|вашу?)\s+(?:review|рецензию|обзор)$/i.test(text)) return { name: '', ru: 'оценил вашу рецензию' };
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:reply|ответ)$/i.test(text)) return { name: '', ru: 'оценил ваш ответ' };
   if (/^started following$/i.test(text)) return { name: '', ru: 'подписался' };
   if (/^just dropped a new post$/i.test(text)) return { name: '', ru: 'опубликовал(а) новый пост' };
   if ((m = text.match(/^(.+?)\s+just dropped a new post$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'опубликовал(а) новый пост' };
   }
-  if ((m = text.match(/^and\s+(\d+)\s+others?\s+liked your post$/i))) {
+  if ((m = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i))) {
     return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш пост` };
   }
-  if ((m = text.match(/^(.+?)\s+commented on your post$/i)) && m[1].length < 60) {
+  if ((m = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i))) {
+    return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш комментарий` };
+  }
+  if ((m = text.match(/^(.+?)\s+(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'прокомментировал ваш пост' };
   }
-  if ((m = text.match(/^(.+?)\s+replied (?:on|to) your comment$/i)) && m[1].length < 60) {
+  if ((m = text.match(/^(.+?)\s+(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'ответил на ваш комментарий' };
   }
   if ((m = text.match(/^(.+?)\s+started following$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'подписался' };
   }
-  if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+liked your post$/i)) && m[1].length < 60) {
+  if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i)) && m[1].length < 60) {
     return { name: m[1], ru: `и ещё ${m[2]} ${people(m[2])} оценили ваш пост` };
   }
-  if ((m = text.match(/^(.+?)\s+liked your post$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+  if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) && m[1].length < 60) {
+    return { name: m[1], ru: `и ещё ${m[2]} ${people(m[2])} оценили ваш комментарий` };
+  }
+  if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
     return { name: m[1], ru: 'оценил ваш пост' };
+  }
+  if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+    return { name: m[1], ru: 'оценил ваш комментарий' };
+  }
+  if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|вашу?)\s+(?:review|рецензию|обзор)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+    return { name: m[1], ru: 'оценил вашу рецензию' };
+  }
+  if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:reply|ответ)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+    return { name: m[1], ru: 'оценил ваш ответ' };
   }
   return null;
 }
@@ -241,29 +259,52 @@ export function translateNotice(raw, context = '') {
   if (/^not enough ratings yet$/i.test(text)) return 'Оценок пока недостаточно';
   if (/^edit profile$/i.test(text)) return 'Редактировать профиль';
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
-  if (/^commented on your post$/i.test(text)) return 'прокомментировал ваш пост';
-  if (/^replied (?:on|to) your comment$/i.test(text)) return 'ответил на ваш комментарий';
+  if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return 'прокомментировал ваш пост';
+  if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return 'ответил на ваш комментарий';
+  if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)$/i.test(text)) return 'ответил на ваш';
   if (/^started following$/i.test(text)) return 'подписался';
-  if (/^liked your post$/i.test(text)) {
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) {
     return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш пост' : 'оценил ваш пост';
   }
-  const andLiked = text.match(/^and\s+(\d+)\s+others?\s+liked your post$/i);
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) {
+    return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш комментарий' : 'оценил ваш комментарий';
+  }
+  if (/^(?:liked|нравится|оценил)\s+(?:your|вашу?)\s+(?:review|рецензию|обзор)$/i.test(text)) {
+    return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили вашу рецензию' : 'оценил вашу рецензию';
+  }
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:reply|ответ)$/i.test(text)) {
+    return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш ответ' : 'оценил ваш ответ';
+  }
+  if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)$/i.test(text)) {
+    return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш' : 'оценил ваш';
+  }
+  const andLiked = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i);
   if (andLiked) return `и ещё ${andLiked[1]} ${people(andLiked[1])} оценили ваш пост`;
+  const andLikedComment = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+  if (andLikedComment) return `и ещё ${andLikedComment[1]} ${people(andLikedComment[1])} оценили ваш комментарий`;
   const nameAnd = text.match(/^(.+?)\s+and\s+(\d+)\s+others?$/i);
   if (nameAnd && nameAnd[1].length < 60) {
     return `${nameAnd[1]} и ещё ${nameAnd[2]} ${people(nameAnd[2])}`;
   }
-  const namedComment = text.match(/^(.+?)\s+commented on your post$/i);
+  const namedComment = text.match(/^(.+?)\s+(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i);
   if (namedComment && namedComment[1].length < 80) return `${namedComment[1]} прокомментировал ваш пост`;
-  const namedReplied = text.match(/^(.+?)\s+replied (?:on|to) your comment$/i);
+  const namedReplied = text.match(/^(.+?)\s+(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
   if (namedReplied && namedReplied[1].length < 80) return `${namedReplied[1]} ответил на ваш комментарий`;
-  const namedLike = text.match(/^(.+?)\s+liked your post$/i);
+  const namedLike = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i);
   if (namedLike && !/\band\b/i.test(namedLike[1]) && namedLike[1].length < 80) {
     return `${namedLike[1]} оценил ваш пост`;
   }
-  const othersLike = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+liked your post$/i);
+  const namedLikeComment = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+  if (namedLikeComment && !/\band\b/i.test(namedLikeComment[1]) && namedLikeComment[1].length < 80) {
+    return `${namedLikeComment[1]} оценил ваш комментарий`;
+  }
+  const othersLike = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i);
   if (othersLike) {
     return `${othersLike[1]} и ещё ${othersLike[2]} ${people(othersLike[2])} оценили ваш пост`;
+  }
+  const othersLikeComment = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+  if (othersLikeComment) {
+    return `${othersLikeComment[1]} и ещё ${othersLikeComment[2]} ${people(othersLikeComment[2])} оценили ваш комментарий`;
   }
   const started = text.match(/^(.+?)\s+started following$/i);
   if (started && started[1].length < 60) return `${started[1]} подписался`;
