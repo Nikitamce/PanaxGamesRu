@@ -1,4 +1,4 @@
-import { SKIP_TAGS, shouldSkipRoot, shouldSkipProse, isChromeContext } from './skip.js';
+import { SKIP_TAGS, shouldSkipRoot, shouldSkipProse, isChromeContext, AMBIGUOUS_SHORT } from './skip.js';
 import { translateTimestamp, translateActivity, translateCount, translateNotice, splitNotice } from './time.js';
 
 const ATTR_OK = new Set([
@@ -162,6 +162,31 @@ export function createEngine(dict) {
       const likedLine = /\band\s+(?:\d+\s+)?others?\s+(liked|got help)$/i.test(text) && text.length < 120;
       const profileLine = /^(?:[·•.\-]\s*)?(follows you|\d+\s*[dhms]\s*ago|posts\s+[\d.,]+\s*[kmb]?|follow back|\d+\s+playing|posts|reviews|collections|following games|top)(?:\s+[\d.,]+\s*[kmb]?)?$/i.test(text);
       if (!timeLike && !multiWord && !sectionTitle && !levelLine && !likedLine && !profileLine) return null;
+    }
+
+    // A bare ambiguous UI word (Save, Post, Like, …) whose neighbours are
+    // English prose is a game title / user text, not a control label.
+    if (el && !text.includes(' ') && AMBIGUOUS_SHORT.has(text.toLowerCase())) {
+      let host = el;
+      for (let i = 0; i < 3 && host.parentElement && normalizeKey(host.textContent || '') === text; i += 1) {
+        host = host.parentElement;
+      }
+      const hostText = normalizeKey(host.textContent || '');
+      if (
+        hostText &&
+        hostText !== text &&
+        hostText.length > text.length + 2 &&
+        !host.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')
+      ) {
+        const extra = hostText
+          .toLowerCase()
+          .split(text.toLowerCase())
+          .join(' ')
+          .trim()
+          .split(/\s+/)
+          .filter((w) => w.length >= 3 && w === w.toLowerCase() && /^[a-z]+$/.test(w));
+        if (extra.length >= 1) return null;
+      }
     }
 
     const hit = exact.get(text) ?? fold.get(text.toLowerCase());
@@ -610,28 +635,53 @@ export function createEngine(dict) {
       // 0. Reply / like / comment on your comment / post / review
       for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/(?:replied (?:on|to)|liked|нравится|commented on)\s+your/i.test(t) && t.length < 160) {
-          for (const n of p.childNodes) {
-            if (n.nodeType === 3) {
-              n.nodeValue = n.nodeValue
-                .replace(/replied (?:on|to) your (?:comment|комментарий)/gi, 'ответил на ваш комментарий')
-                .replace(/replied (?:on|to) your/gi, 'ответил на ваш')
-                .replace(/(?:liked|нравится) your (?:comment|комментарий)/gi, 'оценил ваш комментарий')
-                .replace(/(?:liked|нравится) your (?:post|пост)/gi, 'оценил ваш пост')
-                .replace(/(?:liked|нравится) your (?:review|рецензию|обзор)/gi, 'оценил вашу рецензию')
-                .replace(/(?:liked|нравится) your/gi, 'оценил ваш')
-                .replace(/commented on your (?:post|пост)/gi, 'прокомментировал ваш пост')
-                .replace(/commented on your/gi, 'прокомментировал ваш');
-            }
+        const isNotice =
+          /(?:replied (?:on|to)|liked|нравится|commented on)\s+your/i.test(t) ||
+          /оценил(?:и)?ваш|ответилнаваш|прокомментировалваш|нравитсяваш|ваш(?:комментарий|пост|ответ)|вашурецензию/i.test(t);
+        if (!isNotice || t.length >= 160) continue;
+        const verb = /others?\s+(?:liked|нравится|оценили|оценил)/i.test(t) ? 'оценили' : 'оценил';
+        const people = (num) => plural(Number(num), ['человек', 'человека', 'человек']);
+        for (const n of p.childNodes) {
+          if (n.nodeType === 3) {
+            n.nodeValue = n.nodeValue
+              // glued runs from earlier passes: restore word spacing first
+              .replace(/оценилваш/gi, `${verb} ваш`)
+              .replace(/оцениливаш/gi, 'оценили ваш')
+              .replace(/нравитсяваш/gi, `${verb} ваш`)
+              .replace(/ответилнаваш/gi, 'ответил на ваш')
+              .replace(/прокомментировалваш/gi, 'прокомментировал ваш')
+              .replace(/вашурецензию/gi, 'вашу рецензию')
+              .replace(/ваш(?:комментарий|пост|ответ)/gi, (m) => ({ 'вашкомментарий': 'ваш комментарий', 'вашпост': 'ваш пост', 'вашответ': 'ваш ответ' }[m.toLowerCase()] || m))
+              .replace(/replied (?:on|to) your (?:comment|комментарий)/gi, 'ответил на ваш комментарий')
+              .replace(/replied (?:on|to) your/gi, 'ответил на ваш')
+              .replace(/(?:liked|нравится) your (?:comment|комментарий)/gi, `${verb} ваш комментарий`)
+              .replace(/(?:liked|нравится) your (?:post|пост)/gi, `${verb} ваш пост`)
+              .replace(/(?:liked|нравится) your (?:review|рецензию|обзор)/gi, `${verb} вашу рецензию`)
+              .replace(/(?:liked|нравится) your/gi, `${verb} ваш`)
+              .replace(/commented on your (?:post|пост)/gi, 'прокомментировал ваш пост')
+              .replace(/commented on your/gi, 'прокомментировал ваш')
+              // fragments whose "your ..." lives in a sibling node
+              .replace(/replied (?:on|to)(?=\s|$)/gi, 'ответил на')
+              .replace(/commented on(?=\s|$)/gi, 'прокомментировал')
+              .replace(/\b(?:and|&)\s+(\d+)\s+others?\b/gi, (s, num) => `и ещё ${num} ${people(num)}`)
+              .replace(/\bYou(?=\s+(?:and|&|и)(?:\s|$))/g, 'Вы');
           }
-          for (const cLink of p.querySelectorAll('a, span')) {
-            if (cLink.childElementCount > 0) continue;
-            const cText = normalizeKey(cLink.textContent || '');
-            if (/^(?:comment|Комментарий)$/i.test(cText)) cLink.textContent = 'комментарий';
-            else if (/^(?:post|Пост)$/i.test(cText)) cLink.textContent = 'пост';
-            else if (/^(?:liked|Нравится)$/i.test(cText)) cLink.textContent = 'оценил';
-            else if (/^your$/i.test(cText)) cLink.textContent = 'ваш';
-          }
+        }
+        for (const cLink of p.querySelectorAll('a, span')) {
+          if (cLink.childElementCount > 0) continue;
+          const raw = cLink.textContent || '';
+          const cText = normalizeKey(raw);
+          let ru = null;
+          if (/^(?:comment|Комментарий)$/i.test(cText)) ru = 'комментарий';
+          else if (/^(?:post|Пост)$/i.test(cText)) ru = 'пост';
+          else if (/^(?:liked|Нравится)$/i.test(cText)) ru = verb;
+          else if (/^your$/i.test(cText)) ru = 'ваш';
+          if (!ru) continue;
+          // keep edge whitespace: spans often carry it ("your ") and losing it glues words
+          const lead = raw.match(/^\s*/)[0];
+          const trail = raw.match(/\s*$/)[0];
+          const next = lead + ru + trail;
+          if (next !== raw) cLink.textContent = next;
         }
       }
 
