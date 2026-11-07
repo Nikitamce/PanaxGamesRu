@@ -2,6 +2,7 @@ import { fetchOpenCritic } from '../api/opencritic.js';
 import { fetchMetacritic } from '../api/metacritic.js';
 import { fetchProtonDb } from '../api/protondb.js';
 import { resolveSteam, fetchSteamCharts } from '../api/steam.js';
+import { getSettings, loadSettings } from '../settings.js';
 
 let activeGameTitle = '';
 let activeSteamData = null;
@@ -39,12 +40,12 @@ function findSectionCard(keywords) {
   const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, div, span, p');
 
   for (const el of elements) {
-    if (el.children.length > 2) continue;
+    if (el.children.length > 3) continue;
     const text = (el.textContent || '').trim().toLowerCase();
     if (!text) continue;
 
     for (const kw of normKeywords) {
-      if (text === kw || (text.startsWith(kw) && text.length < kw.length + 15)) {
+      if (text === kw || text.startsWith(kw)) {
         let cur = el;
         let bestCard = el.parentElement;
         while (cur && cur.parentElement && cur.parentElement !== document.body) {
@@ -53,7 +54,7 @@ function findSectionCard(keywords) {
           const cls = cur.className || '';
           if (cur.tagName === 'SECTION' || /rounded|bg-|space-y|border|card/i.test(cls)) {
             const h = cur.offsetHeight || cur.getBoundingClientRect().height;
-            if (h > 40 && h < 1200) {
+            if (h > 40 && h < 1400) {
               bestCard = cur;
               break;
             }
@@ -68,44 +69,66 @@ function findSectionCard(keywords) {
 }
 
 /**
- * Identify active tab: 'about' | 'players'
+ * Identify active tab: 'about' | 'players' | 'community'
  */
 function getActiveTab() {
-  const allElements = document.querySelectorAll('button, [role="tab"], div, a, span');
-  for (const el of allElements) {
-    const text = (el.textContent || '').trim().toLowerCase();
-    if (text === 'о игре' || text === 'about') {
-      const container = el.closest('button, [role="tab"], div[class*="cursor-pointer"]') || el;
-      if (
-        container.getAttribute('aria-selected') === 'true' ||
-        container.className?.includes('border-b') ||
-        container.querySelector('div[class*="border"], div[class*="bg-white"], span[class*="border"]') ||
-        container.nextElementSibling?.className?.includes('border') ||
-        container.nextElementSibling?.className?.includes('bg-white')
-      ) {
-        return 'about';
-      }
-    }
-    if (text === 'данные игроков' || text === 'players' || text === 'player stats') {
-      const container = el.closest('button, [role="tab"], div[class*="cursor-pointer"]') || el;
-      if (
-        container.getAttribute('aria-selected') === 'true' ||
-        container.className?.includes('border-b') ||
-        container.querySelector('div[class*="border"], div[class*="bg-white"], span[class*="border"]') ||
-        container.nextElementSibling?.className?.includes('border') ||
-        container.nextElementSibling?.className?.includes('bg-white')
-      ) {
-        return 'players';
+  // Find tab container row (usually 3 tabs: Player data, Community, About)
+  const bars = document.querySelectorAll('div, nav');
+  for (const bar of bars) {
+    if (bar.children.length >= 2 && bar.children.length <= 6) {
+      const t = (bar.textContent || '').toLowerCase();
+      const hasPlayersTab = t.includes('данные игроков') || t.includes('player data');
+      const hasAboutTab = t.includes('о игре') || t.includes('about');
+
+      if (hasPlayersTab && hasAboutTab) {
+        for (const tabEl of bar.children) {
+          const tabText = (tabEl.textContent || '').toLowerCase();
+          const isActive =
+            tabEl.getAttribute('aria-selected') === 'true' ||
+            tabEl.getAttribute('data-state') === 'active' ||
+            tabEl.className?.includes('border-b') ||
+            tabEl.className?.includes('border-white') ||
+            tabEl.className?.includes('text-white') ||
+            tabEl.querySelector('div[class*="border"], div[class*="bg-white"], span[class*="border"], hr');
+
+          if (isActive) {
+            if (tabText.includes('данные игроков') || tabText.includes('player data')) {
+              return 'players';
+            }
+            if (tabText.includes('о игре') || tabText.includes('about')) {
+              return 'about';
+            }
+            if (tabText.includes('сообщество') || tabText.includes('community')) {
+              return 'community';
+            }
+          }
+        }
       }
     }
   }
 
-  // Fallback: check which card is visible in DOM
-  const hltb = findSectionCard(['how long to beat', 'платформы', 'platforms']);
-  if (hltb && hltb.offsetParent !== null) return 'about';
+  // Fallback: check visible headings in the viewport
+  const candidates = document.querySelectorAll('h1, h2, h3, h4, div, span, p');
+  for (const h of candidates) {
+    if (h.children.length > 2) continue;
+    const txt = (h.textContent || '').trim().toLowerCase();
+    if (
+      txt.startsWith('как вам?') ||
+      txt.startsWith('how was it?') ||
+      txt.startsWith('игроки с этой игрой') ||
+      txt.startsWith('players with this game')
+    ) {
+      if (h.offsetParent !== null) return 'players';
+    }
+  }
 
-  const players = findSectionCard(['игроки с этой игрой', 'players with this game', 'как вам?', 'how was it?']);
-  if (players && players.offsetParent !== null) return 'players';
+  for (const h of candidates) {
+    if (h.children.length > 2) continue;
+    const txt = (h.textContent || '').trim().toLowerCase();
+    if (txt.includes('how long to beat') || txt.startsWith('платформы') || txt.startsWith('platforms')) {
+      if (h.offsetParent !== null) return 'about';
+    }
+  }
 
   return 'about';
 }
@@ -148,16 +171,18 @@ function renderRatingsCard(oc, mc, steam, proton) {
 
   // ProtonDB
   if (proton?.tier) {
+    const tierLower = proton.tier.toLowerCase();
+    const tierUpper = proton.tier.toUpperCase();
     badgesHtml += `
-      <a class="panax-badge panax-badge-proton" href="${proton.url}" target="_blank" rel="noopener noreferrer" title="ProtonDB Tier">
-        <span>🐧 ProtonDB ${proton.tier.toUpperCase()}</span>
+      <a class="panax-badge panax-badge-proton ${tierLower}" href="${proton.url}" target="_blank" rel="noopener noreferrer" title="ProtonDB Tier">
+        <span>🐧 ProtonDB: ${tierUpper}</span>
       </a>
     `;
   }
 
   if (!badgesHtml) {
     badgesHtml = `
-      <span style="font-size: 0.85rem; color: #9ca3af; margin-right: 0.5rem;">Критики ещё не оценили игру. Проверить:</span>
+      <span style="font-size: 0.85rem; color: #9ca3af; margin-right: 0.5rem;">Оценки критиков:</span>
       <a class="panax-badge panax-badge-oc" href="https://opencritic.com/search?criteria=${encodeURIComponent(activeGameTitle)}" target="_blank" rel="noopener noreferrer">OpenCritic ↗</a>
       <a class="panax-badge panax-badge-mc" href="https://www.metacritic.com/search/${encodeURIComponent(activeGameTitle)}/" target="_blank" rel="noopener noreferrer">Metacritic ↗</a>
     `;
@@ -176,31 +201,39 @@ function renderRatingsCard(oc, mc, steam, proton) {
   `;
 }
 
-function renderSteamStoreCard(steam) {
+function renderSteamStoreCard(steam, settings = {}) {
   if (!steam) return '';
 
   let priceHtml = '';
   if (steam.priceFormatted) {
+    const showRub = settings.showPriceConvert !== false && steam.approxRub;
     priceHtml = `
       <div class="panax-price-row">
         ${steam.discountPercent > 0 ? `<span class="panax-discount-pill">-${steam.discountPercent}%</span>` : ''}
         <span class="panax-price-val">${steam.priceFormatted}</span>
-        ${steam.approxRub ? `<span class="panax-approx-rub">~ ${steam.approxRub.toLocaleString('ru-RU')} ₽</span>` : ''}
+        ${showRub ? `<span class="panax-approx-rub">~ ${steam.approxRub.toLocaleString('ru-RU')} ₽</span>` : ''}
       </div>
     `;
   }
 
   let reviewHtml = '';
   if (steam.reviewPercent != null) {
+    const desc = steam.reviewScoreDesc ? ` · ${steam.reviewScoreDesc}` : '';
     reviewHtml = `
       <div class="panax-review-badge">
-        <span>👍 ${steam.reviewPercent}% рекомендуют (${steam.reviewCount?.toLocaleString('ru-RU')} отзывов)</span>
+        <span>👍 ${steam.reviewPercent}% рекомендуют (${steam.reviewCount?.toLocaleString('ru-RU')} отзывов)${desc}</span>
+      </div>
+    `;
+  } else if (steam.reviewCount) {
+    reviewHtml = `
+      <div class="panax-review-badge">
+        <span>👍 ${steam.reviewCount.toLocaleString('ru-RU')} отзывов в Steam</span>
       </div>
     `;
   }
 
   let tagsHtml = '';
-  const tags = [...(steam.genres || []), ...(steam.categories || [])].slice(0, 8);
+  const tags = [...(steam.genres || []), ...(steam.categories || [])].slice(0, 10);
   if (tags.length) {
     tagsHtml = `
       <div class="panax-tags-row">
@@ -273,25 +306,29 @@ function renderPlayerStatsCard(steam, charts) {
     `;
   } else {
     onlineBadge = `
-      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af;">
-        <span class="panax-online-dot" style="background: #6b7280;"></span>
-        <span>Steam: Игра не представлена на платформе</span>
+      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
+        <span class="panax-online-dot" style="background: #6b7280; box-shadow: none;"></span>
+        <span>Steam: Онлайн недоступен</span>
       </div>
     `;
   }
 
   let statsGrid = '';
-  if (charts?.peak24h != null || charts?.allTimePeak != null) {
+  if (charts?.peak24h || charts?.allTimePeak) {
     statsGrid = `
-      <div class="panax-stats-grid">
-        <div class="panax-stat-box">
-          <span class="val">${charts.peak24h?.toLocaleString('ru-RU') || '—'}</span>
-          <span class="lbl">Пик за 24ч (Steam)</span>
-        </div>
-        <div class="panax-stat-box">
-          <span class="val">${charts.allTimePeak?.toLocaleString('ru-RU') || '—'}</span>
-          <span class="lbl">Пик за всё время</span>
-        </div>
+      <div class="panax-steam-stats-grid">
+        ${charts.peak24h ? `
+          <div class="panax-stat-box">
+            <span class="label">Пик за 24 часа</span>
+            <span class="val">${charts.peak24h.toLocaleString('ru-RU')}</span>
+          </div>
+        ` : ''}
+        ${charts.allTimePeak ? `
+          <div class="panax-stat-box">
+            <span class="label">Рекорд онлайна</span>
+            <span class="val">${charts.allTimePeak.toLocaleString('ru-RU')}</span>
+          </div>
+        ` : ''}
       </div>
     `;
   }
@@ -343,6 +380,30 @@ function renderPlayerStatsCard(steam, charts) {
 }
 
 function parsePanaxCommunityNumbers() {
+  const html = document.body?.innerHTML || '';
+
+  const mBeaten = html.match(/"status_beaten_cnt":\s*(\d+)/);
+  const mPlaying = html.match(/"status_playing_cnt":\s*(\d+)/);
+  const mBacklog = html.match(/"status_backlog_cnt":\s*(\d+)/);
+  const mPaused = html.match(/"status_paused_cnt":\s*(\d+)/);
+  const mQuit = html.match(/"status_quit_cnt":\s*(\d+)/);
+  const mWishlist = html.match(/"status_wishlist_cnt":\s*(\d+)/);
+  const mTotal = html.match(/"status_total_cnt":\s*(\d+)/);
+
+  if (mBeaten || mPlaying || mBacklog || mTotal) {
+    const beaten = Number(mBeaten?.[1] || 0);
+    const playing = Number(mPlaying?.[1] || 0);
+    const backlog = Number(mBacklog?.[1] || 0);
+    const paused = Number(mPaused?.[1] || 0);
+    const dropped = Number(mQuit?.[1] || 0);
+    const wishlist = Number(mWishlist?.[1] || 0);
+    const totalActive = beaten + playing + backlog + paused + dropped;
+    if (totalActive > 0 || beaten > 0) {
+      return { beaten, playing, backlog, paused, dropped, wishlist, totalActive: totalActive || 1 };
+    }
+  }
+
+  // Fallback: parse numbers near labels in body text
   const text = document.body?.textContent || '';
   const parseNum = (label) => {
     const rx = new RegExp(`(\\d+)\\s*\\n?\\s*${label}|${label}\\s*\\n?\\s*(\\d+)`, 'i');
@@ -356,8 +417,8 @@ function parsePanaxCommunityNumbers() {
   const backlog = parseNum('В планах') || parseNum('Backlog');
   const paused = parseNum('Пауза') || parseNum('Paused');
   const dropped = parseNum('Брошено') || parseNum('Quit');
-
   const totalActive = beaten + playing + backlog + paused + dropped;
+
   return { beaten, playing, backlog, paused, dropped, totalActive };
 }
 
@@ -412,16 +473,21 @@ function findMountTarget(tab) {
     if (rate?.parentElement) {
       return { parent: rate.parentElement, before: rate.nextSibling };
     }
+    const ratingsSec = findSectionCard(['оценки', 'ratings']);
+    if (ratingsSec?.parentElement) {
+      return { parent: ratingsSec.parentElement, before: ratingsSec.nextSibling };
+    }
   }
 
-  const tabBtn = document.querySelectorAll('button, [role="tab"]');
-  for (const btn of tabBtn) {
+  // Fallback: search for container under tab row
+  const tabCandidates = document.querySelectorAll('button, [role="tab"], div, a, span');
+  for (const btn of tabCandidates) {
     const t = (btn.textContent || '').trim().toLowerCase();
-    if (t.includes('о игре') || t.includes('данные игроков')) {
+    if (t === 'о игре' || t === 'about' || t === 'данные игроков' || t === 'player data') {
       const tabsRow = btn.closest('div[class*="flex"], div[class*="tabs"], nav') || btn.parentElement;
       if (tabsRow?.parentElement) {
         const next = tabsRow.nextElementSibling;
-        if (next) return { parent: next, before: null };
+        if (next && next !== tabsRow) return { parent: next, before: null };
       }
     }
   }
@@ -435,6 +501,7 @@ function injectUi() {
   const currentTitle = getGameTitleFromDom();
   if (!currentTitle) return;
 
+  const settings = getSettings();
   const tab = getActiveTab();
 
   if (tab === 'about') {
@@ -445,31 +512,58 @@ function injectUi() {
       if (target?.parent) {
         const container = document.createElement('div');
         container.id = 'panax-about-enrichment';
-        container.innerHTML = `
-          ${renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData)}
-          ${renderSteamStoreCard(activeSteamData)}
-          ${renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData)}
-        `;
-        target.parent.insertBefore(container, target.before);
+
+        let html = '';
+        if (settings.showRatings !== false) {
+          html += renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData);
+        }
+        if (settings.showSteamStore !== false) {
+          html += renderSteamStoreCard(activeSteamData, settings);
+        }
+        if (settings.showQuickLinks !== false) {
+          html += renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData);
+        }
+
+        if (html.trim()) {
+          container.innerHTML = html;
+          target.parent.insertBefore(container, target.before);
+        }
       }
     }
   } else if (tab === 'players') {
     document.getElementById('panax-about-enrichment')?.remove();
 
     if (!document.getElementById('panax-players-card-container')) {
-      const target = findMountTarget('players');
-      if (target?.parent) {
-        const container = document.createElement('div');
-        container.id = 'panax-players-card-container';
-        container.innerHTML = renderPlayerStatsCard(activeSteamData, activeSteamCharts);
-        target.parent.insertBefore(container, target.before);
+      if (settings.showPlayerStats !== false) {
+        const target = findMountTarget('players');
+        if (target?.parent) {
+          const container = document.createElement('div');
+          container.id = 'panax-players-card-container';
+          container.innerHTML = renderPlayerStatsCard(activeSteamData, activeSteamCharts);
+          target.parent.insertBefore(container, target.before);
+        }
       }
     }
   }
 }
 
-export function startEnrichment() {
+export async function startEnrichment() {
   if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) return;
+
+  await loadSettings();
+
+  // Instant update on popup toggle
+  if (typeof chrome !== 'undefined' && chrome.storage?.onChanged) {
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === 'local') {
+        loadSettings().then(() => {
+          document.getElementById('panax-about-enrichment')?.remove();
+          document.getElementById('panax-players-card-container')?.remove();
+          injectUi();
+        });
+      }
+    });
+  }
 
   let lastUrl = location.href;
 

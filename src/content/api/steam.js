@@ -18,6 +18,18 @@ function scoreTitleMatch(a, b) {
   return 0;
 }
 
+const REVIEW_SCORE_RU = {
+  'Overwhelmingly Positive': 'Крайне положительные',
+  'Very Positive': 'Очень положительные',
+  'Positive': 'Положительные',
+  'Mostly Positive': 'В основном положительные',
+  'Mixed': 'Смешанные',
+  'Mostly Negative': 'В основном отрицательные',
+  'Negative': 'Отрицательные',
+  'Very Negative': 'Очень отрицательные',
+  'Overwhelmingly Negative': 'Крайне отрицательные',
+};
+
 export async function resolveSteam(title) {
   const q = String(title || '').trim();
   if (!q) return null;
@@ -45,13 +57,25 @@ export async function resolveSteam(title) {
     const appId = Number(best.it.id);
     if (!appId) return null;
 
-    // Fetch details & reviews in parallel
-    const [detailsRes, reviewsRes, playersRes] = await Promise.allSettled([
+    const reviewsInput = encodeURIComponent(JSON.stringify({ appid: appId, num_per_page: 0 }));
+    const browseInput = encodeURIComponent(
+      JSON.stringify({
+        ids: [{ appid: appId }],
+        context: { language: 'english', country_code: 'US', steam_realm: 1 },
+        data_request: { include_platforms: true },
+      })
+    );
+
+    // Fetch details, reviews, deck info, and player count in parallel
+    const [detailsRes, reviewsRes, browseRes, playersRes] = await Promise.allSettled([
       bgRequest({
         url: `https://store.steampowered.com/api/appdetails?appids=${appId}&l=russian&cc=kz`,
       }),
       bgRequest({
-        url: `https://store.steampowered.com/appreviews/${appId}?json=1&language=all&purchase_type=all`,
+        url: `https://api.steampowered.com/IUserReviewsService/GetAppReviews/v1/?input_json=${reviewsInput}`,
+      }),
+      bgRequest({
+        url: `https://api.steampowered.com/IStoreBrowseService/GetItems/v1/?input_json=${browseInput}`,
       }),
       bgRequest({
         url: `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=${appId}`,
@@ -59,7 +83,8 @@ export async function resolveSteam(title) {
     ]);
 
     const details = detailsRes.status === 'fulfilled' ? detailsRes.value?.[appId]?.data : null;
-    const reviews = reviewsRes.status === 'fulfilled' ? reviewsRes.value?.query_summary : null;
+    const reviewData = reviewsRes.status === 'fulfilled' ? reviewsRes.value?.response?.query_summary : null;
+    const browseItem = browseRes.status === 'fulfilled' ? browseRes.value?.response?.store_items?.[0] : null;
     const currentPlayers = playersRes.status === 'fulfilled' ? playersRes.value?.response?.player_count : null;
 
     // Price extraction
@@ -83,22 +108,25 @@ export async function resolveSteam(title) {
     let reviewScoreDesc = '';
     let reviewPercent = null;
     let reviewCount = null;
-    if (reviews && reviews.total_reviews > 0) {
-      reviewCount = reviews.total_reviews;
-      reviewPercent = Math.round((reviews.total_positive / reviews.total_reviews) * 100);
-      reviewScoreDesc = reviews.review_score_desc || '';
+    if (reviewData && reviewData.total_reviews > 0) {
+      reviewCount = reviewData.total_reviews;
+      reviewPercent = Math.round((reviewData.total_positive / reviewData.total_reviews) * 100);
+      reviewScoreDesc = REVIEW_SCORE_RU[reviewData.review_score_desc] || reviewData.review_score_desc || '';
+    } else if (details?.recommendations?.total) {
+      reviewCount = details.recommendations.total;
     }
 
-    // Genres & categories & tags
+    // Genres & categories
     const genres = (details?.genres || []).map((g) => g.description);
     const categories = (details?.categories || []).map((c) => c.description);
 
-    // Steam Deck Verified: check categories or deck category
-    // category 1 = Unsupported, 2 = Playable, 3 = Verified
+    // Steam Deck compatibility
     let steamDeckStatus = null;
-    if (categories.some((c) => /deck/i.test(c))) {
-      steamDeckStatus = 'Проверено';
-    }
+    const deckCat = Number(browseItem?.platforms?.steam_deck_compat_category);
+    if (deckCat === 3) steamDeckStatus = 'Проверено';
+    else if (deckCat === 2) steamDeckStatus = 'Можно играть';
+    else if (deckCat === 1) steamDeckStatus = 'Не поддерживается';
+    else if (categories.some((c) => /deck/i.test(c))) steamDeckStatus = 'Проверено';
 
     return {
       appId,
@@ -139,23 +167,24 @@ export async function fetchSteamCharts(appId) {
 
     if (!Array.isArray(points) || !points.length) return null;
 
-    // Last 24 hours peak
-    const now = Date.now();
-    const dayAgo = now - 24 * 3600 * 1000;
-    let peak24h = 0;
     let allTimePeak = 0;
+    let peak24h = 0;
+    const oneDayAgo = Date.now() - 24 * 3600 * 1000;
 
-    for (const [timestamp, count] of points) {
-      if (count > allTimePeak) allTimePeak = count;
-      if (timestamp >= dayAgo && count > peak24h) peak24h = count;
+    for (const p of points) {
+      const ts = p[0];
+      const val = p[1];
+      if (val > allTimePeak) allTimePeak = val;
+      if (ts >= oneDayAgo && val > peak24h) peak24h = val;
     }
 
     return {
-      peak24h: peak24h > 0 ? peak24h : null,
-      allTimePeak: allTimePeak > 0 ? allTimePeak : null,
+      peak24h: peak24h || null,
+      allTimePeak: allTimePeak || null,
+      pointsCount: points.length,
     };
-  } catch (_) {
+  } catch (err) {
+    console.debug('[PANAX RU] SteamCharts error:', err);
     return null;
   }
 }
-

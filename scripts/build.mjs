@@ -23,7 +23,7 @@ await esbuild.build({
 const manifest = {
   manifest_version: 3,
   name: 'PANAX RU',
-  version: '0.2.69',
+  version: '0.2.70',
   description: 'Russian UI for panaxgames.com (i18n, no reload).',
   permissions: ['storage'],
   background: {
@@ -37,6 +37,7 @@ const manifest = {
     'https://api.steampowered.com/*',
     'https://www.metacritic.com/*',
     'https://protondb.max-p.me/*',
+    'https://www.protondb.com/*',
     'https://steamcharts.com/*',
     'https://open.er-api.com/*',
   ],

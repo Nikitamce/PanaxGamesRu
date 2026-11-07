@@ -6,7 +6,7 @@ export async function fetchProtonDb(appId) {
 
   try {
     const data = await bgRequest({
-      url: `https://protondb.max-p.me/games/${id}.json`,
+      url: `https://www.protondb.com/api/v1/reports/summaries/${id}.json`,
       allow404: true,
       headers: { Accept: 'application/json' },
     });
@@ -19,6 +19,7 @@ export async function fetchProtonDb(appId) {
       tier,
       score: data.score != null ? Number(data.score) : null,
       total: data.total != null ? Number(data.total) : null,
+      bestReportedTier: data.bestReportedTier || null,
       url: `https://www.protondb.com/app/${id}`,
     };
   } catch (err) {
@@ -26,4 +27,3 @@ export async function fetchProtonDb(appId) {
     return null;
   }
 }
-

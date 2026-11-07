@@ -103,6 +103,11 @@
   color: #b4c6db;
   border: 1px solid rgba(180, 198, 219, 0.25);
 }
+.panax-badge-proton.platinum { color: #c4d8ea; background: rgba(196, 216, 234, 0.18); border-color: rgba(196, 216, 234, 0.4); }
+.panax-badge-proton.gold { color: #f59e0b; background: rgba(245, 158, 11, 0.18); border-color: rgba(245, 158, 11, 0.4); }
+.panax-badge-proton.silver { color: #cbd5e1; background: rgba(203, 213, 225, 0.15); border-color: rgba(203, 213, 225, 0.3); }
+.panax-badge-proton.bronze { color: #f97316; background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.3); }
+
 
 /* Steam Price & Store Box */
 .panax-steam-box {
