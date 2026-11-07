@@ -585,26 +585,25 @@ export function createEngine(dict) {
   }
 
   function paintNotice(el) {
-    if (!el || el.nodeType !== 1 || el.childElementCount > 24) return false;
+    if (!el || el.nodeType !== 1 || el.childElementCount > 40) return false;
 
-    // Direct multi-node notification fixes (Level Up, Sales, Profile hint)
+    // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts)
     const rawText = el.textContent || '';
-    if (/(?:Level\s*Up|Уровень\s*Up|Check your|is now|Get it on Steam)/i.test(rawText)) {
-      for (const child of el.childNodes) {
-        if (child.nodeType === 3) {
-          const val = child.nodeValue;
-          const tr = translateNotice(val, rawText);
-          if (tr != null && tr !== val) child.nodeValue = preserveEdges(val, tr);
-        } else if (child.nodeType === 1 && !['IMG', 'SVG', 'TIME', 'VIDEO'].includes(child.tagName)) {
-          for (const sub of child.childNodes) {
-            if (sub.nodeType === 3) {
-              const val = sub.nodeValue;
-              const tr = translateNotice(val, rawText);
-              if (tr != null && tr !== val) sub.nodeValue = preserveEdges(val, tr);
-            }
+    if (/(?:Level\s*Up|Уровень\s*Up|Check your|is now|Get it|sale ends|just dropped a new post)/i.test(rawText)) {
+      const walk = (node) => {
+        if (node.nodeType === 3) {
+          const val = node.nodeValue;
+          if (val && val.trim()) {
+            const tr = translateNotice(val, rawText);
+            if (tr != null && tr !== val) node.nodeValue = preserveEdges(val, tr);
           }
+          return;
         }
-      }
+        if (node.nodeType !== 1) return;
+        if (['IMG', 'SVG', 'TIME', 'VIDEO', 'INPUT', 'TEXTAREA'].includes(node.tagName)) return;
+        for (const child of node.childNodes) walk(child);
+      };
+      walk(el);
     }
 
     let acc = '';

@@ -173,6 +173,15 @@ export function isChromeContext(el) {
  */
 export function shouldSkipRoot(el) {
   if (!el || el.nodeType !== 1) return false;
+  if (el.getAttribute?.('contenteditable') === 'true' || el.isContentEditable) return true;
+  // Controls, buttons, pills, dropdown items inside modals or post wrappers are UI chrome
+  if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
+    return false;
+  }
+  // Notifications popover, dialogs and menus are UI chrome
+  if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
+    return false;
+  }
   for (const sel of SKIP_ROOT_SELECTORS) {
     try {
       if (el.matches?.(sel) || el.closest?.(sel)) return true;

@@ -11,6 +11,43 @@ let activeOcData = null;
 let activeMcData = null;
 let activeProtonData = null;
 let isFetching = false;
+let userSelectedTab = null;
+
+function hookTabClicks() {
+  const elements = document.querySelectorAll('button, a, div, span, [role="tab"]');
+  for (const el of elements) {
+    if (el.children.length > 3) continue;
+    const t = (el.textContent || '').trim().toLowerCase();
+    if (t === 'данные игроков' || t === 'player data') {
+      if (!el.dataset.panaxHooked) {
+        el.dataset.panaxHooked = '1';
+        el.addEventListener('click', () => {
+          userSelectedTab = 'players';
+          injectUi();
+          setTimeout(injectUi, 40);
+        });
+      }
+    } else if (t === 'о игре' || t === 'about') {
+      if (!el.dataset.panaxHooked) {
+        el.dataset.panaxHooked = '1';
+        el.addEventListener('click', () => {
+          userSelectedTab = 'about';
+          injectUi();
+          setTimeout(injectUi, 40);
+        });
+      }
+    } else if (t === 'сообщество' || t === 'community') {
+      if (!el.dataset.panaxHooked) {
+        el.dataset.panaxHooked = '1';
+        el.addEventListener('click', () => {
+          userSelectedTab = 'community';
+          injectUi();
+          setTimeout(injectUi, 40);
+        });
+      }
+    }
+  }
+}
 
 function getGameTitleFromDom() {
   const titleTag = document.title || '';
@@ -72,7 +109,32 @@ function findSectionCard(keywords) {
  * Identify active tab: 'about' | 'players' | 'community'
  */
 function getActiveTab() {
-  // Find tab container row (usually 3 tabs: Player data, Community, About)
+  if (userSelectedTab) return userSelectedTab;
+
+  // 1. Content-based detection (most accurate indicator of rendered panel)
+  const candidates = document.querySelectorAll('h1, h2, h3, h4, div, span, p');
+  for (const h of candidates) {
+    if (h.children.length > 2) continue;
+    const txt = (h.textContent || '').trim().toLowerCase();
+    if (txt === 'how long to beat' || txt === 'платформы' || txt === 'platforms') {
+      if (h.offsetParent !== null && h.getBoundingClientRect().height > 0) return 'about';
+    }
+  }
+
+  for (const h of candidates) {
+    if (h.children.length > 2) continue;
+    const txt = (h.textContent || '').trim().toLowerCase();
+    if (
+      txt.startsWith('как вам?') ||
+      txt.startsWith('how was it?') ||
+      txt.startsWith('игроки с этой игрой') ||
+      txt.startsWith('players with this game')
+    ) {
+      if (h.offsetParent !== null && h.getBoundingClientRect().height > 0) return 'players';
+    }
+  }
+
+  // 2. Check tab container row
   const bars = document.querySelectorAll('div, nav');
   for (const bar of bars) {
     if (bar.children.length >= 2 && bar.children.length <= 6) {
@@ -83,15 +145,12 @@ function getActiveTab() {
       if (hasPlayersTab && hasAboutTab) {
         for (const tabEl of bar.children) {
           const tabText = (tabEl.textContent || '').toLowerCase();
-          const isActive =
-            tabEl.getAttribute('aria-selected') === 'true' ||
-            tabEl.getAttribute('data-state') === 'active' ||
-            tabEl.className?.includes('border-b') ||
-            tabEl.className?.includes('border-white') ||
-            tabEl.className?.includes('text-white') ||
-            tabEl.querySelector('div[class*="border"], div[class*="bg-white"], span[class*="border"], hr');
+          const cls = String(tabEl.className || '');
+          const isAria = tabEl.getAttribute('aria-selected') === 'true' || tabEl.getAttribute('data-state') === 'active';
+          const hasUnderline = !!tabEl.querySelector('div[class*="bg-white"], div[class*="border"], span[class*="border"], hr');
+          const isBrightWhite = /\btext-white\b(?!\/)/.test(cls) && !/\b(?:text-white\/\d+|opacity-\d+)\b/.test(cls);
 
-          if (isActive) {
+          if (isAria || hasUnderline || isBrightWhite) {
             if (tabText.includes('данные игроков') || tabText.includes('player data')) {
               return 'players';
             }
@@ -104,29 +163,6 @@ function getActiveTab() {
           }
         }
       }
-    }
-  }
-
-  // Fallback: check visible headings in the viewport
-  const candidates = document.querySelectorAll('h1, h2, h3, h4, div, span, p');
-  for (const h of candidates) {
-    if (h.children.length > 2) continue;
-    const txt = (h.textContent || '').trim().toLowerCase();
-    if (
-      txt.startsWith('как вам?') ||
-      txt.startsWith('how was it?') ||
-      txt.startsWith('игроки с этой игрой') ||
-      txt.startsWith('players with this game')
-    ) {
-      if (h.offsetParent !== null) return 'players';
-    }
-  }
-
-  for (const h of candidates) {
-    if (h.children.length > 2) continue;
-    const txt = (h.textContent || '').trim().toLowerCase();
-    if (txt.includes('how long to beat') || txt.startsWith('платформы') || txt.startsWith('platforms')) {
-      if (h.offsetParent !== null) return 'about';
     }
   }
 
@@ -304,6 +340,13 @@ function renderPlayerStatsCard(steam, charts) {
         <span>${steam.currentPlayers.toLocaleString('ru-RU')} игроков онлайн (Steam)</span>
       </div>
     `;
+  } else if (isFetching) {
+    onlineBadge = `
+      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
+        <span class="panax-online-dot" style="background: #eab308; box-shadow: none;"></span>
+        <span>Steam: Получение онлайна...</span>
+      </div>
+    `;
   } else {
     onlineBadge = `
       <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
@@ -449,6 +492,7 @@ async function loadGameData(title) {
     console.debug('[PANAX RU] Error fetching enrichments:', err);
   } finally {
     isFetching = false;
+    injectUi();
   }
 }
 
@@ -501,49 +545,64 @@ function injectUi() {
   const currentTitle = getGameTitleFromDom();
   if (!currentTitle) return;
 
+  hookTabClicks();
+
   const settings = getSettings();
   const tab = getActiveTab();
 
   if (tab === 'about') {
     document.getElementById('panax-players-card-container')?.remove();
 
-    if (!document.getElementById('panax-about-enrichment')) {
-      const target = findMountTarget('about');
-      if (target?.parent) {
-        const container = document.createElement('div');
+    const target = findMountTarget('about');
+    if (target?.parent) {
+      let container = document.getElementById('panax-about-enrichment');
+      if (!container) {
+        container = document.createElement('div');
         container.id = 'panax-about-enrichment';
+        target.parent.insertBefore(container, target.before);
+      } else if (!container.isConnected || container.parentElement !== target.parent) {
+        target.parent.insertBefore(container, target.before);
+      }
 
-        let html = '';
-        if (settings.showRatings !== false) {
-          html += renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData);
-        }
-        if (settings.showSteamStore !== false) {
-          html += renderSteamStoreCard(activeSteamData, settings);
-        }
-        if (settings.showQuickLinks !== false) {
-          html += renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData);
-        }
+      let html = '';
+      if (settings.showRatings !== false) {
+        html += renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData);
+      }
+      if (settings.showSteamStore !== false) {
+        html += renderSteamStoreCard(activeSteamData, settings);
+      }
+      if (settings.showQuickLinks !== false) {
+        html += renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData);
+      }
 
-        if (html.trim()) {
-          container.innerHTML = html;
-          target.parent.insertBefore(container, target.before);
-        }
+      if (html.trim() && container.innerHTML !== html) {
+        container.innerHTML = html;
       }
     }
   } else if (tab === 'players') {
     document.getElementById('panax-about-enrichment')?.remove();
 
-    if (!document.getElementById('panax-players-card-container')) {
-      if (settings.showPlayerStats !== false) {
-        const target = findMountTarget('players');
-        if (target?.parent) {
-          const container = document.createElement('div');
+    if (settings.showPlayerStats !== false) {
+      const target = findMountTarget('players');
+      if (target?.parent) {
+        let container = document.getElementById('panax-players-card-container');
+        if (!container) {
+          container = document.createElement('div');
           container.id = 'panax-players-card-container';
-          container.innerHTML = renderPlayerStatsCard(activeSteamData, activeSteamCharts);
           target.parent.insertBefore(container, target.before);
+        } else if (!container.isConnected || container.parentElement !== target.parent) {
+          target.parent.insertBefore(container, target.before);
+        }
+
+        const html = renderPlayerStatsCard(activeSteamData, activeSteamCharts);
+        if (container.innerHTML !== html) {
+          container.innerHTML = html;
         }
       }
     }
+  } else if (tab === 'community') {
+    document.getElementById('panax-about-enrichment')?.remove();
+    document.getElementById('panax-players-card-container')?.remove();
   }
 }
 
@@ -572,12 +631,24 @@ export async function startEnrichment() {
       document.getElementById('panax-about-enrichment')?.remove();
       document.getElementById('panax-players-card-container')?.remove();
       activeGameTitle = '';
+      userSelectedTab = null;
       return;
+    }
+
+    if (location.href !== lastUrl) {
+      lastUrl = location.href;
+      userSelectedTab = null;
     }
 
     const title = getGameTitleFromDom();
     if (title && title !== activeGameTitle) {
       activeGameTitle = title;
+      activeSteamData = null;
+      activeSteamCharts = null;
+      activeOcData = null;
+      activeMcData = null;
+      activeProtonData = null;
+      userSelectedTab = null;
       loadGameData(title).then(() => injectUi());
     } else {
       injectUi();

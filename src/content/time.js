@@ -132,25 +132,28 @@ export function translateNotice(raw, context = '') {
   if (/^(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(text)) {
     return text.replace(/^(?:Level\s*Up!?|Уровень\s*Up!?)\s*/i, 'Новый уровень! ');
   }
-  if (/^Level$/i.test(text) && /(?:up!?|лвл)/i.test(context)) {
+  if (/^Level$/i.test(text) && /(?:up!?|лвл|\d+)/i.test(context)) {
     return 'Новый уровень!';
   }
-  if (/^Up!?$/i.test(text) && /(?:level|уровень)/i.test(context)) {
+  if (/^Up!?$/i.test(text) && /(?:level|уровень|новый)/i.test(context)) {
     return '';
   }
   if (/^Check your (?:profile|Профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
     return 'Загляните в профиль, чтобы узнать, что нового.';
   }
   if (/^Check your$/i.test(text)) return 'Загляните в свой';
+  if (/^(?:profile|Профиль)$/i.test(text) && /(?:check your|загляните|see what)/i.test(context)) {
+    return 'профиль';
+  }
   if (/^(?:to|До)?\s*see what['’]s new\.?$/i.test(text) || /^see what['’]s new\.?$/i.test(text)) {
     return ', чтобы узнать, что нового.';
   }
   if (/^just dropped a new post$/i.test(text) || /^dropped a new post$/i.test(text)) {
-    return 'опубликовал(а) новый пост';
+    return 'опубликовал новый пост';
   }
   const dropped = text.match(/^(.+?)\s+just dropped a new post$/i);
   if (dropped && dropped[1].length < 80) {
-    return `${dropped[1]} опубликовал(а) новый пост`;
+    return `${dropped[1]} опубликовал новый пост`;
   }
   const saleTitle = text.match(/^(.+?)\s+is now\s+(\d+)%(?:\s*off)?$/i);
   if (saleTitle) {
@@ -160,7 +163,7 @@ export function translateNotice(raw, context = '') {
   if (isNowOff) return `— скидка ${isNowOff[1]}%`;
   if (/^is now$/i.test(text)) return '— скидка';
   const pctOff = text.match(/^(\d+)%\s*(?:off)?$/i);
-  if (pctOff) return `${pctOff[1]}%`;
+  if (pctOff && /(?:is now|скидк|sale)/i.test(context)) return `${pctOff[1]}%`;
   const upToOff = text.match(/^up to\s+(\d+)%\s*(?:off)?$/i);
   if (upToOff) return `скидки до ${upToOff[1]}%`;
   const savePct = text.match(/^save\s+(\d+)%$/i);
@@ -169,6 +172,7 @@ export function translateNotice(raw, context = '') {
   if (/^Get it$/i.test(text)) return 'Купите';
   if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
   if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
+  if (/^on Steam for$/i.test(text)) return 'в Steam за';
   const steamFor = text.match(/^Get it on Steam for\s+(.+)$/i) || text.match(/^Steam for\s+(.+)$/i);
   if (steamFor) return `Купите в Steam за ${steamFor[1]}`;
 

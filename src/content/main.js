@@ -101,7 +101,7 @@ function boot() {
     /* ignore */
   }
 
-  console.info(`[PANAX RU] v0.2.71 · ${Object.keys(dict).length} strings · active`);
+  console.info(`[PANAX RU] v0.2.72 · ${Object.keys(dict).length} strings · active`);
 }
 
 function start() {
