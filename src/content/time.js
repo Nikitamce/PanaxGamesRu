@@ -46,6 +46,8 @@ function plural(n, forms) {
 function clean(s) {
   return String(s || '')
     .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/[\u2018\u2019\u02BC\u2032]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
     .replace(/\u00A0/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -100,8 +102,17 @@ export function splitNotice(raw) {
   let m;
   if (/^commented on your post$/i.test(text)) return { name: '', ru: 'прокомментировал ваш пост' };
   if (/^started following$/i.test(text)) return { name: '', ru: 'подписался' };
+  if (/^replied (?:on|to) your comment$/i.test(text)) return { name: '', ru: 'ответил на ваш комментарий' };
+  if (/^liked your comment$/i.test(text)) return { name: '', ru: 'оценил ваш комментарий' };
+  if (/^(?:just\s+)?dropped a new post$/i.test(text)) return { name: '', ru: 'опубликовал новый пост' };
   if ((m = text.match(/^and\s+(\d+)\s+others?\s+liked your post$/i))) {
     return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш пост` };
+  }
+  if ((m = text.match(/^and\s+(\d+)\s+others?\s+liked your comment$/i))) {
+    return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш комментарий` };
+  }
+  if ((m = text.match(/^and\s+(\d+)\s+others?\s+replied (?:on|to) your comment$/i))) {
+    return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} ответили на ваш комментарий` };
   }
   if ((m = text.match(/^(.+?)\s+commented on your post$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'прокомментировал ваш пост' };
@@ -109,8 +120,23 @@ export function splitNotice(raw) {
   if ((m = text.match(/^(.+?)\s+started following$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'подписался' };
   }
+  if ((m = text.match(/^(.+?)\s+replied (?:on|to) your comment$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+    return { name: m[1], ru: 'ответил на ваш комментарий' };
+  }
+  if ((m = text.match(/^(.+?)\s+liked your comment$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+    return { name: m[1], ru: 'оценил ваш комментарий' };
+  }
+  if ((m = text.match(/^(.+?)\s+(?:just\s+)?dropped a new post$/i)) && m[1].length < 60) {
+    return { name: m[1], ru: 'опубликовал новый пост' };
+  }
   if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+liked your post$/i)) && m[1].length < 60) {
     return { name: m[1], ru: `и ещё ${m[2]} ${people(m[2])} оценили ваш пост` };
+  }
+  if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+liked your comment$/i)) && m[1].length < 60) {
+    return { name: m[1], ru: `и ещё ${m[2]} ${people(m[2])} оценили ваш комментарий` };
+  }
+  if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+replied (?:on|to) your comment$/i)) && m[1].length < 60) {
+    return { name: m[1], ru: `и ещё ${m[2]} ${people(m[2])} ответили на ваш комментарий` };
   }
   if ((m = text.match(/^(.+?)\s+liked your post$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
     return { name: m[1], ru: 'оценил ваш пост' };
@@ -124,7 +150,7 @@ export function splitNotice(raw) {
  */
 export function translateNotice(raw, context = '') {
   const text = clean(raw);
-  if (!text || text.length > 160) return null;
+  if (!text || text.length > 200) return null;
   if (/^updates$/i.test(text)) return 'Обновления';
   if (/^highlights$/i.test(text)) return 'Главное';
   if (/^game chart$/i.test(text)) return 'Рейтинг игр';
@@ -170,6 +196,98 @@ export function translateNotice(raw, context = '') {
   }
   const started = text.match(/^(.+?)\s+started following$/i);
   if (started && started[1].length < 60) return `${started[1]} подписался`;
+
+  // Replied to comment
+  if (/^replied (?:on|to) your comment$/i.test(text)) {
+    return /\band\s+\d+\s+others?\b/i.test(context) ? 'ответили на ваш комментарий' : 'ответил на ваш комментарий';
+  }
+  const andReplied = text.match(/^and\s+(\d+)\s+others?\s+replied (?:on|to) your comment$/i);
+  if (andReplied) return `и ещё ${andReplied[1]} ${people(andReplied[1])} ответили на ваш комментарий`;
+  const namedReplied = text.match(/^(.+?)\s+replied (?:on|to) your comment$/i);
+  if (namedReplied && !/\band\b/i.test(namedReplied[1]) && namedReplied[1].length < 80) {
+    return `${namedReplied[1]} ответил на ваш комментарий`;
+  }
+  const othersReplied = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+replied (?:on|to) your comment$/i);
+  if (othersReplied) {
+    return `${othersReplied[1]} и ещё ${othersReplied[2]} ${people(othersReplied[2])} ответили на ваш комментарий`;
+  }
+
+  // Liked comment
+  if (/^liked your comment$/i.test(text)) {
+    return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш комментарий' : 'оценил ваш комментарий';
+  }
+  const andLikedComment = text.match(/^and\s+(\d+)\s+others?\s+liked your comment$/i);
+  if (andLikedComment) return `и ещё ${andLikedComment[1]} ${people(andLikedComment[1])} оценили ваш комментарий`;
+  const namedLikedComment = text.match(/^(.+?)\s+liked your comment$/i);
+  if (namedLikedComment && !/\band\b/i.test(namedLikedComment[1]) && namedLikedComment[1].length < 80) {
+    return `${namedLikedComment[1]} оценил ваш комментарий`;
+  }
+  const othersLikedComment = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+liked your comment$/i);
+  if (othersLikedComment) {
+    return `${othersLikedComment[1]} и ещё ${othersLikedComment[2]} ${people(othersLikedComment[2])} оценили ваш комментарий`;
+  }
+
+  // Dropped new post
+  if (/^(?:just\s+)?dropped a new post$/i.test(text)) return 'опубликовал новый пост';
+  const namedDropped = text.match(/^(.+?)\s+(?:just\s+)?dropped a new post$/i);
+  if (namedDropped && namedDropped[1].length < 80) return `${namedDropped[1]} опубликовал новый пост`;
+
+  // Level Up notices
+  if (/level\s*up!?/i.test(text)) {
+    const next = text.replace(/\blevel\s*up!?/gi, 'Новый уровень!').replace(/\bLv\.?\s*(\d+)\b/gi, 'Лвл $1');
+    if (next !== text) return next;
+    return 'Новый уровень!';
+  }
+  if (/check your profile to see what['’`]?s new/i.test(text)) {
+    return 'Загляните в свой профиль, чтобы посмотреть, что нового.';
+  }
+
+  // Sale / Wishlist notifications
+  const fullSale = text.match(/^(.+?)\s+is now\s+(\d+)%(?:\s*off)?$/i);
+  if (fullSale) {
+    return `${fullSale[1]} со скидкой ${fullSale[2]}%`;
+  }
+  const isNowDiscount = text.match(/^is now\s+(\d+)%(?:\s*off)?$/i);
+  if (isNowDiscount) {
+    return `со скидкой ${isNowDiscount[1]}%`;
+  }
+  const isNow = text.match(/^(.+?)\s+is now$/i);
+  if (isNow) {
+    return `${isNow[1]} со скидкой`;
+  }
+  if (/^is now$/i.test(text)) return 'со скидкой';
+  const offMatch = text.match(/^(\d+)%\s*off$/i);
+  if (offMatch) {
+    if (/со скидкой|is now/i.test(context)) return `${offMatch[1]}%`;
+    return `-${offMatch[1]}%`;
+  }
+  if (/get it on\s+.+?\s+for\s+/i.test(text)) {
+    const next = text.replace(
+      /get it on\s+(.+?)\s+for\s+([^\s]+(?:\s+[^\s]+)?)\s+before (?:the )?sale ends\s*(?:on)?\s*([A-Za-z]+\s+\d{1,2}(?:,?\s*\d{4})?)/gi,
+      (_, store, price, date) => {
+        const cleanDate = date.replace(/[.]+$/, '').trim();
+        const dateOut = stampBody(cleanDate) || translateTimestamp(cleanDate) || cleanDate;
+        return `Купите в ${store} за ${price} до окончания распродажи ${dateOut}`;
+      }
+    ).replace(
+      /get it on\s+(.+?)\s+for\s+([^\s]+(?:\s+[^\s]+)?)\s+before (?:the )?sale ends\s*(?:on)?/gi,
+      (_, store, price) => `Купите в ${store} за ${price} до окончания распродажи`
+    ).replace(
+      /get it on\s+(.+?)\s+for\s+([^\s]+(?:\s+[^\s]+)?)/gi,
+      (_, store, price) => `Купите в ${store} за ${price}`
+    );
+    if (next !== text) return next;
+  }
+  if (/before (?:the )?sale ends\s*(?:on)?\s*[A-Za-z]+\s+\d{1,2}/i.test(text)) {
+    return text.replace(
+      /before (?:the )?sale ends\s*(?:on)?\s*([A-Za-z]+\s+\d{1,2}(?:,?\s*\d{4})?)/gi,
+      (_, date) => {
+        const cleanDate = date.replace(/[.]+$/, '').trim();
+        const dateOut = stampBody(cleanDate) || translateTimestamp(cleanDate) || cleanDate;
+        return `до окончания распродажи ${dateOut}`;
+      }
+    );
+  }
   return null;
 }
 
@@ -291,7 +409,7 @@ export function translateTimestamp(raw) {
   return lead ? `${lead} ${out}` : out;
 }
 
-function stampBody(body) {
+export function stampBody(body) {
   if (/^just now$/i.test(body)) return 'только что';
   if (/^yesterday$/i.test(body)) return 'вчера';
   if (/^today$/i.test(body)) return 'сегодня';

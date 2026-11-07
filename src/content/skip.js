@@ -107,7 +107,7 @@ export const AMBIGUOUS_SHORT = new Set(
 
 /** Ancestor looks like site chrome. Word-boundary so "button" inside unrelated classes does not match. */
 const CHROME_HINT =
-  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|game-detail|game-info|game-stat|stat-label|status-picker|more-button)(?:$|[\s_]|\b)/i;
+  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|game-detail|game-info|game-stat|stat-label|status-picker|more-button|opacity-\[var\(--opacity-)(?:$|[\s_]|\b)/i;
 
 const CHROME_TAGS = new Set(['BUTTON', 'A', 'LABEL', 'NAV', 'HEADER', 'FOOTER', 'OPTION', 'SUMMARY', 'ASIDE']);
 

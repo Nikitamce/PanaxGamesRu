@@ -270,6 +270,7 @@
   "Online": "В сети",
   "Offline": "Не в сети",
   "Public": "Публично",
+  "public": "Публично",
   "Private": "Приватный",
   "Friends only": "Только друзья",
   "Everyone": "Все",
@@ -1103,5 +1104,16 @@
   "French": "Французский",
   "More languages are on the way.": "Скоро появятся другие языки.",
   "Make a request": "Оставить заявку",
-  "Follow back": "Подписаться в ответ"
+  "Follow back": "Подписаться в ответ",
+  "Check your profile to see what's new.": "Загляните в свой профиль, чтобы посмотреть, что нового.",
+  "Check your profile to see what’s new.": "Загляните в свой профиль, чтобы посмотреть, что нового.",
+  "Check your profile to see what's new": "Загляните в свой профиль, чтобы посмотреть, что нового.",
+  "Check your profile to see what’s new": "Загляните в свой профиль, чтобы посмотреть, что нового.",
+  "Level Up!": "Новый уровень!",
+  "Level Up": "Новый уровень",
+  "replied on your comment": "ответил на ваш комментарий",
+  "replied to your comment": "ответил на ваш комментарий",
+  "liked your comment": "оценил ваш комментарий",
+  "just dropped a new post": "опубликовал новый пост",
+  "dropped a new post": "опубликовал новый пост"
 }

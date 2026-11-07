@@ -1,5 +1,5 @@
 import { SKIP_TAGS, shouldSkipRoot, shouldSkipProse, isChromeContext } from './skip.js';
-import { translateTimestamp, translateActivity, translateCount, translateNotice, splitNotice } from './time.js';
+import { translateTimestamp, translateActivity, translateCount, translateNotice, splitNotice, stampBody } from './time.js';
 
 const ATTR_OK = new Set([
   'placeholder',
@@ -184,6 +184,28 @@ export function createEngine(dict) {
     if (copyright) {
       return preserveEdges(raw, `© ${copyright[1]} PANAX, Inc. Все права защищены.`);
     }
+
+    if (/check your profile to see what['’`]?s new/i.test(text)) {
+      return preserveEdges(raw, 'Загляните в свой профиль, чтобы посмотреть, что нового.');
+    }
+
+    if (/level\s*up!?/i.test(text)) {
+      const next = text.replace(/\blevel\s*up!?/gi, 'Новый уровень!').replace(/\bLv\.?\s*(\d+)\b/gi, 'Лвл $1');
+      return preserveEdges(raw, next);
+    }
+
+    const fullSale = text.match(/^(.+?)\s+is now\s+(\d+)%(?:\s*off)?$/i);
+    if (fullSale) {
+      return preserveEdges(raw, `${fullSale[1]} со скидкой ${fullSale[2]}%`);
+    }
+
+    const isNowDiscount = text.match(/^is now\s+(\d+)%(?:\s*off)?$/i);
+    if (isNowDiscount) {
+      return preserveEdges(raw, `со скидкой ${isNowDiscount[1]}%`);
+    }
+
+    const isNow = text.match(/^(.+?)\s+is now$/i);
+    if (isNow) return preserveEdges(raw, `${isNow[1]} со скидкой`);
 
     const levelOnly = text.match(/^Lv\.?\s*(\d+)$/i);
     if (levelOnly) return preserveEdges(raw, `Лвл ${levelOnly[1]}`);
@@ -596,7 +618,7 @@ export function createEngine(dict) {
       if (node.nodeType !== 1) return;
       if (['IMG', 'SVG', 'TIME', 'VIDEO'].includes(node.tagName)) return;
       const t = normalizeKey(node.textContent || '');
-      if (t.length > 100 && !/commented on your post|liked your post|started following/i.test(t)) return;
+      if (t.length > 100 && !/commented on your post|liked your post|started following|replied (?:on|to) your comment|liked your comment|(?:just\s+)?dropped a new post/i.test(t)) return;
       for (const child of node.childNodes) take(child);
     };
     for (const child of el.childNodes) {
@@ -622,6 +644,145 @@ export function createEngine(dict) {
     actionNodes[0].nodeValue = name && own.startsWith(name) ? `${parsed.name} ${parsed.ru}` : `${lead}${parsed.ru}`;
     for (let i = 1; i < actionNodes.length; i += 1) actionNodes[i].nodeValue = '';
     return true;
+  }
+
+  function translateWordSplit(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'CODE', 'PRE', 'CANVAS'].includes(el.tagName)) return false;
+
+    // Check sentence containers without graphics
+    const text = normalizeKey(el.textContent || '');
+    if (text && text.length <= 240) {
+      if (/^Public$/i.test(text) && !el.querySelector('svg, img, input, textarea')) {
+        el.textContent = 'Публично';
+        markPill(el);
+        return true;
+      }
+      if (/^check your profile to see what['’`]?s new\.?$/i.test(text)) {
+        if (!el.querySelector('svg, img, input, textarea')) {
+          const style = el.firstElementChild?.getAttribute('style');
+          const className = el.firstElementChild?.className;
+          el.textContent = 'Загляните в свой профиль, чтобы посмотреть, что нового.';
+          if (style) el.setAttribute('style', (el.getAttribute('style') || '') + '; ' + style);
+          if (className) el.className = (el.className ? el.className + ' ' : '') + className;
+          el.style.color = 'rgb(170, 170, 170)';
+          markPill(el);
+          return true;
+        }
+      }
+
+      if (/^get it on\s+.+?\s+for\s+/i.test(text)) {
+        if (!el.querySelector('svg, img, input, textarea')) {
+          const style = el.firstElementChild?.getAttribute('style');
+          const className = el.firstElementChild?.className;
+          const tr = translateNotice(text);
+          if (tr && tr !== text) {
+            el.textContent = tr;
+            if (style) el.setAttribute('style', (el.getAttribute('style') || '') + '; ' + style);
+            if (className) el.className = (el.className ? el.className + ' ' : '') + className;
+            el.style.color = 'rgb(170, 170, 170)';
+            markPill(el);
+            return true;
+          }
+          const saleBody = text.match(/^get it on\s+(.+?)\s+for\s+([^\s]+(?:\s+[^\s]+)?)\s+before (?:the )?sale ends\s*(?:on)?\s*([A-Za-z]+\s+\d{1,2}(?:,?\s*\d{4})?)/i);
+          if (saleBody) {
+            const cleanDate = saleBody[3].replace(/[.]+$/, '').trim();
+            const dateOut = stampBody(cleanDate) || translateTimestamp(cleanDate) || cleanDate;
+            el.textContent = `Купите в ${saleBody[1]} за ${saleBody[2]} до окончания распродажи ${dateOut}`;
+            if (style) el.setAttribute('style', (el.getAttribute('style') || '') + '; ' + style);
+            if (className) el.className = (el.className ? el.className + ' ' : '') + className;
+            el.style.color = 'rgb(170, 170, 170)';
+            markPill(el);
+            return true;
+          }
+        }
+      }
+    }
+
+    // Direct span check
+    if (el.tagName === 'SPAN') {
+      const selfText = normalizeKey(el.textContent || '');
+      if (/^now$/i.test(selfText)) {
+        const prev = el.previousElementSibling;
+        if (prev && /^is$/i.test(normalizeKey(prev.textContent || ''))) {
+          prev.textContent = 'со скидкой ';
+          el.textContent = '';
+          markPill(prev);
+          markPill(el);
+          return true;
+        }
+      }
+      if (/^up!?$/i.test(selfText)) {
+        const prev = el.previousElementSibling;
+        if (prev && /^level$/i.test(normalizeKey(prev.textContent || ''))) {
+          prev.textContent = 'Новый ';
+          el.textContent = 'уровень! ';
+          markPill(prev);
+          markPill(el);
+          return true;
+        }
+      }
+      if (/^level\s*up!?$/i.test(selfText)) {
+        el.textContent = 'Новый уровень! ';
+        markPill(el);
+        return true;
+      }
+      if (/new\.?$/i.test(selfText)) {
+        const p = el.parentElement;
+        if (p && !p.querySelector('svg, img') && /^check your profile to see what['’`]?s new\.?$/i.test(normalizeKey(p.textContent || ''))) {
+          const style = el.getAttribute('style');
+          const className = el.className;
+          p.textContent = 'Загляните в свой профиль, чтобы посмотреть, что нового.';
+          if (style) p.setAttribute('style', (p.getAttribute('style') || '') + '; ' + style);
+          if (className) p.className = (p.className ? p.className + ' ' : '') + className;
+          p.style.color = 'rgb(170, 170, 170)';
+          markPill(p);
+          return true;
+        }
+      }
+      if (/^off$/i.test(selfText)) {
+        el.textContent = '';
+        markPill(el);
+        return true;
+      }
+    }
+
+    // Child spans iteration
+    if (el.childElementCount >= 2 && el.childElementCount <= 40) {
+      const kids = [...el.children];
+      for (let i = 0; i < kids.length; i++) {
+        const k = kids[i];
+        if (k.tagName !== 'SPAN') continue;
+        const kText = normalizeKey(k.textContent || '');
+        if (/^now$/i.test(kText)) {
+          const prev = kids[i - 1];
+          if (prev && /^is$/i.test(normalizeKey(prev.textContent || ''))) {
+            prev.textContent = 'со скидкой ';
+            k.textContent = '';
+            markPill(prev);
+            markPill(k);
+          }
+        } else if (/^is now$/i.test(kText)) {
+          k.textContent = 'со скидкой ';
+          markPill(k);
+        } else if (/^up!?$/i.test(kText)) {
+          const prev = kids[i - 1];
+          if (prev && /^level$/i.test(normalizeKey(prev.textContent || ''))) {
+            prev.textContent = 'Новый ';
+            k.textContent = 'уровень! ';
+            markPill(prev);
+            markPill(k);
+          }
+        } else if (/^level\s*up!?$/i.test(kText)) {
+          k.textContent = 'Новый уровень! ';
+          markPill(k);
+        } else if (/^off$/i.test(kText)) {
+          k.textContent = '';
+          markPill(k);
+        }
+      }
+    }
+    return false;
   }
 
   function stampComposer(node) {
@@ -715,6 +876,7 @@ export function createEngine(dict) {
     }
     if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'CODE', 'PRE', 'CANVAS'].includes(node.tagName)) return;
     paintNotice(node);
+    translateWordSplit(node);
     const graphic = node.querySelector?.('svg, img, input, textarea, video, canvas');
     const text = normalizeKey(node.textContent || '');
     if (!graphic && text.length >= 2 && text.length <= 32 && node.childElementCount <= 6) {
@@ -777,6 +939,7 @@ export function createEngine(dict) {
       }
       if (/^(?:follow back|подписаться в ответ|edit profile|редактировать профиль|share profile|поделиться профилем|connect playstation account|connect xbox account|подключить аккаунт playstation|подключить аккаунт xbox)$/i.test(normalizeKey(node.textContent || ''))) markPill(node);
       paintNotice(node);
+      translateWordSplit(node);
       translateAttrs(node);
       if (node.childElementCount > 0 && node.childElementCount <= 4 && !node.querySelector('svg, img, input, textarea')) {
         const joined = normalizeKey(node.textContent || '');

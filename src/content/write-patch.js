@@ -9,6 +9,9 @@ import { translateTimestamp, translateActivity, translateCount, translateNotice 
 function normalizeKey(s) {
   return String(s || '')
     .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/[\u2018\u2019\u02BC\u2032]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/\u00A0/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -61,11 +64,21 @@ export function startWritePatch(dict) {
     ['Join us for free', dict['Join us for free'] || 'Присоединяйся бесплатно'],
     ['Join now', dict['Join now'] || 'Присоединиться'],
     ['Join now and level up your gaming!', dict['Join now and level up your gaming!'] || 'Присоединяйся и прокачивай свой гейминг!'],
+    ['Level Up!', dict['Level Up!'] || 'Новый уровень!'],
+    ['Level Up', dict['Level Up'] || 'Новый уровень'],
+    ['Check your profile to see what\'s new.', dict['Check your profile to see what\'s new.'] || 'Загляните в свой профиль, чтобы посмотреть, что нового.'],
+    ['Check your profile to see what\'s new', dict['Check your profile to see what\'s new'] || 'Загляните в свой профиль, чтобы посмотреть, что нового.'],
+    ['replied on your comment', dict['replied on your comment'] || 'ответил на ваш комментарий'],
+    ['replied to your comment', dict['replied to your comment'] || 'ответил на ваш комментарий'],
+    ['liked your comment', dict['liked your comment'] || 'оценил ваш комментарий'],
+    ['just dropped a new post', dict['just dropped a new post'] || 'опубликовал новый пост'],
+    ['dropped a new post', dict['dropped a new post'] || 'опубликовал новый пост'],
     ["What's Buzzing?", dict["What's Buzzing?"] || 'О чём говорят?'],
     ['Most talked about right now', dict['Most talked about right now'] || 'Сейчас обсуждают больше всего'],
     ['Who to follow', dict['Who to follow'] || 'Кого читать'],
     ['New post', dict['New post'] || 'Новый пост'],
     ['Public', dict.Public || 'Публично'],
+    ['public', dict.Public || 'Публично'],
     ['What game is this about?', dict['What game is this about?'] || 'О какой игре пост?'],
     ["What's on your mind? Use ## to tag a game", dict["What's on your mind? Use ## to tag a game"] || 'О чём думаешь? Через ## можно отметить игру'],
     ['Spoiler alert', dict['Spoiler alert'] || 'Спойлер'],
@@ -183,6 +196,23 @@ export function startWritePatch(dict) {
       const label = labels[profileTab[1].toLowerCase()];
       if (label) return preserveEdges(raw, profileTab[2] ? `${label} ${profileTab[2]}` : label);
     }
+    if (/check your profile to see what['’`]?s new/i.test(key)) {
+      return preserveEdges(raw, 'Загляните в свой профиль, чтобы посмотреть, что нового.');
+    }
+    if (/level\s*up!?/i.test(key)) {
+      const next = key.replace(/\blevel\s*up!?/gi, 'Новый уровень!').replace(/\bLv\.?\s*(\d+)\b/gi, 'Лвл $1');
+      return preserveEdges(raw, next);
+    }
+    const fullSale = key.match(/^(.+?)\s+is now\s+(\d+)%(?:\s*off)?$/i);
+    if (fullSale) {
+      return preserveEdges(raw, `${fullSale[1]} со скидкой ${fullSale[2]}%`);
+    }
+    const isNowDiscount = key.match(/^is now\s+(\d+)%(?:\s*off)?$/i);
+    if (isNowDiscount) {
+      return preserveEdges(raw, `со скидкой ${isNowDiscount[1]}%`);
+    }
+    const isNow = key.match(/^(.+?)\s+is now$/i);
+    if (isNow) return preserveEdges(raw, `${isNow[1]} со скидкой`);
     if (/\bLv\.?\s*\d+\b/i.test(key) && key.length < 80) {
       const next = key.replace(/\bLv\.?\s*(\d+)\b/gi, 'Лвл $1');
       if (next !== key) return preserveEdges(raw, next);
@@ -198,6 +228,10 @@ export function startWritePatch(dict) {
       const form = mod100 >= 11 && mod100 <= 14 ? forms[2] : mod10 === 1 ? forms[0] : mod10 >= 2 && mod10 <= 4 ? forms[1] : forms[2];
       const tail = /got help/i.test(key) ? (n ? `и ещё ${n} помогло` : 'и другим помогло') : (n ? `и ещё ${n} ${form} оценили` : 'и другие оценили');
       return preserveEdges(raw, `${who} ${tail}`);
+    }
+    if (/get it on\s+.+?\s+for\s+/i.test(key) || /before (?:the )?sale ends/i.test(key)) {
+      const tr = translateNotice(key);
+      if (tr && tr !== key) return preserveEdges(raw, tr);
     }
     if (parent && /^more$/i.test(key) && (parent.classList?.contains('more-button-inline') || parent.closest?.('.more-button-inline'))) {
       return preserveEdges(raw, 'Ещё');

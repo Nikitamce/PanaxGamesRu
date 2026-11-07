@@ -67,6 +67,14 @@ function boot() {
   const { schedule } = startObserver(engine);
   startHarvest(engine);
 
+  // Visible proof the build is alive (hide with #panax-ru-hide-badge)
+  if (!document.getElementById('panax-ru-badge') && !/#panax-ru-hide-badge\b/.test(location.hash)) {
+    const badge = document.createElement('div');
+    badge.id = 'panax-ru-badge';
+    badge.textContent = 'PANAX RU 0.2.72';
+    (document.body || document.documentElement).appendChild(badge);
+  }
+
   // Intercept React text writes for hardcoded chrome (MAIN world)
   try {
     startWritePatch(dict);
@@ -99,7 +107,7 @@ function boot() {
     /* ignore */
   }
 
-  console.info(`[PANAX RU] v0.2.65 · ${Object.keys(dict).length} strings · active`);
+  console.info(`[PANAX RU] PANAX RU 0.2.72 · v0.2.72 · ${Object.keys(dict).length} strings · active`);
 }
 
 function start() {
