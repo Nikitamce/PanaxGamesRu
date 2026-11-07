@@ -604,25 +604,33 @@ export function createEngine(dict) {
 
     // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts, reply to comments)
     const rawText = el.textContent || '';
-    if (/(?:Level\s*Up|Уровень\s*Up|Check your|is now|Get it|sale ends|just dropped a new post|replied\s+(?:on|to)\s+your)/i.test(rawText)) {
+    if (/(?:Level\s*Up|Уровень\s*Up|Log in daily|Check your|is now|Get it|sale ends|just dropped a new post|replied\s+(?:on|to)\s+your)/i.test(rawText)) {
+      const nodes = [el, ...el.querySelectorAll('p, div, span, a, li, h2, h3, h4')];
+
       // 0. Reply on your comment / replied to your comment
-      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+      for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/replied (?:on|to) your/i.test(t)) {
+        if (/replied (?:on|to) your/i.test(t) && t.length < 160) {
           for (const n of p.childNodes) {
             if (n.nodeType === 3) {
-              if (/replied (?:on|to) your comment/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your comment/gi, 'ответил на ваш комментарий');
+              if (/replied (?:on|to) your (?:comment|комментарий)/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your (?:comment|комментарий)/gi, 'ответил на ваш комментарий');
+              } else if (/replied (?:on|to) your/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your/gi, 'ответил на ваш');
               }
             }
+          }
+          const cLink = p.querySelector('a, span');
+          if (cLink && cLink.childElementCount === 0 && /^(?:comment|Комментарий)$/i.test(normalizeKey(cLink.textContent || ''))) {
+            cLink.textContent = 'комментарий';
           }
         }
       }
 
       // 0.1. AjFletch27 just dropped a new post
-      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+      for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/just dropped a new post/i.test(t)) {
+        if (/just dropped a new post/i.test(t) && t.length < 160) {
           for (const n of p.childNodes) {
             if (n.nodeType === 3 && /just dropped a new post/i.test(n.nodeValue)) {
               n.nodeValue = n.nodeValue.replace(/just dropped a new post/gi, 'опубликовал новый пост');
@@ -631,10 +639,19 @@ export function createEngine(dict) {
         }
       }
 
-      // 0.2. Level Up! -> Новый уровень!
-      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+      // 0.15. Log in daily to level up unlock avatar items! Streak resets daily at 3 AM.
+      for (const p of nodes) {
+        if (p.querySelector('img, svg, div, p')) continue;
         const t = normalizeKey(p.textContent || '');
-        if (/(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(t)) {
+        if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(t)) {
+          p.textContent = 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.';
+        }
+      }
+
+      // 0.2. Level Up! -> Новый уровень! (only when followed by ! or Lv/Лвл, never inside "Log in daily to level up")
+      for (const p of nodes) {
+        const t = normalizeKey(p.textContent || '');
+        if (!/log in daily/i.test(t) && (/(?:Level\s*Up!|Уровень\s*Up!)/i.test(t) || (/(?:Level\s*Up|Уровень\s*Up)/i.test(t) && /\b(?:Lv|Лвл)\.?\s*\d+/i.test(t)))) {
           for (const n of p.childNodes) {
             if (n.nodeType === 3 && /(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(n.nodeValue)) {
               n.nodeValue = n.nodeValue.replace(/(?:Level\s*Up!?|Уровень\s*Up!?)\s*/gi, 'Новый уровень! ');
@@ -643,11 +660,12 @@ export function createEngine(dict) {
         }
       }
 
-      // 1. Check your profile to see what's new - only touch target leaf or direct paragraph
-      for (const p of el.querySelectorAll('p, div, span')) {
+      // 1. Check your profile to see what's new - strict whole-line match so outer wrappers are never touched
+      for (const p of nodes) {
+        if (p.querySelector('img, svg, div, p')) continue;
         const t = normalizeKey(p.textContent || '');
-        if (/Check your/i.test(t) && /see what['’]s new/i.test(t) && p.childElementCount <= 2) {
-          const link = p.querySelector('a, span');
+        if (/^Check your\s+(?:profile|профиль|Профиль)\s+(?:to|До)?\s*see what['’]s new\.?$/i.test(t)) {
+          const link = p.querySelector('a');
           if (link && link.childElementCount === 0) {
             link.textContent = 'профиль';
             for (const n of p.childNodes) {
@@ -656,37 +674,41 @@ export function createEngine(dict) {
                 else if (/(?:to|До)?\s*see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
               }
             }
-          } else if (p.childElementCount === 0) {
+          } else {
             p.textContent = 'Загляните в свой профиль, чтобы узнать, что нового.';
           }
         }
       }
 
       // 2. <Game> is now <N>%
-      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+      for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/\bis now\s+\d+%/i.test(t)) {
-          for (const n of p.childNodes) {
-            if (n.nodeType === 3 && /\bis now\b/i.test(n.nodeValue)) {
-              n.nodeValue = n.nodeValue.replace(/\bis now\b/gi, '— скидка');
+        if (/\bis now\s+\d+%/i.test(t) && t.length < 160 && !p.querySelector('img, svg')) {
+          const walkIsNow = (node) => {
+            for (const n of node.childNodes) {
+              if (n.nodeType === 3 && /\bis now\b/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/\bis now\s+(\d+)%(?:\s*off)?/gi, '— скидка $1%').replace(/\bis now\b/gi, '— скидка');
+              } else if (n.nodeType === 1) {
+                walkIsNow(n);
+              }
             }
-          }
+          };
+          walkIsNow(p);
         }
       }
 
       // 3. Get it on Steam for $X before the sale ends on Month Day
-      for (const p of el.querySelectorAll('p, div, span')) {
-        if (p.childElementCount > 0) continue; // Never wipe containers with game titles or icons!
+      for (const p of nodes) {
+        if (p.querySelector('img, svg, div, p')) continue;
         const t = normalizeKey(p.textContent || '');
-        if (/Get it/i.test(t) && /Steam/i.test(t) && /sale ends/i.test(t)) {
-          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam\s+for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
-          if (m) {
-            const monKey = m[2].toLowerCase();
-            const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
-            const day = parseInt(m[3], 10);
-            const year = m[4] ? ` ${m[4]}` : '';
-            p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
-          }
+        if (t.length > 140 || /\bis now\b|скидк/i.test(t)) continue;
+        const m = t.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam\s+for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?\.?$/i);
+        if (m) {
+          const monKey = m[2].toLowerCase();
+          const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
+          const day = parseInt(m[3], 10);
+          const year = m[4] ? ` ${m[4]}` : '';
+          p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
         }
       }
     }

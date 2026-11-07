@@ -144,10 +144,25 @@ export function translateNotice(raw, context = '') {
     return '';
   }
   if (/^Check your (?:profile|Профиль|профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
-    return 'Загляните в профиль, чтобы узнать, что нового.';
+    return 'Загляните в свой профиль, чтобы узнать, что нового.';
+  }
+  if (/^Check your$/i.test(text)) {
+    return 'Загляните в свой';
   }
   if (/^(?:to|До)?\s*see what['’]s new\.?$/i.test(text) || /^see what['’]s new\.?$/i.test(text)) {
     return ', чтобы узнать, что нового.';
+  }
+  if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
+    return 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.';
+  }
+  if (/^log in daily to$/i.test(text)) {
+    return 'Заходите каждый день, чтобы';
+  }
+  if (/^(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
+    return 'и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.';
+  }
+  if (/^streak resets daily at 3 am\.?$/i.test(text)) {
+    return 'Серия сбрасывается каждый день в 3:00.';
   }
   if (/^just dropped a new post$/i.test(text) || /^dropped a new post$/i.test(text)) {
     return 'опубликовал новый пост';
@@ -307,7 +322,7 @@ export function translateActivity(raw) {
   if (/^pick an emoji[.…]{0,3}$/i.test(text)) return 'Выберите эмодзи…';
   if (/^search emoji$/i.test(text)) return 'Поиск эмодзи';
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
-  if (/^log in daily to level up unlock avatar items! streak resets daily at 3 am\.?$/i.test(text)) {
+  if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
     return 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.';
   }
   const expStreak = text.match(/^exp\s*\+\s*([\d.,]+)\s+you(?:'|’)re on an?\s+(\d+)-day streak$/i);

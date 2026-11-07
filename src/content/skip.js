@@ -102,12 +102,14 @@ export const AMBIGUOUS_SHORT = new Set(
     'On',
     'To',
     'And',
+    'Confirm',
+    'Verify',
   ].map((s) => s.toLowerCase()),
 );
 
 /** Ancestor looks like site chrome. Word-boundary so "button" inside unrelated classes does not match. */
 const CHROME_HINT =
-  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|notification|notice|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|popover|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button)(?:$|[\s_]|\b)/i;
+  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
 
 const CHROME_TAGS = new Set(['BUTTON', 'A', 'LABEL', 'NAV', 'HEADER', 'FOOTER', 'OPTION', 'SUMMARY', 'ASIDE']);
 
@@ -178,16 +180,16 @@ export function shouldSkipRoot(el) {
   if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
     return false;
   }
-  // Notifications popover, dialogs and menus are UI chrome
-  if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
-    return false;
-  }
   for (const sel of SKIP_ROOT_SELECTORS) {
     try {
       if (el.matches?.(sel) || el.closest?.(sel)) return true;
     } catch {
       /* invalid selector */
     }
+  }
+  // Notifications popover, dialogs and menus are UI chrome
+  if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
+    return false;
   }
   return false;
 }
