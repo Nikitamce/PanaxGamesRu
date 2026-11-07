@@ -1049,6 +1049,7 @@ export function createEngine(dict) {
       'Public', 'Completionist', 'Main Story', 'Main + Sides', 'How Long To Beat',
       'Level Up!', 'Level up!', 'Уровень Up!', 'Check your profile to see what\'s new.', 'just dropped a new post',
       'is now', 'Get it', 'Get it on Steam', 'before the sale ends',
+      'No comments yet', 'No comments yet.', 'No comments', 'No reviews yet', 'No games yet',
     ].map(normalizeKey),
   );
 

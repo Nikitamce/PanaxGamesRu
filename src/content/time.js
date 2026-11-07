@@ -257,6 +257,8 @@ export function translateNotice(raw, context = '') {
   if (/^copy text$/i.test(text)) return 'Копировать текст';
   if (/^unfollow this user$/i.test(text)) return 'Отписаться от пользователя';
   if (/^not enough ratings yet$/i.test(text)) return 'Оценок пока недостаточно';
+  if (/^no comments yet\.?$/i.test(text)) return 'Комментариев пока нет';
+  if (/^no comments yet\.\s*be the first!?$/i.test(text)) return 'Комментариев пока нет. Будьте первым!';
   if (/^edit profile$/i.test(text)) return 'Редактировать профиль';
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
   if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return 'прокомментировал ваш пост';
