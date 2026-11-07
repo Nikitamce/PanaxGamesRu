@@ -911,6 +911,7 @@ export function createEngine(dict) {
       'Discover, track, and share your gaming journey with fellow enthusiasts.',
       'Players with this game', 'Wishlist Users', 'How was it?',
       'Public', 'Completionist', 'Main Story', 'Main + Sides', 'How Long To Beat',
+      'Level Up!', 'Level up!', 'Check your profile to see what\'s new.', 'just dropped a new post',
     ].map(normalizeKey),
   );
 

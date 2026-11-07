@@ -48,3 +48,4 @@ export async function fetchMetacritic(title) {
     return null;
   }
 }
+

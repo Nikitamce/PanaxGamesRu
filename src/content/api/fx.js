@@ -45,3 +45,4 @@ export async function convertToRub(amount, fromCurrency) {
   const inRub = (amount / rateFrom) * rateRub;
   return Math.round(inRub);
 }
+

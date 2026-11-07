@@ -26,3 +26,4 @@ export async function fetchProtonDb(appId) {
     return null;
   }
 }
+

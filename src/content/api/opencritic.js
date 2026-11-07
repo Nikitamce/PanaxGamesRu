@@ -81,3 +81,4 @@ export async function fetchOpenCritic(title) {
     return null;
   }
 }
+

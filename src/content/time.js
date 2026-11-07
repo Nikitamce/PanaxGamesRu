@@ -100,6 +100,10 @@ export function splitNotice(raw) {
   let m;
   if (/^commented on your post$/i.test(text)) return { name: '', ru: 'прокомментировал ваш пост' };
   if (/^started following$/i.test(text)) return { name: '', ru: 'подписался' };
+  if (/^just dropped a new post$/i.test(text)) return { name: '', ru: 'опубликовал(а) новый пост' };
+  if ((m = text.match(/^(.+?)\s+just dropped a new post$/i)) && m[1].length < 60) {
+    return { name: m[1], ru: 'опубликовал(а) новый пост' };
+  }
   if ((m = text.match(/^and\s+(\d+)\s+others?\s+liked your post$/i))) {
     return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш пост` };
   }
@@ -125,6 +129,29 @@ export function splitNotice(raw) {
 export function translateNotice(raw, context = '') {
   const text = clean(raw);
   if (!text || text.length > 160) return null;
+  if (/^Level Up!/i.test(text)) {
+    return text.replace(/^Level Up!/i, 'Новый уровень!');
+  }
+  if (/^Check your profile to see what['’]s new\.?$/i.test(text)) {
+    return 'Загляните в профиль, чтобы узнать, что нового.';
+  }
+  if (/^just dropped a new post$/i.test(text)) {
+    return 'опубликовал(а) новый пост';
+  }
+  const dropped = text.match(/^(.+?)\s+just dropped a new post$/i);
+  if (dropped && dropped[1].length < 80) {
+    return `${dropped[1]} опубликовал(а) новый пост`;
+  }
+  const saleTitle = text.match(/^(.+?)\s+is now\s+(\d+)%\s+off$/i);
+  if (saleTitle) {
+    return `${saleTitle[1]}: скидка ${saleTitle[2]}%`;
+  }
+  const saleBody = text.match(/^Get it on Steam for\s+(.+?)\s+before the sale ends on\s+([a-zA-Z]+)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+  if (saleBody) {
+    const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
+    const day = parseInt(saleBody[3], 10);
+    return `Купите в Steam за ${saleBody[1].trim()} до окончания скидки ${day} ${mon}${saleBody[4] ? ` ${saleBody[4]}` : ''}`;
+  }
   if (/^updates$/i.test(text)) return 'Обновления';
   if (/^highlights$/i.test(text)) return 'Главное';
   if (/^game chart$/i.test(text)) return 'Рейтинг игр';

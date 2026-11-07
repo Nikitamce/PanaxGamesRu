@@ -448,3 +448,4 @@ export function startEnrichment() {
     subtree: true,
   });
 }
+
