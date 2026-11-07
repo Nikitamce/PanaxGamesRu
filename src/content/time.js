@@ -104,6 +104,20 @@ export function splitNotice(raw) {
   if ((m = text.match(/^(.+?)\s+just dropped a new post$/i)) && m[1].length < 60) {
     return { name: m[1], ru: 'опубликовал(а) новый пост' };
   }
+  if ((m = text.match(/^(?:Level\s*Up!?|Уровень\s*Up!?)\s*(.*)$/i))) {
+    return { name: 'Новый уровень!', ru: m[1] ? ` ${m[1]}` : '' };
+  }
+  if (/^Check your (?:profile|Профиль) (?:to|До) see what['’]s new\.?$/i.test(text)) {
+    return { name: '', ru: 'Загляните в профиль, чтобы узнать, что нового.' };
+  }
+  if ((m = text.match(/^(.+?)\s+is now\s+(\d+)%\s+off$/i))) {
+    return { name: m[1], ru: ` — скидка ${m[2]}%` };
+  }
+  if ((m = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i))) {
+    const mon = MONTHS[m[2].toLowerCase()] || m[2];
+    const day = parseInt(m[3], 10);
+    return { name: '', ru: `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${m[4] ? ` ${m[4]}` : ''}` };
+  }
   if ((m = text.match(/^and\s+(\d+)\s+others?\s+liked your post$/i))) {
     return { name: '', ru: `и ещё ${m[1]} ${people(m[1])} оценили ваш пост` };
   }
@@ -129,24 +143,45 @@ export function splitNotice(raw) {
 export function translateNotice(raw, context = '') {
   const text = clean(raw);
   if (!text || text.length > 160) return null;
-  if (/^Level Up!/i.test(text)) {
-    return text.replace(/^Level Up!/i, 'Новый уровень!');
+  if (/^(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(text)) {
+    return text.replace(/^(?:Level\s*Up!?|Уровень\s*Up!?)/i, 'Новый уровень!');
   }
-  if (/^Check your profile to see what['’]s new\.?$/i.test(text)) {
+  if (/^Check your (?:profile|Профиль) (?:to|До) see what['’]s new\.?$/i.test(text)) {
     return 'Загляните в профиль, чтобы узнать, что нового.';
   }
-  if (/^just dropped a new post$/i.test(text)) {
+  if (/^Check your$/i.test(text)) return 'Загляните в';
+  if (/^(?:to\s+)?see what['’]s new\.?$/i.test(text)) return ', чтобы узнать, что нового.';
+  if (/^just dropped a new post$/i.test(text) || /^dropped a new post$/i.test(text)) {
     return 'опубликовал(а) новый пост';
   }
   const dropped = text.match(/^(.+?)\s+just dropped a new post$/i);
   if (dropped && dropped[1].length < 80) {
     return `${dropped[1]} опубликовал(а) новый пост`;
   }
+  if (/^is now$/i.test(text)) return '— скидка';
   const saleTitle = text.match(/^(.+?)\s+is now\s+(\d+)%\s+off$/i);
   if (saleTitle) {
     return `${saleTitle[1]}: скидка ${saleTitle[2]}%`;
   }
-  const saleBody = text.match(/^Get it on Steam for\s+(.+?)\s+before the sale ends on\s+([a-zA-Z]+)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+  const isNowOff = text.match(/^is now\s+(\d+)%\s+off$/i);
+  if (isNowOff) return `скидка ${isNowOff[1]}%`;
+  const pctOff = text.match(/^(\d+)%\s+off$/i);
+  if (pctOff) return `${pctOff[1]}%`;
+  const upToOff = text.match(/^up to\s+(\d+)%\s+off$/i);
+  if (upToOff) return `скидки до ${upToOff[1]}%`;
+  const savePct = text.match(/^save\s+(\d+)%$/i);
+  if (savePct) return `скидка ${savePct[1]}%`;
+
+  if (/^Get it$/i.test(text)) return 'Купите';
+  if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
+  if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
+  if (/^before the sale ends$/i.test(text) || /^before the sale ends on$/i.test(text)) {
+    return 'до окончания скидки';
+  }
+  const steamFor = text.match(/^Steam for\s+(.+)$/i);
+  if (steamFor) return `Steam за ${steamFor[1]}`;
+
+  const saleBody = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
   if (saleBody) {
     const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
     const day = parseInt(saleBody[3], 10);

@@ -91,12 +91,13 @@ export function createEngine(dict) {
   const exact = new Map();
   /** @type {Map<string, string>} */
   const fold = new Map();
+  const NO_FOLD = new Set(['on', 'to', 'by', 'or', 'in', 'at', 'for', 'from', 'with']);
   for (const [key, value] of Object.entries(dict)) {
     const norm = normalizeKey(key);
     if (!norm) continue;
     exact.set(norm, value);
     const lower = norm.toLowerCase();
-    if (!fold.has(lower)) fold.set(lower, value);
+    if (!NO_FOLD.has(lower) && !fold.has(lower)) fold.set(lower, value);
   }
 
   let busy = false;
@@ -596,7 +597,7 @@ export function createEngine(dict) {
       if (node.nodeType !== 1) return;
       if (['IMG', 'SVG', 'TIME', 'VIDEO'].includes(node.tagName)) return;
       const t = normalizeKey(node.textContent || '');
-      if (t.length > 100 && !/commented on your post|liked your post|started following/i.test(t)) return;
+      if (t.length > 200 && !/commented on your post|liked your post|started following|is now|sale ends|Get it on Steam|Get it|Level Up|Check your profile|dropped a new post/i.test(t)) return;
       for (const child of node.childNodes) take(child);
     };
     for (const child of el.childNodes) {
@@ -911,7 +912,8 @@ export function createEngine(dict) {
       'Discover, track, and share your gaming journey with fellow enthusiasts.',
       'Players with this game', 'Wishlist Users', 'How was it?',
       'Public', 'Completionist', 'Main Story', 'Main + Sides', 'How Long To Beat',
-      'Level Up!', 'Level up!', 'Check your profile to see what\'s new.', 'just dropped a new post',
+      'Level Up!', 'Level up!', 'Уровень Up!', 'Check your profile to see what\'s new.', 'just dropped a new post',
+      'is now', 'Get it', 'Get it on Steam', 'before the sale ends',
     ].map(normalizeKey),
   );
 
