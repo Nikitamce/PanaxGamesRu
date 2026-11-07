@@ -23,7 +23,7 @@ await esbuild.build({
 const manifest = {
   manifest_version: 3,
   name: 'PANAX RU',
-  version: '0.2.70',
+  version: '0.2.71',
   description: 'Russian UI for panaxgames.com (i18n, no reload).',
   permissions: ['storage'],
   background: {

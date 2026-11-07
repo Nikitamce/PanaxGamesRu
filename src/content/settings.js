@@ -32,3 +32,4 @@ export function updateSettings(partial) {
     chrome.storage.local.set(currentSettings);
   }
 }
+
