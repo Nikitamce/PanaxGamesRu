@@ -590,6 +590,53 @@ export function createEngine(dict) {
     // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts)
     const rawText = el.textContent || '';
     if (/(?:Level\s*Up|Уровень\s*Up|Check your|is now|Get it|sale ends|just dropped a new post)/i.test(rawText)) {
+      // 1. Check your profile to see what's new
+      for (const p of el.querySelectorAll('p, div, span')) {
+        const t = normalizeKey(p.textContent || '');
+        if (/Check your/i.test(t) && /see what['’]s new/i.test(t)) {
+          const link = p.querySelector('a, span');
+          if (link) {
+            link.textContent = 'профиль';
+            for (const n of p.childNodes) {
+              if (n.nodeType === 3) {
+                if (/Check your/i.test(n.nodeValue)) n.nodeValue = 'Загляните в свой ';
+                else if (/see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
+              }
+            }
+          } else {
+            p.textContent = 'Загляните в свой профиль, чтобы узнать, что нового.';
+          }
+        }
+      }
+
+      // 2. <Game> is now <N>%
+      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+        const t = normalizeKey(p.textContent || '');
+        if (/\bis now\s+\d+%/i.test(t)) {
+          for (const n of p.childNodes) {
+            if (n.nodeType === 3 && /\bis now\b/i.test(n.nodeValue)) {
+              n.nodeValue = n.nodeValue.replace(/\bis now\b/gi, '— скидка');
+            }
+          }
+        }
+      }
+
+      // 3. Get it on Steam for $X before the sale ends on Month Day
+      for (const p of el.querySelectorAll('p, div, span')) {
+        const t = normalizeKey(p.textContent || '');
+        if (/Get it/i.test(t) && /Steam/i.test(t) && /sale ends/i.test(t)) {
+          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
+          if (m) {
+            const monKey = m[2].toLowerCase();
+            const mon = MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
+            const day = parseInt(m[3], 10);
+            const year = m[4] ? ` ${m[4]}` : '';
+            p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
+          }
+        }
+      }
+
+      // 4. Recursive text node walker for any remaining pieces
       const walk = (node) => {
         if (node.nodeType === 3) {
           const val = node.nodeValue;

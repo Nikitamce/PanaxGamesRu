@@ -169,13 +169,6 @@ export function translateNotice(raw, context = '') {
   const savePct = text.match(/^save\s+(\d+)%$/i);
   if (savePct) return `скидка ${savePct[1]}%`;
 
-  if (/^Get it$/i.test(text)) return 'Купите';
-  if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
-  if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
-  if (/^on Steam for$/i.test(text)) return 'в Steam за';
-  const steamFor = text.match(/^Get it on Steam for\s+(.+)$/i) || text.match(/^Steam for\s+(.+)$/i);
-  if (steamFor) return `Купите в Steam за ${steamFor[1]}`;
-
   const saleBody = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
   if (saleBody) {
     const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
@@ -192,6 +185,13 @@ export function translateNotice(raw, context = '') {
   if (/^before the sale ends$/i.test(text) || /^before the sale ends on$/i.test(text)) {
     return 'до окончания скидки';
   }
+
+  if (/^Get it$/i.test(text)) return 'Купите';
+  if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
+  if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
+  if (/^on Steam for$/i.test(text)) return 'в Steam за';
+  const steamFor = text.match(/^Get it on Steam for\s+(.+)$/i) || text.match(/^Steam for\s+(.+)$/i);
+  if (steamFor) return `Купите в Steam за ${steamFor[1]}`;
 
   const likedGames = text.match(/^Liked\s+(\d+\+?)\s+games?$/i);
   if (likedGames) {
