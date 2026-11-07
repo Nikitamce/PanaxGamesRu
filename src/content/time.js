@@ -143,12 +143,8 @@ export function translateNotice(raw, context = '') {
   if (/^Up!?$/i.test(text) && /(?:level|уровень|новый)/i.test(context)) {
     return '';
   }
-  if (/^Check your (?:profile|Профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
+  if (/^Check your (?:profile|Профиль|профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
     return 'Загляните в профиль, чтобы узнать, что нового.';
-  }
-  if (/^Check your$/i.test(text)) return 'Загляните в свой';
-  if (/^(?:profile|Профиль)$/i.test(text) && /(?:check your|загляните|see what)/i.test(context)) {
-    return 'профиль';
   }
   if (/^(?:to|До)?\s*see what['’]s new\.?$/i.test(text) || /^see what['’]s new\.?$/i.test(text)) {
     return ', чтобы узнать, что нового.';
@@ -232,7 +228,6 @@ export function translateNotice(raw, context = '') {
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
   if (/^commented on your post$/i.test(text)) return 'прокомментировал ваш пост';
   if (/^replied (?:on|to) your comment$/i.test(text)) return 'ответил на ваш комментарий';
-  if (/^replied (?:on|to) your$/i.test(text)) return 'ответил на ваш';
   if (/^started following$/i.test(text)) return 'подписался';
   if (/^liked your post$/i.test(text)) {
     return /\band\s+\d+\s+others?\b/i.test(context) ? 'оценили ваш пост' : 'оценил ваш пост';

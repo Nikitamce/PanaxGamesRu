@@ -613,8 +613,6 @@ export function createEngine(dict) {
             if (n.nodeType === 3) {
               if (/replied (?:on|to) your comment/i.test(n.nodeValue)) {
                 n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your comment/gi, 'ответил на ваш комментарий');
-              } else if (/replied (?:on|to) your/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/replied (?:on|to) your/gi, 'ответил на ваш');
               }
             }
           }
@@ -633,6 +631,18 @@ export function createEngine(dict) {
         }
       }
 
+      // 0.2. Level Up! -> Новый уровень!
+      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+        const t = normalizeKey(p.textContent || '');
+        if (/(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(t)) {
+          for (const n of p.childNodes) {
+            if (n.nodeType === 3 && /(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(n.nodeValue)) {
+              n.nodeValue = n.nodeValue.replace(/(?:Level\s*Up!?|Уровень\s*Up!?)\s*/gi, 'Новый уровень! ');
+            }
+          }
+        }
+      }
+
       // 1. Check your profile to see what's new - only touch target leaf or direct paragraph
       for (const p of el.querySelectorAll('p, div, span')) {
         const t = normalizeKey(p.textContent || '');
@@ -643,7 +653,7 @@ export function createEngine(dict) {
             for (const n of p.childNodes) {
               if (n.nodeType === 3) {
                 if (/Check your/i.test(n.nodeValue)) n.nodeValue = 'Загляните в свой ';
-                else if (/see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
+                else if (/(?:to|До)?\s*see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
               }
             }
           } else if (p.childElementCount === 0) {
@@ -664,12 +674,12 @@ export function createEngine(dict) {
         }
       }
 
-      // 3. Get it on Steam for $X before the sale ends on Month Day - only leaf element!
+      // 3. Get it on Steam for $X before the sale ends on Month Day
       for (const p of el.querySelectorAll('p, div, span')) {
         if (p.childElementCount > 0) continue; // Never wipe containers with game titles or icons!
         const t = normalizeKey(p.textContent || '');
         if (/Get it/i.test(t) && /Steam/i.test(t) && /sale ends/i.test(t)) {
-          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
+          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam\s+for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
           if (m) {
             const monKey = m[2].toLowerCase();
             const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
@@ -679,22 +689,6 @@ export function createEngine(dict) {
           }
         }
       }
-
-      // 4. Recursive text node walker for any remaining pieces
-      const walk = (node) => {
-        if (node.nodeType === 3) {
-          const val = node.nodeValue;
-          if (val && val.trim()) {
-            const tr = translateNotice(val, rawText);
-            if (tr != null && tr !== val) node.nodeValue = preserveEdges(val, tr);
-          }
-          return;
-        }
-        if (node.nodeType !== 1) return;
-        if (['IMG', 'SVG', 'TIME', 'VIDEO', 'INPUT', 'TEXTAREA'].includes(node.tagName)) return;
-        for (const child of node.childNodes) walk(child);
-      };
-      walk(el);
     }
 
     let acc = '';
