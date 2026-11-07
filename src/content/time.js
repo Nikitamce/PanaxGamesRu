@@ -138,11 +138,11 @@ export function translateNotice(raw, context = '') {
   if (/^Up!?$/i.test(text) && /(?:level|уровень|новый)/i.test(context)) {
     return '';
   }
-  if (/^Check your (?:profile|профиль|Профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
+  if (/^Check your (?:profile|Профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
     return 'Загляните в профиль, чтобы узнать, что нового.';
   }
   if (/^Check your$/i.test(text)) return 'Загляните в свой';
-  if (/^(?:profile|профиль|Профиль)$/i.test(text) && /(?:check your|загляните|see what)/i.test(context)) {
+  if (/^(?:profile|Профиль)$/i.test(text) && /(?:check your|загляните|see what)/i.test(context)) {
     return 'профиль';
   }
   if (/^(?:to|До)?\s*see what['’]s new\.?$/i.test(text) || /^see what['’]s new\.?$/i.test(text)) {
@@ -169,19 +169,11 @@ export function translateNotice(raw, context = '') {
   const savePct = text.match(/^save\s+(\d+)%$/i);
   if (savePct) return `скидка ${savePct[1]}%`;
 
-  const saleBody = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam\s+for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
+  const saleBody = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
   if (saleBody) {
     const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
     const day = parseInt(saleBody[3], 10);
     return `Купите в Steam за ${saleBody[1].trim()} до окончания скидки ${day} ${mon}${saleBody[4] ? ` ${saleBody[4]}` : ''}`;
-  }
-
-  const endsFor = text.match(/^(?:for\s+)?([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
-  if (endsFor) {
-    const mon = MONTHS[endsFor[2].toLowerCase()] || endsFor[2];
-    const day = parseInt(endsFor[3], 10);
-    const yr = endsFor[4] ? ` ${endsFor[4]}` : '';
-    return `за ${endsFor[1].trim()} до окончания скидки ${day} ${mon}${yr}`;
   }
 
   const endsBefore = text.match(/^before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
@@ -195,7 +187,6 @@ export function translateNotice(raw, context = '') {
   }
 
   if (/^Get it$/i.test(text)) return 'Купите';
-  if (/^Get it\s*(?:on|в|Вкл\.)?$/i.test(text)) return 'Купите в';
   if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
   if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
   if (/^on Steam for$/i.test(text)) return 'в Steam за';

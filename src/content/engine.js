@@ -600,7 +600,7 @@ export function createEngine(dict) {
   }
 
   function paintNotice(el) {
-    if (!el || el.nodeType !== 1 || el.childElementCount > 60) return false;
+    if (!el || el.nodeType !== 1 || el.childElementCount > 40) return false;
 
     // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts)
     const rawText = el.textContent || '';
@@ -617,93 +617,54 @@ export function createEngine(dict) {
         }
       }
 
-      // 1. Level Up! -> Новый уровень!
-      for (const h of el.querySelectorAll('p, div, span, h2, h3, h4')) {
-        const t = normalizeKey(h.textContent || '');
-        if (/(?:Level\s*Up|Уровень\s*Up)/i.test(t)) {
-          for (const n of h.childNodes) {
-            if (n.nodeType === 3 && /(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(n.nodeValue)) {
-              n.nodeValue = n.nodeValue.replace(/(?:Level\s*Up!?|Уровень\s*Up!?)/gi, 'Новый уровень!');
-            }
-          }
-        }
-      }
-
-      // 2. Check your profile to see what's new - only touch target leaf or direct paragraph
+      // 1. Check your profile to see what's new - only touch target leaf or direct paragraph
       for (const p of el.querySelectorAll('p, div, span')) {
         const t = normalizeKey(p.textContent || '');
-        if (/Check your/i.test(t) && /see what['’]s new/i.test(t)) {
-          // Strictly identify the profile link by href or text so we NEVER touch streak/exp badges
+        if (/Check your/i.test(t) && /see what['’]s new/i.test(t) && p.childElementCount <= 2) {
           const link = p.querySelector('a, span');
-          const isProfileLink = link && (
-            (link.getAttribute?.('href') && /profile/i.test(link.getAttribute('href'))) ||
-            /^(?:profile|профиль)$/i.test(normalizeKey(link.textContent || ''))
-          );
-          if (isProfileLink) {
+          if (link && link.childElementCount === 0) {
             link.textContent = 'профиль';
             for (const n of p.childNodes) {
               if (n.nodeType === 3) {
                 if (/Check your/i.test(n.nodeValue)) n.nodeValue = 'Загляните в свой ';
-                else if (/(?:to|До)?\s*see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
+                else if (/see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
               }
             }
-          } else if (p.childElementCount === 0 || !p.querySelector('a')) {
-            p.textContent = 'Загляните в профиль, чтобы узнать, что нового.';
+          } else if (p.childElementCount === 0) {
+            p.textContent = 'Загляните в свой профиль, чтобы узнать, что нового.';
           }
         }
       }
 
-      // 3. <Game> is now <N>%
-      for (const h of el.querySelectorAll('p, div, span, h2, h3, h4, a')) {
-        if (h.childElementCount > 4) continue;
-        const t = normalizeKey(h.textContent || '');
-        if (/\bis now\b/i.test(t)) {
-          for (const n of h.childNodes) {
-            if (n.nodeType === 3) {
-              if (/\bis now\s+(\d+)%(?:\s*off)?/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/\bis now\s+(\d+)%(?:\s*off)?/gi, '— скидка $1%');
-              } else if (/\bis now\b/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/\bis now\b/gi, '— скидка');
-              }
+      // 2. <Game> is now <N>%
+      for (const p of el.querySelectorAll('p, div, span, h2, h3, h4')) {
+        const t = normalizeKey(p.textContent || '');
+        if (/\bis now\s+\d+%/i.test(t)) {
+          for (const n of p.childNodes) {
+            if (n.nodeType === 3 && /\bis now\b/i.test(n.nodeValue)) {
+              n.nodeValue = n.nodeValue.replace(/\bis now\b/gi, '— скидка');
             }
           }
         }
       }
 
-      // 4. Get it on Steam for $X before the sale ends on Month Day
+      // 3. Get it on Steam for $X before the sale ends on Month Day - only leaf element!
       for (const p of el.querySelectorAll('p, div, span')) {
+        if (p.childElementCount > 0) continue; // Never wipe containers with game titles or icons!
         const t = normalizeKey(p.textContent || '');
         if (/Get it/i.test(t) && /Steam/i.test(t) && /sale ends/i.test(t)) {
-          // If this element contains child elements with game title or images, don't touch p itself
-          if (p.querySelector('img, svg, h1, h2, h3, h4')) continue;
-
-          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam\s+for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
+          const m = t.match(/Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?/i);
           if (m) {
             const monKey = m[2].toLowerCase();
             const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
             const day = parseInt(m[3], 10);
             const year = m[4] ? ` ${m[4]}` : '';
-
-            const link = p.querySelector('a');
-            if (link) {
-              link.textContent = 'Steam';
-              for (const n of p.childNodes) {
-                if (n.nodeType === 3) {
-                  if (/Get it/i.test(n.nodeValue)) {
-                    n.nodeValue = 'Купите в ';
-                  } else if (/before the sale ends/i.test(n.nodeValue) || /for\s+[\s\S]+?before/i.test(n.nodeValue)) {
-                    n.nodeValue = ` за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
-                  }
-                }
-              }
-            } else {
-              p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
-            }
+            p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
           }
         }
       }
 
-      // 5. Recursive text node walker for any remaining pieces
+      // 4. Recursive text node walker for any remaining pieces
       const walk = (node) => {
         if (node.nodeType === 3) {
           const val = node.nodeValue;
@@ -1022,16 +983,6 @@ export function createEngine(dict) {
         translateLeafLabels(el);
       }
     }
-    try {
-      const notices = (root.nodeType === 1 ? root : document.body).querySelectorAll(
-        '[class*="notification"], [class*="Notification"], [class*="activity"], [class*="Activity"], [class*="feed"], [class*="Feed"]'
-      );
-      for (const n of notices) {
-        paintNotice(n);
-      }
-    } catch {
-      /* ignore */
-    }
   }
 
   /**
@@ -1090,10 +1041,6 @@ export function createEngine(dict) {
     '[class*="Banner"]:not([class*="post"])',
     '[class*="badge"]',
     '[class*="Badge"]',
-    '[class*="notification"]',
-    '[class*="Notification"]',
-    '[class*="update"]',
-    '[class*="Update"]',
     'main',
     'main button',
     'main a[class*="rounded"]',
