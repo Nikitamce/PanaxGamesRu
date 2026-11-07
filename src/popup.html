@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      min-width: 260px;
+      background: #0b0d10;
+      color: #f4f6f8;
+      font: 14px/1.4 system-ui, sans-serif;
+    }
+    .wrap { padding: 16px 16px 14px; }
+    .ver {
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #7c3aed;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #2a2e36;
+    }
+    .label { font-weight: 650; }
+    .hint { display: block; margin-top: 2px; color: #9aa3ad; font-size: 12px; font-weight: 400; }
+    .switch { position: relative; width: 44px; height: 26px; flex: none; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #2a2e36;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .slider::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      top: 3px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.15s ease;
+    }
+    .switch input:checked + .slider { background: #7c3aed; }
+    .switch input:checked + .slider::after { transform: translateX(18px); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="ver" id="ver">PANAX RU</div>
+    <div class="row">
+      <div>
+        <span class="label">Перевод</span>
+        <span class="hint" id="hint">Включён на panaxgames.com</span>
+      </div>
+      <label class="switch">
+        <input id="on" type="checkbox" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

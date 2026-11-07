@@ -81,6 +81,8 @@ export function startWritePatch(dict) {
     ['Enter a game title', dict['Enter a game title'] || 'Введите название игры'],
     ['Choose a label for this post', dict['Choose a label for this post'] || 'Выберите ярлык для поста'],
     ['Off-Topic', dict['Off-Topic'] || 'Оффтоп'],
+    ['Not interested in this game?', dict['Not interested in this game?'] || 'Эта игра не интересна?'],
+    ['Hide', dict.Hide || 'Скрыть'],
     [
       'Link games so others can jump straight into the info! In comments, simply type ## to link.',
       dict['Link games so others can jump straight into the info! In comments, simply type ## to link.'] ||

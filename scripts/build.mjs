@@ -23,8 +23,10 @@ await esbuild.build({
 const manifest = {
   manifest_version: 3,
   name: 'PANAX RU',
-  version: '0.2.64',
+  version: '0.2.65',
   description: 'Russian UI for panaxgames.com (i18n, no reload).',
+  permissions: ['storage'],
+  host_permissions: ['https://panaxgames.com/*', 'https://www.panaxgames.com/*'],
   icons: {
     '16': 'icons/16.png',
     '48': 'icons/48.png',
@@ -80,24 +82,8 @@ if (existsSync(logoSrc)) {
   cpSync(logoSrc, logoDest, { recursive: true });
 }
 
-const popup = `<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <style>
-    body { font: 13px/1.4 system-ui, sans-serif; margin: 12px 14px; min-width: 220px; color: #111; }
-    h1 { font-size: 14px; margin: 0 0 6px; }
-    p { margin: 0; color: #444; }
-    code { font-size: 11px; }
-  </style>
-</head>
-<body>
-  <h1>PANAX RU</h1>
-  <p>Русский интерфейс активен на <code>panaxgames.com</code>.</p>
-</body>
-</html>
-`;
-writeFileSync(join(dist, 'popup.html'), popup, 'utf8');
+cpSync(join(root, 'src', 'popup.html'), join(dist, 'popup.html'));
+cpSync(join(root, 'src', 'popup.js'), join(dist, 'popup.js'));
 
 for (const size of [16, 48, 128]) {
   const src = join(root, 'icons', `${size}.png`);

@@ -206,6 +206,7 @@ export function translateActivity(raw) {
     haul: 'Находки',
     spoiler: 'Спойлер',
     'news flash': 'Молния',
+    hide: 'Скрыть',
     recommend: 'Рекомендуем',
     random: 'Случайно',
     'most rated': 'Больше всего оценок',
@@ -217,6 +218,7 @@ export function translateActivity(raw) {
   }[text.toLowerCase()];
   if (flair) return flair;
   if (/^the first goal is right in front of you!$/i.test(text)) return 'Первая цель уже перед тобой!';
+  if (/^not interested in this game\??$/i.test(text)) return 'Эта игра не интересна?';
   const filters = text.match(/^filters:\s*(.+)$/i);
   if (filters && text.length < 80) return `Фильтры: ${filters[1]}`;
   if (/^panax store$/i.test(text)) return 'Магазин PANAX';

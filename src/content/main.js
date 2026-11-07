@@ -67,14 +67,6 @@ function boot() {
   const { schedule } = startObserver(engine);
   startHarvest(engine);
 
-  // Visible proof the build is alive (hide with #panax-ru-hide-badge)
-  if (!document.getElementById('panax-ru-badge') && !/#panax-ru-hide-badge\b/.test(location.hash)) {
-    const badge = document.createElement('div');
-    badge.id = 'panax-ru-badge';
-    badge.textContent = 'PANAX RU 0.2.64';
-    (document.body || document.documentElement).appendChild(badge);
-  }
-
   // Intercept React text writes for hardcoded chrome (MAIN world)
   try {
     startWritePatch(dict);
@@ -107,13 +99,37 @@ function boot() {
     /* ignore */
   }
 
-  console.info(`[PANAX RU] v0.2.64 · ${Object.keys(dict).length} strings · active`);
+  console.info(`[PANAX RU] v0.2.65 · ${Object.keys(dict).length} strings · active`);
 }
 
-if (!globalThis.__PANAX_RU__) {
+function start() {
+  if (globalThis.__PANAX_RU__) {
+    if (globalThis.__PANAX_RU_SCHEDULE__) globalThis.__PANAX_RU_SCHEDULE__();
+    return;
+  }
   globalThis.__PANAX_RU__ = true;
   if (document.documentElement) boot();
   else document.addEventListener('DOMContentLoaded', boot, { once: true });
-} else if (globalThis.__PANAX_RU_SCHEDULE__) {
-  globalThis.__PANAX_RU_SCHEDULE__();
+}
+
+function whenEnabled(on) {
+  if (document.documentElement) document.documentElement.dataset.panaxRu = on ? 'on' : 'off';
+  if (on) start();
+}
+
+const hasStorage = typeof chrome !== 'undefined' && chrome.storage?.local;
+if (hasStorage) {
+  chrome.storage.local.get({ panaxRuEnabled: true }, (data) => {
+    whenEnabled(data.panaxRuEnabled !== false);
+  });
+} else {
+  const started = Date.now();
+  const wait = () => {
+    const flag = document.documentElement?.dataset.panaxRu;
+    if (flag === 'on') start();
+    else if (flag === 'off') return;
+    else if (Date.now() - started > 800) start();
+    else requestAnimationFrame(wait);
+  };
+  wait();
 }
