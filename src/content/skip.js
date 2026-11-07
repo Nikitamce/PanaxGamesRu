@@ -107,7 +107,7 @@ export const AMBIGUOUS_SHORT = new Set(
 
 /** Ancestor looks like site chrome. Word-boundary so "button" inside unrelated classes does not match. */
 const CHROME_HINT =
-  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|notification|notice|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|popover|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button)(?:$|[\s_]|\b)/i;
+  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|notification|notice|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|popover|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|update|updates|feed-item|feed-header|activity-item|activity-header|streak|level-up)(?:$|[\s_]|\b)/i;
 
 const CHROME_TAGS = new Set(['BUTTON', 'A', 'LABEL', 'NAV', 'HEADER', 'FOOTER', 'OPTION', 'SUMMARY', 'ASIDE']);
 
@@ -116,6 +116,9 @@ const CHROME_TAGS = new Set(['BUTTON', 'A', 'LABEL', 'NAV', 'HEADER', 'FOOTER', 
  */
 export function isChromeContext(el) {
   if (!el || el.nodeType !== 1) return false;
+  if (typeof window !== 'undefined' && window.location && /(?:\/notifications|\/updates|\/activity)/i.test(window.location.pathname)) {
+    return true;
+  }
   let cur = el;
   let depth = 0;
   while (cur && depth < 14) {
@@ -178,8 +181,8 @@ export function shouldSkipRoot(el) {
   if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
     return false;
   }
-  // Notifications popover, dialogs and menus are UI chrome
-  if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
+  // Notifications popover, dialogs, updates and menus are UI chrome
+  if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="update"], [class*="Update"], [class*="popover"]')) {
     return false;
   }
   for (const sel of SKIP_ROOT_SELECTORS) {
@@ -199,6 +202,10 @@ export function shouldSkipRoot(el) {
  */
 export function shouldSkipProse(el, text) {
   if (!el || !text) return false;
+  // Never skip notification chrome, streak or level badges
+  if (/(?:Level\s*Up|Уровень\s*Up|Check your|see what['’]s new|is now\s+\d+%|Get it.*Steam|sale ends|dropped a new post|exp\s*\+\s*\d+|streak resets)/i.test(text)) {
+    return false;
+  }
   // Posts are word-split spans. Any exact dict hit ("Post", "Like", "On", "To")
   // would rewrite user text. Translate only inside UI chrome.
   if (!isChromeContext(el)) return true;
