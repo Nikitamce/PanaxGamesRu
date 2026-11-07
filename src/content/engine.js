@@ -141,7 +141,7 @@ export function createEngine(dict) {
         /^(?:[·•.\-\s]*)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+\d{1,2}(?:,?\s*\d{4})?$/i.test(text) ||
         /^(?:[·•.\-\s]*)?\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?(?:,?\s*\d{4})?$/i.test(text);
       const multiWord = text.includes(' ') && text.length >= 8;
-      const sectionTitle = /^(Preferences|Service|Settings|Account|Language|FAQ|English|Korean|Japanese|Portuguese|Spanish|French|Lv|LV|Ratings|Collections|Collection|Reviews|Review|Posts|Impressions|Playing)$/i.test(text);
+      const sectionTitle = /^(Preferences|Service|Settings|Account|Language|FAQ|English|Korean|Japanese|Portuguese|Spanish|French|Lv|LV|Ratings|Collections|Collection|Reviews|Review|Posts|Impressions|Playing|Public|Private|Followers only)$/i.test(text);
       const levelLine = /\bLv\.?\s*\d+\b/i.test(text) && text.length < 80;
       const likedLine = /\band\s+(?:\d+\s+)?others?\s+(liked|got help)$/i.test(text) && text.length < 120;
       const profileLine = /^(?:[·•.\-]\s*)?(follows you|\d+\s*[dhms]\s*ago|posts\s+[\d.,]+\s*[kmb]?|follow back|\d+\s+playing|posts|reviews|collections|following games|top)(?:\s+[\d.,]+\s*[kmb]?)?$/i.test(text);
@@ -910,6 +910,7 @@ export function createEngine(dict) {
       'Join us for free', 'Join now',
       'Discover, track, and share your gaming journey with fellow enthusiasts.',
       'Players with this game', 'Wishlist Users', 'How was it?',
+      'Public', 'Completionist', 'Main Story', 'Main + Sides', 'How Long To Beat',
     ].map(normalizeKey),
   );
 
@@ -922,6 +923,9 @@ export function createEngine(dict) {
     '[role="navigation"]',
     '[role="dialog"]',
     '[role="complementary"]',
+    '[role="menu"]',
+    '[role="menuitem"]',
+    '[class*="opacity-"]',
     'button.tab-button',
     '.tab-button:is(button, a, [role="tab"])',
     'p.tab-button-label',

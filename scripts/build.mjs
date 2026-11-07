@@ -17,16 +17,29 @@ await esbuild.build({
   target: ['chrome120'],
   minify: false,
   legalComments: 'none',
-  loader: { '.json': 'json' },
+  loader: { '.json': 'json', '.css': 'text' },
 });
 
 const manifest = {
   manifest_version: 3,
   name: 'PANAX RU',
-  version: '0.2.65',
+  version: '0.2.66',
   description: 'Russian UI for panaxgames.com (i18n, no reload).',
   permissions: ['storage'],
-  host_permissions: ['https://panaxgames.com/*', 'https://www.panaxgames.com/*'],
+  background: {
+    service_worker: 'background.js',
+  },
+  host_permissions: [
+    'https://panaxgames.com/*',
+    'https://www.panaxgames.com/*',
+    'https://api.opencritic.com/*',
+    'https://store.steampowered.com/*',
+    'https://api.steampowered.com/*',
+    'https://www.metacritic.com/*',
+    'https://protondb.max-p.me/*',
+    'https://steamcharts.com/*',
+    'https://open.er-api.com/*',
+  ],
   icons: {
     '16': 'icons/16.png',
     '48': 'icons/48.png',
@@ -84,6 +97,9 @@ if (existsSync(logoSrc)) {
 
 cpSync(join(root, 'src', 'popup.html'), join(dist, 'popup.html'));
 cpSync(join(root, 'src', 'popup.js'), join(dist, 'popup.js'));
+if (existsSync(join(root, 'src', 'background.js'))) {
+  cpSync(join(root, 'src', 'background.js'), join(dist, 'background.js'));
+}
 
 for (const size of [16, 48, 128]) {
   const src = join(root, 'icons', `${size}.png`);

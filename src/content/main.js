@@ -7,6 +7,7 @@ import { startMessagesPatch } from './messages-patch.js';
 import { startWritePatch } from './write-patch.js';
 import { startRatingIcons } from './rating-icons.js';
 import { startLogo } from './logo.js';
+import { startEnrichment } from './enrichment/game-enrichment.js';
 
 /**
  * Optional harvest: open the site with #panax-ru-harvest
@@ -95,6 +96,7 @@ function boot() {
   try {
     startRatingIcons();
     startLogo();
+    startEnrichment();
   } catch {
     /* ignore */
   }

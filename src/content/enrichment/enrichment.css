@@ -1,0 +1,298 @@
+/* ==========================================================================
+   PANAX RU - Game Enrichment UI Styles
+   Matches Panax Dark Modern Design System
+   ========================================================================== */
+
+.panax-plus-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.panax-plus-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.panax-plus-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.85rem;
+}
+
+.panax-plus-title svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  opacity: 0.8;
+}
+
+/* Badges & Scores row */
+.panax-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.panax-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.panax-badge:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
+}
+
+/* Metacritic Score */
+.panax-badge-mc {
+  background: #111;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.panax-badge-mc .mc-val {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 0.35rem;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.mc-val.high { background: #66cc33; color: #000; }
+.mc-val.mid { background: #ffcc33; color: #000; }
+.mc-val.low { background: #ff0000; color: #fff; }
+
+/* OpenCritic Badges */
+.panax-badge-oc {
+  color: #fff;
+}
+.panax-badge-oc.mighty { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+.panax-badge-oc.strong { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+.panax-badge-oc.fair { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.panax-badge-oc.weak { background: linear-gradient(135deg, #64748b, #475569); }
+
+/* ProtonDB & Deck */
+.panax-badge-deck {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.panax-badge-proton {
+  background: rgba(180, 198, 219, 0.12);
+  color: #b4c6db;
+  border: 1px solid rgba(180, 198, 219, 0.25);
+}
+
+/* Steam Price & Store Box */
+.panax-steam-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.panax-price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.panax-discount-pill {
+  background: #10b981;
+  color: #000;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+}
+
+.panax-price-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.panax-approx-rub {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.panax-review-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.panax-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.panax-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Quick External Links */
+.panax-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.panax-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.panax-quick-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Tab: Player Data Online & Community Stats */
+.panax-online-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.panax-online-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: panax-pulse 2s infinite;
+}
+
+@keyframes panax-pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.panax-steam-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.panax-stat-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.panax-stat-box .label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.panax-stat-box .val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Community Progress Breakdown */
+.panax-progress-bar-container {
+  margin-top: 1rem;
+}
+
+.panax-progress-bar {
+  display: flex;
+  height: 0.7rem;
+  border-radius: 0.35rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.panax-progress-seg {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.panax-progress-seg.beaten { background: #10b981; }
+.panax-progress-seg.playing { background: #3b82f6; }
+.panax-progress-seg.backlog { background: #8b5cf6; }
+.panax-progress-seg.paused { background: #f59e0b; }
+.panax-progress-seg.dropped { background: #ef4444; }
+
+.panax-progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.panax-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.panax-legend-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}

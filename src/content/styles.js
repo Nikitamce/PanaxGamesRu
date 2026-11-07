@@ -1,3 +1,5 @@
+import enrichmentCss from './enrichment/enrichment.css';
+
 /** Expand status / feed pills so Russian fits — keep header/nav/tab bar width intact. */
 const CSS = `
 /* Status follow pills (Played / Playing / …) — not header CTAs */
@@ -181,7 +183,7 @@ export function injectStyles() {
   if (document.getElementById('panax-ru-css')) return;
   const style = document.createElement('style');
   style.id = 'panax-ru-css';
-  style.textContent = CSS;
+  style.textContent = CSS + '\n' + (enrichmentCss || '');
   (document.head || document.documentElement).appendChild(style);
   document.documentElement.classList.add('panax-ru');
 }

@@ -107,7 +107,7 @@ export const AMBIGUOUS_SHORT = new Set(
 
 /** Ancestor looks like site chrome. Word-boundary so "button" inside unrelated classes does not match. */
 const CHROME_HINT =
-  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|game-detail|game-info|game-stat|stat-label|status-picker|more-button)(?:$|[\s_]|\b)/i;
+  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|popover|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button)(?:$|[\s_]|\b)/i;
 
 const CHROME_TAGS = new Set(['BUTTON', 'A', 'LABEL', 'NAV', 'HEADER', 'FOOTER', 'OPTION', 'SUMMARY', 'ASIDE']);
 
@@ -129,15 +129,25 @@ export function isChromeContext(el) {
       role === 'complementary' ||
       role === 'dialog' ||
       role === 'menu' ||
+      role === 'menuitem' ||
+      role === 'combobox' ||
       role === 'listbox' ||
       role === 'option'
     ) {
       return true;
     }
+    if (cur.getAttribute?.('aria-haspopup') || cur.getAttribute?.('aria-expanded')) return true;
     const cls = cur.className && String(cur.className);
     if (cls && CHROME_HINT.test(cls)) return true;
     if (cur.matches?.('header, nav, footer, aside, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
       return true;
+    }
+    // Element or parent is a clickable button/pill/dropdown
+    if (depth <= 2) {
+      if (cur.nextElementSibling?.tagName === 'SVG' || cur.previousElementSibling?.tagName === 'SVG') {
+        return true;
+      }
+      if (cls && cls.includes('cursor-pointer')) return true;
     }
     // Stats under a count: sibling/parent looks numeric (12.1k / 10)
     if (depth <= 3) {
