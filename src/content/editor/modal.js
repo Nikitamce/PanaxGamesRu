@@ -258,3 +258,4 @@ export function closeInsertModal() {
   if (modalEl) modalEl.classList.remove('on');
   currentInsertCallback = null;
 }
+

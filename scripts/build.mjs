@@ -79,7 +79,7 @@ const manifest = {
 
 manifest.web_accessible_resources = [
   {
-    resources: ['ratings/*.png', 'logo/*.png'],
+    resources: ['ratings/*.png', 'logo/*.png', 'gamequill.html'],
     matches: ['https://panaxgames.com/*', 'https://www.panaxgames.com/*'],
   },
 ];
@@ -102,6 +102,9 @@ if (existsSync(logoSrc)) {
 
 cpSync(join(root, 'src', 'popup.html'), join(dist, 'popup.html'));
 cpSync(join(root, 'src', 'popup.js'), join(dist, 'popup.js'));
+if (existsSync(join(root, 'src', 'content', 'editor', 'gamequill.html'))) {
+  cpSync(join(root, 'src', 'content', 'editor', 'gamequill.html'), join(dist, 'gamequill.html'));
+}
 if (existsSync(join(root, 'src', 'background.js'))) {
   cpSync(join(root, 'src', 'background.js'), join(dist, 'background.js'));
 }

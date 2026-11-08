@@ -168,3 +168,4 @@ export function startSelectionWatcher() {
   });
   window.addEventListener('scroll', hideFloatBar, { passive: true });
 }
+

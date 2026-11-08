@@ -134,3 +134,4 @@ export function enhanceWidgetsIn(root = document) {
   const elements = root.querySelectorAll('[data-panax-widget]:not([data-panax-enhanced="true"])');
   elements.forEach(enhanceWidgetElement);
 }
+

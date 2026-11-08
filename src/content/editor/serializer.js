@@ -78,3 +78,4 @@ export function buildProsConsWidgetHtml(pros, cons) {
 export function buildGameChipHtml(title, url) {
   return `<a class="game-chip" href="${escapeHtml(url)}" target="_blank" rel="noopener" data-panax-chip="true"><i>🎮</i>${escapeHtml(title)}</a>&nbsp;`;
 }
+

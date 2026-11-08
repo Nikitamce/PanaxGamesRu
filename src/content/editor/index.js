@@ -6,6 +6,7 @@
 import { openInsertModal } from './modal.js';
 import { startSelectionWatcher } from './floating-bar.js';
 import { enhanceWidgetsIn } from './viewer.js';
+import { openGameQuillFullscreen } from './fullscreen.js';
 
 const INJECTED_FLAG = 'data-panax-toolbar-injected';
 
@@ -16,6 +17,10 @@ function exec(cmd, val = null) {
 
 function buildToolbarHtml() {
   return `
+    <div class="panax-editor-group">
+      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="open-fullscreen" title="Открыть полноэкранный редактор GameQuill" style="background:linear-gradient(135deg,#7c5cff,#22d3ee);color:#fff;border-color:transparent;font-weight:700;">✨ GameQuill Fullscreen</button>
+    </div>
+    <div class="panax-editor-sep"></div>
     <div class="panax-editor-group">
       <button type="button" class="panax-tb-btn" data-cmd="bold" title="Жирный (Ctrl+B)"><b>Ж</b></button>
       <button type="button" class="panax-tb-btn" data-cmd="italic" title="Курсив (Ctrl+I)"><i>К</i></button>
@@ -62,6 +67,11 @@ function attachToolbarEvents(toolbar, targetEditable) {
 
     if (cmd) {
       exec(cmd, val);
+      return;
+    }
+
+    if (act === 'open-fullscreen') {
+      openGameQuillFullscreen(targetEditable);
       return;
     }
 
@@ -141,6 +151,7 @@ export function scanAndEnhanceEditors() {
           group.className = 'ql-formats';
           group.style.marginLeft = '8px';
           group.innerHTML = `
+            <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="open-fullscreen" title="Открыть полноэкранный редактор GameQuill" style="height:26px;font-size:12px;padding:0 9px;background:linear-gradient(135deg,#7c5cff,#22d3ee);color:#fff;border:none;font-weight:700;">✨ GameQuill Fullscreen</button>
             <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-game" title="Вставить карточку игры" style="height:24px;font-size:11.5px;padding:0 6px;">🎮 Игра</button>
             <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-steam" title="Вставить Steam" style="height:24px;font-size:11.5px;padding:0 6px;">♨️ Steam</button>
             <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-yt" title="Вставить YouTube" style="height:24px;font-size:11.5px;padding:0 6px;">▶️ Видео</button>
@@ -190,3 +201,4 @@ export function startEditorEnhancement() {
     });
   }
 }
+
