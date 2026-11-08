@@ -302,3 +302,87 @@
   border-radius: 50%;
 }
 
+
+
+/* Translate Buttons (Post, Review, Description) */
+.panax-translate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(45, 212, 191, 0.12);
+  border: 1px solid rgba(45, 212, 191, 0.28);
+  color: #2dd4bf;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1.25;
+  transition: all 0.15s ease;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.panax-translate-btn:hover {
+  background: rgba(45, 212, 191, 0.22);
+  border-color: rgba(45, 212, 191, 0.45);
+  color: #5eead4;
+}
+
+.panax-translate-btn.is-translated {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #94a3b8;
+}
+
+.panax-translate-btn.is-translated:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #f1f5f9;
+}
+
+.panax-translate-btn.is-loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.panax-translate-spin {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 1.5px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: panax-spin 0.7s linear infinite;
+}
+
+@keyframes panax-spin {
+  to { transform: rotate(360deg); }
+}
+
+.panax-translate-wrap {
+  display: flex;
+  align-items: center;
+}
+
+/* Unified Rating additional badges (Steam, Backloggd) */
+.panax-badge-steam {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.panax-badge-steam:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.panax-badge-backloggd {
+  background: rgba(244, 63, 94, 0.12);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.28);
+}
+
+.panax-badge-backloggd:hover {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: rgba(244, 63, 94, 0.4);
+}

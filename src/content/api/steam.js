@@ -1,5 +1,6 @@
 import { bgRequest } from './request.js';
-import { convertToRub } from './fx.js';
+import { convertCurrency } from './fx.js';
+import { getSettings } from '../settings.js';
 
 function cleanTitle(s) {
   return String(s || '')
@@ -34,9 +35,13 @@ export async function resolveSteam(title) {
   const q = String(title || '').trim();
   if (!q) return null;
 
+  const currentSettings = getSettings();
+  const country = (currentSettings.steamCountry || 'KZ').toLowerCase();
+  const targetCurrency = currentSettings.convertCurrency || 'RUB';
+
   try {
     const searchRes = await bgRequest({
-      url: `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=kz`,
+      url: `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=${country}`,
     });
 
     const items = searchRes?.items || [];
@@ -61,7 +66,7 @@ export async function resolveSteam(title) {
     const browseInput = encodeURIComponent(
       JSON.stringify({
         ids: [{ appid: appId }],
-        context: { language: 'english', country_code: 'US', steam_realm: 1 },
+        context: { language: 'english', country_code: country.toUpperCase(), steam_realm: 1 },
         data_request: { include_platforms: true },
       })
     );
@@ -69,7 +74,7 @@ export async function resolveSteam(title) {
     // Fetch details, reviews, deck info, and player count in parallel
     const [detailsRes, reviewsRes, browseRes, playersRes] = await Promise.allSettled([
       bgRequest({
-        url: `https://store.steampowered.com/api/appdetails?appids=${appId}&l=russian&cc=kz`,
+        url: `https://store.steampowered.com/api/appdetails?appids=${appId}&l=russian&cc=${country}`,
       }),
       bgRequest({
         url: `https://api.steampowered.com/IUserReviewsService/GetAppReviews/v1/?input_json=${reviewsInput}`,
@@ -93,7 +98,7 @@ export async function resolveSteam(title) {
 
     let priceFormatted = '';
     let discountPercent = 0;
-    let approxRub = null;
+    let convertedPrice = null; // { formatted: '~ 892 ₽', amount: 892, symbol: '₽' }
 
     if (isFree) {
       priceFormatted = 'Бесплатно';
@@ -101,7 +106,9 @@ export async function resolveSteam(title) {
       priceFormatted = priceOverview.final_formatted || '';
       discountPercent = priceOverview.discount_percent || 0;
       const finalMajor = (priceOverview.final || 0) / 100;
-      approxRub = await convertToRub(finalMajor, priceOverview.currency);
+      if (currentSettings.showPriceConvert !== false) {
+        convertedPrice = await convertCurrency(finalMajor, priceOverview.currency, targetCurrency);
+      }
     }
 
     // Reviews summary
@@ -135,7 +142,8 @@ export async function resolveSteam(title) {
       headerImage: details?.header_image || best.it.tiny_image,
       priceFormatted,
       discountPercent,
-      approxRub,
+      convertedPrice,
+      approxRub: convertedPrice?.amount || null, // backwards compatibility
       reviewPercent,
       reviewCount,
       reviewScoreDesc,
@@ -160,28 +168,24 @@ export async function fetchSteamCharts(appId) {
       responseType: 'text',
     });
 
-    let points = [];
-    try {
-      points = typeof raw === 'string' ? JSON.parse(raw) : raw;
-    } catch (_) {}
-
-    if (!Array.isArray(points) || !points.length) return null;
+    if (!raw) return null;
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    if (!Array.isArray(parsed) || !parsed.length) return null;
 
     let allTimePeak = 0;
     let peak24h = 0;
     const oneDayAgo = Date.now() - 24 * 3600 * 1000;
 
-    for (const p of points) {
-      const ts = p[0];
-      const val = p[1];
-      if (val > allTimePeak) allTimePeak = val;
-      if (ts >= oneDayAgo && val > peak24h) peak24h = val;
+    for (const item of parsed) {
+      const ts = item[0];
+      const count = item[1];
+      if (count > allTimePeak) allTimePeak = count;
+      if (ts >= oneDayAgo && count > peak24h) peak24h = count;
     }
 
     return {
-      peak24h: peak24h || null,
       allTimePeak: allTimePeak || null,
-      pointsCount: points.length,
+      peak24h: peak24h || null,
     };
   } catch (err) {
     console.debug('[PANAX RU] SteamCharts error:', err);

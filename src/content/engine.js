@@ -1,5 +1,5 @@
 import { SKIP_TAGS, shouldSkipRoot, shouldSkipProse, isChromeContext, AMBIGUOUS_SHORT } from './skip.js';
-import { translateTimestamp, translateActivity, translateCount, translateNotice, splitNotice } from './time.js';
+import { translateTimestamp, translateTimeFragment, translateActivity, translateCount, translateNotice, splitNotice } from './time.js';
 
 const ATTR_OK = new Set([
   'placeholder',
@@ -23,6 +23,7 @@ const MONTHS_LOWER = {
   oct: 'окт', october: 'октября',
   nov: 'ноя', november: 'ноября',
   dec: 'дек', december: 'декабря',
+  ноябрь: 'ноября', ноября: 'ноября', октябрь: 'октября', октября: 'октября',
 };
 
 const MONTHS_SHORT = {
@@ -142,7 +143,7 @@ export function createEngine(dict) {
 
   function translateText(raw, el = null) {
     if (!raw) return null;
-    const stamped = translateTimestamp(raw) ?? translateNotice(raw, el?.parentElement?.textContent || '') ?? translateActivity(raw) ?? translateCount(raw) ?? editCostume(raw, el);
+    const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, el) ?? translateNotice(raw, el?.parentElement?.textContent || '') ?? translateActivity(raw) ?? translateCount(raw) ?? editCostume(raw, el);
     if (stamped != null && normalizeKey(stamped) !== normalizeKey(raw)) return preserveEdges(raw, stamped);
     const text = normalizeKey(raw);
     if (!text || text.length > 420) return null;
@@ -508,7 +509,9 @@ export function createEngine(dict) {
     if (!texts.length) return false;
 
     const joined = texts.map((n) => n.nodeValue).join('');
-    const next = translateText(joined, el);
+    // Keep fragments on their original side of styled prices, dates and links.
+    const fragmentedNotice = el.childElementCount > 0 && /Get it|sale ends|Check your|Загляните/.test(el.textContent || '');
+    const next = fragmentedNotice ? null : translateText(joined, el);
     if (next != null && normalizeKey(next) !== normalizeKey(joined)) {
       texts[0].nodeValue = next;
       for (let i = 1; i < texts.length; i += 1) texts[i].nodeValue = '';
@@ -629,8 +632,24 @@ export function createEngine(dict) {
 
     // Direct multi-node notification fixes (Level Up, Sales, Profile hint, new posts, reply/like on comments/posts)
     const rawText = el.textContent || '';
-    if (/(?:Level\s*Up|Уровень\s*Up|Log in daily|Check your|is now|Get it|sale ends|just dropped a new post|replied\s+(?:on|to)\s+your|(?:liked|нравится)\s+your|commented\s+on\s+your)/i.test(rawText)) {
+    if (/(?:Level\s*Up|Уровень\s*Up|Log in daily|Check your|is now|is сейчас|Get it|sale ends|до окончания|just dropped a new post|replied\s+(?:on|to)\s+your|(?:liked|нравится)\s+your|commented\s+on\s+your)/i.test(rawText)) {
       const nodes = [el, ...el.querySelectorAll('p, div, span, a, li, h2, h3, h4')];
+
+      // Translate sale fragments using the complete notice as context; individual
+      // styled wrappers may contain only "for $12.49" or the sale date.
+      for (const p of nodes) {
+        const context = normalizeKey(p.textContent || '');
+        if (!/Get it/i.test(context) || !/sale ends/i.test(context) || context.length > 220) continue;
+        const walk = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+        let textNode;
+        while ((textNode = walk.nextNode())) {
+          const raw = textNode.nodeValue;
+          const translated = translateNotice(raw, context);
+          if (translated == null) continue;
+          const next = preserveEdges(raw, translated);
+          if (next !== raw) textNode.nodeValue = next;
+        }
+      }
 
       // 0. Reply / like / comment on your comment / post / review
       for (const p of nodes) {
@@ -643,7 +662,7 @@ export function createEngine(dict) {
         const people = (num) => plural(Number(num), ['человек', 'человека', 'человек']);
         for (const n of p.childNodes) {
           if (n.nodeType === 3) {
-            n.nodeValue = n.nodeValue
+            const next = n.nodeValue
               // glued runs from earlier passes: restore word spacing first
               .replace(/оценилваш/gi, `${verb} ваш`)
               .replace(/оцениливаш/gi, 'оценили ваш')
@@ -665,6 +684,7 @@ export function createEngine(dict) {
               .replace(/commented on(?=\s|$)/gi, 'прокомментировал')
               .replace(/\b(?:and|&)\s+(\d+)\s+others?\b/gi, (s, num) => `и ещё ${num} ${people(num)}`)
               .replace(/\bYou(?=\s+(?:and|&|и)(?:\s|$))/g, 'Вы');
+            if (next !== n.nodeValue) n.nodeValue = next;
           }
         }
         for (const cLink of p.querySelectorAll('a, span')) {
@@ -681,7 +701,14 @@ export function createEngine(dict) {
           const lead = raw.match(/^\s*/)[0];
           const trail = raw.match(/\s*$/)[0];
           const next = lead + ru + trail;
-          if (next !== raw) cLink.textContent = next;
+          if (next !== raw) {
+            // Preserve text nodes referenced by React.
+            const texts = [...cLink.childNodes].filter((n) => n.nodeType === 3);
+            if (texts.length) {
+              if (texts[0].nodeValue !== next) texts[0].nodeValue = next;
+              for (const n of texts.slice(1)) if (n.nodeValue !== '') n.nodeValue = '';
+            }
+          }
         }
       }
 
@@ -718,55 +745,151 @@ export function createEngine(dict) {
         }
       }
 
-      // 1. Check your profile to see what's new - strict whole-line match so outer wrappers are never touched
+      // 1. Check your profile to see what's new (supports word-by-word span splitting)
       for (const p of nodes) {
         if (p.querySelector('img, svg, div, p')) continue;
         const t = normalizeKey(p.textContent || '');
         if (/^Check your\s+(?:profile|профиль|Профиль)\s+(?:to|До)?\s*see what['’]s new\.?$/i.test(t)) {
-          const link = p.querySelector('a');
-          if (link && link.childElementCount === 0) {
-            link.textContent = 'профиль';
-            for (const n of p.childNodes) {
-              if (n.nodeType === 3) {
-                if (/Check your/i.test(n.nodeValue)) n.nodeValue = 'Загляните в свой ';
-                else if (/(?:to|До)?\s*see what/i.test(n.nodeValue)) n.nodeValue = ', чтобы узнать, что нового.';
+          const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+          const textNodes = [];
+          let tn;
+          while ((tn = walker.nextNode())) textNodes.push(tn);
+          let leadDone = false;
+          let tailDone = false;
+          for (const node of textNodes) {
+            const raw = node.nodeValue;
+            const norm = normalizeKey(raw).toLowerCase();
+            if (!norm) continue;
+            if (/^(?:check your|check|your)$/i.test(norm)) {
+              if (!leadDone) {
+                node.nodeValue = preserveEdges(raw, 'Загляните в свой');
+                leadDone = true;
+              } else {
+                node.nodeValue = '';
+              }
+            } else if (/^(?:profile|профиль)$/i.test(norm)) {
+              node.nodeValue = preserveEdges(raw, 'профиль');
+            } else if (/^(?:to|see|what's|what|s|new|new\.)$/i.test(norm) || /(?:to|До)?\s*see what/i.test(norm)) {
+              if (!tailDone) {
+                node.nodeValue = preserveEdges(raw, ', чтобы узнать, что нового.');
+                tailDone = true;
+              } else {
+                node.nodeValue = '';
               }
             }
-          } else {
-            p.textContent = 'Загляните в свой профиль, чтобы узнать, что нового.';
           }
         }
       }
 
-      // 2. <Game> is now <N>%
+      // 2. <Game> is now <N>% (handles word-by-word spans: <span>is </span><span>сейчас </span>)
       for (const p of nodes) {
         const t = normalizeKey(p.textContent || '');
-        if (/\bis now\s+\d+%/i.test(t) && t.length < 220) {
-          const walkIsNow = (node) => {
-            for (const n of node.childNodes) {
-              if (n.nodeType === 3 && /\bis now\b/i.test(n.nodeValue)) {
-                n.nodeValue = n.nodeValue.replace(/\bis now\s+(\d+)%(?:\s*off)?/gi, '— скидка $1%').replace(/\bis now\b/gi, '— скидка');
-              } else if (n.nodeType === 1 && n.tagName !== 'IMG' && n.tagName !== 'SVG') {
-                walkIsNow(n);
+        if (/\b(?:is\s+now|is\s+сейчас|is)\s+(?:now\s+|сейчас\s+)?\d+%/i.test(t) && t.length < 220) {
+          const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+          const textNodes = [];
+          let tn;
+          while ((tn = walker.nextNode())) {
+            if (tn.nodeValue && tn.nodeValue.trim()) textNodes.push(tn);
+          }
+          let placedBadge = false;
+          for (let i = 0; i < textNodes.length; i += 1) {
+            const node = textNodes[i];
+            const val = node.nodeValue;
+            const cleanVal = val.trim().toLowerCase();
+            if (cleanVal === 'is') {
+              node.nodeValue = preserveEdges(val, '— скидка');
+              placedBadge = true;
+              const nextNode = textNodes[i + 1];
+              if (nextNode && /^(?:now|сейчас)$/i.test(nextNode.nodeValue.trim())) {
+                nextNode.nodeValue = '';
               }
+            } else if (cleanVal === 'now' || cleanVal === 'сейчас') {
+              if (!placedBadge) {
+                node.nodeValue = preserveEdges(val, '— скидка');
+                placedBadge = true;
+              } else {
+                node.nodeValue = '';
+              }
+            } else if (/\b(?:is\s+now|is\s+сейчас)\b/i.test(val)) {
+              node.nodeValue = val
+                .replace(/\b(?:is\s+now|is\s+сейчас)\s+(\d+)%(?:\s*off)?/gi, '— скидка $1%')
+                .replace(/\b(?:is\s+now|is\s+сейчас)\b/gi, '— скидка');
             }
-          };
-          walkIsNow(p);
+          }
         }
       }
 
-      // 3. Get it on Steam for $X before the sale ends on Month Day
+      // 3. Get it on Steam for $X before the sale ends on Month Day (supports word-by-word span splitting)
       for (const p of nodes) {
         if (p.querySelector('img, svg, div, p')) continue;
         const t = normalizeKey(p.textContent || '');
-        if (t.length > 140 || /\bis now\b|скидк/i.test(t)) continue;
-        const m = t.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam\s+for\s+([\s\S]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?\.?$/i);
-        if (m) {
-          const monKey = m[2].toLowerCase();
-          const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
-          const day = parseInt(m[3], 10);
-          const year = m[4] ? ` ${m[4]}` : '';
-          p.textContent = `Купите в Steam за ${m[1].trim()} до окончания скидки ${day} ${mon}${year}`;
+        if (t.length > 180 || /\b(is now|is сейчас)\b|— скидка/i.test(t)) continue;
+        if (/Get it|before the sale|Купите в Steam|до окончания скидки/i.test(t)) {
+          const m = t.match(/^(?:Get it|Купите)?\s*(?:on|в|Вкл\.)?\s*Steam\s*(?:for|за)?\s+([\s\S]+?)\s*(?:before the sale ends|before\s+(?:the\s+)?sale\s+ends|до окончания скидки)?\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?\.?$/i);
+          if (m) {
+            const monKey = m[2].toLowerCase();
+            const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
+            const day = parseInt(m[3], 10);
+            const year = m[4] ? ` ${m[4]}` : '';
+            const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            let tn;
+            while ((tn = walker.nextNode())) textNodes.push(tn);
+
+            let buyDone = false;
+            let endsDone = false;
+            let dateDone = false;
+
+            for (const node of textNodes) {
+              const raw = node.nodeValue;
+              const norm = normalizeKey(raw).toLowerCase();
+              if (!norm) continue;
+
+              // 1. "Get", "it", "on", "в", "купите", "купите в"
+              if (/^(?:get it|get|it|on|купите|купите в)$/i.test(norm) || (norm === 'в' && !endsDone)) {
+                if (!buyDone) {
+                  node.nodeValue = preserveEdges(raw, 'Купите в');
+                  buyDone = true;
+                } else {
+                  node.nodeValue = '';
+                }
+              }
+              // 2. Steam link or text - leave untouched
+              else if (/^steam$/i.test(norm)) {
+                // leave untouched
+              }
+              // 3. Price "for", "за", "$X"
+              else if (/^for$/i.test(norm)) {
+                node.nodeValue = preserveEdges(raw, 'за');
+              }
+              // 4. "before the sale ends", "before", "the", "sale", "ends", "on", "в"
+              else if (/^(?:before the sale ends|before|the|sale|ends|before the sale ends on)$/i.test(norm)) {
+                if (!endsDone) {
+                  node.nodeValue = preserveEdges(raw, 'до окончания скидки');
+                  endsDone = true;
+                } else {
+                  node.nodeValue = '';
+                }
+              } else if (norm === 'on' || (norm === 'в' && endsDone)) {
+                node.nodeValue = '';
+              }
+              // 5. Month and Day
+              else if (MONTHS_LOWER[norm] || /^(?:november|ноябрь|ноября|december|декабрь|декабря|october|октябрь|октября)$/i.test(norm)) {
+                if (!dateDone) {
+                  node.nodeValue = preserveEdges(raw, `${day} ${mon}${year}`);
+                  dateDone = true;
+                } else {
+                  node.nodeValue = '';
+                }
+              } else if (/^\d{1,2}$/.test(norm)) {
+                if (dateDone) {
+                  node.nodeValue = '';
+                } else {
+                  node.nodeValue = preserveEdges(raw, String(day));
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -805,8 +928,11 @@ export function createEngine(dict) {
     if (!actionNodes.length) return false;
     const own = normalizeKey(actionNodes[0].nodeValue || '').toLowerCase();
     const lead = (actionNodes[0].nodeValue.match(/^\s*/) || [''])[0];
-    actionNodes[0].nodeValue = name && own.startsWith(name) ? `${parsed.name} ${parsed.ru}` : `${lead}${parsed.ru}`;
-    for (let i = 1; i < actionNodes.length; i += 1) actionNodes[i].nodeValue = '';
+    const next = name && own.startsWith(name) ? `${parsed.name} ${parsed.ru}` : `${lead}${parsed.ru}`;
+    if (actionNodes[0].nodeValue !== next) actionNodes[0].nodeValue = next;
+    for (let i = 1; i < actionNodes.length; i += 1) {
+      if (actionNodes[i].nodeValue !== '') actionNodes[i].nodeValue = '';
+    }
     return true;
   }
 

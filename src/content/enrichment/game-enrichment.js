@@ -2,6 +2,7 @@ import { fetchOpenCritic } from '../api/opencritic.js';
 import { fetchMetacritic } from '../api/metacritic.js';
 import { fetchProtonDb } from '../api/protondb.js';
 import { resolveSteam, fetchSteamCharts } from '../api/steam.js';
+import { fetchBackloggdRating } from '../api/backloggd.js';
 import { getSettings, loadSettings } from '../settings.js';
 
 let activeGameTitle = '';
@@ -10,8 +11,14 @@ let activeSteamCharts = null;
 let activeOcData = null;
 let activeMcData = null;
 let activeProtonData = null;
+let activeBackloggdData = null;
 let isFetching = false;
 let userSelectedTab = null;
+
+function isGamePage() {
+  const p = location.pathname;
+  return p.includes('/game-detail/');
+}
 
 function hookTabClicks() {
   const elements = document.querySelectorAll('button, a, div, span, [role="tab"]');
@@ -131,9 +138,8 @@ function getActiveTab() {
   for (const h of candidates) {
     if (h.children.length > 2) continue;
     const txt = (h.textContent || '').trim().toLowerCase();
-    // Note: check that element is positioned below tabs bar if tabsBar exists
     if (tabsBar && (h.compareDocumentPosition(tabsBar) & Node.DOCUMENT_POSITION_FOLLOWING)) {
-      continue; // Skip elements that appear ABOVE the tabs bar (like genres/platforms in header)
+      continue;
     }
 
     if (txt === 'how long to beat') {
@@ -175,10 +181,10 @@ function getActiveTab() {
   return 'about';
 }
 
-function renderRatingsCard(oc, mc, steam, proton) {
+function renderRatingsCard(oc, mc, steam, proton, bl) {
   let badgesHtml = '';
 
-  // OpenCritic
+  // 1. OpenCritic
   if (oc?.tier) {
     const tierClass = (oc.tier || '').toLowerCase();
     const scoreText = oc.score ? ` · ${oc.score}` : '';
@@ -190,7 +196,7 @@ function renderRatingsCard(oc, mc, steam, proton) {
     `;
   }
 
-  // Metacritic
+  // 2. Metacritic
   if (mc?.score != null) {
     const s = mc.score;
     const tier = s >= 75 ? 'high' : s >= 50 ? 'mid' : 'low';
@@ -202,7 +208,25 @@ function renderRatingsCard(oc, mc, steam, proton) {
     `;
   }
 
-  // Steam Deck
+  // 3. Steam Rating Badge
+  if (steam?.reviewPercent != null) {
+    badgesHtml += `
+      <a class="panax-badge panax-badge-steam" href="${steam.url}#app_reviews_hash" target="_blank" rel="noopener noreferrer" title="Оценки в Steam">
+        <span>👍 Steam: <strong>${steam.reviewPercent}%</strong></span>
+      </a>
+    `;
+  }
+
+  // 4. Backloggd Rating Badge
+  if (bl?.rating) {
+    badgesHtml += `
+      <a class="panax-badge panax-badge-backloggd" href="${bl.url}" target="_blank" rel="noopener noreferrer" title="Оценка на Backloggd">
+        <span>★ <strong>${bl.rating}</strong> Backloggd</span>
+      </a>
+    `;
+  }
+
+  // 5. Steam Deck Compatibility
   if (steam?.steamDeckStatus) {
     badgesHtml += `
       <span class="panax-badge panax-badge-deck" title="Совместимость со Steam Deck">
@@ -211,7 +235,7 @@ function renderRatingsCard(oc, mc, steam, proton) {
     `;
   }
 
-  // ProtonDB
+  // 6. ProtonDB Tier
   if (proton?.tier) {
     const tierLower = proton.tier.toLowerCase();
     const tierUpper = proton.tier.toUpperCase();
@@ -248,12 +272,13 @@ function renderSteamStoreCard(steam, settings = {}) {
 
   let priceHtml = '';
   if (steam.priceFormatted) {
-    const showRub = settings.showPriceConvert !== false && steam.approxRub;
+    const converted = steam.convertedPrice?.formatted;
+    const showConverted = settings.showPriceConvert !== false && converted;
     priceHtml = `
       <div class="panax-price-row">
         ${steam.discountPercent > 0 ? `<span class="panax-discount-pill">-${steam.discountPercent}%</span>` : ''}
         <span class="panax-price-val">${steam.priceFormatted}</span>
-        ${showRub ? `<span class="panax-approx-rub">~ ${steam.approxRub.toLocaleString('ru-RU')} ₽</span>` : ''}
+        ${showConverted ? `<span class="panax-approx-rub">${converted}</span>` : ''}
       </div>
     `;
   }
@@ -299,7 +324,7 @@ function renderSteamStoreCard(steam, settings = {}) {
   `;
 }
 
-function renderQuickLinks(title, steam, oc, mc) {
+function renderQuickLinks(title, steam, oc, mc, bl) {
   const encTitle = encodeURIComponent(title);
   const links = [];
 
@@ -319,6 +344,10 @@ function renderQuickLinks(title, steam, oc, mc) {
     links.push(`<a class="panax-quick-btn" href="${mc.url}" target="_blank" rel="noopener noreferrer">Metacritic</a>`);
   } else {
     links.push(`<a class="panax-quick-btn" href="https://www.metacritic.com/search/${encTitle}/" target="_blank" rel="noopener noreferrer">Metacritic</a>`);
+  }
+
+  if (bl?.url) {
+    links.push(`<a class="panax-quick-btn" href="${bl.url}" target="_blank" rel="noopener noreferrer">Backloggd</a>`);
   }
 
   links.push(`<a class="panax-quick-btn" href="https://www.youtube.com/results?search_query=${encTitle}+gameplay+trailer" target="_blank" rel="noopener noreferrer">YouTube</a>`);
@@ -399,23 +428,25 @@ async function loadGameData(title) {
   isFetching = true;
 
   try {
-    const [steam, oc, mc] = await Promise.all([
+    const [steamRes, ocRes, mcRes, blRes] = await Promise.allSettled([
       resolveSteam(title),
       fetchOpenCritic(title),
       fetchMetacritic(title),
+      fetchBackloggdRating(title),
     ]);
 
-    activeSteamData = steam;
-    activeOcData = oc;
-    activeMcData = mc;
+    activeSteamData = steamRes.status === 'fulfilled' ? steamRes.value : null;
+    activeOcData = ocRes.status === 'fulfilled' ? ocRes.value : null;
+    activeMcData = mcRes.status === 'fulfilled' ? mcRes.value : null;
+    activeBackloggdData = blRes.status === 'fulfilled' ? blRes.value : null;
 
-    if (steam?.appId) {
-      const [proton, charts] = await Promise.all([
-        fetchProtonDb(steam.appId),
-        fetchSteamCharts(steam.appId),
+    if (activeSteamData?.appId) {
+      const [protonRes, chartsRes] = await Promise.allSettled([
+        fetchProtonDb(activeSteamData.appId),
+        fetchSteamCharts(activeSteamData.appId),
       ]);
-      activeProtonData = proton;
-      activeSteamCharts = charts;
+      activeProtonData = protonRes.status === 'fulfilled' ? protonRes.value : null;
+      activeSteamCharts = chartsRes.status === 'fulfilled' ? chartsRes.value : null;
     }
   } catch (err) {
     console.debug('[PANAX RU] Error fetching enrichments:', err);
@@ -435,6 +466,14 @@ function findMountTarget(tab) {
     if (plat?.parentElement) {
       return { parent: plat.parentElement, before: plat.nextSibling };
     }
+    const errReport = findSectionCard(['нашли ошибку', 'предложить правку', 'suggest edit', 'found an error']);
+    if (errReport?.parentElement) {
+      return { parent: errReport.parentElement, before: errReport.nextSibling };
+    }
+    const descSec = findSectionCard(['об игре', 'about game', 'описание']);
+    if (descSec?.parentElement) {
+      return { parent: descSec.parentElement, before: descSec.nextSibling };
+    }
   }
 
   if (tab === 'players') {
@@ -451,7 +490,6 @@ function findMountTarget(tab) {
       return { parent: ratingsSec.parentElement, before: ratingsSec };
     }
 
-    // Direct mount right below tabs bar if found
     const tabsBar = findTabsBar();
     if (tabsBar?.parentElement) {
       const next = tabsBar.nextElementSibling;
@@ -475,47 +513,53 @@ function findMountTarget(tab) {
     }
   }
 
-  const mainDiv = document.querySelector('body > div');
-  return { parent: mainDiv || document.body, before: null };
+  return null;
 }
 
 function injectUi() {
-  if (!location.pathname.includes('/game-detail/')) return;
+  const settings = getSettings();
+  if (!isGamePage() || settings.showGameWidgets === false) {
+    document.getElementById('panax-about-enrichment')?.remove();
+    document.getElementById('panax-players-card-container')?.remove();
+    return;
+  }
+
   const currentTitle = getGameTitleFromDom();
   if (!currentTitle) return;
 
   hookTabClicks();
 
-  const settings = getSettings();
   const tab = getActiveTab();
 
   if (tab === 'about') {
     document.getElementById('panax-players-card-container')?.remove();
 
-    const target = findMountTarget('about');
-    if (target?.parent) {
-      let container = document.getElementById('panax-about-enrichment');
-      if (!container) {
-        container = document.createElement('div');
-        container.id = 'panax-about-enrichment';
-        target.parent.insertBefore(container, target.before);
-      } else if (!container.isConnected || container.parentElement !== target.parent) {
-        target.parent.insertBefore(container, target.before);
-      }
+    if (settings.showRatings !== false || settings.showSteamStore !== false || settings.showQuickLinks !== false) {
+      const target = findMountTarget('about');
+      if (target?.parent) {
+        let container = document.getElementById('panax-about-enrichment');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'panax-about-enrichment';
+          target.parent.insertBefore(container, target.before);
+        } else if (!container.isConnected || container.parentElement !== target.parent) {
+          target.parent.insertBefore(container, target.before);
+        }
 
-      let html = '';
-      if (settings.showRatings !== false) {
-        html += renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData);
-      }
-      if (settings.showSteamStore !== false) {
-        html += renderSteamStoreCard(activeSteamData, settings);
-      }
-      if (settings.showQuickLinks !== false) {
-        html += renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData);
-      }
+        let html = '';
+        if (settings.showRatings !== false) {
+          html += renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData, activeBackloggdData);
+        }
+        if (settings.showSteamStore !== false) {
+          html += renderSteamStoreCard(activeSteamData, settings);
+        }
+        if (settings.showQuickLinks !== false) {
+          html += renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData, activeBackloggdData);
+        }
 
-      if (html.trim() && container.innerHTML !== html) {
-        container.innerHTML = html;
+        if (html.trim() && container.innerHTML !== html) {
+          container.innerHTML = html;
+        }
       }
     }
   } else if (tab === 'players') {
@@ -562,14 +606,14 @@ export async function startEnrichment() {
           userSelectedTab = 'players';
           document.getElementById('panax-about-enrichment')?.remove();
           injectUi();
-          setTimeout(injectUi, 50);
+          setTimeout(injectUi, 40);
           setTimeout(injectUi, 200);
           break;
         } else if (t === 'о игре' || t === 'about') {
           userSelectedTab = 'about';
           document.getElementById('panax-players-card-container')?.remove();
           injectUi();
-          setTimeout(injectUi, 50);
+          setTimeout(injectUi, 40);
           setTimeout(injectUi, 200);
           break;
         } else if (t === 'сообщество' || t === 'community') {
@@ -602,7 +646,7 @@ export async function startEnrichment() {
   let lastUrl = location.href;
 
   function tick() {
-    if (!location.pathname.includes('/game-detail/')) {
+    if (!isGamePage()) {
       document.getElementById('panax-about-enrichment')?.remove();
       document.getElementById('panax-players-card-container')?.remove();
       activeGameTitle = '';
@@ -623,6 +667,7 @@ export async function startEnrichment() {
       activeOcData = null;
       activeMcData = null;
       activeProtonData = null;
+      activeBackloggdData = null;
       userSelectedTab = null;
       loadGameData(title).then(() => injectUi());
     } else {
@@ -652,7 +697,7 @@ export async function startEnrichment() {
       if (location.href !== lastUrl) {
         lastUrl = location.href;
         tick();
-      } else if (location.pathname.includes('/game-detail/')) {
+      } else if (isGamePage()) {
         tick();
       }
     }, 150);

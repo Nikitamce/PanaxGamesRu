@@ -126,6 +126,22 @@
     .switch input:checked + .slider { background: var(--accent); }
     .switch input:checked + .slider::after { transform: translateX(16px); }
 
+    .select-input {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #f0f6fc;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 4px 6px;
+      outline: none;
+      max-width: 135px;
+      cursor: pointer;
+    }
+    .select-input:focus {
+      border-color: var(--accent);
+    }
+
     .btn {
       width: 100%;
       padding: 8px 12px;
@@ -145,14 +161,6 @@
     .btn:hover {
       background: rgba(255, 255, 255, 0.12);
       border-color: #484f58;
-    }
-    .btn-accent {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    .btn-accent:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
     }
     .footer {
       display: flex;
@@ -178,7 +186,7 @@
       <span class="badge">RU</span>
       <span class="title">PANAX RU</span>
     </div>
-    <span class="version" id="ver">v0.2.78</span>
+    <span class="version" id="ver">v0.2.87</span>
   </div>
 
   <div class="card">
@@ -192,6 +200,17 @@
         <span class="slider"></span>
       </label>
     </div>
+
+    <div class="row">
+      <div class="row-text">
+        <span class="label">Перевод постов и рецензий</span>
+        <span class="hint">Кнопка «Translate» под текстом</span>
+      </div>
+      <label class="switch">
+        <input id="toggle-translate" type="checkbox" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
   </div>
 
   <div class="card">
@@ -199,8 +218,19 @@
 
     <div class="row">
       <div class="row-text">
+        <span class="label">Виджеты на страницах игр</span>
+        <span class="hint">Включить все доп. блоки и скрипты</span>
+      </div>
+      <label class="switch">
+        <input id="toggle-game-widgets" type="checkbox" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="row">
+      <div class="row-text">
         <span class="label">⭐ Оценки критиков</span>
-        <span class="hint">OpenCritic, Metacritic, ProtonDB, Deck</span>
+        <span class="hint">OpenCritic, Metacritic, Steam, Panax</span>
       </div>
       <label class="switch">
         <input id="toggle-ratings" type="checkbox" checked />
@@ -229,16 +259,57 @@
         <span class="slider"></span>
       </label>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Регион Steam и валюта</div>
 
     <div class="row">
       <div class="row-text">
-        <span class="label">💱 Конвертация в ₽</span>
-        <span class="hint">Примерная цена в рублях</span>
+        <span class="label">Регион магазина</span>
+        <span class="hint">Код страны цен Steam</span>
+      </div>
+      <select class="select-input" id="select-steam-country">
+        <option value="KZ">Казахстан (₸)</option>
+        <option value="RU">Россия (₽)</option>
+        <option value="US">США ($)</option>
+        <option value="UA">Украина (₴)</option>
+        <option value="TR">Турция ($)</option>
+        <option value="EU">Европа (€)</option>
+        <option value="GB">Британия (£)</option>
+        <option value="PL">Польша (zł)</option>
+        <option value="AR">Аргентина ($)</option>
+        <option value="BR">Бразилия (R$)</option>
+        <option value="JP">Япония (¥)</option>
+        <option value="KR">Корея (₩)</option>
+        <option value="CN">Китай (¥)</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="row-text">
+        <span class="label">Конвертировать цену</span>
+        <span class="hint">Показывать ~ цену</span>
       </div>
       <label class="switch">
         <input id="toggle-convert" type="checkbox" checked />
         <span class="slider"></span>
       </label>
+    </div>
+
+    <div class="row" id="row-target-currency">
+      <div class="row-text">
+        <span class="label">Валюта для расчета</span>
+        <span class="hint">Курс ЦБ / открытые курсы</span>
+      </div>
+      <select class="select-input" id="select-convert-currency">
+        <option value="RUB">Рубли (₽)</option>
+        <option value="USD">Доллары ($)</option>
+        <option value="EUR">Евро (€)</option>
+        <option value="KZT">Тенге (₸)</option>
+        <option value="UAH">Гривны (₴)</option>
+        <option value="TRY">Лиры (₺)</option>
+      </select>
     </div>
   </div>
 

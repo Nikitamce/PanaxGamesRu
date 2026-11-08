@@ -4,7 +4,7 @@
  * strings that are not in the next-intl catalog (e.g. Add to Wishlist).
  */
 import { shouldSkipRoot, isChromeContext, AMBIGUOUS_SHORT } from './skip.js';
-import { translateTimestamp, translateActivity, translateCount, translateNotice } from './time.js';
+import { translateTimestamp, translateTimeFragment, translateActivity, translateCount, translateNotice } from './time.js';
 
 function normalizeKey(s) {
   return String(s || '')
@@ -117,6 +117,7 @@ export function startWritePatch(dict) {
     ['commented on your Post', 'прокомментировал ваш пост'],
     ['commented on your Пост', 'прокомментировал ваш пост'],
     ['is now', '— скидка'],
+    ['is сейчас', '— скидка'],
     ['Get it', 'Купите'],
     ['Get it on Steam', 'Купите в Steam'],
     ['Get it on Steam for', 'Купите в Steam за'],
@@ -160,6 +161,12 @@ export function startWritePatch(dict) {
     ['Settings', dict.Settings || 'Настройки'],
     ['Send feedback', dict['Send feedback'] || 'Написать отзыв'],
     ['Space', dict.Space || 'Пространство'],
+    ['Discover', dict.Discover || 'Обзор'],
+    ['Arcade', dict.Arcade || 'Аркада'],
+    ['Community', dict.Community || 'Сообщество'],
+    ['Translate', dict.Translate || 'Перевести'],
+  ['No comments yet', dict['No comments yet'] || 'Пока нет комментариев'],
+  ['Connect with players to grab and guard badges!', dict['Connect with players to grab and guard badges!'] || 'Общайтесь с игроками, чтобы получать и защищать значки!'],
     ['Game Rate', dict['Game Rate'] || 'Оценки игр'],
     ['Preferences', dict.Preferences || 'Параметры'],
     ['Language', dict.Language || 'Язык'],
@@ -221,7 +228,7 @@ export function startWritePatch(dict) {
     const key = normalizeKey(raw);
     if (!key || key.length > 240) return null;
     if (!(parent && parent.isContentEditable)) {
-      const stamped = translateTimestamp(raw) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
+      const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, parent) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
       if (stamped != null && normalizeKey(stamped) !== key) return preserveEdges(raw, stamped);
     }
     const level = key.match(/^Lv\.?\s*(\d+)$/i);

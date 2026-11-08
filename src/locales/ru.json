@@ -149,6 +149,7 @@
   "Pin to your profile": "Закрепить в профиле",
   "Copy text": "Копировать текст",
   "Unfollow this user": "Отписаться от пользователя",
+  "Follow this user": "Подписаться на пользователя",
   "Not enough ratings yet": "Оценок пока недостаточно",
   "Connect PlayStation account": "Подключить аккаунт PlayStation",
   "Connect Xbox account": "Подключить аккаунт Xbox",
@@ -1126,5 +1127,19 @@
   "French": "Французский",
   "More languages are on the way.": "Скоро появятся другие языки.",
   "Make a request": "Оставить заявку",
-  "Follow back": "Подписаться в ответ"
+  "Follow back": "Подписаться в ответ",
+  "Check your": "Загляните в",
+  "Check your профиль to see what's new.": "Загляните в профиль, чтобы узнать, что нового.",
+  "Check your профиль to see what’s new.": "Загляните в профиль, чтобы узнать, что нового.",
+  "Check your Профиль to see what's new.": "Загляните в профиль, чтобы узнать, что нового.",
+  "Check your Профиль to see what’s new.": "Загляните в профиль, чтобы узнать, что нового.",
+  "is сейчас": "— скидка",
+  "before the sale ends в": "до окончания скидки",
+  "Translate": "Перевести",
+  "Show original": "Показать оригинал",
+  "Translating...": "Перевод...",
+  "Translation failed": "Ошибка перевода",
+  "No comments yet": "Пока нет комментариев",
+  "No comments": "Нет комментариев",
+  "Connect with players to grab and guard badges!": "Общайтесь с игроками, чтобы получать и защищать значки!"
 }

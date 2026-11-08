@@ -25,13 +25,15 @@ export async function fetchMetacritic(title) {
     if (typeof html !== 'string') return null;
 
     const metascoreMatch =
+      html.match(/Metascore\s+(\d+)\s+out of 100/i) ||
       html.match(/c-siteReviewScore[^\>]*\><span>(\d+)/i) ||
-      html.match(/"metascore":\s*(\d+)/i) ||
+      html.match(/"metascore":\s*"?(\d+)"?/i) ||
       html.match(/class="[^"]*c-productScoreInfo_scoreNumber[^"]*"[^>]*>(\d+)/i);
 
     const userScoreMatch =
       html.match(/c-siteReviewScore_user[^\>]*\><span>([\d.]+)/i) ||
-      html.match(/"userScore":\s*"([\d.]+)"/i);
+      html.match(/"userScore":\s*"([\d.]+)"/i) ||
+      html.match(/User score\s+([\d.]+)\s+out of 10/i);
 
     const metascore = metascoreMatch ? Number(metascoreMatch[1]) : null;
     const userScore = userScoreMatch ? parseFloat(userScoreMatch[1]) : null;
@@ -48,4 +50,3 @@ export async function fetchMetacritic(title) {
     return null;
   }
 }
-

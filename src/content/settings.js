@@ -1,10 +1,14 @@
 export const DEFAULT_SETTINGS = {
   panaxRuEnabled: true,
+  showGameWidgets: true,
   showRatings: true,
   showSteamStore: true,
   showQuickLinks: true,
   showPlayerStats: true,
   showPriceConvert: true,
+  steamCountry: 'KZ',
+  convertCurrency: 'RUB',
+  showTranslate: true,
 };
 
 let currentSettings = { ...DEFAULT_SETTINGS };
@@ -32,4 +36,3 @@ export function updateSettings(partial) {
     chrome.storage.local.set(currentSettings);
   }
 }
-

@@ -1,7 +1,5 @@
 import { bgRequest } from './request.js';
 
-const OPENCRITIC_CLIENT_AUTH = 'Bearer R2tBRkdvUU9WSHpoUXpaSXVYa2g5cGU5NEFsWUgyeXQ=';
-
 function cleanTitle(s) {
   return String(s || '')
     .toLowerCase()
@@ -23,19 +21,18 @@ export async function fetchOpenCritic(title) {
   const q = String(title || '').trim();
   if (!q) return null;
 
+  // Try fetching OpenCritic via bgRequest
   try {
     const list = await bgRequest({
       url: `https://api.opencritic.com/api/game/search?criteria=${encodeURIComponent(q)}`,
       headers: {
         Accept: 'application/json',
-        Authorization: OPENCRITIC_CLIENT_AUTH,
         Referer: 'https://opencritic.com/',
       },
     });
 
     if (!Array.isArray(list) || !list.length) return null;
 
-    // Pick best match
     const scored = list.map((item) => ({
       item,
       score: scoreTitleMatch(item.name, q),
@@ -53,7 +50,6 @@ export async function fetchOpenCritic(title) {
         url: `https://api.opencritic.com/api/game/${hit.id}`,
         headers: {
           Accept: 'application/json',
-          Authorization: OPENCRITIC_CLIENT_AUTH,
           Referer: 'https://opencritic.com/',
         },
       });
@@ -81,4 +77,3 @@ export async function fetchOpenCritic(title) {
     return null;
   }
 }
-

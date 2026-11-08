@@ -144,6 +144,10 @@ export function isChromeContext(el) {
     if (cur.matches?.('header, nav, footer, aside, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
       return true;
     }
+    // Top post view header (e.g. "< Post ...")
+    if (depth <= 2 && cur.parentElement?.querySelector('svg, button, a[href*="back"], [class*="back"]')) {
+      return true;
+    }
     // Element or parent is a clickable button/pill/dropdown
     if (depth <= 2) {
       if (cur.nextElementSibling?.tagName === 'SVG' || cur.previousElementSibling?.tagName === 'SVG') {
@@ -176,6 +180,7 @@ export function isChromeContext(el) {
 export function shouldSkipRoot(el) {
   if (!el || el.nodeType !== 1) return false;
   if (el.getAttribute?.('contenteditable') === 'true' || el.isContentEditable) return true;
+  if (el.closest?.('[data-panax-ru-skip]')) return true;
   // Controls, buttons, pills, dropdown items inside modals or post wrappers are UI chrome
   if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
     return false;

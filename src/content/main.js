@@ -8,6 +8,7 @@ import { startWritePatch } from './write-patch.js';
 import { startRatingIcons } from './rating-icons.js';
 import { startLogo } from './logo.js';
 import { startEnrichment } from './enrichment/game-enrichment.js';
+import { startPostTranslate } from './features/post-translate.js';
 
 /**
  * Optional harvest: open the site with #panax-ru-harvest
@@ -97,11 +98,12 @@ function boot() {
     startRatingIcons();
     startLogo();
     startEnrichment();
+    startPostTranslate();
   } catch {
     /* ignore */
   }
 
-  console.info(`[PANAX RU] v0.2.81 · ${Object.keys(dict).length} strings · active`);
+  console.info(`[PANAX RU] v0.2.90 · ${Object.keys(dict).length} strings · active`);
 }
 
 function start() {

@@ -1,4 +1,26 @@
 /** Whole-node timestamps and a few short badges. Never matches a sentence. */
+import { isChromeContext, shouldSkipRoot } from './skip.js';
+
+/** Ambiguous single words: UI only, never user-authored word-split prose. */
+export function translateTimeFragment(raw, el) {
+  if (!el || shouldSkipRoot(el) || !isChromeContext(el)) return null;
+  const text = clean(raw);
+  if (/^is$/i.test(text)) {
+    const parentText = el.parentElement?.textContent || '';
+    if (/(?:сейчас|now|\d+%)|Get it|sale ends/i.test(parentText)) return '';
+  }
+  if (/^the$/i.test(text)) {
+    const parentText = el.parentElement?.textContent || '';
+    if (/(?:sale ends|до окончания скидки|before the sale)/i.test(parentText)) return '';
+  }
+  if (/^now$/i.test(text)) return 'сейчас';
+  if (/^(?:november|ноябрь|ноября)$/i.test(text)) {
+    // A separately styled day must keep its own node and position.
+    const next = el.nextSibling?.textContent || '';
+    return /^\s*\d{1,2}(?:\D|$)/.test(next) ? 'ноября' : 'ноябрь';
+  }
+  return null;
+}
 
 const MONTHS = {
   jan: 'янв', january: 'января',
@@ -13,6 +35,7 @@ const MONTHS = {
   oct: 'окт', october: 'октября',
   nov: 'ноя', november: 'ноября',
   dec: 'дек', december: 'декабря',
+  ноябрь: 'ноября', ноября: 'ноября', октябрь: 'октября', октября: 'октября',
 };
 
 const UNIT = {
@@ -189,28 +212,28 @@ export function translateNotice(raw, context = '') {
   if (dropped && dropped[1].length < 80) {
     return `${dropped[1]} опубликовал новый пост`;
   }
-  const saleTitle = text.match(/^(.+?)\s+is now\s+(\d+)%(?:\s*off)?$/i);
+  const saleTitle = text.match(/^(.+?)\s+(?:is now|is сейчас)\s+(\d+)%(?:\s*off)?$/i);
   if (saleTitle) {
     return `${saleTitle[1]} — скидка ${saleTitle[2]}%`;
   }
-  const isNowOff = text.match(/^is now\s+(\d+)%(?:\s*off)?$/i);
+  const isNowOff = text.match(/^(?:is now|is сейчас)\s+(\d+)%(?:\s*off)?$/i);
   if (isNowOff) return `— скидка ${isNowOff[1]}%`;
-  if (/^is now$/i.test(text)) return '— скидка';
+  if (/^(?:is now|is сейчас)$/i.test(text)) return '— скидка';
   const pctOff = text.match(/^(\d+)%\s*(?:off)?$/i);
-  if (pctOff && /(?:is now|скидк|sale)/i.test(context)) return `${pctOff[1]}%`;
+  if (pctOff && /(?:is now|is сейчас|скидк|sale)/i.test(context)) return `${pctOff[1]}%`;
   const upToOff = text.match(/^up to\s+(\d+)%\s*(?:off)?$/i);
   if (upToOff) return `скидки до ${upToOff[1]}%`;
   const savePct = text.match(/^save\s+(\d+)%$/i);
   if (savePct) return `скидка ${savePct[1]}%`;
 
-  const saleBody = text.match(/^Get it\s*(?:on|в|Вкл\.)?\s*Steam for\s+([^b]+?)\s*before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+  const saleBody = text.match(/^(?:Get it|Купите)?\s*(?:on|в|Вкл\.)?\s*Steam\s*(?:for|за)?\s+([^b]+?)\s*(?:before the sale ends|до окончания скидки)?\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
   if (saleBody) {
     const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
     const day = parseInt(saleBody[3], 10);
     return `Купите в Steam за ${saleBody[1].trim()} до окончания скидки ${day} ${mon}${saleBody[4] ? ` ${saleBody[4]}` : ''}`;
   }
 
-  const endsBefore = text.match(/^before the sale ends\s*(?:on|в|Вкл\.)?\s*([a-zA-Z]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+  const endsBefore = text.match(/^(?:before the sale ends|до окончания скидки)\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
   if (endsBefore) {
     const mon = MONTHS[endsBefore[1].toLowerCase()] || endsBefore[1];
     const day = parseInt(endsBefore[2], 10);
@@ -220,6 +243,28 @@ export function translateNotice(raw, context = '') {
     return 'до окончания скидки';
   }
 
+  // Sale copy is rendered in adjacent text nodes and links; translate the
+  // phrase fragments in place without merging the site's styled elements.
+  if (/^Get it on$/i.test(text)) return 'Купите в';
+  if (/^Steam$/i.test(text) && /Get it|Купите/i.test(context)) return 'Steam';
+  if (/^before the sale ends on$/i.test(text)) return 'до окончания скидки';
+  if (/^on$/i.test(text) && /sale ends|скидк/i.test(context)) return 'в';
+  if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
+  if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
+  const salePrice = text.match(/^(?:for|Steam for)\s+([£€$][\d.,]+)$/i);
+  if (salePrice && /(?:Get it|Steam|sale|Купите)/i.test(context)) return `за ${salePrice[1]}`;
+  const salePriceWithLead = text.match(/^for\s+([£€$][\d.,]+)\s+before the sale ends on$/i);
+  if (salePriceWithLead) return `за ${salePriceWithLead[1]} до окончания скидки`;
+  if (/^Steam for$/i.test(text) && /(?:Get it|sale|Купите)/i.test(context)) return 'Steam за';
+  if (/^before the sale ends on$/i.test(text)) return 'до окончания скидки';
+  if (/^for$/i.test(text) && /(?:Steam|sale|Купите)/i.test(context)) return 'за';
+  const salePrefix = text.match(/^Get it on Steam for\s+(.+?)\s+before the sale ends on$/i);
+  if (salePrefix) return `Купите в Steam за ${salePrefix[1]} до окончания скидки`;
+  const saleSuffix = text.match(/^([£€$][\d.,]+)\s+before the sale ends on(?:\s+(.+))?$/i);
+  if (saleSuffix) {
+    const date = saleSuffix[2] ? translateNotice(saleSuffix[2]) : '';
+    if (!saleSuffix[2] || date) return `${saleSuffix[1]} до окончания скидки${date ? ` ${date}` : ''}`;
+  }
   if (/^Get it$/i.test(text)) return 'Купите';
   if (/^Get it on Steam$/i.test(text)) return 'Купите в Steam';
   if (/^Get it on Steam for$/i.test(text)) return 'Купите в Steam за';
@@ -259,6 +304,9 @@ export function translateNotice(raw, context = '') {
   if (/^not enough ratings yet$/i.test(text)) return 'Оценок пока недостаточно';
   if (/^edit profile$/i.test(text)) return 'Редактировать профиль';
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
+  if (/^follow this user$/i.test(text)) return 'Подписаться на пользователя';
+  if (/^unfollow this user$/i.test(text)) return 'Отписаться от пользователя';
+  if (/^post$/i.test(text)) return 'Пост';
   if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return 'прокомментировал ваш пост';
   if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return 'ответил на ваш комментарий';
   if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)$/i.test(text)) return 'ответил на ваш';
@@ -360,9 +408,28 @@ export function translateActivity(raw) {
   const filters = text.match(/^filters:\s*(.+)$/i);
   if (filters && text.length < 80) return `Фильтры: ${filters[1]}`;
   if (/^panax store$/i.test(text)) return 'Магазин PANAX';
+  if (/^no comments(?: yet)?$/i.test(text)) return 'Пока нет комментариев';
+  if (/^connect with players to grab and guard badges!?$/i.test(text)) {
+    return 'Общайтесь с игроками, чтобы получать и защищать значки!';
+  }
+  const joinedMatch = text.match(/^joineds+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december).?s+(d{1,2})(?:,?s*(d{4}))?$/i) ||
+                      text.match(/^joineds+(d{1,2})s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december).?(?:,?s*(d{4}))?$/i);
+  if (joinedMatch) {
+    const isDayFirst = /^\d/.test(joinedMatch[1]);
+    const monthStr = isDayFirst ? joinedMatch[2] : joinedMatch[1];
+    const dayStr = isDayFirst ? joinedMatch[1] : joinedMatch[2];
+    const yearStr = joinedMatch[3] ? ` ${joinedMatch[3]}` : '';
+    const ruM = MONTHS[monthStr.toLowerCase()];
+    if (ruM) return `Регистрация: ${dayStr} ${ruM}${yearStr}`;
+  }
+  if (/^discover$/i.test(text)) return 'Обзор';
+  if (/^arcade$/i.test(text)) return 'Аркада';
   if (/^pick an emoji[.…]{0,3}$/i.test(text)) return 'Выберите эмодзи…';
   if (/^search emoji$/i.test(text)) return 'Поиск эмодзи';
   if (/^tell us your thoughts on a game$/i.test(text)) return 'Расскажите, что думаете об игре';
+  if (/^follow this user$/i.test(text)) return 'Подписаться на пользователя';
+  if (/^unfollow this user$/i.test(text)) return 'Отписаться от пользователя';
+  if (/^post$/i.test(text)) return 'Пост';
   if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
     return 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.';
   }
