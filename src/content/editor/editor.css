@@ -2,6 +2,74 @@
    GameQuill & Panax Enhanced Editor Styles
    ========================================================================== */
 
+/* --- Панель быстрого добавления блоков и открытия GameQuill (Addbar) --- */
+.panax-addbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 12px;
+  margin: 10px 0;
+  border-radius: 14px;
+  border: 1px dashed #252e42;
+  background: rgba(17, 21, 31, 0.72);
+  user-select: none;
+}
+
+.panax-ghost-btn {
+  width: auto !important;
+  height: auto !important;
+  float: none !important;
+  padding: 7px 13px !important;
+  border-radius: 9px !important;
+  border: 1px solid #2d3648 !important;
+  background: #161b27 !important;
+  color: #9ba3b8 !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.16s ease !important;
+}
+
+.panax-ghost-btn:hover {
+  background: #1c2231 !important;
+  color: #fff !important;
+  border-color: #7c5cff !important;
+  transform: translateY(-1px) !important;
+}
+
+.panax-fullscreen-btn {
+  width: auto !important;
+  height: auto !important;
+  float: none !important;
+  padding: 7px 15px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(124, 92, 255, 0.55) !important;
+  background: linear-gradient(135deg, #7c5cff, #22d3ee) !important;
+  color: #fff !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 16px rgba(124, 92, 255, 0.35) !important;
+  transition: all 0.18s ease !important;
+}
+
+.panax-fullscreen-btn:hover {
+  filter: brightness(1.14) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 22px rgba(124, 92, 255, 0.5) !important;
+}
+
 /* --- Тулбар и лента в редакторе Panax --- */
 .panax-editor-toolbar {
   display: flex;

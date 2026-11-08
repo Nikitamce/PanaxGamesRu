@@ -1,7 +1,7 @@
 /**
- * Enhanced Panax Editor Toolbar:
- * Injects modern formatting and GameQuill widget insertion buttons into
- * both post editor and review editor on panaxgames.com.
+ * Enhanced Panax Editor Toolbar & Addbar:
+ * Injects GameQuill Fullscreen launch bar and quick block insertion bar into
+ * both post editor and review editor on panaxgames.com without breaking Quill CSS.
  */
 import { openInsertModal } from './modal.js';
 import { startSelectionWatcher } from './floating-bar.js';
@@ -15,10 +15,13 @@ function exec(cmd, val = null) {
   document.execCommand(cmd, false, val);
 }
 
-function buildToolbarHtml() {
+/**
+ * Full formatting toolbar (used for regular post editor where Quill toolbar is absent)
+ */
+function buildFullPostToolbarHtml() {
   return `
     <div class="panax-editor-group">
-      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="open-fullscreen" title="Открыть полноэкранный редактор GameQuill" style="background:linear-gradient(135deg,#7c5cff,#22d3ee);color:#fff;border-color:transparent;font-weight:700;">✨ GameQuill Fullscreen</button>
+      <button type="button" class="panax-fullscreen-btn" data-act="open-fullscreen" title="Открыть полноэкранный редактор GameQuill">✨ Открыть GameQuill на весь экран</button>
     </div>
     <div class="panax-editor-sep"></div>
     <div class="panax-editor-group">
@@ -37,26 +40,35 @@ function buildToolbarHtml() {
     </div>
     <div class="panax-editor-sep"></div>
     <div class="panax-editor-group">
-      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-game" title="Вставить карточку игры">🎮 Игра</button>
-      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-steam" title="Вставить виджет Steam">♨️ Steam</button>
-      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-yt" title="Вставить видео YouTube">▶️ Видео</button>
-      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-pc" title="Вставить Плюсы и Минусы">⚖️ Плюсы/Минусы</button>
-      <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-chip" title="Вставить чип игры в текст">🕹️ Чип</button>
-    </div>
-    <div class="panax-editor-sep"></div>
-    <div class="panax-editor-group">
       <button type="button" class="panax-tb-btn" data-cmd="removeFormat" title="Очистить форматирование">⌫</button>
     </div>
   `;
 }
 
-function attachToolbarEvents(toolbar, targetEditable) {
-  toolbar.addEventListener('mousedown', (e) => {
-    // Prevent focus loss from target editable
+/**
+ * Quick block & widget addbar (matches screenshot 1 from sit3020.txt)
+ */
+function buildAddbarHtml(includeFullscreenBtn = false) {
+  return `
+    ${includeFullscreenBtn ? `<button type="button" class="panax-fullscreen-btn" data-act="open-fullscreen">✨ Редактор GameQuill (Full)</button>` : ''}
+    <button type="button" class="panax-ghost-btn" data-cmd="formatBlock" data-val="P">¶ Текстовый блок</button>
+    <button type="button" class="panax-ghost-btn" data-cmd="formatBlock" data-val="H2">H2 Заголовок</button>
+    <button type="button" class="panax-ghost-btn" data-cmd="formatBlock" data-val="BLOCKQUOTE">❝ Цитата</button>
+    <button type="button" class="panax-ghost-btn" data-act="ins-hr">— Разделитель</button>
+    <button type="button" class="panax-ghost-btn" data-act="ins-game">🎮 Виджет игры</button>
+    <button type="button" class="panax-ghost-btn" data-act="ins-yt">▶️ Видео</button>
+    <button type="button" class="panax-ghost-btn" data-act="ins-steam">♨️ Steam</button>
+    <button type="button" class="panax-ghost-btn" data-act="ins-pc">⚖️ Плюсы / Минусы</button>
+    <button type="button" class="panax-ghost-btn" data-act="ins-chip">🕹️ Чип-ссылка</button>
+  `;
+}
+
+function attachBarEvents(barEl, targetEditable) {
+  barEl.addEventListener('mousedown', (e) => {
     e.preventDefault();
   });
 
-  toolbar.addEventListener('click', (e) => {
+  barEl.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-cmd],[data-act]');
     if (!btn) return;
     targetEditable.focus();
@@ -72,6 +84,11 @@ function attachToolbarEvents(toolbar, targetEditable) {
 
     if (act === 'open-fullscreen') {
       openGameQuillFullscreen(targetEditable);
+      return;
+    }
+
+    if (act === 'ins-hr') {
+      document.execCommand('insertHTML', false, '<hr><p><br></p>');
       return;
     }
 
@@ -120,62 +137,62 @@ function attachToolbarEvents(toolbar, targetEditable) {
   });
 }
 
-function injectToolbarInto(editorContainer, targetEditable) {
+function injectIntoRegularPostEditor(editorContainer, targetEditable) {
   if (editorContainer.hasAttribute(INJECTED_FLAG)) return;
   editorContainer.setAttribute(INJECTED_FLAG, 'true');
 
+  // Top formatting bar
   const toolbar = document.createElement('div');
   toolbar.className = 'panax-editor-toolbar';
-  toolbar.innerHTML = buildToolbarHtml();
-
-  // Insert before the editable area
+  toolbar.innerHTML = buildFullPostToolbarHtml();
   editorContainer.insertBefore(toolbar, targetEditable);
-  attachToolbarEvents(toolbar, targetEditable);
+  attachBarEvents(toolbar, targetEditable);
+
+  // Dashed Addbar below top toolbar
+  const addbar = document.createElement('div');
+  addbar.className = 'panax-addbar';
+  addbar.innerHTML = buildAddbarHtml(false);
+  editorContainer.insertBefore(addbar, targetEditable);
+  attachBarEvents(addbar, targetEditable);
+}
+
+function injectIntoQuillReviewEditor(quillContainer, targetEditable) {
+  const wrapper = quillContainer.parentElement || quillContainer;
+  if (wrapper.hasAttribute(INJECTED_FLAG)) return;
+  wrapper.setAttribute(INJECTED_FLAG, 'true');
+
+  // Put our clean dashed Addbar right above the .ql-container (so we don't touch .ql-toolbar's 28px button CSS!)
+  const addbar = document.createElement('div');
+  addbar.className = 'panax-addbar';
+  addbar.innerHTML = buildAddbarHtml(true);
+
+  wrapper.insertBefore(addbar, quillContainer);
+  attachBarEvents(addbar, targetEditable);
 }
 
 /**
  * Scan for post editor and review editor on Panax
  */
 export function scanAndEnhanceEditors() {
-  // 1. Look for Quill editors (like in Review / New Review dialog)
+  // 1. Quill editors (Review modal / page)
   const quillEditors = document.querySelectorAll('.ql-editor');
   quillEditors.forEach((editor) => {
-    const container = editor.closest('.ql-container')?.parentElement || editor.parentElement;
-    if (container && !container.hasAttribute(INJECTED_FLAG)) {
-      // Check if standard Quill toolbar exists; if so, we enhance or prepend our extra tools
-      const existingToolbar = container.querySelector('.ql-toolbar');
-      if (existingToolbar) {
-        if (!existingToolbar.hasAttribute(INJECTED_FLAG)) {
-          existingToolbar.setAttribute(INJECTED_FLAG, 'true');
-          const group = document.createElement('span');
-          group.className = 'ql-formats';
-          group.style.marginLeft = '8px';
-          group.innerHTML = `
-            <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="open-fullscreen" title="Открыть полноэкранный редактор GameQuill" style="height:26px;font-size:12px;padding:0 9px;background:linear-gradient(135deg,#7c5cff,#22d3ee);color:#fff;border:none;font-weight:700;">✨ GameQuill Fullscreen</button>
-            <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-game" title="Вставить карточку игры" style="height:24px;font-size:11.5px;padding:0 6px;">🎮 Игра</button>
-            <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-steam" title="Вставить Steam" style="height:24px;font-size:11.5px;padding:0 6px;">♨️ Steam</button>
-            <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-yt" title="Вставить YouTube" style="height:24px;font-size:11.5px;padding:0 6px;">▶️ Видео</button>
-            <button type="button" class="panax-tb-btn panax-tb-badge-btn" data-act="ins-pc" title="Плюсы и Минусы" style="height:24px;font-size:11.5px;padding:0 6px;">⚖️ ±</button>
-          `;
-          existingToolbar.appendChild(group);
-          attachToolbarEvents(group, editor);
-        }
-      } else {
-        injectToolbarInto(container, editor);
-      }
+    const qlContainer = editor.closest('.ql-container') || editor.parentElement;
+    if (qlContainer) {
+      injectIntoQuillReviewEditor(qlContainer, editor);
     }
   });
 
-  // 2. Look for regular post editor (contenteditable without quill, or textarea/post input)
+  // 2. Regular post editor (contenteditable without quill)
   const contentEditables = document.querySelectorAll('[contenteditable="true"]:not(.ql-editor)');
   contentEditables.forEach((editable) => {
-    // Only inject for main post composer areas
+    // Skip elements inside our own GameQuill shadow host or modal
+    if (editable.closest('#panax-gamequill-shadow-host, .panax-modal-overlay')) return;
     const parent = editable.parentElement;
     if (parent && !parent.hasAttribute(INJECTED_FLAG)) {
-      // Ensure it's not a tiny comment input or header
       const rect = editable.getBoundingClientRect();
       if (rect.height >= 40 || editable.getAttribute('data-placeholder') || editable.innerText.includes('О какой игре пост')) {
-        injectToolbarInto(parent, editable);
+        injectIntoRegularPostEditor(parent, editable);
       }
     }
   });
@@ -201,4 +218,3 @@ export function startEditorEnhancement() {
     });
   }
 }
-

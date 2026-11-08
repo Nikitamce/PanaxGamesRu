@@ -1,61 +1,58 @@
 /**
- * Fullscreen GameQuill Modal Overlay that embeds gamequill.html
- * in an iframe and seamlessly exchanges content with Panax.
+ * Fullscreen GameQuill Modal Overlay using Shadow DOM.
+ * Completely bypasses Chrome MV3 inline script CSP restrictions so every button,
+ * ribbon tab, star rating, aspect, and pros/cons block works 100% natively!
  */
+import { GAMEQUILL_CSS, GAMEQUILL_HTML, mountGameQuillApp } from './gamequill-app.js';
+import { enhanceWidgetsIn } from './viewer.js';
 
-let overlayEl = null;
+let hostEl = null;
 let activeTargetEditable = null;
 
 export function openGameQuillFullscreen(targetEditable) {
   activeTargetEditable = targetEditable;
 
-  if (!overlayEl) {
-    overlayEl = document.createElement('div');
-    overlayEl.id = 'panax-gamequill-overlay';
-    overlayEl.style.cssText = `
+  if (!hostEl) {
+    hostEl = document.createElement('div');
+    hostEl.id = 'panax-gamequill-shadow-host';
+    hostEl.style.cssText = `
       position: fixed;
       inset: 0;
       z-index: 2147483647;
       background: #080a11;
-      display: flex;
-      flex-direction: column;
-      animation: panaxFadeIn 0.2s ease;
+      display: block;
     `;
 
-    const iframeUrl = typeof chrome !== 'undefined' && chrome.runtime?.getURL
-      ? chrome.runtime.getURL('gamequill.html')
-      : '/gamequill.html';
+    const shadow = hostEl.attachShadow({ mode: 'open' });
 
-    overlayEl.innerHTML = `
-      <div style="height:3px;background:linear-gradient(90deg,#7c5cff,#22d3ee);"></div>
-      <iframe id="panax-gamequill-frame" src="${iframeUrl}" style="flex:1;border:none;width:100%;height:100%;background:#080a11;"></iframe>
+    // Load Google Fonts + GameQuill CSS
+    const fontLinks = `
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter/index.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/unbounded/index.css">
+      <style>${GAMEQUILL_CSS}</style>
     `;
 
-    document.body.appendChild(overlayEl);
+    shadow.innerHTML = fontLinks + GAMEQUILL_HTML;
+    document.body.appendChild(hostEl);
 
-    // Listen to messages from GameQuill iframe
-    window.addEventListener('message', (event) => {
-      if (!event.data || typeof event.data !== 'object') return;
-
-      if (event.data.type === 'PANAX_GAMEQUILL_CLOSE') {
+    mountGameQuillApp(shadow, {
+      onApply: (data) => {
+        applyGameQuillContent(data);
         closeGameQuillFullscreen();
-        return;
-      }
-
-      if (event.data.type === 'PANAX_GAMEQUILL_APPLY') {
-        applyGameQuillContent(event.data);
+      },
+      onClose: () => {
         closeGameQuillFullscreen();
-      }
+      },
     });
   }
 
-  overlayEl.style.display = 'flex';
+  hostEl.style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
 
 export function closeGameQuillFullscreen() {
-  if (overlayEl) {
-    overlayEl.style.display = 'none';
+  if (hostEl) {
+    hostEl.style.display = 'none';
     document.body.style.overflow = '';
   }
 }
@@ -65,7 +62,6 @@ function applyGameQuillContent(data) {
 
   activeTargetEditable.focus();
 
-  // If Panax uses Quill, update its contents or innerHTML
   const quillRoot = activeTargetEditable.closest('.ql-container')?.__quill;
   if (quillRoot) {
     try {
@@ -74,15 +70,15 @@ function applyGameQuillContent(data) {
       activeTargetEditable.innerHTML = data.html || '';
     }
   } else {
-    // Standard contenteditable
     activeTargetEditable.innerHTML = data.html || '';
   }
 
-  // Trigger input events so React / form state catches the update
+  enhanceWidgetsIn(activeTargetEditable);
+
+  // Trigger input events so React / Panax form state catches the update
   activeTargetEditable.dispatchEvent(new Event('input', { bubbles: true }));
   activeTargetEditable.dispatchEvent(new Event('change', { bubbles: true }));
 
-  // Also check if there's a title input in the page and fill it
   if (data.title) {
     const titleInput = document.querySelector('input[placeholder*="Заголовок"], input[placeholder*="Title"]');
     if (titleInput) {
