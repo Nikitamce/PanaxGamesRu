@@ -369,6 +369,24 @@ export function startWritePatch(dict) {
     if (nested) for (const host of nested) paintEditorTree(host);
   }
 
+  
+  const setAttribute = Element.prototype.setAttribute;
+  Element.prototype.setAttribute = function (name, value) {
+    try {
+      if (typeof value === 'string' && /^(?:data-placeholder|placeholder|aria-placeholder|aria-label)$/i.test(name)) {
+        const key = normalizeKey(value);
+        const thoughts = key.match(/^what are your thoughts on\s+(.+?)\??$/i);
+        if (thoughts) {
+          value = 'Что вы думаете о ' + thoughts[1].trim() + '?';
+        } else {
+          const direct = map.get(key.toLowerCase()) || map.get(key);
+          if (direct) value = direct;
+        }
+      }
+    } catch { /* ignore */ }
+    return setAttribute.call(this, name, value);
+  };
+
   const appendChild = Node.prototype.appendChild;
   Node.prototype.appendChild = function (child) {
     try {

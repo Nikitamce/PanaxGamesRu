@@ -198,6 +198,18 @@ npm run build
    - Обрабатываются все разрозненные спаны: «Купите в», ссылка «Steam», «за $X», «до окончания скидки», «9 ноября». Лишние слова (`the`, `ends`, `on`) корректно глушатся без поломки вёрстки.
 4. **Социальные действия**: `splitNotice` возвращает имя и русское действие отдельно. Имя остаётся в своём узле. Примеры: «Name and N others liked your post» → имя + «и ещё N человек оценили»; «started following» целиком; «X and others got help» → «X и другим помогло». «This comment has been deleted.» переводится. Удалённый комментарий и обычный оба серые, не белые.
 
+### Плейсхолдеры редакторов и полей ввода (`data-placeholder` / `contenteditable`)
+
+В редакторах постов и рецензий (Quill editor, теги с `contenteditable="true"` или классом `.ql-editor`) фоновый текст-подсказка («What are your thoughts on <Game>?») не является обычным текстом внутри DOM, а рендерится через CSS-псевдоэлемент `::before` из атрибута:
+```html
+<div class="ql-editor ql-blank ..." contenteditable="true" data-placeholder="What are your thoughts on The Last of Us?">
+```
+**Важные правила для таких фоновых текстов**:
+1. Элементы с `contenteditable="true"` обычно пропускаются обходом DOM, чтобы не перезаписать пользовательский ввод.
+2. Для них выделена функция `stampComposer(node)` в `engine.js`, которая читает атрибуты `data-placeholder`, `placeholder`, `aria-placeholder` и переводит их через `translateActivity(ph) || translateText(ph)`.
+3. В `write-patch.js` (MAIN-мир) перехвачен метод `Element.prototype.setAttribute`, чтобы подменять `data-placeholder` и `placeholder` в момент, когда React монтирует редактор с динамическим названием игры.
+4. При добавлении новых шаблонов плейсхолдеров (например, `What are your thoughts on <Game>?`) шаблон оформляется регулярным выражением в `translateActivity` (`src/content/time.js`), сохраняя имя игры нетронутым: `Что вы думаете о <Game>?`.
+
 ### Редактор аватара
 
 Кнопки одежды около полусекунды оставались английскими: редкий повторный обход (`n` между 120 и 240 — раз в 600 мс) догонял их после отрисовки. Сейчас текст этих кнопок прозрачный, пока нет `data-panax-ru-on`, а MAIN-мир переводит их в `requestAnimationFrame` до кадра. Класс часто появляется позже текста, поэтому есть и `MutationObserver` на `class`. Не снимай этот CSS и не выкидывай цикл кадров, иначе вспышка вернётся.

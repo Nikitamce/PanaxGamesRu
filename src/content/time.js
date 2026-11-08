@@ -422,6 +422,10 @@ export function translateActivity(raw) {
     const ruM = MONTHS[monthStr.toLowerCase()];
     if (ruM) return `Регистрация: ${dayStr} ${ruM}${yearStr}`;
   }
+  const thoughtsOn = text.match(/^what are your thoughts on\s+(.+?)\??$/i);
+  if (thoughtsOn) {
+    return 'Что вы думаете о ' + thoughtsOn[1].trim() + '?';
+  }
   if (/^discover$/i.test(text)) return 'Обзор';
   if (/^arcade$/i.test(text)) return 'Аркада';
   if (/^pick an emoji[.…]{0,3}$/i.test(text)) return 'Выберите эмодзи…';

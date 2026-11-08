@@ -941,7 +941,7 @@ export function createEngine(dict) {
     for (const attr of ['placeholder', 'data-placeholder', 'aria-placeholder', 'aria-label']) {
       const ph = node.getAttribute(attr);
       if (!ph) continue;
-      const next = translateActivity(ph);
+      const next = translateActivity(ph) || translateText(ph);
       if (next && normalizeKey(next) !== normalizeKey(ph)) node.setAttribute(attr, next);
     }
     const visit = (el) => {
