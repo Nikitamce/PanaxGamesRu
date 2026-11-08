@@ -1,4 +1,5 @@
 import enrichmentCss from './enrichment/enrichment.css';
+import editorCss from './editor/editor.css';
 
 /** Expand status / feed pills so Russian fits — keep header/nav/tab bar width intact. */
 const CSS = `
@@ -183,7 +184,7 @@ export function injectStyles() {
   if (document.getElementById('panax-ru-css')) return;
   const style = document.createElement('style');
   style.id = 'panax-ru-css';
-  style.textContent = CSS + '\n' + (enrichmentCss || '');
+  style.textContent = CSS + '\n' + (enrichmentCss || '') + '\n' + (editorCss || '');
   (document.head || document.documentElement).appendChild(style);
   document.documentElement.classList.add('panax-ru');
 }

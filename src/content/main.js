@@ -9,6 +9,7 @@ import { startRatingIcons } from './rating-icons.js';
 import { startLogo } from './logo.js';
 import { startEnrichment } from './enrichment/game-enrichment.js';
 import { startPostTranslate } from './features/post-translate.js';
+import { startEditorEnhancement } from './editor/index.js';
 
 /**
  * Optional harvest: open the site with #panax-ru-harvest
@@ -99,6 +100,7 @@ function boot() {
     startLogo();
     startEnrichment();
     startPostTranslate();
+    startEditorEnhancement();
   } catch {
     /* ignore */
   }
