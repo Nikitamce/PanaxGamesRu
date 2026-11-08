@@ -284,7 +284,29 @@ export function startWritePatch(dict) {
     }
     if (parent) {
       if (shouldSkipRoot(parent) || parent.isContentEditable) return null;
-      if (AMBIGUOUS_SHORT.has(key.toLowerCase()) && !isChromeContext(parent)) return null;
+      if (!key.includes(' ')) {
+        if (!isChromeContext(parent)) return null;
+        let host = parent;
+        for (let i = 0; i < 4 && host.parentElement && normalizeKey(host.textContent || '') === key; i += 1) {
+          host = host.parentElement;
+        }
+        const hostText = normalizeKey(host.textContent || '');
+        if (
+          hostText &&
+          hostText !== key &&
+          hostText.length > key.length + 2 &&
+          !parent.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')
+        ) {
+          const extra = hostText
+            .toLowerCase()
+            .split(key.toLowerCase())
+            .join(' ')
+            .trim()
+            .split(/\s+/)
+            .filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
+          if (extra.length >= 1) return null;
+        }
+      }
     }
     const hit = map.get(key) ?? map.get(key.toLowerCase());
     if (!hit || hit === key) return null;

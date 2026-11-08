@@ -13,7 +13,11 @@ export function translateTimeFragment(raw, el) {
     const parentText = el.parentElement?.textContent || '';
     if (/(?:sale ends|до окончания скидки|before the sale)/i.test(parentText)) return '';
   }
-  if (/^now$/i.test(text)) return 'сейчас';
+  if (/^now$/i.test(text)) {
+    const parentText = el.parentElement?.textContent || '';
+    if (/(?:is now|sale ends|Get it|скидк)/i.test(parentText) && parentText.length < 200) return 'сейчас';
+    return null;
+  }
   if (/^(?:november|ноябрь|ноября)$/i.test(text)) {
     // A separately styled day must keep its own node and position.
     const next = el.nextSibling?.textContent || '';

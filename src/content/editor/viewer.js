@@ -127,11 +127,63 @@ export function enhanceWidgetElement(el) {
 }
 
 /**
- * Scan root container and enhance widgets
+ * Scan root container and enhance widgets (both data-panax-widget and #gq= links)
  */
 export function enhanceWidgetsIn(root = document) {
   if (!root || !root.querySelectorAll) return;
+
   const elements = root.querySelectorAll('[data-panax-widget]:not([data-panax-enhanced="true"])');
   elements.forEach(enhanceWidgetElement);
+
+  // Also detect #gq= links inside posts/reviews (outside active contenteditable editors)
+  const gqLinks = root.querySelectorAll('a[href*="#gq="]:not([data-panax-enhanced="true"])');
+  gqLinks.forEach((link) => {
+    if (link.isContentEditable || link.closest('[contenteditable="true"], .ql-editor')) return;
+    link.dataset.panaxEnhanced = 'true';
+
+    try {
+      const href = link.getAttribute('href') || '';
+      const rawJson = href.split('#gq=')[1];
+      if (!rawJson) return;
+      const r = JSON.parse(decodeURIComponent(rawJson));
+      if (!r || typeof r !== 'object') return;
+
+      // Render a rich GameQuill summary banner in place of the marker link
+      const banner = document.createElement('div');
+      banner.className = 'panax-widget';
+      banner.style.cssText = 'padding:14px 16px;background:linear-gradient(135deg,rgba(124,92,255,0.18),rgba(34,211,238,0.08));border-color:rgba(124,92,255,0.45);';
+
+      const stars = r.score > 0 ? '★'.repeat(Math.round(r.score)) + '☆'.repeat(10 - Math.round(r.score)) : '';
+      const pros = (r.pros || []).filter(p => p.text && p.text.trim());
+      const cons = (r.cons || []).filter(c => c.text && c.text.trim());
+
+      banner.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:${pros.length || cons.length ? '12px' : '0'};">
+          <div>
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#a78bfa;font-weight:700;">✨ Обзор оформлен в GameQuill</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;margin-top:2px;">${escapeHtml(r.title || r.game || 'Игровой обзор')}</div>
+          </div>
+          ${r.score > 0 ? `<div style="text-align:right;"><div style="color:#ffc84a;font-size:16px;letter-spacing:1px;">${stars}</div><div style="font-size:12px;color:#e9ecf6;font-weight:700;">Оценка: ${r.score}/10</div></div>` : ''}
+        </div>
+        ${(pros.length || cons.length) ? `
+          <div class="panax-proscons" style="margin:8px 0 0;">
+            <div class="panax-pc-box pros">
+              <div class="panax-pc-title"><span>✅</span> Плюсы</div>
+              ${pros.map(p => `<div class="panax-pc-item"><div class="panax-pc-ico">+</div><div>${escapeHtml(p.text)}</div></div>`).join('')}
+            </div>
+            <div class="panax-pc-box cons">
+              <div class="panax-pc-title"><span>❌</span> Минусы</div>
+              ${cons.map(c => `<div class="panax-pc-item"><div class="panax-pc-ico">−</div><div>${escapeHtml(c.text)}</div></div>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+      `;
+
+      const parentP = link.closest('p') || link;
+      parentP.replaceWith(banner);
+    } catch {
+      /* ignore */
+    }
+  });
 }
 

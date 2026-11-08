@@ -1,7 +1,7 @@
 /**
  * Fullscreen GameQuill Modal Overlay using Shadow DOM.
- * Completely bypasses Chrome MV3 inline script CSP restrictions so every button,
- * ribbon tab, star rating, aspect, and pros/cons block works 100% natively!
+ * Completely bypasses Chrome MV3 inline script CSP restrictions and inserts
+ * the complete review HTML into Panax Quill / ContentEditable cleanly.
  */
 import { GAMEQUILL_CSS, GAMEQUILL_HTML, mountGameQuillApp } from './gamequill-app.js';
 import { enhanceWidgetsIn } from './viewer.js';
@@ -25,7 +25,6 @@ export function openGameQuillFullscreen(targetEditable) {
 
     const shadow = hostEl.attachShadow({ mode: 'open' });
 
-    // Load Google Fonts + GameQuill CSS
     const fontLinks = `
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter/index.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/unbounded/index.css">
@@ -37,8 +36,10 @@ export function openGameQuillFullscreen(targetEditable) {
 
     mountGameQuillApp(shadow, {
       onApply: (data) => {
-        applyGameQuillContent(data);
         closeGameQuillFullscreen();
+        setTimeout(() => {
+          applyGameQuillContent(data);
+        }, 40);
       },
       onClose: () => {
         closeGameQuillFullscreen();
@@ -57,27 +58,64 @@ export function closeGameQuillFullscreen() {
   }
 }
 
-function applyGameQuillContent(data) {
-  if (!activeTargetEditable) return;
+function pasteHtmlIntoEditable(el, html, fallbackText) {
+  el.focus();
 
-  activeTargetEditable.focus();
+  // Select all existing content inside the editable so we replace or append cleanly
+  const sel = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  sel.removeAllRanges();
+  sel.addRange(range);
 
-  const quillRoot = activeTargetEditable.closest('.ql-container')?.__quill;
-  if (quillRoot) {
-    try {
-      quillRoot.clipboard.dangerouslyPasteHTML(data.html || data.markdown || '');
-    } catch {
-      activeTargetEditable.innerHTML = data.html || '';
+  // 1. Try synthetic ClipboardEvent('paste') with text/html & text/plain
+  // Both Quill and React Draft/Lexical/ContentEditable listen to 'paste' on the editor element
+  try {
+    const dt = new DataTransfer();
+    dt.setData('text/html', html);
+    dt.setData('text/plain', fallbackText || '');
+    const pasteEvent = new ClipboardEvent('paste', {
+      clipboardData: dt,
+      bubbles: true,
+      cancelable: true,
+    });
+    const notCancelled = el.dispatchEvent(pasteEvent);
+
+    // If the editor handled paste and prevented default, check if content updated
+    if (!notCancelled && el.textContent.trim().length > 10) {
+      return;
     }
-  } else {
-    activeTargetEditable.innerHTML = data.html || '';
+  } catch {
+    /* fallback below */
   }
 
-  enhanceWidgetsIn(activeTargetEditable);
+  // 2. Fallback to execCommand('insertHTML')
+  try {
+    if (document.execCommand('insertHTML', false, html)) {
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+  } catch {
+    /* fallback below */
+  }
 
-  // Trigger input events so React / Panax form state catches the update
-  activeTargetEditable.dispatchEvent(new Event('input', { bubbles: true }));
-  activeTargetEditable.dispatchEvent(new Event('change', { bubbles: true }));
+  // 3. Direct innerHTML assignment + input event
+  el.innerHTML = html;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+function applyGameQuillContent(data) {
+  // Re-locate editable if needed
+  const target = activeTargetEditable && activeTargetEditable.isConnected
+    ? activeTargetEditable
+    : document.querySelector('.ql-editor, [contenteditable="true"]');
+
+  if (!target) return;
+
+  pasteHtmlIntoEditable(target, data.html || '', data.markdown || '');
+  enhanceWidgetsIn(target);
+  enhanceWidgetsIn(document);
 
   if (data.title) {
     const titleInput = document.querySelector('input[placeholder*="Заголовок"], input[placeholder*="Title"]');

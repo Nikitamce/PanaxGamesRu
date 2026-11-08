@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import path from 'node:path';
 
 const htmlPath = 'c:/Users/arist/Gemini/PanaxGamesRu/sit3020.txt';
 const html = fs.readFileSync(htmlPath, 'utf8');
@@ -43,51 +42,115 @@ scriptCode = scriptCode.replace(/document\.addEventListener\('(click|mousedown|m
 
 // Add handler for btnExportToPanax and btnClosePanaxModal before boot()
 const exportHook = `
+function reviewToHtml(r) {
+  if (!r) return '';
+  const parts = [];
+  if (r.title) parts.push('<h2><b>' + esc(r.title) + '</b></h2>');
+  if (r.game) parts.push('<p><b>🎮 Игра:</b> ' + esc(r.game) + '</p>');
+  
+  const sc = SCORES[r.score];
+  if (r.score > 0 && sc) {
+    parts.push('<p><b>⭐ Оценка:</b> ' + r.score + '/10 ' + starsMd(r.score) + ' — «' + esc(sc.t) + '» ' + sc.i + '</p>');
+    parts.push('<blockquote><i>' + esc(sc.d) + '</i></blockquote>');
+  }
+
+  const v = VERDICT[r.recommend] || VERDICT.none;
+  if (r.recommend && r.recommend !== 'none') {
+    parts.push('<p><b>Вердикт:</b> ' + v.e + ' ' + esc(v.t) + '</p>');
+  }
+
+  if (r.aspects && r.aspects.length) {
+    parts.push('<h3><b>📊 Оценки аспектов</b></h3>');
+    parts.push('<ul>' + r.aspects.map(a => {
+      if (a.score > 0) {
+        return '<li><b>' + esc(a.name) + ':</b> ' + a.score + '/10 (' + '★'.repeat(a.score) + '☆'.repeat(10 - a.score) + ')</li>';
+      }
+      return '<li><b>' + esc(a.name) + ':</b> — <i>(' + esc(UNRATED[a.unrated] || UNRATED.unsure) + ')</i></li>';
+    }).join('') + '</ul>');
+  }
+
+  if (r.blocks && r.blocks.length) {
+    r.blocks.forEach(b => {
+      if (b.type === 'text') parts.push('<p>' + (b.html || '') + '</p>');
+      else if (b.type === 'h2') parts.push('<h2><b>' + (b.html || '') + '</b></h2>');
+      else if (b.type === 'h3') parts.push('<h3><b>' + (b.html || '') + '</b></h3>');
+      else if (b.type === 'quote') parts.push('<blockquote>' + (b.html || '') + '</blockquote>');
+      else if (b.type === 'spoiler') parts.push('<blockquote><b>⚠️ СПОЙЛЕР:</b><br>' + (b.html || '') + '</blockquote>');
+      else if (b.type === 'divider') parts.push('<p>───────────────</p>');
+      else if (b.type === 'game') {
+        const d = b.data || {};
+        const srcs = Object.keys(d.links || {}).map(k => { const s = integ(k); return s ? '<a href="' + esc(d.links[k]) + '" target="_blank">' + s.icon + ' ' + esc(s.name) + '</a>' : null; }).filter(Boolean);
+        const rt = Object.keys(d.ratings || {}).map(k => { const s = integ(k); return s ? esc(s.name) + ': <b>' + esc(d.ratings[k]) + '</b>' : null; }).filter(Boolean);
+        parts.push(
+          '<blockquote>' +
+          '<b>🎮 ' + esc(d.title || 'Игра') + '</b> (' + esc([d.year, d.dev, d.pub].filter(Boolean).join(' · ')) + ')<br>' +
+          ((d.genres || []).length ? 'Жанры: ' + esc(d.genres.join(', ')) + '<br>' : '') +
+          (rt.length ? 'Оценки: ' + rt.join(' · ') + '<br>' : '') +
+          (srcs.length ? 'Ссылки: ' + srcs.join(' | ') : '') +
+          '</blockquote>'
+        );
+      } else if (b.type === 'steam') {
+        const d = b.data || {};
+        parts.push(
+          '<blockquote>' +
+          '<b>♨️ ' + esc(d.title || 'Steam') + ' — в Steam</b><br>' +
+          (d.date ? 'Дата выхода: ' + esc(d.date) + '<br>' : '') +
+          'Цена: <b>' + esc(d.price || 'не указана') + '</b>' + (d.disc ? ' (' + esc(d.disc) + ')' : '') + '<br>' +
+          (d.url ? '<a href="' + esc(d.url) + '" target="_blank">Открыть в Steam →</a>' : '') +
+          '</blockquote>'
+        );
+      } else if (b.type === 'youtube') {
+        const d = b.data || {};
+        parts.push(
+          '<blockquote>' +
+          '<b>▶️ ' + esc(d.title || 'Видео') + '</b> (' + esc(d.channel || 'YouTube') + (d.dur ? ' · ' + esc(d.dur) : '') + ')<br>' +
+          (d.url ? '<a href="' + esc(d.url) + '" target="_blank">Смотреть видео на YouTube →</a>' : '') +
+          '</blockquote>'
+        );
+      } else if (b.type === 'workshop') {
+        const d = b.data || {};
+        parts.push(
+          '<blockquote>' +
+          '<b>🛠️ ' + esc(d.title || 'Мастерская') + '</b> · автор: ' + esc(d.author || '—') + '<br>' +
+          (d.url ? '<a href="' + esc(d.url) + '" target="_blank">Открыть в Мастерской Steam →</a>' : '') +
+          '</blockquote>'
+        );
+      }
+    });
+  }
+
+  const pros = (r.pros || []).filter(p => p.text && p.text.trim());
+  const cons = (r.cons || []).filter(c => c.text && c.text.trim());
+  if (pros.length) {
+    parts.push('<h3><b>✅ Плюсы</b></h3>');
+    parts.push('<ul>' + pros.map(p => '<li>+ ' + esc(p.text.trim()) + '</li>').join('') + '</ul>');
+  }
+  if (cons.length) {
+    parts.push('<h3><b>❌ Минусы</b></h3>');
+    parts.push('<ul>' + cons.map(c => '<li>− ' + esc(c.text.trim()) + '</li>').join('') + '</ul>');
+  }
+
+  // Embed full lossless GameQuill JSON payload in an invisible link or end marker so our extension viewer can render the full interactive GameQuill card view!
+  const gqPayload = encodeURIComponent(JSON.stringify(r));
+  parts.push('<p><a href="https://panaxgames.com/#gq=' + gqPayload + '" data-gq-full="' + gqPayload + '">✨ GameQuill Review</a></p>');
+
+  return parts.join('');
+}
+
 const btnExport = $('#btnExportToPanax');
 if (btnExport) {
   btnExport.addEventListener('click', () => {
     const r = cur();
     if (!r) return;
     
-    let blocksHtml = '';
-    (r.blocks || []).forEach(b => {
-      if (b.type === 'text') blocksHtml += '<p>' + (b.html || '') + '</p>';
-      else if (b.type === 'h2') blocksHtml += '<h2>' + (b.html || '') + '</h2>';
-      else if (b.type === 'h3') blocksHtml += '<h3>' + (b.html || '') + '</h3>';
-      else if (b.type === 'quote') blocksHtml += '<blockquote>' + (b.html || '') + '</blockquote>';
-      else if (b.type === 'spoiler') blocksHtml += '<div style="background:rgba(255,255,255,0.04);border:1px dashed #3a455b;padding:8px 12px;border-radius:8px;margin:8px 0;"><b>⚠️ Спойлер:</b> ' + (b.html || '') + '</div>';
-      else if (b.type === 'divider') blocksHtml += '<hr>';
-      else if (typeof widgetHTML === 'function') {
-        const payload = encodeURIComponent(JSON.stringify(b.data || {}));
-        blocksHtml += '<div class="panax-widget panax-widget-' + b.type + '" data-panax-widget="' + b.type + '" data-payload="' + payload + '">' + widgetHTML(b) + '</div>';
-      }
-    });
-
-    let pcHtml = '';
-    const pros = (r.pros || []).map(p => p.text).filter(Boolean);
-    const cons = (r.cons || []).map(c => c.text).filter(Boolean);
-    if (pros.length || cons.length) {
-      const pcPayload = encodeURIComponent(JSON.stringify({ pros, cons }));
-      pcHtml = '<div class="panax-widget panax-proscons" data-panax-widget="proscons" data-payload="' + pcPayload + '">' +
-        '<div class="panax-pc-box pros" style="margin-bottom:8px;"><div style="color:#3ddc97;font-weight:bold;margin-bottom:4px;">✅ Плюсы:</div><ul>' +
-        (pros.map(p => '<li>' + p + '</li>').join('') || '<li>Нет</li>') + '</ul></div>' +
-        '<div class="panax-pc-box cons"><div style="color:#ff5f6d;font-weight:bold;margin-bottom:4px;">❌ Минусы:</div><ul>' +
-        (cons.map(c => '<li>' + c + '</li>').join('') || '<li>Нет</li>') + '</ul></div></div>';
-    }
-
-    let scoreHtml = '';
-    if (r.score > 0) {
-      const scInfo = SCORES[r.score] ? SCORES[r.score].t + ' ' + SCORES[r.score].i : '';
-      scoreHtml = '<div style="color:#ffc84a;font-size:1.15em;font-weight:bold;margin-bottom:12px;">★ Оценка: ' + r.score + '/10 ' + scInfo + '</div>';
-    }
-
-    const fullHtml = (r.title ? '<h1>' + r.title + '</h1>' : '') + scoreHtml + blocksHtml + pcHtml;
+    const fullHtml = reviewToHtml(r);
     const md = reviewToMd(r);
 
     if (typeof onApply === 'function') {
       onApply({
         html: fullHtml,
         markdown: md,
+        reviewData: clone(r),
         title: r.title,
         game: r.game,
         score: r.score

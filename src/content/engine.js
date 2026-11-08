@@ -165,11 +165,11 @@ export function createEngine(dict) {
       if (!timeLike && !multiWord && !sectionTitle && !levelLine && !likedLine && !profileLine) return null;
     }
 
-    // A bare ambiguous UI word (Save, Post, Like, …) whose neighbours are
-    // English prose is a game title / user text, not a control label.
-    if (el && !text.includes(' ') && AMBIGUOUS_SHORT.has(text.toLowerCase())) {
+    // A bare single word whose neighbours in the same paragraph/sentence are
+    // English prose is user text or a game title (e.g. "Dear Dark Souls", "this Shooter"), not a UI control label.
+    if (el && !text.includes(' ')) {
       let host = el;
-      for (let i = 0; i < 3 && host.parentElement && normalizeKey(host.textContent || '') === text; i += 1) {
+      for (let i = 0; i < 4 && host.parentElement && normalizeKey(host.textContent || '') === text; i += 1) {
         host = host.parentElement;
       }
       const hostText = normalizeKey(host.textContent || '');
@@ -177,7 +177,7 @@ export function createEngine(dict) {
         hostText &&
         hostText !== text &&
         hostText.length > text.length + 2 &&
-        !host.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')
+        !el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')
       ) {
         const extra = hostText
           .toLowerCase()
@@ -185,7 +185,7 @@ export function createEngine(dict) {
           .join(' ')
           .trim()
           .split(/\s+/)
-          .filter((w) => w.length >= 3 && w === w.toLowerCase() && /^[a-z]+$/.test(w));
+          .filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
         if (extra.length >= 1) return null;
       }
     }
