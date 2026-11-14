@@ -691,3 +691,19 @@ button.rb-btn.big[data-a="demo"] em{max-width:9.5em;white-space:normal;line-heig
   .w.w-game.v-brutal{grid-template-columns:1fr}
   .w.w-game.v-brutal .br-left{border-right:none;border-bottom:2px solid #000}
 }
+
+/* Custom variant dropdown with live hover preview */
+.var-dd{position:relative;margin-bottom:8px}
+.var-dd-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;text-align:left}
+.var-dd-arr{font-size:11px;opacity:.7;transition:transform .15s}
+.var-dd.open .var-dd-arr{transform:rotate(180deg)}
+.var-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:120;background:var(--bg2,#161922);border:1px solid var(--bd,rgba(255,255,255,.12));border-radius:10px;padding:4px;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.var-dd.open .var-dd-menu{display:block}
+.var-dd-opt{width:100%;display:block;text-align:left;padding:7px 10px;border:0;border-radius:7px;background:transparent;color:inherit;font:inherit;font-size:12.5px;cursor:pointer;transition:background .12s}
+.var-dd-opt:hover,.var-dd-opt:focus-visible{background:rgba(255,255,255,.08);outline:none}
+.var-dd-opt.on{background:rgba(124,92,255,.22);font-weight:600}
+.var-dd-preview{display:none;position:absolute;top:0;left:calc(100% + 10px);z-index:130;width:335px;max-height:260px;overflow:hidden;border-radius:12px;background:var(--bg1,#0f1118);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 48px rgba(0,0,0,.6);padding:8px;pointer-events:none}
+.var-dd-preview.show{display:block}
+.var-dd-preview.flip-left{left:auto;right:calc(100% + 10px)}
+.var-dd-preview-inner{width:620px;transform:scale(.515);transform-origin:top left;pointer-events:none}
+.var-dd-preview-inner .w-tools{display:none}

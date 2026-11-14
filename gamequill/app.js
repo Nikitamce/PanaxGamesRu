@@ -1015,20 +1015,31 @@ function drawDetail(){
   const topRx=[...rx].sort((a,b)=>b.val-a.val)[0];
   const hasRx=rxSum(g.panaxReactions)>0;
   const curVar=insCtx.variant||'classic';
+  const CARD_VARIANTS=[
+    {id:'classic',label:'🃏 Классика'},
+    {id:'duet',label:'🎭 Дуэт (топ-2 реакции)'},
+    {id:'editorial',label:'📰 Вердикт (редакция)'},
+    {id:'staircase',label:'📊 Лестница (график)'},
+    {id:'type',label:'🔤 Типографика (шкалы)'},
+    {id:'brutal',label:'⬛ Брутализм (таблица)'}
+  ];
   box.innerHTML=`<div class="gdet">
     <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" style="width:100%;height:130px;object-fit:cover;border-radius:11px;margin-bottom:11px">
     <h4>${esc(g.title)}</h4>
     <div class="muted">${esc([g.year,[g.dev,g.pub].filter(Boolean).join(' / ')].filter(Boolean).join(' · '))}<br>${esc((g.genres||[]).join(', '))}<br>${esc((g.plat||[]).join(' · '))}</div>
     <div class="w-badges">${srcs.filter(s=>r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(r[s.id])}</span>`).join('')}${hasRx?`<span class="badge">${topRx.icon} ${esc(topRx.name)} · ${topRx.val.toFixed(1)}%</span>`:(g._panaxLoading?`<span class="badge">⏳ PANAX…</span>`:'')}</div>
     <div class="pop-h" style="padding:12px 0 6px">Дизайн карточки</div>
-    <select id="gCardVar" class="inp" style="width:100%;margin-bottom:8px">
-      <option value="classic">🃏 Классика</option>
-      <option value="duet">🎭 Дуэт (топ-2 реакции)</option>
-      <option value="editorial">📰 Вердикт (редакция)</option>
-      <option value="staircase">📊 Лестница (график)</option>
-      <option value="type">🔤 Типографика (шкалы)</option>
-      <option value="brutal">⬛ Брутализм (таблица)</option>
-    </select>
+    <div class="var-dd" id="gCardVarDd">
+      <input type="hidden" id="gCardVar" value="${esc(curVar)}">
+      <button type="button" class="inp var-dd-btn" id="gCardVarBtn" aria-expanded="false">
+        <span class="var-dd-lbl">${esc((CARD_VARIANTS.find(x=>x.id===curVar)||CARD_VARIANTS[0]).label)}</span>
+        <span class="var-dd-arr">▾</span>
+      </button>
+      <div class="var-dd-menu" id="gCardVarMenu">
+        ${CARD_VARIANTS.map(v=>`<button type="button" class="var-dd-opt${v.id===curVar?' on':''}" data-var="${esc(v.id)}">${esc(v.label)}</button>`).join('')}
+        <div class="var-dd-preview" id="gCardVarPreview"><div class="var-dd-preview-inner" id="gCardVarPreviewInner"></div></div>
+      </div>
+    </div>
     <div class="pop-h" style="padding:4px 0 6px">Вставить как</div>
     <div class="ins-list">
       <button class="ins-b" data-ins="game"><span class="e">🃏</span><span>Карточка игры<small>обложка, оценки, все источники</small></span></button>
@@ -1040,10 +1051,37 @@ function drawDetail(){
     <div class="pop-h" style="padding:14px 0 6px">Страницы игры</div>
     <div class="w-links">${srcs.map(s=>`<a class="srcbtn" style="--c:${esc(GQ.color(s.color))}" href="${esc(g.links[s.id])}" target="_blank" rel="noopener">${esc(s.icon)} ${esc(s.name)}</a>`).join('')}</div>
   </div>`;
-  const varSel=$('#gCardVar');
-  if(varSel){
-    varSel.value=curVar;
-    varSel.addEventListener('change',e=>{insCtx.variant=e.target.value});
+  const varDd=$('#gCardVarDd'),varSel=$('#gCardVar'),varBtn=$('#gCardVarBtn'),varMenu=$('#gCardVarMenu'),varPrev=$('#gCardVarPreview'),varPrevIn=$('#gCardVarPreviewInner');
+  if(varDd&&varSel&&varBtn&&varMenu&&varPrev&&varPrevIn){
+    const showPreview=v=>{
+      varPrevIn.innerHTML=renderGameCard(Object.assign(gameData(g),{variant:v}),'');
+      varPrev.classList.add('show');
+      varPrev.classList.remove('flip-left');
+      const rect=varPrev.getBoundingClientRect();
+      if(rect.right>window.innerWidth-12)varPrev.classList.add('flip-left');
+    };
+    const closeDd=()=>{varDd.classList.remove('open');varBtn.setAttribute('aria-expanded','false');varPrev.classList.remove('show')};
+    varBtn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const willOpen=!varDd.classList.contains('open');
+      if(willOpen){varDd.classList.add('open');varBtn.setAttribute('aria-expanded','true');showPreview(varSel.value||'classic')}
+      else closeDd();
+    });
+    $$('.var-dd-opt',varMenu).forEach(opt=>{
+      opt.addEventListener('mouseenter',()=>showPreview(opt.dataset.var));
+      opt.addEventListener('focus',()=>showPreview(opt.dataset.var));
+      opt.addEventListener('click',()=>{
+        const v=opt.dataset.var;
+        varSel.value=v;
+        insCtx.variant=v;
+        const lbl=varBtn.querySelector('.var-dd-lbl');
+        if(lbl)lbl.textContent=opt.textContent;
+        $$('.var-dd-opt',varMenu).forEach(x=>x.classList.toggle('on',x.dataset.var===v));
+        closeDd();
+      });
+    });
+    varMenu.addEventListener('mouseleave',()=>varPrev.classList.remove('show'));
+    document.addEventListener('click',e=>{if(!varDd.contains(e.target))closeDd()},{capture:true});
   }
   $$('#gDet [data-ins]').forEach(btn=>btn.addEventListener('click',()=>{
     const k=btn.dataset.ins;
