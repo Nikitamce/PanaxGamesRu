@@ -707,3 +707,4 @@ button.rb-btn.big[data-a="demo"] em{max-width:9.5em;white-space:normal;line-heig
 .var-dd-preview.flip-left{left:auto;right:calc(100% + 10px)}
 .var-dd-preview-inner{width:620px;transform:scale(.515);transform-origin:top left;pointer-events:none}
 .var-dd-preview-inner .w-tools{display:none}
+.ins-list{position:relative}

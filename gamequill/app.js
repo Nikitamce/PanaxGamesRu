@@ -1041,12 +1041,13 @@ function drawDetail(){
       </div>
     </div>
     <div class="pop-h" style="padding:4px 0 6px">Вставить как</div>
-    <div class="ins-list">
+    <div class="ins-list" id="gInsList">
       <button class="ins-b" data-ins="game"><span class="e">🃏</span><span>Карточка игры<small>обложка, оценки, все источники</small></span></button>
       ${g.steam?`<button class="ins-b" data-ins="steam"><span class="e">♨️</span><span>Виджет Steam<small>цена, теги, кнопка магазина</small></span></button>`:''}
       ${g.trailer?`<button class="ins-b" data-ins="youtube"><span class="e">▶️</span><span>Видео-карточка<small>трейлер ${esc(g.trailer.dur)}</small></span></button>`:''}
       ${g.ws?`<button class="ins-b" data-ins="workshop"><span class="e">🛠️</span><span>Предмет Мастерской<small>${g.ws.length} шт. в базе</small></span></button>`:''}
       <button class="ins-b" data-ins="chip"><span class="e">🎮</span><span>Ссылка в тексте<small>чип на страницу игры</small></span></button>
+      <div class="var-dd-preview ins-preview" id="gInsPreview"><div class="var-dd-preview-inner" id="gInsPreviewInner"></div></div>
     </div>
     <div class="pop-h" style="padding:14px 0 6px">Страницы игры</div>
     <div class="w-links">${srcs.map(s=>`<a class="srcbtn" style="--c:${esc(GQ.color(s.color))}" href="${esc(g.links[s.id])}" target="_blank" rel="noopener">${esc(s.icon)} ${esc(s.name)}</a>`).join('')}</div>
@@ -1082,6 +1083,28 @@ function drawDetail(){
     });
     varMenu.addEventListener('mouseleave',()=>varPrev.classList.remove('show'));
     document.addEventListener('click',e=>{if(!varDd.contains(e.target))closeDd()},{capture:true});
+  }
+  const insList=$('#gInsList'),insPrev=$('#gInsPreview'),insPrevIn=$('#gInsPreviewInner');
+  if(insList&&insPrev&&insPrevIn){
+    const showInsPreview=(k,btn)=>{
+      let html='';
+      if(k==='game')html=widgetHTML({type:'game',data:Object.assign(gameData(g),{variant:(varSel&&varSel.value)||insCtx.variant||'classic'})});
+      else if(k==='steam')html=widgetHTML({type:'steam',data:steamData(g)});
+      else if(k==='youtube')html=widgetHTML({type:'youtube',data:ytData(g)});
+      else if(k==='workshop'&&g.ws&&g.ws[0])html=widgetHTML({type:'workshop',data:g.ws[0]});
+      else if(k==='chip')html=`<div style="padding:20px 18px;font-size:15px;line-height:1.6;color:#e6e8f0">В тексте статьи: <a class="chip" href="#" onclick="return false">🎮 ${esc(g.title)}</a></div>`;
+      if(!html){insPrev.classList.remove('show');return}
+      insPrevIn.innerHTML=html;
+      insPrev.style.top=Math.max(0,btn.offsetTop)+'px';
+      insPrev.classList.add('show');
+      insPrev.classList.remove('flip-left');
+      if(insPrev.getBoundingClientRect().right>window.innerWidth-12)insPrev.classList.add('flip-left');
+    };
+    $$('[data-ins]',insList).forEach(btn=>{
+      btn.addEventListener('mouseenter',()=>showInsPreview(btn.dataset.ins,btn));
+      btn.addEventListener('focus',()=>showInsPreview(btn.dataset.ins,btn));
+    });
+    insList.addEventListener('mouseleave',()=>insPrev.classList.remove('show'));
   }
   $$('#gDet [data-ins]').forEach(btn=>btn.addEventListener('click',()=>{
     const k=btn.dataset.ins;
