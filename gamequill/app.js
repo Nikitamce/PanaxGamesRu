@@ -133,6 +133,7 @@ function save(silent){
 const saveSoon=debounce(()=>save(true),500);
 function load(){
   try{const raw=localStorage.getItem(STORE);if(raw){const p=JSON.parse(raw);if(p&&p.reviews){state=Object.assign(state,p);
+  if(state.settings&&Array.isArray(state.settings.integrations)){state.settings.integrations=state.settings.integrations.map(x=>x&&x.id==='backloggd'?{id:'panax',name:'PANAX',icon:'🎮',color:'#7c5cff',base:'https://panaxgames.com',enabled:x.enabled!==false,ai:false}:x);}
     if(!state.settings.integrations)state.settings.integrations=clone(DEF_INTEG)}}}catch(e){console.warn(e)}
 }
 const cur=()=>state.reviews.find(r=>r.id===state.currentId)||null;
