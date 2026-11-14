@@ -2015,7 +2015,7 @@
           host2 = host2.parentElement;
         }
         const hostText = normalizeKey(host2.textContent || "");
-        if (hostText && hostText !== text && hostText.length > text.length + 2 && !el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')) {
+        if (hostText && hostText !== text && hostText.length > text.length + 2 && !el.closest?.('a, button, aside, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], [class*="button-label"], select, option, label')) {
           const extra = hostText.toLowerCase().split(text.toLowerCase()).join(" ").trim().split(/\s+/).filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
           if (extra.length >= 1) return null;
         }
