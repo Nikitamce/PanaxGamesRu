@@ -43,6 +43,7 @@ ${txt}
 const DEMO_GAMES=[
  {id:'neon-requiem',title:'Neon Requiem',year:2025,dev:'Voidline Studio',pub:'Nova Interactive',genres:['Action RPG','Киберпанк','Открытый мир'],plat:['PC','PS5','Xbox Series'],pal:['#ff2fb3','#12062b','#22d3ee'],
   r:{backloggd:8.4,igdb:82,metacritic:86,hltb:'38 ч.'},
+  panaxReactions:{legendary:19.6,awesome:41.2,good:37.3,decent:0,dislike:2.0,awful:0},
   links:{backloggd:'https://www.backloggd.com/games/neon-requiem/',igdb:'https://www.igdb.com/games/neon-requiem',steam:'https://store.steampowered.com/app/2448510/Neon_Requiem/',rawg:'https://rawg.io/games/neon-requiem',metacritic:'https://www.metacritic.com/game/neon-requiem',hltb:'https://howlongtobeat.com/game?id=118402'},
   steam:{app:2448510,price:'1 999 ₽',old:'2 499 ₽',disc:'-20%',date:'14 мар. 2025',tags:['Экшен','RPG','Киберпанк','Сюжет']},
   trailer:{t:'Neon Requiem — официальный трейлер запуска',ch:'Voidline Studio',dur:'2:14',url:'https://www.youtube.com/watch?v=neonrequiem-trailer'},
@@ -312,10 +313,40 @@ function addPC(k){const r=cur();const o={id:uid(),text:''};r[k].push(o);renderPC
    БЛОКИ
    ========================================================================== */
 const PH={text:'Пишите текст обзора… Enter — новый блок, Shift+Enter — перенос строки',h2:'Заголовок раздела',h3:'Подзаголовок',quote:'Цитата или яркая мысль',spoiler:'Текст под спойлером…'};
+const DEMO_GAME_IDS=new Set(['neon-requiem','hollow-crown','starlight-drift','pixel-dungeon-depths']);
+function rxSum(rx){
+  if(!rx||typeof rx!=='object')return 0;
+  return ['legendary','awesome','good','decent','dislike','awful'].reduce((s,k)=>s+(Number(rx[k])||0),0);
+}
+function applyPanaxPatch(d,det){
+  if(!d||!det)return false;
+  let changed=false;
+  if(det.panaxReactions&&rxSum(det.panaxReactions)>0){d.panaxReactions=det.panaxReactions;changed=true}
+  if(det.cover&&!d.cover){d.cover=det.cover;changed=true}
+  if(det.dev&&!d.dev){d.dev=det.dev;changed=true}
+  if(det.pub&&!d.pub){d.pub=det.pub;changed=true}
+  if(det.year&&!d.year){d.year=det.year;changed=true}
+  if(det.genres&&det.genres.length&&!(d.genres&&d.genres.length)){d.genres=det.genres;changed=true}
+  if(det.panaxUrl){d.links=Object.assign({},d.links||{},{panax:det.panaxUrl});changed=true}
+  return changed;
+}
+function hydrateReviewGameBlocks(r){
+  if(!r||!Array.isArray(r.blocks)||!window.GQ||typeof GQ.panaxResolveGame!=='function')return;
+  for(const b of r.blocks){
+    if(b.type!=='game'||!b.data||b._panaxHydrating)continue;
+    if(DEMO_GAME_IDS.has(b.data.gameId))continue;
+    if(rxSum(b.data.panaxReactions)>0)continue;
+    b._panaxHydrating=true;
+    GQ.panaxResolveGame(b.data).then(det=>{
+      if(applyPanaxPatch(b.data,det)){touch();if(cur()===r)renderBlocks()}
+    }).catch(()=>{});
+  }
+}
 function renderBlocks(){
   const r=cur();const box=$('#blocksList');box.innerHTML='';
   if(!r.blocks.length){box.innerHTML=`<div class="empty"><div class="big">✍️</div>Обзор пока пустой.<br>Добавьте первый текстовый блок или виджет игры.</div>`;return}
   r.blocks.forEach(b=>box.appendChild(blockNode(b)));
+  hydrateReviewGameBlocks(r);
 }
 function blockNode(b){
   const w=document.createElement('div');w.className='block b-'+b.type+(b.type==='spoiler'&&b.hidden?' hid':'');w.dataset.id=b.id;
@@ -372,17 +403,44 @@ function widgetHTML(b){
   }
   return `<div class="w" style="padding:14px">${tools}Неизвестный виджет</div>`;
 }
+function rxBadgeSrc(badge){
+  try{if(typeof chrome!=='undefined'&&chrome.runtime&&chrome.runtime.getURL)return chrome.runtime.getURL(badge)}catch{}
+  return '../'+badge;
+}
 function panaxReactionList(d){
   const rx=d.panaxReactions||{};
   const defs=[
-    {k:'legendary',name:'Легенда',color:'#f4b93e'},
-    {k:'awesome',name:'Круто',color:'#e0527d'},
-    {k:'good',name:'Хорошо',color:'#4098e8'},
-    {k:'decent',name:'Норм',color:'#33b489'},
-    {k:'dislike',name:'Плохо',color:'#f2834b'},
-    {k:'awful',name:'Ужас',color:'#7b8399'}
+    {k:'legendary',name:'Легенда',color:'#f3cb16',icon:'🏆',badge:'ratings/legendary-on.png'},
+    {k:'awesome',name:'Круто',color:'#f2a000',icon:'🤘',badge:'ratings/awesome-on.png'},
+    {k:'good',name:'Хорошо',color:'#bd55e9',icon:'😄',badge:'ratings/good-on.png'},
+    {k:'decent',name:'Норм',color:'#3c9df3',icon:'✋',badge:'ratings/decent-on.png'},
+    {k:'dislike',name:'Плохо',color:'#8ea6af',icon:'😞',badge:'ratings/dislike-on.png'},
+    {k:'awful',name:'Ужас',color:'#e34d68',icon:'🤢',badge:'ratings/awful-on.png'}
   ];
-  return defs.map(x=>({k:x.k,name:x.name,color:x.color,val:Number.isFinite(Number(rx[x.k]))?Number(rx[x.k]):0}));
+  return defs.map(x=>({
+    k:x.k,
+    name:x.name,
+    color:x.color,
+    icon:x.icon,
+    badge:rxBadgeSrc(x.badge),
+    val:Number.isFinite(Number(rx[x.k]))?Number(rx[x.k]):0
+  }));
+}
+function duetSummary(rx,total){
+  if(total<=0)return 'Оценки появятся после первых реакций игроков на Panax.';
+  const pos=rx.slice(0,3).reduce((s,x)=>s+x.val,0);
+  const neg=rx.slice(4).reduce((s,x)=>s+x.val,0);
+  if(pos>=85)return 'Подавляющее большинство игроков оценило игру положительно.';
+  if(pos>=70)return 'Почти 4 из 5 реакций — положительные впечатления.';
+  if(pos>=55)return 'Большинство реакций сообщества — положительные.';
+  if(neg>=50)return 'Сообщество восприняло игру сдержанно или критически.';
+  return 'Впечатления игроков разделились поровну.';
+}
+function splitTypeTitle(title){
+  const words=String(title||'Игра').trim().toUpperCase().split(/\s+/).filter(Boolean);
+  if(words.length<2)return esc(words[0]||'ИГРА');
+  const mid=Math.ceil(words.length/2);
+  return `${esc(words.slice(0,mid).join(' '))}<br><i>${esc(words.slice(mid).join(' '))}</i>`;
 }
 function renderGameCard(d,tools){
   const valid=['classic','duet','editorial','staircase','type','brutal'];
@@ -391,105 +449,149 @@ function renderGameCard(d,tools){
   const srcs=Object.keys(d.links||{}).map(k=>integ(k)).filter(Boolean);
   const panaxUrl=(d.links&&(d.links.panax||d.links.backloggd||d.links.igdb))||'#';
   const rx=panaxReactionList(d);
+  const rxTotal=rx.reduce((s,x)=>s+x.val,0);
   const sorted=[...rx].sort((a,b)=>b.val-a.val);
   const top1=sorted[0];
   const top2=sorted[1];
-  const sub=[d.dev,d.year].filter(Boolean).join(' · ');
+  const yearNum=String(d.year||'').replace(/\D/g,'');
+  const codeNum=yearNum?'0'+yearNum.slice(-2):'PANAX';
+  const metaParts=[d.year,d.dev,d.pub].filter(Boolean).map(x=>esc(String(x)));
 
   if(v==='duet'){
     return `<div class="w w-game v-duet">${tools}
-      <div class="duet-top">
+      <div class="duet-head">
         <div>
-          <div class="duet-title">${esc(d.title||'Игра')}</div>
-          <div class="duet-sub">${esc(sub||d.pub||'PANAX')}</div>
+          <div class="kicker">PLAYER IMPRESSION</div>
+          <h2 class="game-title">${esc(d.title||'Игра')}</h2>
+          <div class="game-meta">${metaParts.join(' <i>·</i> ')||'PANAX'}</div>
+          ${(d.genres||[]).length?`<div class="genres">${(d.genres||[]).slice(0,4).map(g=>`<span>${esc(g)}</span>`).join('')}</div>`:''}
         </div>
-        <img class="duet-cover" src="${esc(cover)}" alt="">
+        <img class="duet-cover" src="${esc(cover)}" alt="Обложка ${esc(d.title||'Игра')}">
       </div>
-      <div class="duet-pair">
-        <div class="duet-big">
-          <div class="duet-num" style="color:${top1.color}">${top1.val}%</div>
-          <div class="duet-lbl"><span class="duet-dot" style="background:${top1.color}"></span>${top1.name}</div>
+      <div class="duet-panel">
+        <div class="duet-label">ДВА ГЛАВНЫХ ОТКЛИКА СООБЩЕСТВА</div>
+        <div class="duet-pair">
+          <div class="duet-choice">
+            <img class="badge" src="${esc(top1.badge)}" alt="${esc(top1.name)}" loading="eager">
+            <div><b>${esc(top1.name)}</b><strong>${top1.val.toFixed(1)}%</strong></div>
+          </div>
+          <div class="duet-vs">+</div>
+          <div class="duet-choice">
+            <img class="badge" src="${esc(top2.badge)}" alt="${esc(top2.name)}" loading="eager">
+            <div><b>${esc(top2.name)}</b><strong>${top2.val.toFixed(1)}%</strong></div>
+          </div>
         </div>
-        <div class="duet-big">
-          <div class="duet-num" style="color:${top2.color}">${top2.val}%</div>
-          <div class="duet-lbl"><span class="duet-dot" style="background:${top2.color}"></span>${top2.name}</div>
-        </div>
+        <div class="duet-note">${esc(duetSummary(rx,rxTotal))}</div>
       </div>
       <div class="duet-foot">
-        <div class="duet-dots">${rx.map(x=>`<span title="${x.name}: ${x.val}%" style="background:${x.color}"></span>`).join('')}</div>
-        <a class="duet-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAX →</a>
+        <div class="mini-dots" aria-label="Цвета остальных реакций">${rx.map(x=>`<i style="--c:${x.color}" title="${esc(x.name)}: ${x.val.toFixed(1)}%"></i>`).join('')}</div>
+        <span>6 РЕАКЦИЙ PANAX</span>
+        <a class="panax-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">Оценки на Panax <span aria-hidden="true">↗</span></a>
       </div></div>`;
   }
   if(v==='editorial'){
-    const rest=sorted.slice(1);
+    const rest=rx.filter(x=>x.k!==top1.k);
+    const edMeta=[d.dev,...(d.genres||[]).slice(0,3)].filter(Boolean);
+    const edNote=rxTotal<=0?'Ожидаются первые оценки сообщества PANAX.'
+      :(top1.val>=35?'Почти каждый второй игрок<br>оставил эту реакцию.'
+      :'Лидирующая реакция среди<br>оценок сообщества PANAX.');
     return `<div class="w w-game v-editorial">${tools}
-      <div class="ed-ring"></div>
-      <div class="ed-head">
-        <div class="ed-kicker">GAME / ${esc(d.year||'PANAX')} · PLAYER VERDICT</div>
-        <div class="ed-title">${esc(d.title||'Игра')}</div>
-        <div class="ed-sub">${esc([d.dev,d.pub].filter(Boolean).join(' / ')||'Сообщество PANAX')}</div>
-      </div>
-      <div class="ed-feat">
-        <div>
-          <div class="ed-feat-lbl"><span class="ed-dot" style="background:${top1.color}"></span>${top1.name}</div>
-          <div class="ed-feat-cap">Главная оценка игроков</div>
+      <div class="ed-top">
+        <div class="ed-index">GAME / ${esc(codeNum)}<br><b>PLAYER<br>VERDICT</b></div>
+        <div class="ed-head">
+          <div class="game-head">
+            <div class="kicker">PANAX PLAYER REACTIONS${d.year?' · '+esc(d.year):''}</div>
+            <div class="game-title">${esc((d.title||'Игра').toUpperCase())}</div>
+            <div class="game-meta">${edMeta.map(x=>esc(x)).join(' <span aria-hidden="true">·</span> ')||'Сообщество PANAX'}</div>
+          </div>
         </div>
-        <div class="ed-feat-val" style="color:${top1.color}">${top1.val}%</div>
       </div>
-      <div class="ed-grid">${rest.map(x=>`<div class="ed-cell"><span class="ed-cell-n"><span class="ed-dot" style="background:${x.color}"></span>${x.name}</span><span class="ed-cell-v">${x.val}%</span></div>`).join('')}</div>
+      <div class="ed-feature">
+        <div class="ed-feature-label">САМАЯ ЧАСТАЯ РЕАКЦИЯ</div>
+        <div class="ed-feature-main">
+          <span>${top1.icon}</span>
+          <b>${esc(top1.name.toUpperCase())}</b>
+          <strong style="color:${top1.k==='awesome'?'#d78a00':top1.color}">${top1.val.toFixed(1)}<small>%</small></strong>
+        </div>
+        <div class="ed-feature-note">${edNote}</div>
+      </div>
+      <div class="ed-rest">${rest.map(x=>`<div class="ed-row" style="--c:${x.color};--v:${x.val.toFixed(1)}%"><span>${x.icon}</span><b>${esc(x.name)}</b><i><em style="width:${x.val.toFixed(1)}%;background:${x.color}"></em></i><strong>${x.val.toFixed(1)}%</strong></div>`).join('')}</div>
       <div class="ed-foot">
-        <span>${esc((d.genres||[]).slice(0,2).join(' · ')||'PANAX')}</span>
-        <a href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAXGAMES.COM →</a>
+        <span>ЦИФРЫ СООБЩЕСТВА PANAX</span>
+        <a class="panax-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">Оценки на Panax <span aria-hidden="true">↗</span></a>
       </div></div>`;
   }
   if(v==='staircase'){
-    const maxV=Math.max(1,...rx.map(x=>x.val));
     return `<div class="w w-game v-staircase">${tools}
-      <div class="st-head">
+      <div class="stairs-head">
         <div>
-          <div class="st-title">${esc(d.title||'Игра')}</div>
-          <div class="st-sub">${esc(sub||'Оценки игроков')}</div>
+          <div class="kicker">REACTION LEVELS / PANAX</div>
+          <div class="game-title">${esc((d.title||'Игра').toUpperCase())}</div>
+          <div class="game-meta">От максимального восторга до полного разочарования</div>
         </div>
-        <img class="st-cover" src="${esc(cover)}" alt="">
+        <div class="stairs-number">06<span>LEVELS</span></div>
       </div>
-      <div class="st-chart">${rx.map(x=>{
-        const h=Math.max(6,Math.round((x.val/maxV)*92));
-        return `<div class="st-col"><div class="st-pct">${x.val}%</div><div class="st-bar" style="height:${h}px;background:${x.color}"></div><div class="st-lbl">${x.name}</div></div>`;
-      }).join('')}</div>
-      <div class="st-foot"><span>PANAX COMMUNITY</span><a href="${esc(panaxUrl)}" target="_blank" rel="noopener">Открыть →</a></div></div>`;
+      <div class="stairs-chart">${rx.map((x,i)=>`<div class="step step${i+1}" style="--c:${x.color};--v:${x.val.toFixed(1)}%">
+        <div class="step-cap"><span>${x.icon}</span><b>${x.val.toFixed(1)}%</b></div>
+        <div class="step-fill" style="height:${x.val.toFixed(1)}%;background:${x.color}"></div>
+        <label>${esc(x.name)}</label>
+      </div>`).join('')}</div>
+      <div class="stairs-foot">
+        <span>ОЦЕНКИ СООБЩЕСТВА</span>
+        <a class="panax-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">Оценки на Panax <span aria-hidden="true">↗</span></a>
+      </div></div>`;
   }
   if(v==='type'){
-    const maxV=Math.max(1,...rx.map(x=>x.val));
-    return `<div class="w w-game v-type">${tools}
-      <div class="tp-hero">
-        <div class="tp-title">${esc(d.title||'Игра')}</div>
-        <div class="tp-meta">${esc([d.year,d.dev].filter(Boolean).join(' · ')||'PANAX')}</div>
+    const devWords=String(d.dev||'PANAX').trim().toUpperCase().split(/\s+/).filter(Boolean);
+    const devHtml=devWords.length>1?`${esc(devWords.slice(0,-1).join(' '))}<br>${esc(devWords[devWords.length-1])}`:esc(devWords[0]||'PANAX');
+    const genreTag=String((d.genres&&d.genres[0])||(d.plat&&d.plat[0])||'PANAX').toUpperCase();
+    return `<div class="w w-game v-type typecard">${tools}
+      <div class="type-meta">
+        <span>PANAX / GAME REACTION INDEX</span>
+        <span>${esc(d.year||'PANAX')} — № ${esc(codeNum)}</span>
       </div>
-      <div class="tp-rows">${rx.map(x=>{
-        const w=Math.max(2,Math.round((x.val/maxV)*100));
-        return `<div class="tp-row"><span class="tp-name">${x.name}</span><div class="tp-track"><div class="tp-fill" style="width:${w}%;background:${x.color}"></div></div><span class="tp-val">${x.val}%</span></div>`;
-      }).join('')}</div>
-      <div class="tp-foot"><a href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAXGAMES →</a></div></div>`;
+      <div class="type-hero">
+        <div class="game-title">${splitTypeTitle(d.title||'Игра')}</div>
+        <div class="type-aside">${devHtml}<span>${esc(genreTag)}</span></div>
+      </div>
+      <div class="type-rule">
+        <span>КАК ИГРУ ВОСПРИНЯЛИ</span>
+        <span>${rxTotal>0?'100% ОТВЕТОВ':'НЕТ ОЦЕНОК'}</span>
+      </div>
+      <div class="type-list">${rx.map(x=>`<div class="type-row" style="--c:${x.color};--v:${x.val.toFixed(1)}%">
+        <span class="type-symbol">${x.icon}</span>
+        <b>${esc(x.name)}</b>
+        <div class="type-track"><i style="width:${x.val.toFixed(1)}%;background:${x.color}"></i></div>
+        <strong>${x.val.toFixed(1)}<small>%</small></strong>
+      </div>`).join('')}</div>
+      <div class="type-foot">
+        <span>МНЕНИЕ ИГРОКОВ — НЕ РЕЦЕНЗИЯ</span>
+        <a class="panax-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">Оценки на Panax <span aria-hidden="true">↗</span></a>
+      </div></div>`;
   }
   if(v==='brutal'){
+    const devMeta=[d.year,d.dev].filter(Boolean).join(' · ').toUpperCase()||'PANAX';
     return `<div class="w w-game v-brutal">${tools}
       <div class="br-left">
         <div class="br-top">
-          <img class="br-cover" src="${esc(cover)}" alt="">
+          <div class="br-poster"><img src="${esc(cover)}" alt=""></div>
           <div>
-            <div class="br-meta">${esc(sub||'PANAX')}</div>
-            <div class="br-title">${esc(d.title||'Игра')}</div>
+            <div class="br-dev">${esc(devMeta)}</div>
+            <h3 class="br-title">${esc(d.title||'Игра')}</h3>
           </div>
         </div>
-        <div class="br-dom">
-          <span class="br-dom-k">ДОМИНИРУЕТ</span>
-          <span class="br-dom-v" style="color:${top1.color}">${top1.name} · ${top1.val}%</span>
+        <div class="br-bottom">
+          <div>
+            <div class="br-dom-lbl">ДОМИНИРУЕТ</div>
+            <div class="br-leader">${top1.val.toFixed(1)}% ${esc(top1.name.toUpperCase())}</div>
+          </div>
+          <a class="br-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">PANAXGAMES →</a>
         </div>
-        <a class="br-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAXGAMES →</a>
       </div>
-      <div class="br-right">
-        ${rx.map(x=>`<div class="br-row"><span class="br-rname"><span class="br-dot" style="background:${x.color}"></span>${x.name}</span><span class="br-rval">${x.val}%</span></div>`).join('')}
-      </div></div>`;
+      <div class="br-table">${rx.map(x=>`<div class="br-cell">
+        <span class="br-cname">${esc(x.name.toUpperCase())}</span>
+        <span class="br-cval">${x.val.toFixed(1)}%</span>
+      </div>`).join('')}</div></div>`;
   }
 
   const badges=srcs.filter(s=>d.ratings&&d.ratings[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(d.ratings[s.id])} · ${esc(s.name)}</span>`).join('');
@@ -719,11 +821,22 @@ $('#canvas').addEventListener('scroll',()=>$('#flt').classList.remove('on'));
 let insCtx={tab:'game',q:'',src:'all',sel:null,after:null,replace:null};
 const INS_TABS=[{id:'game',n:'🎮 Игра'},{id:'youtube',n:'▶️ YouTube'},{id:'steam',n:'♨️ Steam'},{id:'workshop',n:'🛠️ Мастерская'},{id:'url',n:'🧩 По ссылке'}];
 function openInsert(tab,ctx={}){
-  insCtx={tab:tab||'game',q:'',src:'all',sel:null,after:ctx.after||null,replace:ctx.replace||null,mode:ctx.replace?'edit':'new'};
+  const existing=ctx.replace?findBlock(ctx.replace):null;
+  insCtx={
+    tab:tab||'game',
+    q:(existing&&existing.data&&existing.data.title)||'',
+    src:'all',
+    sel:null,
+    variant:(existing&&existing.data&&existing.data.variant)||'classic',
+    after:ctx.after||null,
+    replace:ctx.replace||null,
+    mode:ctx.replace?'edit':'new'
+  };
   $('#insTabs').innerHTML=INS_TABS.map(t=>`<button class="tab ${t.id===insCtx.tab?'on':''}" data-tab="${t.id}">${t.n}</button>`).join('');
   $('#insTitle').textContent=insCtx.replace?'Изменить виджет':'Вставка виджета';
   $('#insSub').textContent=insCtx.replace?'Замените данные виджета':'Найдите игру — виджет соберётся автоматически из подключённых интеграций';
   renderInsBody();$('#insModal').classList.add('on');
+  if(insCtx.q&&insCtx.q.trim().length>=2&&typeof gqSearch==='function')gqSearch(insCtx.q.trim());
   setTimeout(()=>{const i=$('#insQ');if(i)i.focus()},80);
 }
 $('#insTabs').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(!t)return;
@@ -819,44 +932,94 @@ function renderInsBody(){
   }
 }
 let panaxResults=[],panaxLastQ='',panaxTimer=0;
+function normGameKey(t){return String(t||'').toLowerCase().replace(/[™®©:\-–—'’"`.,!?/()\[\]]+/g,' ').replace(/\s+/g,' ').trim()}
+function combinedGamesList(){
+  const q=insCtx.q.trim();
+  const base=searchGames(insCtx.q);
+  if(q.length<2||!panaxResults.length)return base;
+  const map=new Map();
+  const list=[];
+  for(const p of panaxResults){
+    const key=normGameKey(p.title);
+    const copy=Object.assign({},p,{links:Object.assign({},p.links||{})});
+    list.push(copy);
+    if(key&&!map.has(key))map.set(key,copy);
+  }
+  for(const s of base){
+    const key=normGameKey(s.title);
+    const match=key?map.get(key):null;
+    if(match){
+      if(!match.cover&&s.cover)match.cover=s.cover;
+      if(!match.dev&&s.dev)match.dev=s.dev;
+      if(!match.pub&&s.pub)match.pub=s.pub;
+      if(!(match.genres&&match.genres.length)&&s.genres&&s.genres.length)match.genres=s.genres;
+      if(!(match.plat&&match.plat.length)&&s.plat&&s.plat.length)match.plat=s.plat;
+      if(!match.steam&&s.steam)match.steam=s.steam;
+      if(!match.r&&s.r)match.r=s.r;
+      match.links=Object.assign({},s.links||{},match.links||{});
+    }else{
+      list.push(s);
+    }
+  }
+  return list;
+}
+function findSelectedGame(id){
+  if(!id)return null;
+  return combinedGamesList().find(x=>x.id===id)||panaxResults.find(x=>x.id===id)||GAMES.find(x=>x.id===id)||null;
+}
 function drawGames(){
   const box=$('#gRes');if(!box)return;
   const q=insCtx.q.trim();
   if(q.length>=2&&q!==panaxLastQ&&window.GQ&&typeof GQ.panaxSearch==='function'){
     panaxLastQ=q;clearTimeout(panaxTimer);
     panaxTimer=setTimeout(async()=>{
-      try{const res=await GQ.panaxSearch(q);if(insCtx.q.trim()===q&&Array.isArray(res)){panaxResults=res;drawGames();}}catch{}
-    },250);
+      try{const res=await GQ.panaxSearch(q);if(insCtx.q.trim()===q&&Array.isArray(res)){panaxResults=res;drawGames();if(insCtx.sel)drawDetail()}}catch{}
+    },220);
   }else if(q.length<2){panaxResults=[];panaxLastQ='';}
-  let list=q.length>=2&&panaxResults.length?panaxResults:searchGames(insCtx.q);
-  if(insCtx.src!=='all')list=list.filter(g=>g.links[insCtx.src]);
+  let list=combinedGamesList();
+  if(insCtx.src!=='all')list=list.filter(g=>g.links&&g.links[insCtx.src]);
   box.innerHTML=list.length?list.map(g=>`<div class="gcard ${insCtx.sel===g.id?'on':''}" data-g="${esc(g.id)}">
-      <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" alt=""><div class="n"><b>${esc(g.title)}</b><i>${esc([g.year,g.dev].filter(Boolean).join(' · ')||'PANAX')}</i></div></div>`).join('')
+      <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" alt=""><div class="n"><b>${esc(g.title)}</b><i>${esc([g.year,g.dev].filter(Boolean).join(' · ')||g.source||'PANAX')}</i></div></div>`).join('')
     :`<div class="empty" style="grid-column:1/-1"><div class="big">🔍</div>Ничего не найдено.<br><small>Добавьте свою ссылку во вкладке «По ссылке»</small></div>`;
   $$('#gRes .gcard').forEach(c=>c.addEventListener('click',()=>{insCtx.sel=c.dataset.g;drawGames();drawDetail()}));
 }
+function hydrateGameCandidate(g){
+  if(!g||g._panaxLoaded||g._panaxLoading||!window.GQ||typeof GQ.panaxResolveGame!=='function')return;
+  g._panaxLoading=true;
+  GQ.panaxResolveGame(g).then(det=>{
+    g._panaxLoading=false;g._panaxLoaded=true;
+    if(det){
+      applyPanaxPatch(g,det);
+      if(det.panaxId&&!g.panaxId)g.panaxId=det.panaxId;
+      if(det.panaxReactions)g.panaxReactions=det.panaxReactions;
+      const orig=panaxResults.find(x=>x.id===g.id)||GAMES.find(x=>x.id===g.id);
+      if(orig&&orig!==g){
+        applyPanaxPatch(orig,det);
+        if(det.panaxId&&!orig.panaxId)orig.panaxId=det.panaxId;
+        if(det.panaxReactions)orig.panaxReactions=det.panaxReactions;
+        orig._panaxLoaded=true;orig._panaxLoading=false;
+      }
+      if(insCtx.sel===g.id)drawDetail();
+      drawGames();
+    }
+  }).catch(()=>{g._panaxLoading=false;g._panaxLoaded=true});
+}
 function drawDetail(){
   const box=$('#gDet');if(!box)return;
-  const g=GAMES.find(x=>x.id===insCtx.sel)||panaxResults.find(x=>x.id===insCtx.sel);
+  const g=findSelectedGame(insCtx.sel);
   if(!g){box.innerHTML=`<div class="gdet"><div class="empty" style="padding:26px 8px"><div class="big">🎮</div>Выберите игру слева —<br>здесь появятся варианты вставки</div></div>`;return}
-  if(g.panaxId&&!g._panaxLoaded&&!g._panaxLoading){
-    g._panaxLoading=true;
-    GQ.panaxDetails(g.panaxId).then(det=>{
-      g._panaxLoading=false;g._panaxLoaded=true;
-      if(det){
-        if(det.cover&&!g.cover)g.cover=det.cover;
-        if(det.panaxReactions)g.panaxReactions=det.panaxReactions;
-        if(insCtx.sel===g.id)drawDetail();
-      }
-    }).catch(()=>{g._panaxLoading=false;g._panaxLoaded=true});
-  }
-  const srcs=enabledInteg().filter(s=>g.links[s.id]);
+  hydrateGameCandidate(g);
+  const srcs=enabledInteg().filter(s=>g.links&&g.links[s.id]);
   const r=g.r||{};
+  const rx=panaxReactionList(g);
+  const topRx=[...rx].sort((a,b)=>b.val-a.val)[0];
+  const hasRx=rxSum(g.panaxReactions)>0;
+  const curVar=insCtx.variant||'classic';
   box.innerHTML=`<div class="gdet">
     <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" style="width:100%;height:130px;object-fit:cover;border-radius:11px;margin-bottom:11px">
     <h4>${esc(g.title)}</h4>
     <div class="muted">${esc([g.year,[g.dev,g.pub].filter(Boolean).join(' / ')].filter(Boolean).join(' · '))}<br>${esc((g.genres||[]).join(', '))}<br>${esc((g.plat||[]).join(' · '))}</div>
-    <div class="w-badges">${srcs.filter(s=>r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(r[s.id])}</span>`).join('')}</div>
+    <div class="w-badges">${srcs.filter(s=>r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(r[s.id])}</span>`).join('')}${hasRx?`<span class="badge">${topRx.icon} ${esc(topRx.name)} · ${topRx.val.toFixed(1)}%</span>`:(g._panaxLoading?`<span class="badge">⏳ PANAX…</span>`:'')}</div>
     <div class="pop-h" style="padding:12px 0 6px">Дизайн карточки</div>
     <select id="gCardVar" class="inp" style="width:100%;margin-bottom:8px">
       <option value="classic">🃏 Классика</option>
@@ -877,18 +1040,25 @@ function drawDetail(){
     <div class="pop-h" style="padding:14px 0 6px">Страницы игры</div>
     <div class="w-links">${srcs.map(s=>`<a class="srcbtn" style="--c:${esc(GQ.color(s.color))}" href="${esc(g.links[s.id])}" target="_blank" rel="noopener">${esc(s.icon)} ${esc(s.name)}</a>`).join('')}</div>
   </div>`;
+  const varSel=$('#gCardVar');
+  if(varSel){
+    varSel.value=curVar;
+    varSel.addEventListener('change',e=>{insCtx.variant=e.target.value});
+  }
   $$('#gDet [data-ins]').forEach(btn=>btn.addEventListener('click',()=>{
     const k=btn.dataset.ins;
-    if(k==='chip'){insertChip(g.title,g.links&&(g.links.panax||g.links.backloggd||g.links.igdb),integ('panax')||integ('igdb'));closeModal('insModal');return}
+    if(k==='chip'){insertChip(g.title,(g.links&&(g.links.panax||g.links.backloggd||g.links.igdb))||'#',integ('panax')||integ('igdb'));closeModal('insModal');return}
     if(k==='workshop'){insCtx.tab='workshop';insCtx.q=g.title;$$('#insTabs .tab').forEach(x=>x.classList.toggle('on',x.dataset.tab==='workshop'));renderInsBody();return}
-    if(k==='game'){const v=($('#gCardVar')&&$('#gCardVar').value)||'classic';commit('game',Object.assign(gameData(g),{variant:v}));return}
+    if(k==='game'){const v=($('#gCardVar')&&$('#gCardVar').value)||insCtx.variant||'classic';insCtx.variant=v;commit('game',Object.assign(gameData(g),{variant:v}));return}
     const d=k==='steam'?steamData(g):ytData(g);
     commit(k,d)}));
 }
 function gameData(g){
   const srcs=enabledInteg();const links={};srcs.forEach(s=>{if(g.links&&g.links[s.id])links[s.id]=g.links[s.id]});
+  if(g.links&&g.links.panax&&!links.panax)links.panax=g.links.panax;
   const gr=g.r||g.ratings||{};const ratings={};srcs.forEach(s=>{if(gr[s.id]!=null)ratings[s.id]=gr[s.id]});
-  return {gameId:g.id,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,panaxReactions:g.panaxReactions||null,source:(integ('panax')||srcs[0]||{}).name||''};
+  const gameId=g.panaxId?('panax_'+g.panaxId):(g.id||'');
+  return {gameId,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,panaxReactions:g.panaxReactions||null,source:(integ('panax')||srcs[0]||{}).name||''};
 }
 function steamData(g){return {title:g.title,app:String(g.steam.app),price:g.steam.price,old:g.steam.old,disc:g.steam.disc,date:g.steam.date,tags:g.steam.tags,cover:g.cover,url:g.links.steam}}
 function ytData(g){return {title:g.trailer.t,channel:g.trailer.ch,dur:g.trailer.dur,url:g.trailer.url,cover:g.cover}}
@@ -921,10 +1091,11 @@ function drawWS(){
 }
 function commit(type,data){
   closeModal('insModal');
-  if(insCtx.replace){const b=findBlock(insCtx.replace);if(b){b.data=data;b.type=type;touch();renderBlocks();toast('Виджет обновлён','ok')}return}
+  if(insCtx.replace){const b=findBlock(insCtx.replace);if(b){b.data=data;b.type=type;touch();renderBlocks();toast('Виджет обновлён','ok')}return b||null}
   const b=addBlock(type,insCtx.after,data);
   toast('Виджет добавлен: '+({game:'карточка игры',steam:'Steam',youtube:'видео',workshop:'мастерская'}[type]||type),'ok');
   if(b)setTimeout(()=>{const n=$(`.block[data-id="${b.id}"]`);if(n)n.scrollIntoView({block:'center',behavior:'smooth'})},60);
+  return b||null;
 }
 function detectSource(u){
   const s=state.settings.integrations.find(i=>{try{return i.base&&new URL(u).hostname.includes(new URL(i.base).hostname.replace('www.',''))}catch(e){return false}});
@@ -1354,7 +1525,7 @@ document.addEventListener('input',e=>{if(e.target&&e.target.id==='insQ')gqSearch
 const _gqDrawGames=drawGames;
 drawGames=function(){
   _gqDrawGames();
-  if(!GAMES.length){const box=$('#gRes');if(box)box.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="big">🔍</div>${(insCtx.q||'').trim().length<2?'Введите название игры — поиск идёт по магазину Steam':'В Steam ничего не найдено'}<br><small>Свою ссылку можно вставить во вкладке «По ссылке»</small></div>`}
+  if(!GAMES.length&&!panaxResults.length){const box=$('#gRes');if(box)box.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="big">🔍</div>${(insCtx.q||'').trim().length<2?'Введите название игры — поиск идёт по PANAX и Steam':'Ничего не найдено'}<br><small>Свою ссылку можно вставить во вкладке «По ссылке»</small></div>`}
 };
 const _gqEmptyHint=sel=>{const box=$(sel);if(box&&!GAMES.length)box.innerHTML=`<div class="empty">${(insCtx.q||'').trim().length<2?'Введите название игры для поиска в Steam':'Ничего не найдено'}</div>`};
 const _gqDrawYT=drawYT;drawYT=function(){_gqDrawYT();_gqEmptyHint('#ytList')};
@@ -1364,7 +1535,7 @@ const _gqDrawWS=drawWS;drawWS=function(){_gqDrawWS();_gqEmptyHint('#wsList')};
 const _gqDrawDetail=drawDetail;
 drawDetail=function(){
   _gqDrawDetail();
-  const g=GAMES.find(x=>x.id===insCtx.sel);
+  const g=findSelectedGame(insCtx.sel);
   if(g&&!g._full&&!g._loading&&g.steam&&g.steam.app){
     g._loading=true;
     GQ.steamDetails(g.steam.app,gqEnv.steamCountry).then(d=>{g._full=true;g._loading=false;if(d)GQ.mergeDetails(g,d);if(insCtx.sel===g.id){_gqDrawDetail();drawGames()}})
@@ -1381,13 +1552,20 @@ commit=function(type,data){
     if(data.app&&!data.url)data.url='https://store.steampowered.com/app/'+data.app+'/';
     if(data.app&&!data.cover)data.cover=GQ.steamCover(data.app);
   }
-  _gqCommit(type,data);
+  const b=_gqCommit(type,data);
   if(type==='steam'&&data.app&&!data.price){
     const app=data.app;
     GQ.steamDetails(app,gqEnv.steamCountry).then(d=>{if(!d)return;const r=cur();if(!r)return;
-      const b=r.blocks.find(x=>x.type==='steam'&&x.data&&x.data.app===app&&!x.data.price);if(!b)return;
-      Object.assign(b.data,GQ.steamWidgetPatch(d));touch();renderBlocks()}).catch(()=>{});
+      const blk=r.blocks.find(x=>x.type==='steam'&&x.data&&x.data.app===app&&!x.data.price);if(!blk)return;
+      Object.assign(blk.data,GQ.steamWidgetPatch(d));touch();renderBlocks()}).catch(()=>{});
   }
+  if(type==='game'&&b&&b.data&&!DEMO_GAME_IDS.has(b.data.gameId)&&rxSum(b.data.panaxReactions)===0&&window.GQ&&typeof GQ.panaxResolveGame==='function'){
+    b._panaxHydrating=true;
+    GQ.panaxResolveGame(b.data).then(det=>{
+      if(applyPanaxPatch(b.data,det)){touch();renderBlocks()}
+    }).catch(()=>{});
+  }
+  return b;
 };
 
 /* --- безопасная вставка из буфера: общий allow-list санитайзер --- */

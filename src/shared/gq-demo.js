@@ -9,6 +9,7 @@ export var DEMO_GAME = {
   plat: ["PC", "PS5", "Xbox Series"],
   pal: ["#ff2fb3", "#12062b", "#22d3ee"],
   r: { backloggd: 8.4, igdb: 82, metacritic: 86, hltb: "38 \u0447." },
+  panaxReactions: { legendary: 19.6, awesome: 41.2, good: 37.3, decent: 0, dislike: 2.0, awful: 0 },
   links: {
     backloggd: "https://www.backloggd.com/games/neon-requiem/",
     igdb: "https://www.igdb.com/games/neon-requiem",
@@ -46,6 +47,7 @@ export function makeDemoReview(opts = {}) {
       rawg: g.links.rawg
     },
     ratings: { backloggd: g.r.backloggd, igdb: g.r.igdb },
+    panaxReactions: g.panaxReactions ? { ...g.panaxReactions } : null,
     source: "Backloggd"
   };
   const steamData = {

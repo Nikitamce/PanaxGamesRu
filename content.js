@@ -6650,7 +6650,10 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     "i.ytimg.com",
     "img.youtube.com",
     "images.igdb.com",
-    "media.rawg.io"
+    "media.rawg.io",
+    "d21t60rno19oyf.cloudfront.net",
+    "panaxgames.com",
+    "www.panaxgames.com"
   ];
   var DEFAULT_INTEG = {
     panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },
@@ -7192,26 +7195,56 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     const valid = ["classic", "duet", "editorial", "staircase", "type", "brutal"];
     const v = valid.includes(d.variant) ? d.variant : "classic";
     const panaxUrl = safeUrl(d.links && (d.links.panax || d.links.backloggd || d.links.igdb) || "") || "#";
+    const badgeSrc = (rel) => {
+      try {
+        if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL) return chrome.runtime.getURL(rel);
+      } catch {
+      }
+      return "";
+    };
     const rxDefs = [
-      { k: "legendary", name: "\u041B\u0435\u0433\u0435\u043D\u0434\u0430", color: "#f4b93e" },
-      { k: "awesome", name: "\u041A\u0440\u0443\u0442\u043E", color: "#e0527d" },
-      { k: "good", name: "\u0425\u043E\u0440\u043E\u0448\u043E", color: "#4098e8" },
-      { k: "decent", name: "\u041D\u043E\u0440\u043C", color: "#33b489" },
-      { k: "dislike", name: "\u041F\u043B\u043E\u0445\u043E", color: "#f2834b" },
-      { k: "awful", name: "\u0423\u0436\u0430\u0441", color: "#7b8399" }
+      { k: "legendary", name: "\u041B\u0435\u0433\u0435\u043D\u0434\u0430", color: "#f3cb16", icon: "\u{1F3C6}", badge: "ratings/legendary-on.png" },
+      { k: "awesome", name: "\u041A\u0440\u0443\u0442\u043E", color: "#f2a000", icon: "\u{1F918}", badge: "ratings/awesome-on.png" },
+      { k: "good", name: "\u0425\u043E\u0440\u043E\u0448\u043E", color: "#bd55e9", icon: "\u{1F604}", badge: "ratings/good-on.png" },
+      { k: "decent", name: "\u041D\u043E\u0440\u043C", color: "#3c9df3", icon: "\u270B", badge: "ratings/decent-on.png" },
+      { k: "dislike", name: "\u041F\u043B\u043E\u0445\u043E", color: "#8ea6af", icon: "\u{1F61E}", badge: "ratings/dislike-on.png" },
+      { k: "awful", name: "\u0423\u0436\u0430\u0441", color: "#e34d68", icon: "\u{1F922}", badge: "ratings/awful-on.png" }
     ];
     const rxRaw = d.panaxReactions || {};
     const rx = rxDefs.map((x) => ({
       k: x.k,
       name: x.name,
       color: x.color,
+      icon: x.icon,
+      badge: badgeSrc(x.badge),
       val: Number.isFinite(Number(rxRaw[x.k])) ? Number(rxRaw[x.k]) : 0
     }));
+    const rxTotal = rx.reduce((s, x) => s + x.val, 0);
     const sorted = [...rx].sort((a, b) => b.val - a.val);
     const top1 = sorted[0];
     const top2 = sorted[1];
-    const sub = [d.dev, d.year].filter(Boolean).join(" \xB7 ");
+    const yearNum = String(d.year || "").replace(/\D/g, "");
+    const codeNum = yearNum ? "0" + yearNum.slice(-2) : "PANAX";
     if (v === "duet") {
+      const metaNodes = [];
+      const metaVals = [d.year, d.dev, d.pub].filter(Boolean);
+      metaVals.forEach((m, idx) => {
+        if (idx > 0) metaNodes.push(" ", h(doc, "i", { text: "\xB7" }), " ");
+        metaNodes.push(String(m));
+      });
+      if (!metaNodes.length) metaNodes.push("PANAX");
+      const pos = rx.slice(0, 3).reduce((s, x) => s + x.val, 0);
+      const neg = rx.slice(4).reduce((s, x) => s + x.val, 0);
+      const noteText = rxTotal <= 0 ? "\u041E\u0446\u0435\u043D\u043A\u0438 \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u043F\u043E\u0441\u043B\u0435 \u043F\u0435\u0440\u0432\u044B\u0445 \u0440\u0435\u0430\u043A\u0446\u0438\u0439 \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u043D\u0430 Panax." : pos >= 85 ? "\u041F\u043E\u0434\u0430\u0432\u043B\u044F\u044E\u0449\u0435\u0435 \u0431\u043E\u043B\u044C\u0448\u0438\u043D\u0441\u0442\u0432\u043E \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u043E\u0446\u0435\u043D\u0438\u043B\u043E \u0438\u0433\u0440\u0443 \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u043E." : pos >= 70 ? "\u041F\u043E\u0447\u0442\u0438 4 \u0438\u0437 5 \u0440\u0435\u0430\u043A\u0446\u0438\u0439 \u2014 \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0432\u043F\u0435\u0447\u0430\u0442\u043B\u0435\u043D\u0438\u044F." : pos >= 55 ? "\u0411\u043E\u043B\u044C\u0448\u0438\u043D\u0441\u0442\u0432\u043E \u0440\u0435\u0430\u043A\u0446\u0438\u0439 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430 \u2014 \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435." : neg >= 50 ? "\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E \u0432\u043E\u0441\u043F\u0440\u0438\u043D\u044F\u043B\u043E \u0438\u0433\u0440\u0443 \u0441\u0434\u0435\u0440\u0436\u0430\u043D\u043D\u043E \u0438\u043B\u0438 \u043A\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043A\u0438." : "\u0412\u043F\u0435\u0447\u0430\u0442\u043B\u0435\u043D\u0438\u044F \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u0440\u0430\u0437\u0434\u0435\u043B\u0438\u043B\u0438\u0441\u044C \u043F\u043E\u0440\u043E\u0432\u043D\u0443.";
+      const coverImg = img(doc, d.cover, d.gameId || d.title, d.title, "duet-cover");
+      coverImg.alt = `\u041E\u0431\u043B\u043E\u0436\u043A\u0430 ${d.title || "\u0418\u0433\u0440\u0430"}`;
+      const choiceNode = (t) => h(
+        doc,
+        "div",
+        { class: "duet-choice" },
+        t.badge ? h(doc, "img", { class: "badge", src: t.badge, alt: t.name, loading: "eager" }) : h(doc, "span", { class: "badge-ico", text: t.icon }),
+        h(doc, "div", {}, h(doc, "b", { text: t.name }), h(doc, "strong", { text: `${t.val.toFixed(1)}%` }))
+      );
       return h(
         doc,
         "div",
@@ -7219,35 +7252,25 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
         h(
           doc,
           "div",
-          { class: "duet-top" },
+          { class: "duet-head" },
           h(
             doc,
             "div",
             {},
-            h(doc, "div", { class: "duet-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
-            h(doc, "div", { class: "duet-sub", text: sub || d.pub || "PANAX" })
+            h(doc, "div", { class: "kicker", text: "PLAYER IMPRESSION" }),
+            h(doc, "h2", { class: "game-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
+            h(doc, "div", { class: "game-meta" }, ...metaNodes),
+            (d.genres || []).length ? h(doc, "div", { class: "genres" }, ...(d.genres || []).slice(0, 4).map((g) => h(doc, "span", { text: g }))) : null
           ),
-          img(doc, d.cover, d.gameId || d.title, d.title, "duet-cover")
+          coverImg
         ),
         h(
           doc,
           "div",
-          { class: "duet-pair" },
-          ...[top1, top2].map(
-            (t) => h(
-              doc,
-              "div",
-              { class: "duet-big" },
-              h(doc, "div", { class: "duet-num", style: `color:${t.color}`, text: `${t.val}%` }),
-              h(
-                doc,
-                "div",
-                { class: "duet-lbl" },
-                h(doc, "span", { class: "duet-dot", style: `background:${t.color}` }),
-                t.name
-              )
-            )
-          )
+          { class: "duet-panel" },
+          h(doc, "div", { class: "duet-label", text: "\u0414\u0412\u0410 \u0413\u041B\u0410\u0412\u041D\u042B\u0425 \u041E\u0422\u041A\u041B\u0418\u041A\u0410 \u0421\u041E\u041E\u0411\u0429\u0415\u0421\u0422\u0412\u0410" }),
+          h(doc, "div", { class: "duet-pair" }, choiceNode(top1), h(doc, "div", { class: "duet-vs", text: "+" }), choiceNode(top2)),
+          h(doc, "div", { class: "duet-note", text: noteText })
         ),
         h(
           doc,
@@ -7256,58 +7279,75 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
           h(
             doc,
             "div",
-            { class: "duet-dots" },
-            ...rx.map((x) => h(doc, "span", { title: `${x.name}: ${x.val}%`, style: `background:${x.color}` }))
+            { class: "mini-dots", "aria-label": "\u0426\u0432\u0435\u0442\u0430 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u044B\u0445 \u0440\u0435\u0430\u043A\u0446\u0438\u0439" },
+            ...rx.map((x) => h(doc, "i", { style: `--c:${x.color}`, title: `${x.name}: ${x.val.toFixed(1)}%` }))
           ),
-          h(doc, "a", { class: "duet-link", href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAX \u2192" })
+          h(doc, "span", { text: "6 \u0420\u0415\u0410\u041A\u0426\u0418\u0419 PANAX" }),
+          link(doc, panaxUrl, "panax-link", "\u041E\u0446\u0435\u043D\u043A\u0438 \u043D\u0430 Panax ", h(doc, "span", { "aria-hidden": "true", text: "\u2197" }))
         )
       );
     }
     if (v === "editorial") {
-      const rest = sorted.slice(1);
+      const rest = rx.filter((x) => x.k !== top1.k);
+      const edMetaVals = [d.dev, ...(d.genres || []).slice(0, 3)].filter(Boolean);
+      const edMetaNodes = [];
+      edMetaVals.forEach((m, idx) => {
+        if (idx > 0) edMetaNodes.push(" ", h(doc, "span", { "aria-hidden": "true", text: "\xB7" }), " ");
+        edMetaNodes.push(String(m));
+      });
+      if (!edMetaNodes.length) edMetaNodes.push("\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E PANAX");
+      const edNoteKids = rxTotal <= 0 ? ["\u041E\u0436\u0438\u0434\u0430\u044E\u0442\u0441\u044F \u043F\u0435\u0440\u0432\u044B\u0435 \u043E\u0446\u0435\u043D\u043A\u0438 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430 PANAX."] : top1.val >= 35 ? ["\u041F\u043E\u0447\u0442\u0438 \u043A\u0430\u0436\u0434\u044B\u0439 \u0432\u0442\u043E\u0440\u043E\u0439 \u0438\u0433\u0440\u043E\u043A", h(doc, "br"), "\u043E\u0441\u0442\u0430\u0432\u0438\u043B \u044D\u0442\u0443 \u0440\u0435\u0430\u043A\u0446\u0438\u044E."] : ["\u041B\u0438\u0434\u0438\u0440\u0443\u044E\u0449\u0430\u044F \u0440\u0435\u0430\u043A\u0446\u0438\u044F \u0441\u0440\u0435\u0434\u0438", h(doc, "br"), "\u043E\u0446\u0435\u043D\u043E\u043A \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430 PANAX."];
       return h(
         doc,
         "div",
         { class: "w w-game v-editorial" },
-        h(doc, "div", { class: "ed-ring" }),
         h(
           doc,
           "div",
-          { class: "ed-head" },
-          h(doc, "div", { class: "ed-kicker", text: `GAME / ${d.year || "PANAX"} \xB7 PLAYER VERDICT` }),
-          h(doc, "div", { class: "ed-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
-          h(doc, "div", { class: "ed-sub", text: [d.dev, d.pub].filter(Boolean).join(" / ") || "\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E PANAX" })
-        ),
-        h(
-          doc,
-          "div",
-          { class: "ed-feat" },
+          { class: "ed-top" },
+          h(doc, "div", { class: "ed-index" }, `GAME / ${codeNum}`, h(doc, "br"), h(doc, "b", {}, "PLAYER", h(doc, "br"), "VERDICT")),
           h(
             doc,
             "div",
-            {},
+            { class: "ed-head" },
             h(
               doc,
               "div",
-              { class: "ed-feat-lbl" },
-              h(doc, "span", { class: "ed-dot", style: `background:${top1.color}` }),
-              top1.name
-            ),
-            h(doc, "div", { class: "ed-feat-cap", text: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" })
-          ),
-          h(doc, "div", { class: "ed-feat-val", style: `color:${top1.color}`, text: `${top1.val}%` })
+              { class: "game-head" },
+              h(doc, "div", { class: "kicker", text: `PANAX PLAYER REACTIONS${d.year ? " \xB7 " + d.year : ""}` }),
+              h(doc, "div", { class: "game-title", text: (d.title || "\u0418\u0433\u0440\u0430").toUpperCase() }),
+              h(doc, "div", { class: "game-meta" }, ...edMetaNodes)
+            )
+          )
         ),
         h(
           doc,
           "div",
-          { class: "ed-grid" },
+          { class: "ed-feature" },
+          h(doc, "div", { class: "ed-feature-label", text: "\u0421\u0410\u041C\u0410\u042F \u0427\u0410\u0421\u0422\u0410\u042F \u0420\u0415\u0410\u041A\u0426\u0418\u042F" }),
+          h(
+            doc,
+            "div",
+            { class: "ed-feature-main" },
+            h(doc, "span", { text: top1.icon }),
+            h(doc, "b", { text: top1.name.toUpperCase() }),
+            h(doc, "strong", { style: `color:${top1.k === "awesome" ? "#d78a00" : top1.color}` }, top1.val.toFixed(1), h(doc, "small", { text: "%" }))
+          ),
+          h(doc, "div", { class: "ed-feature-note" }, ...edNoteKids)
+        ),
+        h(
+          doc,
+          "div",
+          { class: "ed-rest" },
           ...rest.map(
             (x) => h(
               doc,
               "div",
-              { class: "ed-cell" },
-              h(doc, "span", { class: "ed-cell-n" }, h(doc, "span", { class: "ed-dot", style: `background:${x.color}` }), x.name),
-              h(doc, "span", { class: "ed-cell-v", text: `${x.val}%` })
+              { class: "ed-row", style: `--c:${x.color};--v:${x.val.toFixed(1)}%` },
+              h(doc, "span", { text: x.icon }),
+              h(doc, "b", { text: x.name }),
+              h(doc, "i", {}, h(doc, "em", { style: `width:${x.val.toFixed(1)}%;background:${x.color}` })),
+              h(doc, "strong", { text: `${x.val.toFixed(1)}%` })
             )
           )
         ),
@@ -7315,13 +7355,12 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
           doc,
           "div",
           { class: "ed-foot" },
-          h(doc, "span", { text: (d.genres || []).slice(0, 2).join(" \xB7 ") || "PANAX" }),
-          h(doc, "a", { href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAXGAMES.COM \u2192" })
+          h(doc, "span", { text: "\u0426\u0418\u0424\u0420\u042B \u0421\u041E\u041E\u0411\u0429\u0415\u0421\u0422\u0412\u0410 PANAX" }),
+          link(doc, panaxUrl, "panax-link", "\u041E\u0446\u0435\u043D\u043A\u0438 \u043D\u0430 Panax ", h(doc, "span", { "aria-hidden": "true", text: "\u2197" }))
         )
       );
     }
     if (v === "staircase") {
-      const maxV = Math.max(1, ...rx.map((x) => x.val));
       return h(
         doc,
         "div",
@@ -7329,74 +7368,99 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
         h(
           doc,
           "div",
-          { class: "st-head" },
+          { class: "stairs-head" },
           h(
             doc,
             "div",
             {},
-            h(doc, "div", { class: "st-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
-            h(doc, "div", { class: "st-sub", text: sub || "\u041E\u0446\u0435\u043D\u043A\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" })
+            h(doc, "div", { class: "kicker", text: "REACTION LEVELS / PANAX" }),
+            h(doc, "div", { class: "game-title", text: (d.title || "\u0418\u0433\u0440\u0430").toUpperCase() }),
+            h(doc, "div", { class: "game-meta", text: "\u041E\u0442 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u0432\u043E\u0441\u0442\u043E\u0440\u0433\u0430 \u0434\u043E \u043F\u043E\u043B\u043D\u043E\u0433\u043E \u0440\u0430\u0437\u043E\u0447\u0430\u0440\u043E\u0432\u0430\u043D\u0438\u044F" })
           ),
-          img(doc, d.cover, d.gameId || d.title, d.title, "st-cover")
+          h(doc, "div", { class: "stairs-number" }, "06", h(doc, "span", { text: "LEVELS" }))
         ),
         h(
           doc,
           "div",
-          { class: "st-chart" },
-          ...rx.map((x) => {
-            const ht = Math.max(6, Math.round(x.val / maxV * 92));
-            return h(
+          { class: "stairs-chart" },
+          ...rx.map(
+            (x, idx) => h(
               doc,
               "div",
-              { class: "st-col" },
-              h(doc, "div", { class: "st-pct", text: `${x.val}%` }),
-              h(doc, "div", { class: "st-bar", style: `height:${ht}px;background:${x.color}` }),
-              h(doc, "div", { class: "st-lbl", text: x.name })
-            );
-          })
+              { class: `step step${idx + 1}`, style: `--c:${x.color};--v:${x.val.toFixed(1)}%` },
+              h(doc, "div", { class: "step-cap" }, h(doc, "span", { text: x.icon }), h(doc, "b", { text: `${x.val.toFixed(1)}%` })),
+              h(doc, "div", { class: "step-fill", style: `height:${x.val.toFixed(1)}%;background:${x.color}` }),
+              h(doc, "label", { text: x.name })
+            )
+          )
         ),
         h(
           doc,
           "div",
-          { class: "st-foot" },
-          h(doc, "span", { text: "PANAX COMMUNITY" }),
-          h(doc, "a", { href: panaxUrl, target: "_blank", rel: "noopener", text: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u2192" })
+          { class: "stairs-foot" },
+          h(doc, "span", { text: "\u041E\u0426\u0415\u041D\u041A\u0418 \u0421\u041E\u041E\u0411\u0429\u0415\u0421\u0422\u0412\u0410" }),
+          link(doc, panaxUrl, "panax-link", "\u041E\u0446\u0435\u043D\u043A\u0438 \u043D\u0430 Panax ", h(doc, "span", { "aria-hidden": "true", text: "\u2197" }))
         )
       );
     }
     if (v === "type") {
-      const maxV = Math.max(1, ...rx.map((x) => x.val));
+      const words = String(d.title || "\u0418\u0433\u0440\u0430").trim().toUpperCase().split(/\s+/).filter(Boolean);
+      const titleKids = words.length >= 2 ? [words.slice(0, Math.ceil(words.length / 2)).join(" "), h(doc, "br"), h(doc, "i", { text: words.slice(Math.ceil(words.length / 2)).join(" ") })] : [words[0] || "\u0418\u0413\u0420\u0410"];
+      const devWords = String(d.dev || "PANAX").trim().toUpperCase().split(/\s+/).filter(Boolean);
+      const devKids = devWords.length > 1 ? [devWords.slice(0, -1).join(" "), h(doc, "br"), devWords[devWords.length - 1]] : [devWords[0] || "PANAX"];
+      const genreTag = String(d.genres && d.genres[0] || d.plat && d.plat[0] || "PANAX").toUpperCase();
       return h(
         doc,
         "div",
-        { class: "w w-game v-type" },
+        { class: "w w-game v-type typecard" },
         h(
           doc,
           "div",
-          { class: "tp-hero" },
-          h(doc, "div", { class: "tp-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
-          h(doc, "div", { class: "tp-meta", text: [d.year, d.dev].filter(Boolean).join(" \xB7 ") || "PANAX" })
+          { class: "type-meta" },
+          h(doc, "span", { text: "PANAX / GAME REACTION INDEX" }),
+          h(doc, "span", { text: `${d.year || "PANAX"} \u2014 \u2116 ${codeNum}` })
         ),
         h(
           doc,
           "div",
-          { class: "tp-rows" },
-          ...rx.map((x) => {
-            const w = Math.max(2, Math.round(x.val / maxV * 100));
-            return h(
+          { class: "type-hero" },
+          h(doc, "div", { class: "game-title" }, ...titleKids),
+          h(doc, "div", { class: "type-aside" }, ...devKids, h(doc, "span", { text: genreTag }))
+        ),
+        h(
+          doc,
+          "div",
+          { class: "type-rule" },
+          h(doc, "span", { text: "\u041A\u0410\u041A \u0418\u0413\u0420\u0423 \u0412\u041E\u0421\u041F\u0420\u0418\u041D\u042F\u041B\u0418" }),
+          h(doc, "span", { text: rxTotal > 0 ? "100% \u041E\u0422\u0412\u0415\u0422\u041E\u0412" : "\u041D\u0415\u0422 \u041E\u0426\u0415\u041D\u041E\u041A" })
+        ),
+        h(
+          doc,
+          "div",
+          { class: "type-list" },
+          ...rx.map(
+            (x) => h(
               doc,
               "div",
-              { class: "tp-row" },
-              h(doc, "span", { class: "tp-name", text: x.name }),
-              h(doc, "div", { class: "tp-track" }, h(doc, "div", { class: "tp-fill", style: `width:${w}%;background:${x.color}` })),
-              h(doc, "span", { class: "tp-val", text: `${x.val}%` })
-            );
-          })
+              { class: "type-row", style: `--c:${x.color};--v:${x.val.toFixed(1)}%` },
+              h(doc, "span", { class: "type-symbol", text: x.icon }),
+              h(doc, "b", { text: x.name }),
+              h(doc, "div", { class: "type-track" }, h(doc, "i", { style: `width:${x.val.toFixed(1)}%;background:${x.color}` })),
+              h(doc, "strong", {}, x.val.toFixed(1), h(doc, "small", { text: "%" }))
+            )
+          )
         ),
-        h(doc, "div", { class: "tp-foot" }, h(doc, "a", { href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAXGAMES \u2192" }))
+        h(
+          doc,
+          "div",
+          { class: "type-foot" },
+          h(doc, "span", { text: "\u041C\u041D\u0415\u041D\u0418\u0415 \u0418\u0413\u0420\u041E\u041A\u041E\u0412 \u2014 \u041D\u0415 \u0420\u0415\u0426\u0415\u041D\u0417\u0418\u042F" }),
+          link(doc, panaxUrl, "panax-link", "\u041E\u0446\u0435\u043D\u043A\u0438 \u043D\u0430 Panax ", h(doc, "span", { "aria-hidden": "true", text: "\u2197" }))
+        )
       );
     }
     if (v === "brutal") {
+      const devMeta = [d.year, d.dev].filter(Boolean).join(" \xB7 ").toUpperCase() || "PANAX";
       return h(
         doc,
         "div",
@@ -7409,35 +7473,40 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
             doc,
             "div",
             { class: "br-top" },
-            img(doc, d.cover, d.gameId || d.title, d.title, "br-cover"),
+            h(doc, "div", { class: "br-poster" }, img(doc, d.cover, d.gameId || d.title, d.title, "")),
             h(
               doc,
               "div",
               {},
-              h(doc, "div", { class: "br-meta", text: sub || "PANAX" }),
-              h(doc, "div", { class: "br-title", text: d.title || "\u0418\u0433\u0440\u0430" })
+              h(doc, "div", { class: "br-dev", text: devMeta }),
+              h(doc, "h3", { class: "br-title", text: d.title || "\u0418\u0433\u0440\u0430" })
             )
           ),
           h(
             doc,
             "div",
-            { class: "br-dom" },
-            h(doc, "span", { class: "br-dom-k", text: "\u0414\u041E\u041C\u0418\u041D\u0418\u0420\u0423\u0415\u0422" }),
-            h(doc, "span", { class: "br-dom-v", style: `color:${top1.color}`, text: `${top1.name} \xB7 ${top1.val}%` })
-          ),
-          h(doc, "a", { class: "br-link", href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAXGAMES \u2192" })
+            { class: "br-bottom" },
+            h(
+              doc,
+              "div",
+              {},
+              h(doc, "div", { class: "br-dom-lbl", text: "\u0414\u041E\u041C\u0418\u041D\u0418\u0420\u0423\u0415\u0422" }),
+              h(doc, "div", { class: "br-leader", text: `${top1.val.toFixed(1)}% ${top1.name.toUpperCase()}` })
+            ),
+            link(doc, panaxUrl, "br-link", "PANAXGAMES \u2192")
+          )
         ),
         h(
           doc,
           "div",
-          { class: "br-right" },
+          { class: "br-table" },
           ...rx.map(
             (x) => h(
               doc,
               "div",
-              { class: "br-row" },
-              h(doc, "span", { class: "br-rname" }, h(doc, "span", { class: "br-dot", style: `background:${x.color}` }), x.name),
-              h(doc, "span", { class: "br-rval", text: `${x.val}%` })
+              { class: "br-cell" },
+              h(doc, "span", { class: "br-cname", text: x.name.toUpperCase() }),
+              h(doc, "span", { class: "br-cval", text: `${x.val.toFixed(1)}%` })
             )
           )
         )
@@ -7948,7 +8017,7 @@ color:#e8e8e8;
 background:rgba(124,77,255,.16);
 border-color:rgba(124,77,255,.42);
 }
-.wrap[data-gq-theme="panax-dark"] .w-game{
+.wrap[data-gq-theme="panax-dark"] .w-game.v-classic{
 background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
 }
 .wrap[data-gq-theme="panax-dark"] .blk.img .collage-grid{background:#000;border-radius:16px}
@@ -7965,86 +8034,160 @@ background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
 .wrap[data-gq-theme="panax-dark"] .star{color:#303030}
 .wrap[data-gq-theme="panax-dark"] .star.lit{color:var(--gold);text-shadow:0 0 12px rgba(255,200,74,.5)}
 
-/* Game card variants: poster & neon */
+/* Game card variants: 5 editorial/brutal prototypes */
+.wrap .w.w-game.v-duet,.wrap .w.w-game.v-editorial,.wrap .w.w-game.v-staircase,.wrap .w.w-game.v-type{display:block;position:relative;overflow:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.35}
+.wrap .w.w-game.v-duet .game-title,.wrap .w.w-game.v-editorial .game-title,.wrap .w.w-game.v-staircase .game-title,.wrap .w.w-game.v-type .game-title{margin:4px 0 6px;font-weight:900;line-height:.98;letter-spacing:-.055em}
+.wrap .w.w-game.v-duet .kicker,.wrap .w.w-game.v-editorial .kicker,.wrap .w.w-game.v-staircase .kicker{font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.wrap .w.w-game.v-duet .game-meta,.wrap .w.w-game.v-editorial .game-meta,.wrap .w.w-game.v-staircase .game-meta{font-size:12px;letter-spacing:.02em}
+.wrap .blk .w.w-game.v-duet a.panax-link,.wrap .blk .w.w-game.v-editorial a.panax-link,.wrap .blk .w.w-game.v-staircase a.panax-link,.wrap .blk .w.w-game.v-type a.panax-link{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:750;font-size:11px;white-space:nowrap;color:#fff;transition:transform .16s ease,opacity .16s ease}
+.wrap .blk .w.w-game.v-duet a.panax-link:hover,.wrap .blk .w.w-game.v-editorial a.panax-link:hover,.wrap .blk .w.w-game.v-staircase a.panax-link:hover,.wrap .blk .w.w-game.v-type a.panax-link:hover{transform:translateY(-1px);opacity:.84}
+.wrap .w.w-game.v-duet a.panax-link span,.wrap .w.w-game.v-editorial a.panax-link span,.wrap .w.w-game.v-staircase a.panax-link span,.wrap .w.w-game.v-type a.panax-link span{font-size:15px;line-height:1}
+
 /* 1. Duet */
-.wrap .w-game.v-duet{display:block;background:#f0eee8;color:#111319;border-radius:16px;padding:22px 24px;border:1px solid rgba(0,0,0,.08)}
-.v-duet .duet-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding-bottom:16px;border-bottom:1px solid rgba(0,0,0,.1)}
-.v-duet .duet-title{font:700 22px/1.12 Georgia,'Times New Roman',serif;letter-spacing:-.02em;color:#111319}
-.v-duet .duet-sub{font:500 12px/1.3 sans-serif;color:#6c6f78;margin-top:5px}
-.v-duet .duet-cover{width:54px;height:72px;border-radius:6px;object-fit:cover;flex:0 0 54px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.v-duet .duet-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 0 14px}
-.v-duet .duet-num{font:900 32px/1 Impact,'Arial Narrow',sans-serif;letter-spacing:-.02em}
-.v-duet .duet-lbl{display:flex;align-items:center;gap:6px;font:700 11px/1 sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#2b2e37;margin-top:6px}
-.v-duet .duet-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.v-duet .duet-foot{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid rgba(0,0,0,.08)}
-.v-duet .duet-dots{display:flex;gap:6px}
-.v-duet .duet-dots span{width:9px;height:9px;border-radius:50%;display:inline-block}
-.v-duet .duet-link{font:700 11px/1 sans-serif;letter-spacing:.1em;color:#111319;text-decoration:none}
+.wrap .w.w-game.v-duet{padding:26px 29px;background:#f0eee8;color:#171816;border:1px solid #d7d3c9;border-radius:4px;box-shadow:0 8px 22px #0002}
+.wrap .w.w-game.v-duet .duet-head{display:flex;justify-content:space-between;gap:24px;align-items:center}
+.wrap .w.w-game.v-duet .duet-head>div{min-width:0}
+.wrap .w.w-game.v-duet .game-title{font-family:Georgia,serif;font-size:clamp(28px,4.5vw,42px);letter-spacing:-.05em;color:#171816;line-height:1.02}
+.wrap .w.w-game.v-duet .kicker{color:#79776e;font-size:9px}
+.wrap .w.w-game.v-duet .game-meta{color:#66675f;font-size:11px}
+.wrap .w.w-game.v-duet .game-meta i{font-style:normal;opacity:.6;padding:0 3px}
+.wrap .w.w-game.v-duet .genres{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.wrap .w.w-game.v-duet .genres span{border:1px solid #c9c5b9;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:700;color:#55564f;background:#e5e1d7}
+.wrap .w.w-game.v-duet .duet-cover{width:100px;height:115px;object-fit:cover;flex:0 0 100px;filter:saturate(.8);box-shadow:7px 7px 0 #d3cec2;display:block}
+.wrap .w.w-game.v-duet .duet-panel{border-top:1px solid #c9c5b9;border-bottom:1px solid #c9c5b9;margin-top:21px;padding:17px 0 14px}
+.wrap .w.w-game.v-duet .duet-label{font-size:9px;letter-spacing:.17em;font-weight:900;color:#76766e}
+.wrap .w.w-game.v-duet .duet-pair{display:flex;align-items:center;gap:15px;margin-top:10px}
+.wrap .w.w-game.v-duet .duet-choice{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.wrap .w.w-game.v-duet .duet-choice .badge{width:58px;height:58px;object-fit:contain;display:block;flex:none;padding:0;background:none;border:none;border-radius:0;color:inherit}
+.wrap .w.w-game.v-duet .duet-choice .badge-ico{font-size:40px;line-height:1;width:58px;height:58px;display:grid;place-items:center;flex:none}
+.wrap .w.w-game.v-duet .duet-choice b{display:block;font-family:Georgia,serif;font-size:17px;color:#171816}
+.wrap .w.w-game.v-duet .duet-choice strong{font-size:25px;letter-spacing:-.05em;color:#171816;font-weight:800}
+.wrap .w.w-game.v-duet .duet-vs{font:italic 25px Georgia,serif;color:#9d988c}
+.wrap .w.w-game.v-duet .duet-note{font:italic 12px Georgia,serif;color:#77736b;margin-top:12px}
+.wrap .w.w-game.v-duet .duet-foot{display:flex;align-items:center;gap:12px;margin-top:14px}
+.wrap .w.w-game.v-duet .duet-foot>span{font-size:8px;letter-spacing:.14em;color:#89857b;font-weight:800}
+.wrap .w.w-game.v-duet .mini-dots{display:flex;gap:4px;align-items:center}
+.wrap .w.w-game.v-duet .mini-dots i{width:7px;height:7px;border-radius:50%;background:var(--c);display:block}
+.wrap .blk .w.w-game.v-duet a.panax-link{margin-left:auto;color:#fff;background:#1a1d19;padding:9px 13px;border-radius:3px}
 
 /* 2. Editorial */
-.wrap .w-game.v-editorial{display:block;position:relative;overflow:hidden;background:#e9e5dc;color:#141413;border-radius:16px;padding:24px;border:1px solid rgba(0,0,0,.1)}
-.v-editorial .ed-ring{position:absolute;right:-60px;top:-60px;width:210px;height:210px;border-radius:50%;border:28px solid rgba(0,0,0,.035);pointer-events:none}
-.v-editorial .ed-kicker{font:700 10px/1 monospace;letter-spacing:.16em;color:#6e6a61;text-transform:uppercase}
-.v-editorial .ed-title{font:700 24px/1.1 Georgia,serif;margin:6px 0 4px;color:#141413}
-.v-editorial .ed-sub{font:500 12px/1.3 sans-serif;color:#5c5850}
-.v-editorial .ed-feat{display:flex;justify-content:space-between;align-items:center;margin:16px 0 14px;padding:14px 16px;background:rgba(255,255,255,.55);border-radius:10px;border:1px solid rgba(0,0,0,.08)}
-.v-editorial .ed-feat-lbl{display:flex;align-items:center;gap:7px;font:700 14px/1.2 sans-serif;color:#141413}
-.v-editorial .ed-feat-cap{font:500 11px/1.3 sans-serif;color:#6e6a61;margin-top:3px}
-.v-editorial .ed-feat-val{font:900 34px/1 Georgia,serif}
-.v-editorial .ed-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.v-editorial .ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
-.v-editorial .ed-cell{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.08);font:600 12px/1.2 sans-serif}
-.v-editorial .ed-cell-n{display:flex;align-items:center;gap:6px;color:#3a3832}
-.v-editorial .ed-cell-v{font:700 12px/1 monospace;color:#141413}
-.v-editorial .ed-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font:700 10px/1 monospace;letter-spacing:.1em;color:#6e6a61}
-.v-editorial .ed-foot a{color:#141413;text-decoration:none}
+.wrap .w.w-game.v-editorial{padding:28px 32px;background:#e9e5dc;color:#22211e;border:1px solid #d5d0c5;border-radius:3px}
+.wrap .w.w-game.v-editorial:after{content:"";position:absolute;right:-35px;top:160px;width:170px;height:170px;border:1px solid #bbb6ab;border-radius:50%;box-shadow:0 0 0 17px #e9e5dc,0 0 0 18px #bbb6ab,0 0 0 35px #e9e5dc,0 0 0 36px #bbb6ab;opacity:.7;pointer-events:none}
+.wrap .w.w-game.v-editorial .kicker{color:#7b756b}
+.wrap .w.w-game.v-editorial .game-title{font-family:Georgia,serif;font-weight:900;font-size:clamp(26px,4.5vw,42px);letter-spacing:-.05em;color:#22211e}
+.wrap .w.w-game.v-editorial .game-meta{color:#777167}
+.wrap .w.w-game.v-editorial .ed-top{display:grid;grid-template-columns:110px 1fr;gap:22px;border-bottom:1px solid #bdb8ae;padding-bottom:19px}
+.wrap .w.w-game.v-editorial .ed-head{min-width:0}
+.wrap .w.w-game.v-editorial .ed-index{font-family:Georgia,serif;font-size:10px;color:#79746a;letter-spacing:.09em;line-height:1.6}
+.wrap .w.w-game.v-editorial .ed-index b{display:block;font-size:21px;line-height:.9;color:#292722;margin-top:8px;letter-spacing:-.06em}
+.wrap .w.w-game.v-editorial .ed-feature{padding:25px 0 18px;position:relative;z-index:1}
+.wrap .w.w-game.v-editorial .ed-feature-label{font-size:9px;font-weight:900;letter-spacing:.18em;color:#8b5e00}
+.wrap .w.w-game.v-editorial .ed-feature-main{display:flex;align-items:center;gap:14px;margin:6px 0}
+.wrap .w.w-game.v-editorial .ed-feature-main>span{font-size:38px;line-height:1}
+.wrap .w.w-game.v-editorial .ed-feature-main>b{font-family:Georgia,serif;font-size:clamp(24px,4.8vw,38px);letter-spacing:-.05em;color:#22211e}
+.wrap .w.w-game.v-editorial .ed-feature-main>strong{font-size:clamp(42px,8vw,74px);letter-spacing:-.07em;color:#d78a00;margin-left:auto;line-height:.95}
+.wrap .w.w-game.v-editorial .ed-feature-main small{font-size:.42em;letter-spacing:0}
+.wrap .w.w-game.v-editorial .ed-feature-note{font-family:Georgia,serif;font-size:13px;line-height:1.45;color:#716c63;margin-left:53px}
+.wrap .w.w-game.v-editorial .ed-rest{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;border-top:1px solid #bdb8ae;padding-top:13px;position:relative;z-index:1}
+.wrap .w.w-game.v-editorial .ed-row{display:grid;grid-template-columns:20px 64px 1fr 42px;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid #d0cbc1}
+.wrap .w.w-game.v-editorial .ed-row>span{font-size:15px;line-height:1}
+.wrap .w.w-game.v-editorial .ed-row b{font-family:Georgia,serif;font-size:11px;color:#22211e}
+.wrap .w.w-game.v-editorial .ed-row i{height:4px;background:#cbc6bc;overflow:hidden;display:block;font-style:normal}
+.wrap .w.w-game.v-editorial .ed-row em{display:block;height:100%;width:var(--v);background:var(--c)}
+.wrap .w.w-game.v-editorial .ed-row strong{font-size:11px;text-align:right;color:#22211e;font-variant-numeric:tabular-nums}
+.wrap .w.w-game.v-editorial .ed-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;color:#8b857b;font-size:8px;font-weight:900;letter-spacing:.15em;position:relative;z-index:1}
+.wrap .blk .w.w-game.v-editorial a.panax-link{background:#25231f;color:#fff;padding:10px 13px;font-family:Arial,sans-serif;letter-spacing:0;font-size:10px;border-radius:2px}
 
 /* 3. Staircase */
-.wrap .w-game.v-staircase{display:block;background:#ece8df;color:#16181d;border-radius:16px;padding:22px 24px;border:1px solid rgba(0,0,0,.08)}
-.v-staircase .st-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
-.v-staircase .st-title{font:800 19px/1.15 sans-serif;color:#16181d}
-.v-staircase .st-sub{font:500 12px/1.3 sans-serif;color:#666970;margin-top:3px}
-.v-staircase .st-cover{width:46px;height:62px;border-radius:6px;object-fit:cover;flex:0 0 46px}
-.v-staircase .st-chart{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;height:132px;padding:10px 0 8px;border-bottom:2px solid #16181d}
-.v-staircase .st-col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:5px}
-.v-staircase .st-pct{font:700 11px/1 monospace;color:#16181d}
-.v-staircase .st-bar{width:100%;border-radius:4px 4px 0 0;min-height:6px}
-.v-staircase .st-lbl{font:700 10px/1 sans-serif;color:#4a4d55;text-align:center}
-.v-staircase .st-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font:700 10px/1 monospace;letter-spacing:.1em;color:#666970}
-.v-staircase .st-foot a{color:#16181d;text-decoration:none}
+.wrap .w.w-game.v-staircase{padding:28px 30px;background:#ece8df;color:#20201e;border:1px solid #d7d2c8;border-radius:3px}
+.wrap .w.w-game.v-staircase .kicker{color:#7b786f}
+.wrap .w.w-game.v-staircase .game-title{font-family:Georgia,serif;font-size:clamp(26px,4.5vw,42px);letter-spacing:-.05em;color:#20201e}
+.wrap .w.w-game.v-staircase .game-meta{color:#77736a}
+.wrap .w.w-game.v-staircase .stairs-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.wrap .w.w-game.v-staircase .stairs-number{font-family:Georgia,serif;font-size:38px;line-height:.8;text-align:right;color:#20201e}
+.wrap .w.w-game.v-staircase .stairs-number span{display:block;font-family:Arial,sans-serif;font-size:8px;letter-spacing:.2em;color:#888;margin-top:8px}
+.wrap .w.w-game.v-staircase .stairs-chart{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;height:190px;padding-top:24px;margin-top:18px;border-bottom:1px solid #bcb8ae}
+.wrap .w.w-game.v-staircase .step{height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-width:0}
+.wrap .w.w-game.v-staircase .step-cap{display:flex;flex-direction:column;align-items:center;margin-bottom:7px;gap:3px}
+.wrap .w.w-game.v-staircase .step-cap span{font-size:19px;line-height:1}
+.wrap .w.w-game.v-staircase .step-cap b{font-size:11px;color:#20201e;font-variant-numeric:tabular-nums}
+.wrap .w.w-game.v-staircase .step-fill{height:var(--v);min-height:4px;max-height:calc(100% - 66px);background:var(--c);border-radius:4px 4px 0 0;opacity:.93}
+.wrap .w.w-game.v-staircase .step label{font-size:9px;font-weight:800;text-align:center;padding:8px 0 10px;background:color-mix(in srgb,var(--c),white 75%);border-bottom:3px solid var(--c);color:#20201e;margin:0}
+.wrap .w.w-game.v-staircase .stairs-foot{display:flex;justify-content:space-between;align-items:center;margin-top:17px;color:#8a857b;font-size:8px;letter-spacing:.16em;font-weight:900}
+.wrap .blk .w.w-game.v-staircase a.panax-link{background:#21211f;color:#fff;padding:10px 13px;border-radius:2px;font-family:Arial,sans-serif;letter-spacing:0;font-size:10px}
 
 /* 4. Type */
-.wrap .w-game.v-type{display:block;background:#faf9f5;color:#0e0f12;border-radius:16px;padding:22px 24px;border:1px solid rgba(0,0,0,.1)}
-.v-type .tp-hero{padding-bottom:12px;border-bottom:7px solid #0e0f12;margin-bottom:14px}
-.v-type .tp-title{font:900 28px/1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.01em;color:#0e0f12}
-.v-type .tp-meta{font:600 11px/1.3 monospace;color:#5f626a;margin-top:5px;text-transform:uppercase}
-.v-type .tp-rows{display:flex;flex-direction:column;gap:8px}
-.v-type .tp-row{display:grid;grid-template-columns:76px 1fr 44px;align-items:center;gap:10px}
-.v-type .tp-name{font:700 11px/1 sans-serif;text-transform:uppercase;color:#1c1e24}
-.v-type .tp-track{height:10px;background:#e6e4dc;border-radius:2px;overflow:hidden}
-.v-type .tp-fill{height:100%}
-.v-type .tp-val{font:700 12px/1 monospace;text-align:right;color:#0e0f12}
-.v-type .tp-foot{margin-top:12px;text-align:right}
-.v-type .tp-foot a{font:700 10px/1 monospace;letter-spacing:.12em;color:#0e0f12;text-decoration:none}
+.wrap .w.w-game.v-type{padding:28px 32px;background:#faf9f5;color:#191919;border:1px solid #dedbd3;border-radius:0}
+.wrap .w.w-game.v-type .type-meta{display:flex;justify-content:space-between;font-size:8px;letter-spacing:.16em;font-weight:900;color:#777}
+.wrap .w.w-game.v-type .type-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding:22px 0 19px;border-bottom:7px solid #171717}
+.wrap .w.w-game.v-type .game-title{font-family:Impact,"Arial Narrow",sans-serif;font-size:clamp(44px,8.5vw,88px);line-height:.8;letter-spacing:-.04em;margin:0;color:#191919}
+.wrap .w.w-game.v-type .game-title i{font-style:normal;color:#999}
+.wrap .w.w-game.v-type .type-aside{font-family:Georgia,serif;font-size:11px;line-height:1.4;text-align:right;font-weight:700;color:#191919;flex-shrink:0}
+.wrap .w.w-game.v-type .type-aside span{display:block;font-family:Arial,sans-serif;color:#888;font-size:8px;margin-top:8px;letter-spacing:.16em}
+.wrap .w.w-game.v-type .type-rule{display:flex;justify-content:space-between;font-size:8px;font-weight:900;letter-spacing:.15em;color:#777;margin:16px 0 6px}
+.wrap .w.w-game.v-type .type-row{display:grid;grid-template-columns:32px 90px 1fr 75px;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #dedbd3}
+.wrap .w.w-game.v-type .type-symbol{font-size:20px;line-height:1}
+.wrap .w.w-game.v-type .type-row>b{font-family:Georgia,serif;font-size:14px;color:#191919}
+.wrap .w.w-game.v-type .type-track{height:8px;background:#e9e7e1}
+.wrap .w.w-game.v-type .type-track i{display:block;height:100%;width:var(--v);background:var(--c);font-style:normal}
+.wrap .w.w-game.v-type .type-row strong{text-align:right;font-size:22px;letter-spacing:-.05em;color:#191919;font-variant-numeric:tabular-nums}
+.wrap .w.w-game.v-type .type-row small{font-size:10px}
+.wrap .w.w-game.v-type .type-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:16px;color:#888;font-size:8px;font-weight:900;letter-spacing:.13em}
+.wrap .blk .w.w-game.v-type a.panax-link{background:#171717;color:#fff;padding:11px 14px;font-size:10px;letter-spacing:0}
 
-/* 5. Brutal */
-.wrap .w-game.v-brutal{display:grid;grid-template-columns:1.05fr 1fr;gap:0;background:#fff;color:#000;border:4px solid #000;border-radius:0;padding:0;overflow:hidden}
-.v-brutal .br-left{padding:16px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;border-right:4px solid #000}
-.v-brutal .br-top{display:flex;gap:12px;align-items:flex-start}
-.v-brutal .br-cover{width:58px;height:78px;object-fit:cover;border:2px solid #000;flex:0 0 58px}
-.v-brutal .br-meta{font:700 10px/1.2 monospace;text-transform:uppercase;color:#525252}
-.v-brutal .br-title{font:900 17px/1.15 sans-serif;color:#000;margin-top:4px}
-.v-brutal .br-dom{padding:8px 10px;background:#f5f5f5;border:2px solid #000;display:flex;flex-direction:column;gap:2px}
-.v-brutal .br-dom-k{font:800 9px/1 monospace;letter-spacing:.12em;color:#525252}
-.v-brutal .br-dom-v{font:900 14px/1.2 sans-serif}
-.v-brutal .br-link{font:900 11px/1 monospace;color:#000;text-decoration:none;letter-spacing:.08em}
-.v-brutal .br-right{background:#f5f5f5;padding:12px 14px;display:flex;flex-direction:column;justify-content:center;gap:6px}
-.v-brutal .br-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #d4d4d4;font:700 12px/1.2 sans-serif}
-.v-brutal .br-row:last-child{border-bottom:none}
-.v-brutal .br-rname{display:flex;align-items:center;gap:6px}
-.v-brutal .br-dot{width:8px;height:8px;display:inline-block}
-.v-brutal .br-rval{font:800 12px/1 monospace}
-@media(max-width:540px){.w-game.v-brutal{grid-template-columns:1fr}.v-brutal .br-left{border-right:none;border-bottom:4px solid #000}}
+/* 5. Brutal (#w8) */
+.wrap .w.w-game.v-brutal{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#fff;color:#000;border:4px solid #000;border-radius:0;padding:0;overflow:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.wrap .w.w-game.v-brutal .br-left{padding:20px;border-right:2px solid #000;display:flex;flex-direction:column;justify-content:space-between;gap:16px;background:#fff;min-width:0}
+.wrap .w.w-game.v-brutal .br-top{display:flex;gap:16px;align-items:flex-start}
+.wrap .w.w-game.v-brutal .br-top>div{min-width:0}
+.wrap .w.w-game.v-brutal .br-poster{width:64px;aspect-ratio:3/4;border:2px solid #000;flex-shrink:0;overflow:hidden;background:#141816}
+.wrap .w.w-game.v-brutal .br-poster img{width:100%;height:100%;object-fit:cover;display:block}
+.wrap .w.w-game.v-brutal .br-dev{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;font-weight:700;text-transform:uppercase;color:#737373;line-height:1.3}
+.wrap .w.w-game.v-brutal .br-title{font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:-.04em;line-height:1.02;margin:4px 0 0;color:#000}
+.wrap .w.w-game.v-brutal .br-bottom{display:flex;align-items:flex-end;justify-content:space-between;border-top:2px solid #000;padding-top:12px;gap:10px}
+.wrap .w.w-game.v-brutal .br-dom-lbl{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;font-weight:700;text-transform:uppercase;color:#737373}
+.wrap .w.w-game.v-brutal .br-leader{font-size:26px;font-weight:800;text-transform:uppercase;color:#ea580c;line-height:1.05;letter-spacing:-.03em}
+.wrap .blk .w.w-game.v-brutal a.br-link{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;font-weight:800;text-transform:uppercase;color:#000;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+.wrap .blk .w.w-game.v-brutal a.br-link:hover{color:#ea580c}
+.wrap .w.w-game.v-brutal .br-table{padding:20px;background:#f5f5f5;display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;align-content:center;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px}
+.wrap .w.w-game.v-brutal .br-cell{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d4d4d4;padding-bottom:4px;gap:6px}
+.wrap .w.w-game.v-brutal .br-cname{font-weight:700;color:#404040}
+.wrap .w.w-game.v-brutal .br-cval{font-weight:800;color:#000;font-variant-numeric:tabular-nums}
+
+@media(max-width:600px){
+  .wrap .w.w-game.v-duet{padding:18px}
+  .wrap .w.w-game.v-duet .duet-cover{width:73px;height:94px;flex:0 0 73px}
+  .wrap .w.w-game.v-duet .duet-pair{gap:8px}
+  .wrap .w.w-game.v-duet .duet-choice{gap:5px}
+  .wrap .w.w-game.v-duet .duet-choice .badge{width:44px;height:44px}
+  .wrap .w.w-game.v-duet .duet-choice b{font-size:14px}
+  .wrap .w.w-game.v-duet .duet-choice strong{font-size:20px}
+  .wrap .w.w-game.v-duet .duet-foot>span{display:none}
+  .wrap .w.w-game.v-editorial{padding:20px}
+  .wrap .w.w-game.v-editorial .ed-top{grid-template-columns:70px 1fr;gap:12px}
+  .wrap .w.w-game.v-editorial .ed-index b{font-size:16px}
+  .wrap .w.w-game.v-editorial .ed-rest{grid-template-columns:1fr}
+  .wrap .w.w-game.v-editorial .ed-feature-main{gap:8px}
+  .wrap .w.w-game.v-editorial .ed-feature-note{margin-left:0}
+  .wrap .w.w-game.v-editorial .ed-foot{align-items:flex-start;flex-direction:column}
+  .wrap .w.w-game.v-staircase{padding:20px}
+  .wrap .w.w-game.v-staircase .stairs-chart{height:160px;gap:4px}
+  .wrap .w.w-game.v-staircase .step label{font-size:8px}
+  .wrap .w.w-game.v-staircase .step-cap span{font-size:15px}
+  .wrap .w.w-game.v-staircase .step-cap b{font-size:10px}
+  .wrap .w.w-game.v-staircase .stairs-foot{align-items:flex-start;flex-direction:column;gap:10px}
+  .wrap .w.w-game.v-type{padding:20px}
+  .wrap .w.w-game.v-type .type-hero{gap:10px}
+  .wrap .w.w-game.v-type .game-title{font-size:48px}
+  .wrap .w.w-game.v-type .type-aside{font-size:9px}
+  .wrap .w.w-game.v-type .type-row{grid-template-columns:26px 67px 1fr 57px;gap:6px}
+  .wrap .w.w-game.v-type .type-row>b{font-size:11px}
+  .wrap .w.w-game.v-type .type-row strong{font-size:17px}
+  .wrap .w.w-game.v-type .type-foot{align-items:flex-start;flex-direction:column}
+  .wrap .w.w-game.v-type .type-meta{font-size:7px}
+  .wrap .w.w-game.v-brutal{grid-template-columns:1fr}
+  .wrap .w.w-game.v-brutal .br-left{border-right:none;border-bottom:2px solid #000}
+}
 `;
 
   // src/content/gamequill/native-text.js

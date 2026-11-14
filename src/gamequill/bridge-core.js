@@ -158,17 +158,31 @@ export function mergeDetails(g, det) {
   return g;
 }
 
+export function panaxCoverUrl(raw) {
+  const s = str(raw, 400).trim();
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) return safeImageUrl(s);
+  if (/^\/\/.+/.test(s)) return safeImageUrl("https:" + s);
+  const cleanFile = s.replace(/^\/+/, "");
+  const full = /^images\//i.test(cleanFile)
+    ? `https://d21t60rno19oyf.cloudfront.net/${cleanFile}`
+    : `https://d21t60rno19oyf.cloudfront.net/images/t_cover_big/${cleanFile}`;
+  return safeImageUrl(full);
+}
+
 export function adaptPanaxSearch(data) {
   const list = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : Array.isArray(data?.items) ? data.items : Array.isArray(data?.games) ? data.games : [];
   return list.slice(0, 12).map((x) => {
     const id = x?.id ?? x?.game_id ?? "";
+    const panaxTag = plain(x?.tag || x?.game_tag || "", 120);
     const title = plain(x?.name || x?.title || x?.game_name || "", 140);
-    const cover = safeImageUrl(x?.cover || x?.cover_url || x?.image || x?.thumbnail || x?.poster || "");
-    const year = x?.release_year || (x?.release_date ? String(x.release_date).slice(0, 4) : "");
+    const cover = panaxCoverUrl(x?.cover_image_url || x?.cover || x?.cover_url || x?.image || x?.thumbnail || x?.poster || "");
+    const year = String(x?.release_year || (x?.release_date ? String(x.release_date).slice(0, 4) : "") || "");
     const pageUrl = id ? `https://panaxgames.com/game-detail/${id}` : `https://panaxgames.com/search?q=${enc(title)}`;
     return {
       id: "panax_" + id,
-      panaxId: id,
+      panaxId: String(id || ""),
+      panaxTag,
       title,
       year,
       cover,

@@ -386,7 +386,10 @@
     "i.ytimg.com",
     "img.youtube.com",
     "images.igdb.com",
-    "media.rawg.io"
+    "media.rawg.io",
+    "d21t60rno19oyf.cloudfront.net",
+    "panaxgames.com",
+    "www.panaxgames.com"
   ];
   var DEFAULT_INTEG = {
     panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },
@@ -654,6 +657,7 @@
     plat: ["PC", "PS5", "Xbox Series"],
     pal: ["#ff2fb3", "#12062b", "#22d3ee"],
     r: { backloggd: 8.4, igdb: 82, metacritic: 86, hltb: "38 \u0447." },
+    panaxReactions: { legendary: 19.6, awesome: 41.2, good: 37.3, decent: 0, dislike: 2, awful: 0 },
     links: {
       backloggd: "https://www.backloggd.com/games/neon-requiem/",
       igdb: "https://www.igdb.com/games/neon-requiem",
@@ -691,6 +695,7 @@
         rawg: g.links.rawg
       },
       ratings: { backloggd: g.r.backloggd, igdb: g.r.igdb },
+      panaxReactions: g.panaxReactions ? { ...g.panaxReactions } : null,
       source: "Backloggd"
     };
     const steamData = {
@@ -1699,17 +1704,28 @@
     Object.assign(g.steam, { price: det.price || g.steam.price, old: det.old, disc: det.disc, date: det.date, tags: det.genres.slice(0, 4) });
     return g;
   }
+  function panaxCoverUrl(raw) {
+    const s = str(raw, 400).trim();
+    if (!s) return "";
+    if (/^https?:\/\//i.test(s)) return safeImageUrl(s);
+    if (/^\/\/.+/.test(s)) return safeImageUrl("https:" + s);
+    const cleanFile = s.replace(/^\/+/, "");
+    const full = /^images\//i.test(cleanFile) ? `https://d21t60rno19oyf.cloudfront.net/${cleanFile}` : `https://d21t60rno19oyf.cloudfront.net/images/t_cover_big/${cleanFile}`;
+    return safeImageUrl(full);
+  }
   function adaptPanaxSearch(data) {
     const list = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : Array.isArray(data?.items) ? data.items : Array.isArray(data?.games) ? data.games : [];
     return list.slice(0, 12).map((x) => {
       const id = x?.id ?? x?.game_id ?? "";
+      const panaxTag = plain(x?.tag || x?.game_tag || "", 120);
       const title = plain(x?.name || x?.title || x?.game_name || "", 140);
-      const cover = safeImageUrl(x?.cover || x?.cover_url || x?.image || x?.thumbnail || x?.poster || "");
-      const year = x?.release_year || (x?.release_date ? String(x.release_date).slice(0, 4) : "");
+      const cover = panaxCoverUrl(x?.cover_image_url || x?.cover || x?.cover_url || x?.image || x?.thumbnail || x?.poster || "");
+      const year = String(x?.release_year || (x?.release_date ? String(x.release_date).slice(0, 4) : "") || "");
       const pageUrl = id ? `https://panaxgames.com/game-detail/${id}` : `https://panaxgames.com/search?q=${enc(title)}`;
       return {
         id: "panax_" + id,
-        panaxId: id,
+        panaxId: String(id || ""),
+        panaxTag,
         title,
         year,
         cover,
@@ -1812,44 +1828,253 @@
     if (!r.ok) throw new Error("HTTP " + r.status);
     return r.json();
   }
+  var PANAX_ANON_TOKEN = "ad9739191285443a88dd2994ce7da73fbcf58f8d6525407989193eaebcca77d4";
+  var PANAX_REACTION_CNT_KEYS = [
+    ["legendary", "rating_legendary_cnt"],
+    ["awesome", "rating_awesome_cnt"],
+    ["good", "rating_good_cnt"],
+    ["decent", "rating_decent_cnt"],
+    ["dislike", "rating_dislike_cnt"],
+    ["awful", "rating_awful_cnt"]
+  ];
+  var panaxDetCache = /* @__PURE__ */ new Map();
+  var panaxSearchCache = /* @__PURE__ */ new Map();
+  function extractBalancedJson(s, start) {
+    if (!s || s[start] !== "{") return "";
+    let depth = 0;
+    let inStr = false;
+    let esc = false;
+    for (let i = start; i < s.length; i++) {
+      const c = s[i];
+      if (inStr) {
+        if (esc) esc = false;
+        else if (c === "\\") esc = true;
+        else if (c === '"') inStr = false;
+      } else {
+        if (c === '"') inStr = true;
+        else if (c === "{") depth++;
+        else if (c === "}") {
+          depth--;
+          if (depth === 0) return s.slice(start, i + 1);
+        }
+      }
+    }
+    return "";
+  }
+  function extractFlightGameDetails(html) {
+    if (!html) return null;
+    let pos = html.indexOf("rating_legendary_cnt");
+    if (pos < 0) pos = html.indexOf("gameDetails");
+    if (pos >= 0) {
+      const prefix = html.lastIndexOf('[1,"', pos);
+      if (prefix >= 0 && pos - prefix < 25e4) {
+        const qStart = prefix + 3;
+        let esc = false;
+        let qEnd = -1;
+        for (let i = qStart + 1; i < html.length; i++) {
+          const c = html[i];
+          if (esc) esc = false;
+          else if (c === "\\") esc = true;
+          else if (c === '"') {
+            qEnd = i;
+            break;
+          }
+        }
+        if (qEnd > qStart) {
+          try {
+            const decoded = JSON.parse(html.slice(qStart, qEnd + 1));
+            const gdIdx = decoded.indexOf('"gameDetails":');
+            if (gdIdx >= 0) {
+              const brace = decoded.indexOf("{", gdIdx + 14);
+              const jsonText = brace >= 0 ? extractBalancedJson(decoded, brace) : "";
+              if (jsonText) return JSON.parse(jsonText);
+            }
+          } catch {
+          }
+        }
+      }
+    }
+    const directIdx = html.indexOf('"gameDetails":');
+    if (directIdx >= 0) {
+      try {
+        const brace = html.indexOf("{", directIdx + 14);
+        const jsonText = brace >= 0 ? extractBalancedJson(html, brace) : "";
+        if (jsonText) return JSON.parse(jsonText);
+      } catch {
+      }
+    }
+    return null;
+  }
+  function normTitleKey(t) {
+    return String(t || "").toLowerCase().replace(/[™®©:\-–—'’"`.,!?/()\[\]]+/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function extractPanaxId(v) {
+    if (!v) return "";
+    if (typeof v === "object") {
+      return extractPanaxId(v.panaxId || "") || extractPanaxId(v.id || "") || extractPanaxId(v.gameId || "") || extractPanaxId(v.links && v.links.panax || "");
+    }
+    const s = String(v).trim();
+    const mDetail = /panaxgames\.com\/game-detail\/(\d+)/i.exec(s);
+    if (mDetail) return mDetail[1];
+    const mPref = /^panax_(\d+)$/i.exec(s);
+    if (mPref) return mPref[1];
+    if (/^\d+$/.test(s)) return s;
+    return "";
+  }
   async function panaxSearch(q) {
     const url = `https://panaxgames.com/search/autocomplete?q=${encodeURIComponent(q)}&platform_integration=true`;
-    const r = await fetch(url, { credentials: "include", cache: "no-store" });
+    const headers = { "x-anonymous-user-token": PANAX_ANON_TOKEN };
+    let r = await fetch(url, { headers, credentials: "include", cache: "no-store" });
+    if (r.status === 401 || r.status === 403) {
+      r = await fetch(url, { headers, credentials: "omit", cache: "no-store" });
+    }
     if (!r.ok) throw new Error("HTTP " + r.status);
     return adaptPanaxSearch(await r.json());
   }
-  async function panaxDetails(id) {
-    id = String(id || "").replace(/\D/g, "");
-    if (!id) return null;
-    const url = `https://panaxgames.com/game-detail/${id}`;
-    const r = await fetch(url, { credentials: "include", cache: "no-store" });
-    if (!r.ok) return null;
-    const html = await r.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    const coverEl = doc.querySelector('img[alt="Game Cover"]');
-    const cover = coverEl ? safeImageUrl(coverEl.getAttribute("src") || "") : "";
-    const text = doc.body && doc.body.textContent || "";
-    const keys = [
-      ["legendary", /(?:(?:Legendary|Легенда)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Legendary|Легенда))/i],
-      ["awesome", /(?:(?:Awesome|Круто)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Awesome|Круто))/i],
-      ["good", /(?:(?:Good|Хорошо)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Good|Хорошо))/i],
-      ["decent", /(?:(?:Decent|Норм)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Decent|Норм))/i],
-      ["dislike", /(?:(?:Dislike|Плохо)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Dislike|Плохо))/i],
-      ["awful", /(?:(?:Awful|Ужас)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Awful|Ужас))/i]
-    ];
-    const panaxReactions = {};
-    let hasAny = false;
-    for (const [k, re] of keys) {
-      const m = text.match(re);
-      const num = m && (m[1] || m[2]);
-      if (num) {
-        panaxReactions[k] = parseFloat(num);
-        hasAny = true;
+  async function panaxDetails(idOrTag) {
+    const numericId = extractPanaxId(idOrTag);
+    const slug = numericId || String(idOrTag || "").trim().replace(/^\/+|\/+$/g, "");
+    if (!slug) return null;
+    if (panaxDetCache.has(slug)) return panaxDetCache.get(slug);
+    const task = (async () => {
+      const url = `https://panaxgames.com/game-detail/${encodeURIComponent(slug)}`;
+      const r = await fetch(url, { credentials: "include", cache: "no-store" });
+      if (!r.ok) return null;
+      const html = await r.text();
+      const gd = extractFlightGameDetails(html);
+      let cover = panaxCoverUrl(gd && (gd.cover_image_url || gd.cover_image) || "");
+      if (!cover) {
+        const mCov = /cover_image_url\\*":\s*\\*"([^\\"]+)/.exec(html);
+        if (mCov) cover = panaxCoverUrl(mCov[1]);
+      }
+      if (!cover) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const coverEl = doc.querySelector('img[alt="Game Cover"]');
+        cover = coverEl ? panaxCoverUrl(coverEl.getAttribute("src") || "") : "";
+      }
+      const dev = gd && Array.isArray(gd.developer_companies) ? gd.developer_companies.map((x) => plain(x && x.name || "", 80)).filter(Boolean).join(", ") : "";
+      const pub = gd && Array.isArray(gd.publisher_companies) ? gd.publisher_companies.map((x) => plain(x && x.name || "", 80)).filter(Boolean).join(", ") : "";
+      const year = String(gd && (gd.release_date || gd.games && gd.games[0] && gd.games[0].release_year) || "").slice(0, 4);
+      const genres = gd && Array.isArray(gd.genres) ? gd.genres.slice(0, 6).map((x) => plain(typeof x === "string" ? x : x && x.name || "", 40)).filter(Boolean) : [];
+      const ratingScore = gd && gd.rating_score ? String(gd.rating_score) : "";
+      const counts = {};
+      let total = 0;
+      let hasCounts = false;
+      for (const [k, field] of PANAX_REACTION_CNT_KEYS) {
+        let c = gd && Number.isFinite(Number(gd[field])) ? Number(gd[field]) : NaN;
+        if (!Number.isFinite(c)) {
+          const m = new RegExp(field + '\\\\*":\\s*(\\d+)').exec(html);
+          if (m) c = parseInt(m[1], 10);
+        }
+        if (Number.isFinite(c)) {
+          counts[k] = Math.max(0, c);
+          total += counts[k];
+          hasCounts = true;
+        } else {
+          counts[k] = 0;
+        }
+      }
+      const gdTotal = gd && Number(gd.rating_total_cnt) > 0 ? Number(gd.rating_total_cnt) : 0;
+      if (!total && gdTotal > 0) total = gdTotal;
+      let panaxReactions = null;
+      if (total > 0) {
+        panaxReactions = {};
+        for (const [k] of PANAX_REACTION_CNT_KEYS) {
+          panaxReactions[k] = Math.round(counts[k] / total * 1e3) / 10;
+        }
+      } else if (hasCounts) {
+        panaxReactions = { legendary: 0, awesome: 0, good: 0, decent: 0, dislike: 0, awful: 0 };
       } else {
-        panaxReactions[k] = 0;
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const text = doc.body && doc.body.textContent || "";
+        const keys = [
+          ["legendary", /(?:(?:Legendary|Легенда)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Legendary|Легенда))/i],
+          ["awesome", /(?:(?:Awesome|Круто)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Awesome|Круто))/i],
+          ["good", /(?:(?:Good|Хорошо)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Good|Хорошо))/i],
+          ["decent", /(?:(?:Decent|Норм)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Decent|Норм))/i],
+          ["dislike", /(?:(?:Dislike|Плохо)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Dislike|Плохо))/i],
+          ["awful", /(?:(?:Awful|Ужас)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Awful|Ужас))/i]
+        ];
+        const fallback = {};
+        let anyPct = false;
+        for (const [k, re] of keys) {
+          const m = text.match(re);
+          const num = m && (m[1] || m[2]);
+          if (num) {
+            fallback[k] = parseFloat(num);
+            anyPct = true;
+          } else {
+            fallback[k] = 0;
+          }
+        }
+        if (anyPct) panaxReactions = fallback;
+      }
+      return {
+        panaxId: numericId || gd && gd.games && gd.games[0] && String(gd.games[0].id || "") || slug,
+        title: plain(gd && gd.name || "", 140),
+        cover,
+        dev,
+        pub,
+        year,
+        genres,
+        ratingScore,
+        ratingTotal: total,
+        panaxReactions
+      };
+    })().catch(() => null);
+    panaxDetCache.set(slug, task);
+    const res = await task;
+    if (!res) panaxDetCache.delete(slug);
+    return res;
+  }
+  async function panaxResolveGame(gOrData) {
+    if (!gOrData) return null;
+    let panaxId = extractPanaxId(gOrData);
+    const rawTitle = String(gOrData.title || "").trim();
+    const rawYear = String(gOrData.year || "").slice(0, 4);
+    if (!panaxId && rawTitle) {
+      const cacheKey = normTitleKey(rawTitle) + "|" + rawYear;
+      if (panaxSearchCache.has(cacheKey)) {
+        panaxId = await panaxSearchCache.get(cacheKey);
+      } else {
+        const p = (async () => {
+          const cleanQ = rawTitle.replace(/[™®©]+/g, "").trim();
+          const items = await panaxSearch(cleanQ);
+          if (!items.length) return "";
+          const target = normTitleKey(cleanQ);
+          let best = null;
+          let bestScore = -1;
+          for (const it of items) {
+            const k = normTitleKey(it.title);
+            let sc = 0;
+            if (k === target) sc += 100;
+            else if (k.startsWith(target) || target.startsWith(k)) sc += 50;
+            else if (k.includes(target) || target.includes(k)) sc += 20;
+            if (rawYear && it.year) {
+              const diff = Math.abs(parseInt(rawYear, 10) - parseInt(it.year, 10));
+              if (diff === 0) sc += 30;
+              else if (diff <= 1) sc += 15;
+            }
+            if (sc > bestScore) {
+              bestScore = sc;
+              best = it;
+            }
+          }
+          return best && bestScore >= 20 ? String(best.panaxId || "") : String(items[0].panaxId || "");
+        })().catch(() => "");
+        panaxSearchCache.set(cacheKey, p);
+        panaxId = await p;
+        if (!panaxId) panaxSearchCache.delete(cacheKey);
       }
     }
-    return { cover, panaxReactions: hasAny ? panaxReactions : null };
+    if (!panaxId) return null;
+    const det = await panaxDetails(panaxId);
+    const outId = det && det.panaxId || panaxId;
+    return {
+      ...det || {},
+      panaxId: outId,
+      panaxUrl: `https://panaxgames.com/game-detail/${outId}`
+    };
   }
   async function steamSearch(q, cc = "KZ") {
     const url = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=${encodeURIComponent(cc)}`;
@@ -1939,6 +2164,8 @@
       MAX_UPLOAD_BYTES,
       panaxSearch,
       panaxDetails,
+      panaxResolveGame,
+      panaxCoverUrl,
       steamSearch,
       steamDetails,
       steamWidgetPatch,

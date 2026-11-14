@@ -26,7 +26,10 @@ var IMAGE_HOSTS = [
   "i.ytimg.com",
   "img.youtube.com",
   "images.igdb.com",
-  "media.rawg.io"
+  "media.rawg.io",
+  "d21t60rno19oyf.cloudfront.net",
+  "panaxgames.com",
+  "www.panaxgames.com"
 ];
 export var DEFAULT_INTEG = {
   panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },
