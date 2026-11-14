@@ -6,7 +6,8 @@
   "description": "Русский UI и виджеты для panaxgames.com",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "watch": "node scripts/build.mjs --watch"
+    "watch": "node scripts/build.mjs --watch",
+    "pack": "node scripts/pack.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.2"
