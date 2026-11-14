@@ -509,6 +509,7 @@
     if (type === "game") {
       return {
         gameId: str(d.gameId, 80),
+        variant: d.variant === "poster" || d.variant === "neon" ? d.variant : "classic",
         title: str(d.title, 200),
         year: str(d.year, 12),
         dev: str(d.dev, 120),
