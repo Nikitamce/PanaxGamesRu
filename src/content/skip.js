@@ -83,7 +83,7 @@ var AMBIGUOUS_SHORT = new Set(
     "Verify"
   ].map((s) => s.toLowerCase())
 );
-var CHROME_HINT = /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
+var CHROME_HINT = /(?:^|[\s_])(?:tab-button|button-label|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
 var CHROME_TAGS = /* @__PURE__ */ new Set(["BUTTON", "A", "LABEL", "NAV", "HEADER", "FOOTER", "OPTION", "SUMMARY", "ASIDE"]);
 export function isChromeContext(el) {
   if (!el || el.nodeType !== 1) return false;
