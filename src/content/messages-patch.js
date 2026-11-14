@@ -1,4 +1,4 @@
-function startMessagesPatch(dict) {
+export function startMessagesPatch(dict) {
   const fold = /* @__PURE__ */ new Map();
   for (const [k, v] of Object.entries(dict)) {
     fold.set(k, v);

@@ -1,8 +1,9 @@
+import { bgRequest } from "./request.js";
 var cache = /* @__PURE__ */ new Map();
 function titleToSlug(title) {
   return String(title || "").toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
-async function fetchBackloggdRating(title) {
+export async function fetchBackloggdRating(title) {
   const q = String(title || "").trim();
   if (!q) return null;
   const slug = titleToSlug(q);

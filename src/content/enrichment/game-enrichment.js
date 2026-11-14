@@ -1,3 +1,10 @@
+import { fetchOpenCritic } from "../api/opencritic.js";
+import { fetchMetacritic } from "../api/metacritic.js";
+import { fetchProtonDb } from "../api/protondb.js";
+import { getSettings, loadSettings } from "../settings.js";
+import { resolveSteam, fetchSteamCharts } from "../api/steam.js";
+import { fetchBackloggdRating } from "../api/backloggd.js";
+
 var activeGameTitle = "";
 var activeSteamData = null;
 var activeSteamCharts = null;
@@ -503,7 +510,7 @@ function injectUi() {
     document.getElementById("panax-players-card-container")?.remove();
   }
 }
-async function startEnrichment() {
+export async function startEnrichment() {
   if (typeof chrome === "undefined" || !chrome.runtime?.sendMessage) return;
   await loadSettings();
   document.addEventListener(

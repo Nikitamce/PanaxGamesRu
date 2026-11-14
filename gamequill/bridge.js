@@ -2,8 +2,6 @@
   // src/shared/gq-image.js
   var MAX_DATA_IMAGE = 40 * 1024;
   var MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
-  var COMPRESS_MAX_EDGE = 1600;
-  var COMPRESS_QUALITY = 0.82;
   var LOCAL_TARGET_BYTES = 28 * 1024;
   var PANAX_IMAGE_CDN = "https://d21t60rno19oyf.cloudfront.net";
   var UUID_RE = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
@@ -14,10 +12,10 @@
   var encodeUnsafe = (href) => href.replace(/['"()\\\s<>`]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"));
   var PRIVATE_HOST = /^(localhost|127\.0\.0\.1|::1|0\.0\.0\.0)$/i;
   var PRIVATE_IP = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|0\.)/;
-  function isPrivateHost(host) {
-    const h = String(host || "").toLowerCase();
-    if (PRIVATE_HOST.test(h) || h.endsWith(".local") || h.endsWith(".localhost")) return true;
-    if (PRIVATE_IP.test(h)) return true;
+  function isPrivateHost(host2) {
+    const h2 = String(host2 || "").toLowerCase();
+    if (PRIVATE_HOST.test(h2) || h2.endsWith(".local") || h2.endsWith(".localhost")) return true;
+    if (PRIVATE_IP.test(h2)) return true;
     return false;
   }
   function hasSignedQuery(urlOrSearch) {
@@ -102,25 +100,12 @@
       return false;
     }
   }
-  function bytesToBase64(bytes) {
-    const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
-    if (typeof Buffer !== "undefined") return Buffer.from(u8).toString("base64");
-    let s = "";
-    const chunk = 32768;
-    for (let i = 0; i < u8.length; i += chunk) s += String.fromCharCode(...u8.subarray(i, i + chunk));
-    return btoa(s);
-  }
   function base64ToBytes(b64) {
     if (typeof Buffer !== "undefined") return new Uint8Array(Buffer.from(String(b64), "base64"));
     const bin = atob(String(b64));
     const out = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
     return out;
-  }
-  function dataUrlToBytes(dataUrl) {
-    const m = /^data:([^;]+);base64,(.+)$/i.exec(String(dataUrl || "").replace(/\s+/g, ""));
-    if (!m) return null;
-    return { type: m[1], bytes: base64ToBytes(m[2]) };
   }
   function isRasterImageType(type) {
     return /^(image\/(png|jpe?g|webp|gif))$/i.test(String(type || ""));
@@ -204,6 +189,22 @@
     if (u8.length >= 8 && u8[0] === 137 && u8[1] === 80 && u8[2] === 78 && u8[3] === 71) return { type: "png", animated: false, frames: 1 };
     return { type: "unknown", animated: false, frames: 0 };
   }
+  var FLAT_GIF_HINT = "\u0421\u0435\u0440\u0432\u0435\u0440 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u043B \u0433\u0438\u0444\u043A\u0443 \u043A\u0430\u043A \u0441\u0442\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0434\u0440. \u0427\u0442\u043E\u0431\u044B \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F \u0442\u043E\u0447\u043D\u043E \u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430, \u0432\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0441\u0441\u044B\u043B\u043A\u0443 \u0441 Giphy, Tenor \u0438\u043B\u0438 Imgur \u043D\u0430 \u0441\u0430\u043C \u0444\u0430\u0439\u043B .gif.";
+  var COMPRESS_MAX_EDGE = 1600;
+  var COMPRESS_QUALITY = 0.82;
+  function bytesToBase64(bytes) {
+    const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+    if (typeof Buffer !== "undefined") return Buffer.from(u8).toString("base64");
+    let s = "";
+    const chunk = 32768;
+    for (let i = 0; i < u8.length; i += chunk) s += String.fromCharCode(...u8.subarray(i, i + chunk));
+    return btoa(s);
+  }
+  function dataUrlToBytes(dataUrl) {
+    const m = /^data:([^;]+);base64,(.+)$/i.exec(String(dataUrl || "").replace(/\s+/g, ""));
+    if (!m) return null;
+    return { type: m[1], bytes: base64ToBytes(m[2]) };
+  }
   function normalizeExternalGifUrl(v) {
     try {
       const raw = String(v || "").trim();
@@ -238,7 +239,6 @@
       return "";
     }
   }
-  var FLAT_GIF_HINT = "\u0421\u0435\u0440\u0432\u0435\u0440 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u043B \u0433\u0438\u0444\u043A\u0443 \u043A\u0430\u043A \u0441\u0442\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0434\u0440. \u0427\u0442\u043E\u0431\u044B \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F \u0442\u043E\u0447\u043D\u043E \u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430, \u0432\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0441\u0441\u044B\u043B\u043A\u0443 \u0441 Giphy, Tenor \u0438\u043B\u0438 Imgur \u043D\u0430 \u0441\u0430\u043C \u0444\u0430\u0439\u043B .gif.";
   function probeImageLoad(url, opts = {}) {
     const timeout = opts.timeout ?? 15e3;
     const Img = opts.Image || (typeof Image !== "undefined" ? Image : null);
@@ -431,8 +431,8 @@
     try {
       const u = new URL(href);
       if (u.protocol !== "https:") return "";
-      const host = u.hostname.toLowerCase();
-      if (!IMAGE_HOSTS.includes(host)) return "";
+      const host2 = u.hostname.toLowerCase();
+      if (!IMAGE_HOSTS.includes(host2)) return "";
       return encodeUnsafe2(u.href);
     } catch {
       return "";
@@ -482,12 +482,12 @@
     if (!isObj(d)) return { url: "", width: 0, height: 0, alt: "", origin: "url", caption: "", items: [] };
     const rawItems = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
     const items = [];
-    const seen = /* @__PURE__ */ new Set();
+    const seen2 = /* @__PURE__ */ new Set();
     for (const it of rawItems) {
       if (items.length >= MAX_GALLERY_ITEMS) break;
       const n = normalizeImageItem(it);
-      if (!n || seen.has(n.url)) continue;
-      seen.add(n.url);
+      if (!n || seen2.has(n.url)) continue;
+      seen2.add(n.url);
       items.push(n);
     }
     const caption = str(d.caption, CAPTION_MAX).replace(/\s+/g, " ").trim();
@@ -559,7 +559,7 @@
   }
   function normalizeReview(input, opts = {}) {
     if (!isObj(input)) return null;
-    const clean2 = typeof opts.sanitizeHtml === "function" ? opts.sanitizeHtml : (h) => h;
+    const clean2 = typeof opts.sanitizeHtml === "function" ? opts.sanitizeHtml : (h2) => h2;
     const r = {
       v: 1,
       title: str(input.title, LIMITS.str),
@@ -871,12 +871,12 @@
     return (crc ^ 4294967295) >>> 0;
   }
   function fnv1a(str2) {
-    let h = 2166136261;
+    let h2 = 2166136261;
     for (let i = 0; i < str2.length; i++) {
-      h ^= str2.charCodeAt(i);
-      h = Math.imul(h, 16777619) >>> 0;
+      h2 ^= str2.charCodeAt(i);
+      h2 = Math.imul(h2, 16777619) >>> 0;
     }
-    return h.toString(16).padStart(8, "0");
+    return h2.toString(16).padStart(8, "0");
   }
   var URLISH = /^[(\[]?(?:[a-z][a-z0-9+.-]*:\/\/\S*|[\w-]+(?:\.[\w-]+)+(?:[/?#]\S*)?)[)\].,;:!?]*$/i;
   function fingerprintText(text) {
@@ -1431,7 +1431,6 @@
   var PREFIX = "GQ1.";
   var MAX_COMPRESSED = 48 * 1024;
   var MAX_RAW = 400 * 1024;
-  var VS_MAX_CHARS = 6e3;
   var GQError = class extends Error {
     constructor(code, message) {
       super(message || code);
@@ -1465,6 +1464,13 @@
     }
     return out;
   }
+  function toB64url(bytes) {
+    let bin = "";
+    for (let i = 0; i < bytes.length; i += 32768) bin += String.fromCharCode(...bytes.subarray(i, i + 32768));
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  var hex8 = (n) => (n >>> 0).toString(16).padStart(8, "0");
+  var VS_MAX_CHARS = 6e3;
   async function deflate(bytes) {
     const cs = new CompressionStream("deflate-raw");
     const w = cs.writable.getWriter();
@@ -1472,12 +1478,6 @@
     w.close();
     return streamBytes(cs.readable, Infinity);
   }
-  function toB64url(bytes) {
-    let bin = "";
-    for (let i = 0; i < bytes.length; i += 32768) bin += String.fromCharCode(...bytes.subarray(i, i + 32768));
-    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-  }
-  var hex8 = (n) => (n >>> 0).toString(16).padStart(8, "0");
   async function encodeDoc(doc) {
     const json = JSON.stringify(doc);
     const raw = te.encode(json);

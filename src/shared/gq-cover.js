@@ -21,7 +21,7 @@ function wrapTitle(t, max = 13) {
   if (c) L.push(c);
   return L.slice(0, 3);
 }
-function paletteFor(seed) {
+export function paletteFor(seed) {
   let s = 0;
   for (const ch of String(seed)) s = s * 31 + ch.charCodeAt(0) >>> 0;
   return PALETTES[s % PALETTES.length];
@@ -50,6 +50,6 @@ function coverSvg(seed, title, pal) {
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 480" width="320" height="480"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient><radialGradient id="s" cx="50%" cy="50%"><stop offset="0" stop-color="${acc}" stop-opacity=".95"/><stop offset="1" stop-color="${acc}" stop-opacity="0"/></radialGradient><linearGradient id="d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></linearGradient></defs><rect width="320" height="480" fill="url(#g)"/>${dots}<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#s)"/><circle cx="${cx}" cy="${cy}" r="${(r / 2.6).toFixed(0)}" fill="#fff" opacity=".22"/><polygon points="${p1}" fill="#000" opacity=".38"/><polygon points="${p2}" fill="#000" opacity=".55"/><rect y="330" width="320" height="150" fill="url(#d)"/><rect x="24" y="352" width="42" height="4" rx="2" fill="${acc}"/>${txt}<text x="24" y="${400 + lines.length * 27 + 4}" font-family="Arial,sans-serif" font-size="11" fill="#fff" opacity=".55" letter-spacing="3">GAMEQUILL \xB7 COVER</text><rect x="0.5" y="0.5" width="319" height="479" fill="none" stroke="#fff" stroke-opacity=".12"/></svg>`;
 }
-function coverArt(seed, title, pal) {
+export function coverArt(seed, title, pal) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(coverSvg(seed, title, pal));
 }

@@ -1,3 +1,5 @@
+import { translateText } from "../api/translate.js";
+import { getSettings } from "../settings.js";
 var BTN_CLASS = "panax-translate-btn";
 var STATE_ATTR = "data-panax-translated";
 var ORIG_ATTR = "data-panax-original";
@@ -247,7 +249,7 @@ function injectTranslateButtons() {
     }
   }
 }
-function startPostTranslate() {
+export function startPostTranslate() {
   if (isListening) return;
   isListening = true;
   document.addEventListener(

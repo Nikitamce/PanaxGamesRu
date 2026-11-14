@@ -1,10 +1,12 @@
+import { toB64url, vsExtract } from "../../shared/gq-payload.js";
+
 var FOOTER_RE = /✦\s*Оформлено в GameQuill/;
 var QUICK_VS = /[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]/;
 function isComposerPath(pathname = "") {
   const p = String(pathname || "").replace(/\/+$/, "") || "/";
   return /^\/(?:[a-z]{2}\/)?post\/write$/i.test(p);
 }
-function isComposerPage(loc = globalThis.location, root = document) {
+export function isComposerPage(loc = globalThis.location, root = document) {
   const p = loc && loc.pathname || "";
   if (isComposerPath(p)) return true;
   try {
@@ -16,18 +18,18 @@ function isComposerPage(loc = globalThis.location, root = document) {
   }
   return false;
 }
-function isPostPage(loc = globalThis.location) {
+export function isPostPage(loc = globalThis.location) {
   const p = (loc && loc.pathname || "").replace(/\/+$/, "") || "/";
   if (isComposerPath(p)) return false;
   if (/^\/post\/\d+$/.test(p)) return true;
   if (/^\/\d+$/.test(p)) return true;
   return false;
 }
-function looksLikePayloadText(text) {
+export function looksLikePayloadText(text) {
   if (typeof text !== "string" || text.length < 8) return false;
   return FOOTER_RE.test(text) || QUICK_VS.test(text);
 }
-function carrierKeyFromText(text) {
+export function carrierKeyFromText(text) {
   if (!text) return "";
   const bytes = vsExtract(text);
   return bytes ? "vs:" + toB64url(bytes) : "";
@@ -54,7 +56,7 @@ function contentRootFromMarker(node, loc = globalThis.location, root = document)
   }
   return el;
 }
-function findViewRoots(root = document, loc = globalThis.location) {
+export function findViewRoots(root = document, loc = globalThis.location) {
   const out = [];
   const seen2 = /* @__PURE__ */ new Set();
   const add = (el) => {

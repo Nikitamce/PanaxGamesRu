@@ -1,4 +1,4 @@
-function startObserver(engine) {
+export function startObserver(engine) {
   let scheduled = false;
   const flush = () => {
     scheduled = false;

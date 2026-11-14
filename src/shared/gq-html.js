@@ -1,3 +1,5 @@
+import { safeUrl, safeColor } from "./gq-schema.js";
+
 var INLINE_OK = /* @__PURE__ */ new Set(["B", "STRONG", "I", "EM", "U", "S", "STRIKE", "DEL", "CODE", "MARK", "A", "BR", "SPAN", "FONT", "SUB", "SUP"]);
 var BLOCK_OK = /* @__PURE__ */ new Set(["P", "DIV", "UL", "OL", "LI", "H1", "H2", "H3", "H4", "BLOCKQUOTE"]);
 var DROP_WITH_CONTENT = /* @__PURE__ */ new Set(["SCRIPT", "STYLE", "TEMPLATE", "IFRAME", "OBJECT", "EMBED", "SVG", "MATH", "NOSCRIPT", "TEXTAREA", "SELECT", "TITLE", "HEAD"]);
@@ -9,7 +11,7 @@ function parseHtml(html, win) {
   const d = new P().parseFromString("<!doctype html><body>" + String(html || ""), "text/html");
   return d.body;
 }
-function safeInlineStyle(styleText) {
+export function safeInlineStyle(styleText) {
   const out = {};
   String(styleText || "").split(";").forEach((decl) => {
     const i = decl.indexOf(":");
@@ -85,16 +87,20 @@ function rebuild(src, dst, doc, depth = 0) {
     dst.appendChild(el);
   }
 }
-function sanitizeHtml(html, win) {
+export function sanitizeHtml(html, win) {
   const body = parseHtml(html, win);
   const doc = body.ownerDocument;
   const holder = doc.createElement("div");
   rebuild(body, holder, doc);
   return holder.innerHTML;
 }
-function sanitizeToFragment(html, targetDoc, win) {
+export function sanitizeToFragment(html, targetDoc, win) {
   const body = parseHtml(html, win);
   const frag = targetDoc.createDocumentFragment();
   rebuild(body, frag, targetDoc);
   return frag;
+}
+
+export function parseForWalk(html, win) {
+  return parseHtml(html, win);
 }

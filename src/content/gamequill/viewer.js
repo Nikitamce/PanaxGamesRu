@@ -1,7 +1,18 @@
+import { getSettings } from "../settings.js";
+import { fingerprintText } from "../../shared/gq-hash.js";
+import { fromB64url, decodeCarrier } from "../../shared/gq-payload.js";
+import { countGalleryFrames, normalizeReview } from "../../shared/gq-schema.js";
+import { DEFAULT_THEME, normalizeTheme } from "../../shared/gq-theme.js";
+import { sanitizeHtml } from "../../shared/gq-html.js";
+import { renderReview } from "./render.js";
+import render_default from "./render.css";
+import { nativeText } from "./native-text.js";
+import { isPostPage, carrierKeyFromText, findViewRoots } from "./detect.js";
+
 var state = /* @__PURE__ */ new WeakMap();
 var cache3 = /* @__PURE__ */ new Map();
 var enabled = true;
-function injectFonts() {
+export function injectFonts() {
   if (document.getElementById("gq-fonts")) return;
   const u = (f) => chrome.runtime.getURL("fonts/" + f);
   const face = (fam, file, style, range) => `@font-face{font-family:'${fam}';font-style:${style};font-weight:100 900;font-display:swap;src:url('${u(file)}') format('woff2');unicode-range:${range}}`;
@@ -24,7 +35,7 @@ function carrierKey(el) {
   if (a) return a;
   return carrierKeyFromText(el.textContent || "");
 }
-function loadDoc(key) {
+export function loadDoc(key) {
   if (!cache3.has(key)) {
     const p = (async () => {
       try {
@@ -144,11 +155,11 @@ function scan() {
     });
   }, 150);
 }
-function setViewerEnabled(on) {
+export function setViewerEnabled(on) {
   enabled = !!on;
   scan();
 }
-function startViewer(opts = {}) {
+export function startViewer(opts = {}) {
   if (globalThis.__GQ_VIEWER__) return;
   globalThis.__GQ_VIEWER__ = true;
   enabled = opts.enabled !== false;

@@ -1,4 +1,4 @@
-function bgRequest(details) {
+export function bgRequest(details) {
   return new Promise((resolve, reject) => {
     if (typeof chrome !== "undefined" && chrome.runtime?.sendMessage) {
       try {

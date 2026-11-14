@@ -1,4 +1,6 @@
-async function fetchProtonDb(appId) {
+import { bgRequest } from "./request.js";
+
+export async function fetchProtonDb(appId) {
   const id = Number(appId);
   if (!Number.isFinite(id) || id <= 0) return null;
   try {

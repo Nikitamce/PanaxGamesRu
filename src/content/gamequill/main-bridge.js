@@ -1,3 +1,7 @@
+import { toB64url, findTextCarriers, carrierFromDelta } from "../../shared/gq-payload.js";
+import { base64ToBytes, uploadImageToPanax } from "../../shared/gq-image.js";
+import { rewriteActionBody, toQuillOps } from "./action-rewrite.js";
+
 var SS_KEY = "gq:carriers";
 var MAX_MAP = 60;
 function readMap() {
@@ -90,7 +94,7 @@ function queueScan() {
     }
   }, 120);
 }
-var armed = null;
+export var armed = null;
 function findQuill() {
   const container = document.querySelector(".ql-container");
   if (!container) return null;
@@ -294,7 +298,7 @@ async function onUpload(e) {
     reply({ ok: false, code: "error", error: err && err.message || "\u043E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438" });
   }
 }
-function startGameQuillMain() {
+export function startGameQuillMain() {
   if (globalThis.__GQ_MAIN__) return;
   globalThis.__GQ_MAIN__ = true;
   if (false) {

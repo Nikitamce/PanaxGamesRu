@@ -20,7 +20,7 @@ function install(url) {
 `;
   (document.documentElement || document.head).appendChild(style);
 }
-function startLogo() {
+export function startLogo() {
   const url = logoUrl();
   if (!url) return;
   const boot2 = () => install(url);

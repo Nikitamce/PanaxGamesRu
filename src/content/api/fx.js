@@ -1,3 +1,5 @@
+import { bgRequest } from "./request.js";
+
 var CURRENCY_SYMBOLS = {
   RUB: "\u20BD",
   USD: "$",
@@ -54,7 +56,7 @@ async function fetchExchangeRates() {
     TRY: 34
   };
 }
-async function convertCurrency(amount, fromCurrency, toCurrency = "RUB") {
+export async function convertCurrency(amount, fromCurrency, toCurrency = "RUB") {
   if (!amount || amount <= 0) return null;
   const from = String(fromCurrency || "").toUpperCase();
   const to = String(toCurrency || "").toUpperCase();

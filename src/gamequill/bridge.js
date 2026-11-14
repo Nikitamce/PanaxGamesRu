@@ -1,3 +1,13 @@
+import { MAX_DATA_IMAGE, MAX_UPLOAD_BYTES, toPublicPanaxImageUrl, safeUserImageUrl, base64ToBytes, isRasterImageType, isGifBytes, shouldPreserveAnimation, MAX_GALLERY_ITEMS, inspectImageBytes, FLAT_GIF_HINT, bytesToBase64, normalizeExternalGifUrl, probeImageLoad, compressImage } from "../shared/gq-image.js";
+import { str, safeUrl, safeImageUrl, safeColor, normalizeReview, hasContent } from "../shared/gq-schema.js";
+import { DEMO_CONFIRM, DEMO_GAME, makeDemoReview, applyDemoReview } from "../shared/gq-demo.js";
+import { sanitizeHtml } from "../shared/gq-html.js";
+import { FOOTER_TEXT, buildFallback, attachCarriers, opsToHtml } from "../shared/gq-fallback.js";
+import { VS_MAX_CHARS, encodeDoc, vsEncode } from "../shared/gq-payload.js";
+import { paletteFor } from "../shared/gq-cover.js";
+import { DEFAULT_THEME, normalizeTheme, themeList } from "../shared/gq-theme.js";
+import { plain, toEditorReview, cleanInteg, buildIntegMap, steamCover, ytCover, adaptSteamSearch, adaptSteamDetails, steamWidgetPatch, mergeDetails } from "./bridge-core.js";
+
 var ALLOWED_PARENTS = ["https://panaxgames.com", "https://www.panaxgames.com"];
 if (false) {
   ALLOWED_PARENTS.push("http://localhost:8765", "http://127.0.0.1:8765");

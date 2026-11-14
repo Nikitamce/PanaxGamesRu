@@ -1,7 +1,8 @@
+import { bgRequest } from "./request.js";
 function slugify(s) {
   return String(s || "").toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
-async function fetchMetacritic(title) {
+export async function fetchMetacritic(title) {
   const slug = slugify(title);
   if (!slug) return null;
   const url = `https://www.metacritic.com/game/${slug}/`;

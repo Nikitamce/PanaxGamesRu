@@ -1,4 +1,6 @@
-function translateTimeFragment(raw, el) {
+import { isChromeContext, shouldSkipRoot } from "./skip.js";
+
+export function translateTimeFragment(raw, el) {
   if (!el || shouldSkipRoot(el) || !isChromeContext(el)) return null;
   const text = clean(raw);
   if (/^is$/i.test(text)) {
@@ -96,7 +98,7 @@ var COUNT_FORMS = {
   follower: ["\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A", "\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0430", "\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u043E\u0432"],
   following: ["\u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430", "\u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0438", "\u043F\u043E\u0434\u043F\u0438\u0441\u043E\u043A"]
 };
-function translateCount(raw) {
+export function translateCount(raw) {
   const text = clean(raw);
   const m = text.match(/^([\d.,]+)\s*([KMBkmb])?\s+(likes?|comments?|reviews?|ratings?|followers?|following)$/i);
   if (!m) return null;
@@ -111,7 +113,7 @@ function translateCount(raw) {
 function people(n) {
   return plural(n, ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"]);
 }
-function splitNotice(raw) {
+export function splitNotice(raw) {
   const text = clean(raw);
   if (!text || text.length > 160) return null;
   let m;
@@ -161,7 +163,7 @@ function splitNotice(raw) {
   }
   return null;
 }
-function translateNotice(raw, context = "") {
+export function translateNotice(raw, context = "") {
   const text = clean(raw);
   if (!text || text.length > 200) return null;
   if (/^(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(text)) {
@@ -341,7 +343,7 @@ function translateNotice(raw, context = "") {
   if (started && started[1].length < 60) return `${started[1]} \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B\u0441\u044F`;
   return null;
 }
-function translateActivity(raw) {
+export function translateActivity(raw) {
   const text = clean(raw);
   if (!text || text.length > 160) return null;
   const deleted = text.match(/^This (comment|post|review|reply) has been deleted\.?$/i);
@@ -465,7 +467,7 @@ function translateActivity(raw) {
   }
   return null;
 }
-function translateTimestamp(raw) {
+export function translateTimestamp(raw) {
   const text = clean(raw);
   if (!text || text.length > 48) return null;
   const leadMatch = text.match(/^([·•∙⋅・\u2219\u22C5\u30FB.\-–—]+\s*)/);

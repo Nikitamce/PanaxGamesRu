@@ -1,4 +1,6 @@
-function nativeText(el) {
+import { FOOTER_TEXT } from "../../shared/gq-fallback.js";
+
+export function nativeText(el) {
   let t = "";
   const walk = (n) => {
     for (const c of n.childNodes) {

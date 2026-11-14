@@ -85,7 +85,7 @@ var AMBIGUOUS_SHORT = new Set(
 );
 var CHROME_HINT = /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
 var CHROME_TAGS = /* @__PURE__ */ new Set(["BUTTON", "A", "LABEL", "NAV", "HEADER", "FOOTER", "OPTION", "SUMMARY", "ASIDE"]);
-function isChromeContext(el) {
+export function isChromeContext(el) {
   if (!el || el.nodeType !== 1) return false;
   let cur = el;
   let depth = 0;
@@ -123,7 +123,7 @@ function isChromeContext(el) {
   }
   return false;
 }
-function shouldSkipRoot(el) {
+export function shouldSkipRoot(el) {
   if (!el || el.nodeType !== 1) return false;
   if (el.getAttribute?.("contenteditable") === "true" || el.isContentEditable) return true;
   if (el.closest?.("[data-panax-ru-skip]")) return true;
@@ -141,7 +141,7 @@ function shouldSkipRoot(el) {
   }
   return false;
 }
-function shouldSkipProse(el, text) {
+export function shouldSkipProse(el, text) {
   if (!el || !text) return false;
   if (!isChromeContext(el)) return true;
   return false;

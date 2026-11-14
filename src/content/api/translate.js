@@ -1,3 +1,5 @@
+import { bgRequest } from "./request.js";
+
 var cache2 = /* @__PURE__ */ new Map();
 function hashText(s) {
   let h2 = 5381;
@@ -7,7 +9,7 @@ function hashText(s) {
   }
   return (h2 >>> 0).toString(36);
 }
-async function translateText(text, targetLang = "ru") {
+export async function translateText(text, targetLang = "ru") {
   const plain = String(text || "").trim();
   const tl = String(targetLang || "ru").trim().toLowerCase().slice(0, 2);
   if (!plain) return null;

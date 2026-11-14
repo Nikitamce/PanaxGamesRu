@@ -2,9 +2,13 @@
   "name": "panax-ru",
   "version": "0.3.5",
   "private": true,
-  "description": "Русский UI и виджеты для panaxgames.com (восстановленные исходники из бандлов)",
+  "type": "module",
+  "description": "Русский UI и виджеты для panaxgames.com",
   "scripts": {
-    "extract": "node tools/extract.mjs",
-    "build": "node tools/build.mjs"
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }

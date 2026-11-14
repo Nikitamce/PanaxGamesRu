@@ -1,3 +1,15 @@
+import { injectFonts, loadDoc } from "./viewer.js";
+import render_default from "./render.css";
+import { renderReview } from "./render.js";
+import { DEFAULT_THEME, normalizeTheme } from "../../shared/gq-theme.js";
+import { hasSignedQuery, toPublicPanaxImageUrl, safeUserImageUrl } from "../../shared/gq-image.js";
+import { getSettings } from "../settings.js";
+import { GQError, fromB64url, decodeCarrier } from "../../shared/gq-payload.js";
+import { armed } from "./main-bridge.js";
+import { normalizeReview, countGalleryFrames } from "../../shared/gq-schema.js";
+import { sanitizeHtml } from "../../shared/gq-html.js";
+import { carrierKeyFromText, isComposerPage, looksLikePayloadText } from "./detect.js";
+
 var SS_KEY2 = "gq:carriers";
 var SS_DRAFT = "gq:composer-draft";
 var host = null;
@@ -415,7 +427,7 @@ function tick() {
     });
   } else lastHref = "";
 }
-function startComposer() {
+export function startComposer() {
   if (globalThis.__GQ_COMPOSER__) return;
   globalThis.__GQ_COMPOSER__ = true;
   window.addEventListener("message", onMessage);

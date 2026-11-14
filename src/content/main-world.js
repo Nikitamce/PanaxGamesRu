@@ -1,3 +1,5 @@
+import { startGameQuillMain } from "./gamequill/main-bridge.js";
+
 try {
   startGameQuillMain();
 } catch (e) {

@@ -1,3 +1,7 @@
+import { bgRequest } from "./request.js";
+import { convertCurrency } from "./fx.js";
+import { getSettings } from "../settings.js";
+
 function cleanTitle2(s) {
   return String(s || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 }
@@ -21,7 +25,7 @@ var REVIEW_SCORE_RU = {
   "Very Negative": "\u041E\u0447\u0435\u043D\u044C \u043E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
   "Overwhelmingly Negative": "\u041A\u0440\u0430\u0439\u043D\u0435 \u043E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435"
 };
-async function resolveSteam(title) {
+export async function resolveSteam(title) {
   const q = String(title || "").trim();
   if (!q) return null;
   const currentSettings2 = getSettings();
@@ -124,7 +128,7 @@ async function resolveSteam(title) {
     return null;
   }
 }
-async function fetchSteamCharts(appId) {
+export async function fetchSteamCharts(appId) {
   const id = Number(appId);
   if (!id) return null;
   try {

@@ -1,3 +1,6 @@
+import { shouldSkipRoot, shouldSkipProse, isChromeContext } from "./skip.js";
+import { translateTimeFragment, translateCount, translateNotice, translateActivity, translateTimestamp, splitNotice } from "./time.js";
+
 var ATTR_OK = /* @__PURE__ */ new Set([
   "placeholder",
   "title",
@@ -129,7 +132,7 @@ var COUNT_WORD = {
 function normalizeKey(s) {
   return String(s).replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/[\u2018\u2019\u02BC\u2032]/g, "'").replace(/[\u201C\u201D]/g, '"').replace(/\u00A0/g, " ").replace(/\s+/g, " ").trim();
 }
-function createEngine(dict) {
+export function createEngine(dict) {
   const exact = /* @__PURE__ */ new Map();
   const fold = /* @__PURE__ */ new Map();
   const NO_FOLD = /* @__PURE__ */ new Set(["on", "to", "by", "or", "in", "at", "for", "from", "with"]);

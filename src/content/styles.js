@@ -1,3 +1,5 @@
+import enrichment_default from "./enrichment/enrichment.css";
+
 var CSS = `
 /* Status follow pills (Played / Playing / \u2026) \u2014 not header CTAs */
 html.panax-ru .game-follow-round-button,
@@ -188,7 +190,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
 .gq-preview-bar button:hover{background:rgba(124,92,255,.28)}
 .gq-preview-bar button.ghost{background:transparent;border-color:#2d3648;color:#8b94aa}
 `;
-function injectStyles() {
+export function injectStyles() {
   if (document.getElementById("panax-ru-css")) return;
   const style = document.createElement("style");
   style.id = "panax-ru-css";

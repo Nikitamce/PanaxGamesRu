@@ -1,7 +1,9 @@
+import { crc32 } from "./gq-hash.js";
+
 var PREFIX = "GQ1.";
 var MAX_COMPRESSED = 48 * 1024;
 var MAX_RAW = 400 * 1024;
-var GQError = class extends Error {
+export var GQError = class extends Error {
   constructor(code, message) {
     super(message || code);
     this.code = code;
@@ -48,12 +50,12 @@ async function inflate(bytes, limit = MAX_RAW) {
     throw new GQError("corrupt", "inflate failed");
   }
 }
-function toB64url(bytes) {
+export function toB64url(bytes) {
   let bin = "";
   for (let i = 0; i < bytes.length; i += 32768) bin += String.fromCharCode(...bytes.subarray(i, i + 32768));
   return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
-function fromB64url(s) {
+export function fromB64url(s) {
   if (!/^[A-Za-z0-9_-]*$/.test(s)) throw new GQError("corrupt", "bad base64");
   const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4);
   let bin;
@@ -96,7 +98,7 @@ async function decodeBytes(bytes) {
   return parseJsonBytes(comp);
 }
 var VS_RUN = /(?:[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]){16,}/g;
-function vsExtract(text) {
+export function vsExtract(text) {
   if (typeof text !== "string" || text.length < 16) return null;
   const runs = text.match(VS_RUN);
   if (!runs) return null;
@@ -111,11 +113,11 @@ function vsExtract(text) {
   }
   return null;
 }
-function findTextCarriers(s) {
+export function findTextCarriers(s) {
   if (typeof s !== "string") return [];
   return s.match(/GQ1\.[A-Za-z0-9_-]{8,}\.[0-9a-f]{8}/g) || [];
 }
-function carrierFromDelta(delta) {
+export function carrierFromDelta(delta) {
   const ops = delta && Array.isArray(delta.ops) ? delta.ops : null;
   if (!ops) return null;
   for (let i = ops.length - 1; i >= 0; i--) {
@@ -127,10 +129,40 @@ function carrierFromDelta(delta) {
   const bytes = vsExtract(all);
   return bytes ? { kind: "vs", bytes } : null;
 }
-async function decodeCarrier(c) {
+export async function decodeCarrier(c) {
   if (!c) throw new GQError("not-gq", "no carrier");
   if (typeof c === "string") return decodeText(c);
   if (c.kind === "attr") return decodeText(c.text);
   if (c.kind === "vs") return decodeBytes(c.bytes);
   throw new GQError("not-gq", "unknown carrier");
+}
+
+export var VS_MAX_CHARS = 6e3;
+async function deflate(bytes) {
+  const cs = new CompressionStream("deflate-raw");
+  const w = cs.writable.getWriter();
+  w.write(bytes);
+  w.close();
+  return streamBytes(cs.readable, Infinity);
+}
+export async function encodeDoc(doc) {
+  const json = JSON.stringify(doc);
+  const raw = te.encode(json);
+  if (raw.byteLength > MAX_RAW) throw new GQError("too-large", "document too large");
+  const comp = await deflate(raw);
+  if (comp.byteLength > MAX_COMPRESSED) throw new GQError("too-large", "compressed document too large");
+  const crc = crc32(comp);
+  const text = PREFIX + toB64url(comp) + "." + hex8(crc);
+  const bytes = new Uint8Array(7 + comp.byteLength);
+  bytes.set([71, 81, 1, crc >>> 24 & 255, crc >>> 16 & 255, crc >>> 8 & 255, crc & 255], 0);
+  bytes.set(comp, 7);
+  return { text, bytes, compressedSize: comp.byteLength, rawSize: raw.byteLength };
+}
+export function vsEncode(bytes) {
+  let s = "";
+  for (let i = 0; i < bytes.length; i++) {
+    const b = bytes[i];
+    s += b < 16 ? String.fromCharCode(65024 + b) : String.fromCodePoint(917760 + (b - 16));
+  }
+  return s;
 }

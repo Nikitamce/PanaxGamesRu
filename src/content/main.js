@@ -1,3 +1,16 @@
+import ru_default from "../locales/ru.json";
+import { shouldSkipRoot } from "./skip.js";
+import { createEngine } from "./engine.js";
+import { startObserver } from "./observer.js";
+import { injectStyles } from "./styles.js";
+import { startMessagesPatch } from "./messages-patch.js";
+import { startWritePatch } from "./write-patch.js";
+import { startRatingIcons } from "./rating-icons.js";
+import { startLogo } from "./logo.js";
+import { startEnrichment } from "./enrichment/game-enrichment.js";
+import { startPostTranslate } from "./features/post-translate.js";
+import { startGameQuill } from "./gamequill/index.js";
+
 function startHarvest(engine) {
   if (!/#panax-ru-harvest\b/.test(location.hash)) return;
   const seen2 = /* @__PURE__ */ new Set();

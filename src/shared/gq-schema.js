@@ -1,3 +1,4 @@
+import { safeUserImageUrl, MAX_GALLERY_ITEMS, CAPTION_MAX } from "./gq-image.js";
 var LIMITS = {
   str: 300,
   longStr: 600,
@@ -27,7 +28,7 @@ var IMAGE_HOSTS = [
   "images.igdb.com",
   "media.rawg.io"
 ];
-var DEFAULT_INTEG = {
+export var DEFAULT_INTEG = {
   backloggd: { name: "Backloggd", icon: "\u{1F3AE}", color: "#4f8cff" },
   igdb: { name: "IGDB", icon: "\u{1F579}\uFE0F", color: "#9147ff" },
   steam: { name: "Steam Store", icon: "\u2668\uFE0F", color: "#66c0f4" },
@@ -38,7 +39,7 @@ var DEFAULT_INTEG = {
   hltb: { name: "HowLongToBeat", icon: "\u23F1\uFE0F", color: "#e05353" }
 };
 var isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
-function str(v, max = LIMITS.str) {
+export function str(v, max = LIMITS.str) {
   if (v === null || v === void 0) return "";
   if (typeof v === "number" && Number.isFinite(v)) v = String(v);
   if (typeof v !== "string") return "";
@@ -52,7 +53,7 @@ function int(v, min, max, def = 0) {
   return Math.max(min, Math.min(max, Math.round(n)));
 }
 var encodeUnsafe2 = (href) => href.replace(/['"()\\\s<>`]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"));
-function safeUrl(v) {
+export function safeUrl(v) {
   const s = str(v, LIMITS.url).trim();
   if (!s) return "";
   try {
@@ -64,7 +65,7 @@ function safeUrl(v) {
     return "";
   }
 }
-function safeImageUrl(v) {
+export function safeImageUrl(v) {
   const href = safeUrl(v);
   if (!href) return "";
   try {
@@ -77,7 +78,7 @@ function safeImageUrl(v) {
     return "";
   }
 }
-function safeColor(v) {
+export function safeColor(v) {
   const s = str(v, 40).trim();
   if (/^#[0-9a-fA-F]{3,8}$/.test(s)) return s;
   if (/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*(,\s*(0|1|0?\.\d+)\s*)?\)$/.test(s)) return s;
@@ -117,7 +118,7 @@ function normalizeImageItem(it) {
     origin: ORIGIN_OK(it.origin, url)
   };
 }
-function countGalleryFrames(doc) {
+export function countGalleryFrames(doc) {
   let n = 0;
   const blocks = doc && Array.isArray(doc.blocks) ? doc.blocks : [];
   for (const b of blocks) {
@@ -207,7 +208,7 @@ function widgetData(type, d) {
   }
   return {};
 }
-function normalizeReview(input, opts = {}) {
+export function normalizeReview(input, opts = {}) {
   if (!isObj(input)) return null;
   const clean2 = typeof opts.sanitizeHtml === "function" ? opts.sanitizeHtml : (h2) => h2;
   const r = {
@@ -272,6 +273,11 @@ function normalizeReview(input, opts = {}) {
   }
   return r;
 }
-function integMeta(review, key) {
+export function integMeta(review, key) {
   return review && review.integ && review.integ[key] || DEFAULT_INTEG[key] || { name: key, icon: "\u{1F517}", color: "#7c5cff" };
+}
+
+export function hasContent(r) {
+  if (!r) return false;
+  return !!(r.title.trim() || r.score || r.blocks.length || r.pros.length || r.cons.length || r.aspects.some((a) => a.score > 0));
 }

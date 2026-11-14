@@ -1,3 +1,9 @@
+import { safeUserImageUrl } from "../../shared/gq-image.js";
+import { safeUrl, safeImageUrl, safeColor, integMeta } from "../../shared/gq-schema.js";
+import { sanitizeToFragment } from "../../shared/gq-html.js";
+import { paletteFor, coverArt } from "../../shared/gq-cover.js";
+import { SCORES, VERDICT, UNRATED } from "../../shared/gq-fallback.js";
+
 function h(doc, tag, attrs, ...kids) {
   const el = doc.createElement(tag);
   if (attrs) {
@@ -340,7 +346,7 @@ function prosCons(doc, r) {
   const col = (cls, title, items, sign) => h(doc, "div", { class: "pc " + cls }, h(doc, "h4", { text: title }), ...items.map((it) => h(doc, "div", { class: "pc-i" }, h(doc, "span", { class: "pc-ic", text: sign }), h(doc, "span", { text: it.text }))));
   return h(doc, "div", { class: "proscons" }, r.pros.length ? col("p", "\u2705 \u041F\u043B\u044E\u0441\u044B", r.pros, "+") : null, r.cons.length ? col("c", "\u274C \u041C\u0438\u043D\u0443\u0441\u044B", r.cons, "\u2212") : null);
 }
-function renderReview(doc, r) {
+export function renderReview(doc, r) {
   const root = h(doc, "article", { class: "gq" });
   const head = h(doc, "header", { class: "doc-head" });
   if (r.title) head.append(h(doc, "h1", { class: "doc-title", text: r.title }));

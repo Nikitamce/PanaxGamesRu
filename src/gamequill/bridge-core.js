@@ -1,6 +1,10 @@
+import { paletteFor } from "../shared/gq-cover.js";
+import { sanitizeHtml } from "../shared/gq-html.js";
+import { str, DEFAULT_INTEG, safeUrl, safeImageUrl, safeColor, normalizeReview } from "../shared/gq-schema.js";
+
 var uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-3);
-var plain = (s, n = 200) => str(s, n).replace(/[<>"'&`]/g, "").trim();
-function toEditorReview(x, sanitize) {
+export var plain = (s, n = 200) => str(s, n).replace(/[<>"'&`]/g, "").trim();
+export function toEditorReview(x, sanitize) {
   const r = normalizeReview(x, { sanitizeHtml: sanitize });
   if (!r) return null;
   const now = Date.now();
@@ -19,7 +23,7 @@ function toEditorReview(x, sanitize) {
     integ: r.integ
   };
 }
-function cleanInteg(ni) {
+export function cleanInteg(ni) {
   if (!ni || typeof ni !== "object") return null;
   const id = String(ni.id || "").toLowerCase();
   if (!/^[a-z0-9][a-z0-9-]{0,39}$/.test(id)) return null;
@@ -35,7 +39,7 @@ function cleanInteg(ni) {
     ai: !!ni.ai
   };
 }
-function buildIntegMap(review, integrations) {
+export function buildIntegMap(review, integrations) {
   const keys = /* @__PURE__ */ new Set();
   for (const b of review && review.blocks || []) {
     const d = b && b.data;
@@ -51,8 +55,8 @@ function buildIntegMap(review, integrations) {
   }
   return out;
 }
-var steamCover = (app) => `https://cdn.akamai.steamstatic.com/steam/apps/${String(app).replace(/\D/g, "")}/header.jpg`;
-function ytCover(url) {
+export var steamCover = (app) => `https://cdn.akamai.steamstatic.com/steam/apps/${String(app).replace(/\D/g, "")}/header.jpg`;
+export function ytCover(url) {
   try {
     const u = new URL(url);
     let id = "";
@@ -79,7 +83,7 @@ function fmtPrice(p) {
   const n = p.final / 100;
   return n.toLocaleString("ru-RU", { maximumFractionDigits: 2 }) + " " + plain(p.currency, 5);
 }
-function adaptSteamSearch(json) {
+export function adaptSteamSearch(json) {
   const items = (json && Array.isArray(json.items) ? json.items : []).filter((it) => it && (it.type === "app" || !it.type)).slice(0, 24);
   return items.map((it) => {
     const app = String(it.id || "").replace(/\D/g, "");
@@ -114,7 +118,7 @@ function adaptSteamSearch(json) {
     };
   }).filter(Boolean);
 }
-function adaptSteamDetails(json, app) {
+export function adaptSteamDetails(json, app) {
   const e = json && json[app];
   if (!e || !e.success || !e.data) return null;
   const d = e.data;
@@ -135,13 +139,13 @@ function adaptSteamDetails(json, app) {
     metacritic: d.metacritic && d.metacritic.score ? parseInt(d.metacritic.score, 10) : 0
   };
 }
-function steamWidgetPatch(det) {
+export function steamWidgetPatch(det) {
   const o = { price: det.price, old: det.old, disc: det.disc, date: det.date, tags: det.genres.slice(0, 4) };
   if (det.title) o.title = det.title;
   if (det.cover) o.cover = det.cover;
   return o;
 }
-function mergeDetails(g, det) {
+export function mergeDetails(g, det) {
   if (!g || !det) return g;
   if (det.dev) g.dev = det.dev;
   if (det.pub) g.pub = det.pub;

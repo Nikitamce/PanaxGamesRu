@@ -1,3 +1,5 @@
+import { bgRequest } from "./request.js";
+
 function cleanTitle(s) {
   return String(s || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 }
@@ -10,7 +12,7 @@ function scoreTitleMatch(a, b) {
   if (normA.includes(normB) || normB.includes(normA)) return 75;
   return 0;
 }
-async function fetchOpenCritic(title) {
+export async function fetchOpenCritic(title) {
   const q = String(title || "").trim();
   if (!q) return null;
   try {

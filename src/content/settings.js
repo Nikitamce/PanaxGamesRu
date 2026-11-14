@@ -1,3 +1,5 @@
+import { convertCurrency } from "./api/fx.js";
+
 var DEFAULT_SETTINGS = {
   panaxRuEnabled: true,
   showGameWidgets: true,
@@ -13,10 +15,10 @@ var DEFAULT_SETTINGS = {
   gqTheme: "panax-dark"
 };
 var currentSettings = { ...DEFAULT_SETTINGS };
-function getSettings() {
+export function getSettings() {
   return currentSettings;
 }
-function loadSettings() {
+export function loadSettings() {
   return new Promise((resolve) => {
     if (typeof chrome !== "undefined" && chrome.storage?.local) {
       chrome.storage.local.get(DEFAULT_SETTINGS, (stored) => {

@@ -1,3 +1,6 @@
+import { fingerprintText } from "../../shared/gq-hash.js";
+import { isPrivateHost, isSiteImageUrl, safeUserImageUrl, panaxImageId, panaxDerivativeUrl, panaxInputUrl } from "../../shared/gq-image.js";
+
 function collectSiteImages(ops) {
   const out = [];
   const seen2 = /* @__PURE__ */ new Set();
@@ -42,7 +45,7 @@ function findPostArg(args) {
   }
   return null;
 }
-function rewriteActionBody(bodyText, armed2, decide2 = () => true) {
+export function rewriteActionBody(bodyText, armed2, decide2 = () => true) {
   if (typeof bodyText !== "string" || bodyText.length > 5e6 || bodyText[0] !== "[") return null;
   if (!bodyText.includes("delta_content") && !bodyText.includes("object_type")) return null;
   let args;
@@ -74,7 +77,7 @@ function rewriteActionBody(bodyText, armed2, decide2 = () => true) {
   }
   return { body: JSON.stringify(args), changed, rewritten: true };
 }
-function toQuillOps(ops) {
+export function toQuillOps(ops) {
   return (ops || []).map((op) => {
     if (!op.attributes) return { insert: op.insert };
     const a = { ...op.attributes };

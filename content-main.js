@@ -1,12 +1,12 @@
 (() => {
   // src/shared/gq-hash.js
-  function fnv1a(str) {
-    let h = 2166136261;
-    for (let i = 0; i < str.length; i++) {
-      h ^= str.charCodeAt(i);
-      h = Math.imul(h, 16777619) >>> 0;
+  function fnv1a(str2) {
+    let h2 = 2166136261;
+    for (let i = 0; i < str2.length; i++) {
+      h2 ^= str2.charCodeAt(i);
+      h2 = Math.imul(h2, 16777619) >>> 0;
     }
-    return h.toString(16).padStart(8, "0");
+    return h2.toString(16).padStart(8, "0");
   }
   var URLISH = /^[(\[]?(?:[a-z][a-z0-9+.-]*:\/\/\S*|[\w-]+(?:\.[\w-]+)+(?:[/?#]\S*)?)[)\].,;:!?]*$/i;
   function fingerprintText(text) {
@@ -80,16 +80,16 @@
   var encodeUnsafe = (href) => href.replace(/['"()\\\s<>`]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"));
   var PRIVATE_HOST = /^(localhost|127\.0\.0\.1|::1|0\.0\.0\.0)$/i;
   var PRIVATE_IP = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|0\.)/;
-  function isPrivateHost(host) {
-    const h = String(host || "").toLowerCase();
-    if (PRIVATE_HOST.test(h) || h.endsWith(".local") || h.endsWith(".localhost")) return true;
-    if (PRIVATE_IP.test(h)) return true;
+  function isPrivateHost(host2) {
+    const h2 = String(host2 || "").toLowerCase();
+    if (PRIVATE_HOST.test(h2) || h2.endsWith(".local") || h2.endsWith(".localhost")) return true;
+    if (PRIVATE_IP.test(h2)) return true;
     return false;
   }
-  function isSiteImageHost(host) {
-    const h = String(host || "").toLowerCase();
-    if (SITE_IMAGE_HOSTS.includes(h)) return true;
-    if (/(^|\.)s3[.-]/.test(h) && h.includes("gamedb")) return true;
+  function isSiteImageHost(host2) {
+    const h2 = String(host2 || "").toLowerCase();
+    if (SITE_IMAGE_HOSTS.includes(h2)) return true;
+    if (/(^|\.)s3[.-]/.test(h2) && h2.includes("gamedb")) return true;
     return false;
   }
   function isSiteImageUrl(v) {
@@ -420,8 +420,8 @@
     const wantAnim = !!opts.wantAnim;
     const list = [];
     const add = (u) => {
-      const clean = toPublicPanaxImageUrl(u, { pageOrigin: opts.pageOrigin }) || safeUserImageUrl(u);
-      if (clean && !hasSignedQuery(clean) && !list.includes(clean)) list.push(clean);
+      const clean2 = toPublicPanaxImageUrl(u, { pageOrigin: opts.pageOrigin }) || safeUserImageUrl(u);
+      if (clean2 && !hasSignedQuery(clean2) && !list.includes(clean2)) list.push(clean2);
     };
     add(href);
     const id = panaxImageId(href);
@@ -774,8 +774,8 @@
     try {
       if (headers instanceof Headers) return headers.get(name);
       if (Array.isArray(headers)) {
-        const h = headers.find((x) => String(x[0]).toLowerCase() === name.toLowerCase());
-        return h ? h[1] : null;
+        const h2 = headers.find((x) => String(x[0]).toLowerCase() === name.toLowerCase());
+        return h2 ? h2[1] : null;
       }
       for (const k of Object.keys(headers)) if (k.toLowerCase() === name.toLowerCase()) return headers[k];
     } catch {
@@ -889,13 +889,13 @@
     document.addEventListener("gq:disarm", onDisarm);
     document.addEventListener("gq:rescan", queueScan);
     document.addEventListener("gq:upload", onUpload);
-    const start = () => {
+    const start2 = () => {
       queueScan();
       new MutationObserver(queueScan).observe(document.documentElement, { childList: true, subtree: true });
       setInterval(queueScan, 2e3);
     };
-    if (document.documentElement) start();
-    else document.addEventListener("DOMContentLoaded", start, { once: true });
+    if (document.documentElement) start2();
+    else document.addEventListener("DOMContentLoaded", start2, { once: true });
   }
 
   // src/content/main-world.js

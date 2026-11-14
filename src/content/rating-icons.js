@@ -55,7 +55,7 @@ function swapBg(el) {
   if (!next || style.includes(next)) return;
   el.style.backgroundImage = `url("${next}")`;
 }
-function startRatingIcons() {
+export function startRatingIcons() {
   if (!chrome?.runtime?.getURL) return;
   const run = (root) => {
     if (!root?.querySelectorAll) return;

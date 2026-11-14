@@ -3158,50 +3158,50 @@
 html.panax-ru .game-follow-round-button,
 html.panax-ru button.game-follow-round-button,
 html.panax-ru [data-panax-ru="pill"].game-follow-round-button {
-  min-width: fit-content !important;
-  width: max-content !important;
-  max-width: none !important;
-  flex-shrink: 0 !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  padding-left: 0.9rem !important;
-  padding-right: 0.9rem !important;
+min-width: fit-content !important;
+width: max-content !important;
+max-width: none !important;
+flex-shrink: 0 !important;
+white-space: nowrap !important;
+overflow: visible !important;
+text-overflow: clip !important;
+padding-left: 0.9rem !important;
+padding-right: 0.9rem !important;
 }
 
 /* Russian follow-back and other long CTAs: grow the pill, not the header */
 html.panax-ru button[data-panax-ru="wide"],
 html.panax-ru a[data-panax-ru="wide"],
 html.panax-ru [role="button"][data-panax-ru="wide"] {
-  min-width: max-content !important;
-  width: max-content !important;
-  max-width: none !important;
-  flex-shrink: 0 !important;
-  overflow: visible !important;
-  white-space: nowrap !important;
-  text-overflow: clip !important;
-  padding-left: 1.35rem !important;
-  padding-right: 1.35rem !important;
-  box-sizing: border-box !important;
+min-width: max-content !important;
+width: max-content !important;
+max-width: none !important;
+flex-shrink: 0 !important;
+overflow: visible !important;
+white-space: nowrap !important;
+text-overflow: clip !important;
+padding-left: 1.35rem !important;
+padding-right: 1.35rem !important;
+box-sizing: border-box !important;
 }
 
 html.panax-ru .edit-btn {
-  width: max-content !important;
-  min-width: max-content !important;
-  overflow: visible !important;
+width: max-content !important;
+min-width: max-content !important;
+overflow: visible !important;
 }
 html.panax-ru .edit-label {
-  white-space: nowrap !important;
-  overflow: visible !important;
+white-space: nowrap !important;
+overflow: visible !important;
 }
 
 html.panax-ru .game-follow-round-button .label,
 html.panax-ru .game-follow-round-button span.label,
 html.panax-ru [data-panax-ru="label"] {
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  max-width: none !important;
+white-space: nowrap !important;
+overflow: visible !important;
+text-overflow: clip !important;
+max-width: none !important;
 }
 
 /*
@@ -3211,64 +3211,64 @@ html.panax-ru [data-panax-ru="label"] {
  */
 html.panax-ru button.tab-button,
 html.panax-ru .tab-button:is(button, a, [role="tab"]) {
-  min-width: fit-content !important;
-  width: auto !important;
-  max-width: none !important;
-  overflow: visible !important;
-  overflow-clip-margin: unset !important;
-  flex-shrink: 0 !important;
-  white-space: nowrap !important;
-  padding-left: 0.5rem !important;
-  padding-right: 0.5rem !important;
+min-width: fit-content !important;
+width: auto !important;
+max-width: none !important;
+overflow: visible !important;
+overflow-clip-margin: unset !important;
+flex-shrink: 0 !important;
+white-space: nowrap !important;
+padding-left: 0.5rem !important;
+padding-right: 0.5rem !important;
 }
 
 html.panax-ru .tab-button-label,
 html.panax-ru p.tab-button-label {
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  max-width: none !important;
+white-space: nowrap !important;
+overflow: visible !important;
+text-overflow: clip !important;
+max-width: none !important;
 }
 
 /* Tab row stays inside the column. Russian labels scroll sideways. */
 html.panax-ru .tab-button-container,
 html.panax-ru [class*="tab-button-container"] {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  box-sizing: border-box !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+width: 100% !important;
+max-width: 100% !important;
+min-width: 0 !important;
+box-sizing: border-box !important;
+overflow-x: auto !important;
+overflow-y: hidden !important;
+scrollbar-width: thin;
+scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
 }
 html.panax-ru .tab-button-container::-webkit-scrollbar,
 html.panax-ru [class*="tab-button-container"]::-webkit-scrollbar {
-  height: 4px;
+height: 4px;
 }
 html.panax-ru .tab-button-container::-webkit-scrollbar-thumb,
 html.panax-ru [class*="tab-button-container"]::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 999px;
+background: rgba(255, 255, 255, 0.4);
+border-radius: 999px;
 }
 
 /* The row that actually scrolls hides its bar and fades the last tab. */
 html.panax-ru .tab-navigation-container {
-  scrollbar-width: thin !important;
-  scrollbar-color: rgba(255, 255, 255, 0.5) transparent !important;
-  padding-bottom: 6px !important;
+scrollbar-width: thin !important;
+scrollbar-color: rgba(255, 255, 255, 0.5) transparent !important;
+padding-bottom: 6px !important;
 }
 html.panax-ru .tab-navigation-container::-webkit-scrollbar {
-  display: block !important;
-  height: 5px !important;
-  width: auto !important;
+display: block !important;
+height: 5px !important;
+width: auto !important;
 }
 html.panax-ru .tab-navigation-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5) !important;
-  border-radius: 999px !important;
+background: rgba(255, 255, 255, 0.5) !important;
+border-radius: 999px !important;
 }
 html.panax-ru .tab-button-container .gradient-overlay {
-  display: none !important;
+display: none !important;
 }
 
 /* Card / detail CTAs: grow a little, never force header flex to explode */
@@ -3279,12 +3279,12 @@ html.panax-ru [class*="game-card"] a[class*="rounded-full"],
 html.panax-ru [class*="GameCard"] button,
 html.panax-ru article button[class*="rounded-full"],
 html.panax-ru article a[class*="rounded-full"] {
-  min-width: fit-content !important;
-  width: auto !important;
-  max-width: none !important;
-  white-space: nowrap !important;
-  padding-left: 0.85rem !important;
-  padding-right: 0.85rem !important;
+min-width: fit-content !important;
+width: auto !important;
+max-width: none !important;
+white-space: nowrap !important;
+padding-left: 0.85rem !important;
+padding-right: 0.85rem !important;
 }
 
 /* Header / sticky top: allow shrink, no max-content blowout */
@@ -3296,38 +3296,38 @@ html.panax-ru [class*="sticky"] > button[class*="rounded-full"],
 html.panax-ru [class*="sticky"] a[class*="rounded-full"],
 html.panax-ru [class*="navbar"] button[class*="rounded-full"],
 html.panax-ru [class*="Navbar"] button[class*="rounded-full"] {
-  min-width: 0 !important;
-  width: auto !important;
-  max-width: 100% !important;
-  flex-shrink: 1 !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  padding-left: 0.75rem !important;
-  padding-right: 0.75rem !important;
+min-width: 0 !important;
+width: auto !important;
+max-width: 100% !important;
+flex-shrink: 1 !important;
+white-space: nowrap !important;
+overflow: hidden !important;
+text-overflow: ellipsis !important;
+padding-left: 0.75rem !important;
+padding-right: 0.75rem !important;
 }
 
 /* Clothing editor: never flash the English label. Revealed in the same
-   frame the MAIN-world patch writes the Russian word. */
+ frame the MAIN-world patch writes the Russian word. */
 html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]):not([data-panax-ru-on]),
 html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]):not([data-panax-ru-on]) * {
-  color: transparent !important;
+color: transparent !important;
 }
 
 #panax-ru-badge {
-  position: fixed;
-  z-index: 2147483646;
-  right: 8px;
-  bottom: 8px;
-  background: #7c3aed;
-  color: #fff;
-  font: 700 12px/1.2 system-ui, sans-serif;
-  padding: 8px 12px;
-  border-radius: 999px;
-  opacity: 0.95;
-  pointer-events: none;
-  box-shadow: 0 2px 12px rgba(124,58,237,.55);
-  letter-spacing: 0.02em;
+position: fixed;
+z-index: 2147483646;
+right: 8px;
+bottom: 8px;
+background: #7c3aed;
+color: #fff;
+font: 700 12px/1.2 system-ui, sans-serif;
+padding: 8px 12px;
+border-radius: 999px;
+opacity: 0.95;
+pointer-events: none;
+box-shadow: 0 2px 12px rgba(124,58,237,.55);
+letter-spacing: 0.02em;
 }
 `;
   var GQ_CSS = `
@@ -3335,11 +3335,11 @@ html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-bt
 [data-gq-view]{display:block;max-width:100%}
 [data-gq-preview]{display:block;max-width:100%;margin:8px 0}
 .gq-preview-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;
-  font:600 12px/1.3 system-ui,-apple-system,'Segoe UI',sans-serif;color:#d7ccff}
+font:600 12px/1.3 system-ui,-apple-system,'Segoe UI',sans-serif;color:#d7ccff}
 .gq-preview-bar .gq-ro{font-weight:500;opacity:.8;font-size:11px;color:#8b94aa}
 .gq-preview-bar button{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 system-ui,sans-serif;
-  padding:6px 11px;border-radius:999px;cursor:pointer;
-  background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7ccff}
+padding:6px 11px;border-radius:999px;cursor:pointer;
+background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7ccff}
 .gq-preview-bar button:hover{background:rgba(124,92,255,.28)}
 .gq-preview-bar button.ghost{background:transparent;border-color:#2d3648;color:#8b94aa}
 `;
@@ -4132,13 +4132,13 @@ html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-bt
     const style = document.createElement("style");
     style.id = id;
     style.textContent = `
-    svg[viewBox="0 0 83 32"] {
-      background: url("${url}") center / contain no-repeat !important;
-    }
-    svg[viewBox="0 0 83 32"] * {
-      visibility: hidden !important;
-    }
-  `;
+  svg[viewBox="0 0 83 32"] {
+    background: url("${url}") center / contain no-repeat !important;
+  }
+  svg[viewBox="0 0 83 32"] * {
+    visibility: hidden !important;
+  }
+`;
     (document.documentElement || document.head).appendChild(style);
   }
   function startLogo() {
@@ -4816,69 +4816,69 @@ html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-bt
       const scoreText = oc.score ? ` \xB7 ${oc.score}` : "";
       const recText = oc.percentRecommended ? ` (${oc.percentRecommended}% \u0440\u0435\u043A\u043E\u043C.)` : "";
       badgesHtml += `
-      <a class="panax-badge panax-badge-oc ${tierClass}" href="${oc.url}" target="_blank" rel="noopener noreferrer" title="OpenCritic Score">
-        <span>OpenCritic: <strong>${oc.tier}${scoreText}</strong>${recText}</span>
-      </a>
-    `;
+    <a class="panax-badge panax-badge-oc ${tierClass}" href="${oc.url}" target="_blank" rel="noopener noreferrer" title="OpenCritic Score">
+      <span>OpenCritic: <strong>${oc.tier}${scoreText}</strong>${recText}</span>
+    </a>
+  `;
     }
     if (mc?.score != null) {
       const s = mc.score;
       const tier = s >= 75 ? "high" : s >= 50 ? "mid" : "low";
       badgesHtml += `
-      <a class="panax-badge panax-badge-mc" href="${mc.url}" target="_blank" rel="noopener noreferrer" title="Metascore">
-        <span class="mc-val ${tier}">${s}</span>
-        <span>Metacritic</span>
-      </a>
-    `;
+    <a class="panax-badge panax-badge-mc" href="${mc.url}" target="_blank" rel="noopener noreferrer" title="Metascore">
+      <span class="mc-val ${tier}">${s}</span>
+      <span>Metacritic</span>
+    </a>
+  `;
     }
     if (steam?.reviewPercent != null) {
       badgesHtml += `
-      <a class="panax-badge panax-badge-steam" href="${steam.url}#app_reviews_hash" target="_blank" rel="noopener noreferrer" title="\u041E\u0446\u0435\u043D\u043A\u0438 \u0432 Steam">
-        <span>\u{1F44D} Steam: <strong>${steam.reviewPercent}%</strong></span>
-      </a>
-    `;
+    <a class="panax-badge panax-badge-steam" href="${steam.url}#app_reviews_hash" target="_blank" rel="noopener noreferrer" title="\u041E\u0446\u0435\u043D\u043A\u0438 \u0432 Steam">
+      <span>\u{1F44D} Steam: <strong>${steam.reviewPercent}%</strong></span>
+    </a>
+  `;
     }
     if (bl?.rating) {
       badgesHtml += `
-      <a class="panax-badge panax-badge-backloggd" href="${bl.url}" target="_blank" rel="noopener noreferrer" title="\u041E\u0446\u0435\u043D\u043A\u0430 \u043D\u0430 Backloggd">
-        <span>\u2605 <strong>${bl.rating}</strong> Backloggd</span>
-      </a>
-    `;
+    <a class="panax-badge panax-badge-backloggd" href="${bl.url}" target="_blank" rel="noopener noreferrer" title="\u041E\u0446\u0435\u043D\u043A\u0430 \u043D\u0430 Backloggd">
+      <span>\u2605 <strong>${bl.rating}</strong> Backloggd</span>
+    </a>
+  `;
     }
     if (steam?.steamDeckStatus) {
       badgesHtml += `
-      <span class="panax-badge panax-badge-deck" title="\u0421\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C \u0441\u043E Steam Deck">
-        <span>\u{1F3AE} Steam Deck: ${steam.steamDeckStatus}</span>
-      </span>
-    `;
+    <span class="panax-badge panax-badge-deck" title="\u0421\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C \u0441\u043E Steam Deck">
+      <span>\u{1F3AE} Steam Deck: ${steam.steamDeckStatus}</span>
+    </span>
+  `;
     }
     if (proton?.tier) {
       const tierLower = proton.tier.toLowerCase();
       const tierUpper = proton.tier.toUpperCase();
       badgesHtml += `
-      <a class="panax-badge panax-badge-proton ${tierLower}" href="${proton.url}" target="_blank" rel="noopener noreferrer" title="ProtonDB Tier">
-        <span>\u{1F427} ProtonDB: ${tierUpper}</span>
-      </a>
-    `;
+    <a class="panax-badge panax-badge-proton ${tierLower}" href="${proton.url}" target="_blank" rel="noopener noreferrer" title="ProtonDB Tier">
+      <span>\u{1F427} ProtonDB: ${tierUpper}</span>
+    </a>
+  `;
     }
     if (!badgesHtml) {
       badgesHtml = `
-      <span style="font-size: 0.85rem; color: #9ca3af; margin-right: 0.5rem;">\u041E\u0446\u0435\u043D\u043A\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432:</span>
-      <a class="panax-badge panax-badge-oc" href="https://opencritic.com/search?criteria=${encodeURIComponent(activeGameTitle)}" target="_blank" rel="noopener noreferrer">OpenCritic \u2197</a>
-      <a class="panax-badge panax-badge-mc" href="https://www.metacritic.com/search/${encodeURIComponent(activeGameTitle)}/" target="_blank" rel="noopener noreferrer">Metacritic \u2197</a>
-    `;
+    <span style="font-size: 0.85rem; color: #9ca3af; margin-right: 0.5rem;">\u041E\u0446\u0435\u043D\u043A\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432:</span>
+    <a class="panax-badge panax-badge-oc" href="https://opencritic.com/search?criteria=${encodeURIComponent(activeGameTitle)}" target="_blank" rel="noopener noreferrer">OpenCritic \u2197</a>
+    <a class="panax-badge panax-badge-mc" href="https://www.metacritic.com/search/${encodeURIComponent(activeGameTitle)}/" target="_blank" rel="noopener noreferrer">Metacritic \u2197</a>
+  `;
     }
     return `
-    <div class="panax-plus-card" id="panax-ratings-card">
-      <div class="panax-plus-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <span>\u041E\u0446\u0435\u043D\u043A\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432 \u0438 \u0441\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C</span>
-      </div>
-      <div class="panax-badges-row">
-        ${badgesHtml}
-      </div>
+  <div class="panax-plus-card" id="panax-ratings-card">
+    <div class="panax-plus-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <span>\u041E\u0446\u0435\u043D\u043A\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432 \u0438 \u0441\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C</span>
     </div>
-  `;
+    <div class="panax-badges-row">
+      ${badgesHtml}
+    </div>
+  </div>
+`;
   }
   function renderSteamStoreCard(steam, settings = {}) {
     if (!steam) return "";
@@ -4887,50 +4887,50 @@ html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-bt
       const converted = steam.convertedPrice?.formatted;
       const showConverted = settings.showPriceConvert !== false && converted;
       priceHtml = `
-      <div class="panax-price-row">
-        ${steam.discountPercent > 0 ? `<span class="panax-discount-pill">-${steam.discountPercent}%</span>` : ""}
-        <span class="panax-price-val">${steam.priceFormatted}</span>
-        ${showConverted ? `<span class="panax-approx-rub">${converted}</span>` : ""}
-      </div>
-    `;
+    <div class="panax-price-row">
+      ${steam.discountPercent > 0 ? `<span class="panax-discount-pill">-${steam.discountPercent}%</span>` : ""}
+      <span class="panax-price-val">${steam.priceFormatted}</span>
+      ${showConverted ? `<span class="panax-approx-rub">${converted}</span>` : ""}
+    </div>
+  `;
     }
     let reviewHtml = "";
     if (steam.reviewPercent != null) {
       const desc = steam.reviewScoreDesc ? ` \xB7 ${steam.reviewScoreDesc}` : "";
       reviewHtml = `
-      <div class="panax-review-badge">
-        <span>\u{1F44D} ${steam.reviewPercent}% \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442 (${steam.reviewCount?.toLocaleString("ru-RU")} \u043E\u0442\u0437\u044B\u0432\u043E\u0432)${desc}</span>
-      </div>
-    `;
+    <div class="panax-review-badge">
+      <span>\u{1F44D} ${steam.reviewPercent}% \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442 (${steam.reviewCount?.toLocaleString("ru-RU")} \u043E\u0442\u0437\u044B\u0432\u043E\u0432)${desc}</span>
+    </div>
+  `;
     } else if (steam.reviewCount) {
       reviewHtml = `
-      <div class="panax-review-badge">
-        <span>\u{1F44D} ${steam.reviewCount.toLocaleString("ru-RU")} \u043E\u0442\u0437\u044B\u0432\u043E\u0432 \u0432 Steam</span>
-      </div>
-    `;
+    <div class="panax-review-badge">
+      <span>\u{1F44D} ${steam.reviewCount.toLocaleString("ru-RU")} \u043E\u0442\u0437\u044B\u0432\u043E\u0432 \u0432 Steam</span>
+    </div>
+  `;
     }
     let tagsHtml = "";
     const tags = [...steam.genres || [], ...steam.categories || []].slice(0, 10);
     if (tags.length) {
       tagsHtml = `
-      <div class="panax-tags-row">
-        ${tags.map((t) => `<span class="panax-tag">${t}</span>`).join("")}
-      </div>
-    `;
-    }
-    return `
-    <div class="panax-plus-card" id="panax-steam-card">
-      <div class="panax-plus-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <span>\u041C\u0430\u0433\u0430\u0437\u0438\u043D Steam</span>
-      </div>
-      <div class="panax-steam-box">
-        ${priceHtml}
-        ${reviewHtml}
-        ${tagsHtml}
-      </div>
+    <div class="panax-tags-row">
+      ${tags.map((t) => `<span class="panax-tag">${t}</span>`).join("")}
     </div>
   `;
+    }
+    return `
+  <div class="panax-plus-card" id="panax-steam-card">
+    <div class="panax-plus-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span>\u041C\u0430\u0433\u0430\u0437\u0438\u043D Steam</span>
+    </div>
+    <div class="panax-steam-box">
+      ${priceHtml}
+      ${reviewHtml}
+      ${tagsHtml}
+    </div>
+  </div>
+`;
   }
   function renderQuickLinks(title, steam, oc, mc, bl) {
     const encTitle = encodeURIComponent(title);
@@ -4956,70 +4956,70 @@ html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-bt
     links.push(`<a class="panax-quick-btn" href="https://www.youtube.com/results?search_query=${encTitle}+gameplay+trailer" target="_blank" rel="noopener noreferrer">YouTube</a>`);
     links.push(`<a class="panax-quick-btn" href="https://www.igdb.com/search?q=${encTitle}" target="_blank" rel="noopener noreferrer">IGDB</a>`);
     return `
-    <div class="panax-plus-card" id="panax-quick-links-card">
-      <div class="panax-plus-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-        <span>\u0411\u044B\u0441\u0442\u0440\u044B\u0435 \u0441\u0441\u044B\u043B\u043A\u0438</span>
-      </div>
-      <div class="panax-quick-links">
-        ${links.join("")}
-      </div>
+  <div class="panax-plus-card" id="panax-quick-links-card">
+    <div class="panax-plus-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+      <span>\u0411\u044B\u0441\u0442\u0440\u044B\u0435 \u0441\u0441\u044B\u043B\u043A\u0438</span>
     </div>
-  `;
+    <div class="panax-quick-links">
+      ${links.join("")}
+    </div>
+  </div>
+`;
   }
   function renderPlayerStatsCard(steam, charts) {
     let onlineBadge = "";
     if (steam?.currentPlayers != null) {
       onlineBadge = `
-      <div class="panax-online-badge">
-        <span class="panax-online-dot"></span>
-        <span>${steam.currentPlayers.toLocaleString("ru-RU")} \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u043E\u043D\u043B\u0430\u0439\u043D (Steam)</span>
-      </div>
-    `;
+    <div class="panax-online-badge">
+      <span class="panax-online-dot"></span>
+      <span>${steam.currentPlayers.toLocaleString("ru-RU")} \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u043E\u043D\u043B\u0430\u0439\u043D (Steam)</span>
+    </div>
+  `;
     } else if (isFetching) {
       onlineBadge = `
-      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
-        <span class="panax-online-dot" style="background: #eab308; box-shadow: none;"></span>
-        <span>Steam: \u041F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435 \u043E\u043D\u043B\u0430\u0439\u043D\u0430...</span>
-      </div>
-    `;
+    <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
+      <span class="panax-online-dot" style="background: #eab308; box-shadow: none;"></span>
+      <span>Steam: \u041F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435 \u043E\u043D\u043B\u0430\u0439\u043D\u0430...</span>
+    </div>
+  `;
     } else {
       onlineBadge = `
-      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
-        <span class="panax-online-dot" style="background: #6b7280; box-shadow: none;"></span>
-        <span>Steam: \u041E\u043D\u043B\u0430\u0439\u043D \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D</span>
-      </div>
-    `;
+    <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
+      <span class="panax-online-dot" style="background: #6b7280; box-shadow: none;"></span>
+      <span>Steam: \u041E\u043D\u043B\u0430\u0439\u043D \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D</span>
+    </div>
+  `;
     }
     let statsGrid = "";
     if (charts?.peak24h || charts?.allTimePeak) {
       statsGrid = `
-      <div class="panax-steam-stats-grid">
-        ${charts.peak24h ? `
-          <div class="panax-stat-box">
-            <span class="label">\u041F\u0438\u043A \u0437\u0430 24 \u0447\u0430\u0441\u0430</span>
-            <span class="val">${charts.peak24h.toLocaleString("ru-RU")}</span>
-          </div>
-        ` : ""}
-        ${charts.allTimePeak ? `
-          <div class="panax-stat-box">
-            <span class="label">\u0420\u0435\u043A\u043E\u0440\u0434 \u043E\u043D\u043B\u0430\u0439\u043D\u0430</span>
-            <span class="val">${charts.allTimePeak.toLocaleString("ru-RU")}</span>
-          </div>
-        ` : ""}
-      </div>
-    `;
-    }
-    return `
-    <div class="panax-plus-card" id="panax-players-card">
-      <div class="panax-plus-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        <span>\u0410\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430 \u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432</span>
-      </div>
-      ${onlineBadge}
-      ${statsGrid}
+    <div class="panax-steam-stats-grid">
+      ${charts.peak24h ? `
+        <div class="panax-stat-box">
+          <span class="label">\u041F\u0438\u043A \u0437\u0430 24 \u0447\u0430\u0441\u0430</span>
+          <span class="val">${charts.peak24h.toLocaleString("ru-RU")}</span>
+        </div>
+      ` : ""}
+      ${charts.allTimePeak ? `
+        <div class="panax-stat-box">
+          <span class="label">\u0420\u0435\u043A\u043E\u0440\u0434 \u043E\u043D\u043B\u0430\u0439\u043D\u0430</span>
+          <span class="val">${charts.allTimePeak.toLocaleString("ru-RU")}</span>
+        </div>
+      ` : ""}
     </div>
   `;
+    }
+    return `
+  <div class="panax-plus-card" id="panax-players-card">
+    <div class="panax-plus-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>\u0410\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430 \u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432</span>
+    </div>
+    ${onlineBadge}
+    ${statsGrid}
+  </div>
+`;
   }
   async function loadGameData(title) {
     if (isFetching || !title) return;
@@ -7453,24 +7453,24 @@ html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-bt
 :host{all:initial;display:block}
 *{box-sizing:border-box}
 .wrap{
-  --bg:#000000;--panel:#1e1e1e;--panel2:#252525;--panel3:#303030;--line:#3b3b3b;--line2:#474747;
-  --txt:#f2f2f2;--mut:#a3a3a3;--dim:#808080;--acc:#7c4dff;--acc2:#00aef7;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
-  --f:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;
-  --fd:system-ui,-apple-system,'Segoe UI',sans-serif;
-  font-family:var(--f);color:var(--txt);font-size:15px;line-height:1.6;position:relative;
-  background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;margin:6px 0;
-  -webkit-font-smoothing:antialiased;text-align:left;
+--bg:#000000;--panel:#1e1e1e;--panel2:#252525;--panel3:#303030;--line:#3b3b3b;--line2:#474747;
+--txt:#f2f2f2;--mut:#a3a3a3;--dim:#808080;--acc:#7c4dff;--acc2:#00aef7;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
+--f:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;
+--fd:system-ui,-apple-system,'Segoe UI',sans-serif;
+font-family:var(--f);color:var(--txt);font-size:15px;line-height:1.6;position:relative;
+background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;margin:6px 0;
+-webkit-font-smoothing:antialiased;text-align:left;
 }
 .wrap[data-gq-theme="panax-dark"]{
-  --bg:#000000;--panel:#1e1e1e;--panel2:#252525;--panel3:#303030;--line:#3b3b3b;--line2:#474747;
-  --txt:#f2f2f2;--mut:#a3a3a3;--dim:#808080;--acc:#7c4dff;--acc2:#00aef7;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
-  --f:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;
-  --fd:system-ui,-apple-system,'Segoe UI',sans-serif;
-  background:#000;border-color:#303030;border-radius:16px;
+--bg:#000000;--panel:#1e1e1e;--panel2:#252525;--panel3:#303030;--line:#3b3b3b;--line2:#474747;
+--txt:#f2f2f2;--mut:#a3a3a3;--dim:#808080;--acc:#7c4dff;--acc2:#00aef7;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
+--f:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;
+--fd:system-ui,-apple-system,'Segoe UI',sans-serif;
+background:#000;border-color:#303030;border-radius:16px;
 }
 .bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px}
 .pill{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 var(--f);padding:6px 11px;border-radius:999px;
-  background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7ccff;cursor:pointer}
+background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7ccff;cursor:pointer}
 .pill:hover{background:rgba(124,92,255,.28)}
 .pill.ghost{background:transparent;border-color:var(--line2);color:var(--mut)}
 .note{font-size:11.5px;color:var(--dim)}
@@ -7583,10 +7583,10 @@ a{color:var(--acc2)}
 .pc.p .pc-ic{background:rgba(61,220,151,.15);color:var(--grn)}
 .pc.c .pc-ic{background:rgba(255,95,109,.15);color:var(--red)}
 @media (max-width:640px){
-  .proscons{grid-template-columns:1fr}
-  .w-game,.w-yt{flex-direction:column}
-  .yt-thumb{flex-basis:auto;width:100%}
-  .asp-n{width:110px;flex-basis:110px}
+.proscons{grid-template-columns:1fr}
+.w-game,.w-yt{flex-direction:column}
+.yt-thumb{flex-basis:auto;width:100%}
+.asp-n{width:110px;flex-basis:110px}
 }
 .wrap.mini{background:none;border:0;padding:0;margin:4px 0}
 .wrap.mini .bar{margin:0}
@@ -7624,55 +7624,55 @@ a{color:var(--acc2)}
 
 /* === 0.3.5 PANAX Dark chrome (rendered review) === */
 .wrap[data-gq-theme="gamequill"]{
-  --bg:#0c0f18;--panel:#11151f;--panel2:#161b27;--panel3:#1c2231;--line:#222a3a;--line2:#2d3648;
-  --txt:#e9ecf6;--mut:#8b94aa;--dim:#5b6479;--acc:#7c5cff;--acc2:#22d3ee;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
-  --f:'GQ Inter','Inter Variable',Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
-  --fd:'GQ Unbounded','GQ Inter',system-ui,sans-serif;
+--bg:#0c0f18;--panel:#11151f;--panel2:#161b27;--panel3:#1c2231;--line:#222a3a;--line2:#2d3648;
+--txt:#e9ecf6;--mut:#8b94aa;--dim:#5b6479;--acc:#7c5cff;--acc2:#22d3ee;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
+--f:'GQ Inter','Inter Variable',Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+--fd:'GQ Unbounded','GQ Inter',system-ui,sans-serif;
 }
 .wrap[data-gq-theme="panax-dark"] .doc-head{
-  background:#1e1e1e;
-  border:1px solid #303030;
-  border-radius:16px;
+background:#1e1e1e;
+border:1px solid #303030;
+border-radius:16px;
 }
 .wrap[data-gq-theme="panax-dark"] .pill{
-  background:rgba(0,174,247,.12);
-  border-color:rgba(0,174,247,.35);
-  color:#d8eef5;
+background:rgba(0,174,247,.12);
+border-color:rgba(0,174,247,.35);
+color:#d8eef5;
 }
 .wrap[data-gq-theme="panax-dark"] .v-yes{
-  background:#5f7f8a;
-  border-color:#6a8b96;
-  color:#fff;
+background:#5f7f8a;
+border-color:#6a8b96;
+color:#fff;
 }
 .wrap[data-gq-theme="panax-dark"] .v-neutral{
-  background:#535353;
-  border-color:#6a6a6a;
-  color:#f2f2f2;
+background:#535353;
+border-color:#6a6a6a;
+color:#f2f2f2;
 }
 .wrap[data-gq-theme="panax-dark"] .v-no{
-  background:#3b3b3b;
-  border-color:#ff5f6d;
-  color:#ffc3c8;
+background:#3b3b3b;
+border-color:#ff5f6d;
+color:#ffc3c8;
 }
 .wrap[data-gq-theme="panax-dark"] .asp{background:#1e1e1e}
 .wrap[data-gq-theme="panax-dark"] .dot{background:#303030}
 .wrap[data-gq-theme="panax-dark"] .dot.lit{
-  background:#00aef7;
-  box-shadow:none;
+background:#00aef7;
+box-shadow:none;
 }
 .wrap[data-gq-theme="panax-dark"] .blk{color:#e8e8e8}
 .wrap[data-gq-theme="panax-dark"] .blk.h2{color:#fff}
 .wrap[data-gq-theme="panax-dark"] .blk.h3{color:#f2f2f2}
 .wrap[data-gq-theme="panax-dark"] .blk.quote{
-  background:linear-gradient(90deg,rgba(124,77,255,.08),transparent);
-  color:#e8e8e8;
+background:linear-gradient(90deg,rgba(124,77,255,.08),transparent);
+color:#e8e8e8;
 }
 .wrap[data-gq-theme="panax-dark"] .blk a.game-chip{
-  background:rgba(124,77,255,.16);
-  border-color:rgba(124,77,255,.42);
+background:rgba(124,77,255,.16);
+border-color:rgba(124,77,255,.42);
 }
 .wrap[data-gq-theme="panax-dark"] .w-game{
-  background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
+background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
 }
 .wrap[data-gq-theme="panax-dark"] .blk.img .collage-grid{background:#000;border-radius:16px}
 .wrap[data-gq-theme="panax-dark"] .blk.img .cell,
@@ -7981,18 +7981,18 @@ a{color:var(--acc2)}
   var CSS2 = `
 :host{all:initial}
 .btn{position:fixed;right:22px;bottom:22px;z-index:2147482000;display:flex;align-items:center;gap:8px;
-  font:600 14px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;cursor:pointer;border:none;
-  padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#7c5cff,#a26bff);
-  box-shadow:0 10px 30px rgba(124,92,255,.45)}
+font:600 14px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;cursor:pointer;border:none;
+padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#7c5cff,#a26bff);
+box-shadow:0 10px 30px rgba(124,92,255,.45)}
 .btn:hover{filter:brightness(1.08)}
 .btn small{font-weight:500;opacity:.8;font-size:11px}
 .ov{position:fixed;inset:0;z-index:2147483000;background:rgba(5,6,12,.72);display:none}
 .ov.on{display:block}
 .ov iframe{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px);border:0;border-radius:14px;
-  background:#080a11;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+background:#080a11;box-shadow:0 30px 90px rgba(0,0,0,.6)}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:2147483001;max-width:520px;
-  font:500 13px/1.45 system-ui,sans-serif;color:#fff;background:#1c2231;border:1px solid #2d3648;
-  padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+font:500 13px/1.45 system-ui,sans-serif;color:#fff;background:#1c2231;border:1px solid #2d3648;
+padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .toast.err{border-color:#ff5f6d}
 `;
   function toast(msg, err) {

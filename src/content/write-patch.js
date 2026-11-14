@@ -1,3 +1,6 @@
+import { isChromeContext, shouldSkipRoot } from "./skip.js";
+import { translateTimeFragment, translateCount, translateNotice, translateActivity, translateTimestamp } from "./time.js";
+
 function normalizeKey2(s) {
   return String(s || "").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, " ").trim();
 }
@@ -6,7 +9,7 @@ function preserveEdges(raw, next) {
   if (!m) return next;
   return m[1] + next + m[3];
 }
-function startWritePatch(dict) {
+export function startWritePatch(dict) {
   if (globalThis.__PANAX_RU_WRITE_PATCH__) return;
   globalThis.__PANAX_RU_WRITE_PATCH__ = true;
   const map = /* @__PURE__ */ new Map();
