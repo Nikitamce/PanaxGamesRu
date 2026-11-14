@@ -43,6 +43,14 @@
         <button class="rb-tab" data-pane="insert">➕ Вставка</button>
         <button class="rb-tab" data-pane="review">⭐ Обзор</button>
         <div class="rb-right">
+          <div class="theme-sw" id="themeSw">
+            <button type="button" class="theme-sw-btn" id="themeSwBtn" title="Сменить тему редактора" aria-expanded="false">
+              <span class="theme-sw-dot" id="themeSwDot"></span>
+              <span class="theme-sw-lbl" id="themeSwLbl">Тема</span>
+              <span style="font-size:10px;opacity:.65">▾</span>
+            </button>
+            <div class="theme-sw-menu" id="themeSwMenu"></div>
+          </div>
           <button class="gq-send" id="gqSend" title="Перенести обзор в редактор поста PANAX">⇪ Перенести в пост</button>
           <button class="gq-close" id="gqClose" title="Свернуть редактор (черновик сохранится)">✕</button>
           <span id="saveState"><span class="savedot" id="saveDot"></span> <span id="saveTxt">сохранено</span></span>

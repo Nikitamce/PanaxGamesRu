@@ -1206,10 +1206,9 @@ function renderSettings(){
     b.innerHTML=`<div class="field"><label>Имя автора (подпись в обзоре и в Markdown)</label><input class="inp" id="stAuthor" value="${esc(state.settings.author||'')}"></div>
       <div class="field"><label>Тема оформления</label>
         <select class="inp" id="stTheme">
-          <option value="panax-dark"${curTheme!=='gamequill'?' selected':''}>PANAX Dark — как сайт panaxgames.com</option>
-          <option value="gamequill"${curTheme==='gamequill'?' selected':''}>GameQuill — исходная тема редактора</option>
+          ${gqThemeList().map(th=>`<option value="${esc(th.id)}"${curTheme===th.id?' selected':''}>${esc(th.name)}</option>`).join('')}
         </select>
-        <div style="font-size:12px;color:var(--mut);margin-top:6px">Запоминается для этого браузера. Тема применяется и к опубликованному обзору.</div>
+        <div style="font-size:12px;color:var(--mut);margin-top:6px">Запоминается для этого браузера. Меняет палитру редактора и стандартных виджетов (кроме кастомных карточек игр).</div>
       </div>
       <div class="field"><label>Поведение редактора</label>
         <div class="intg"><div class="ei">💾</div><div class="nm"><b>Автосохранение</b><span>обзоры хранятся локально в браузере</span></div><div class="tg on"></div></div>
@@ -1228,7 +1227,8 @@ function renderSettings(){
       const t=gqApplyTheme(e.target.value);
       if(GQ&&GQ.setTheme) GQ.setTheme(t);
       save(true);
-      toast(t==='panax-dark'?'Тема PANAX Dark':'Тема GameQuill','ok');
+      const info=gqThemeList().find(x=>x.id===t);
+      toast('Тема: '+(info?info.name:t),'ok');
     });
     b.querySelector('[data-t="ai"]').addEventListener('click',()=>{state.settings.aiSearch=!state.settings.aiSearch;save(true);renderSettings();
       toast(state.settings.aiSearch?'ИИ-поиск включён (демо)':'ИИ-поиск выключен',state.settings.aiSearch?'ok':'warn')});
@@ -2171,14 +2171,52 @@ document.addEventListener('drop', (e) => {
 
 
 
-/* --- тема PANAX Dark / GameQuill --- */
+/* --- темы редактора --- */
+const GQ_THEMES_FALLBACK=[
+  {id:'panax-dark',name:'PANAX Mono (чёрно-серый)',short:'PANAX',c1:'#18181b',c2:'#e4e4e7'},
+  {id:'steam-slate',name:'Steam Slate (графит и синий)',short:'Steam',c1:'#171d25',c2:'#66c0f4'},
+  {id:'emerald-hud',name:'Emerald HUD (изумрудный)',short:'Emerald',c1:'#121916',c2:'#3ddc97'},
+  {id:'amber-noir',name:'Amber Noir (янтарный)',short:'Amber',c1:'#181411',c2:'#f59e0b'},
+  {id:'gamequill',name:'GameQuill (фиолетовый)',short:'GameQuill',c1:'#11151f',c2:'#7c5cff'}
+];
+function gqThemeList(){
+  const list=(GQ&&GQ.themeList)?GQ.themeList():GQ_THEMES_FALLBACK;
+  return list.map(t=>Object.assign({},GQ_THEMES_FALLBACK.find(f=>f.id===t.id)||{},t));
+}
 function gqApplyTheme(id){
-  const t = (GQ && GQ.normalizeTheme) ? GQ.normalizeTheme(id) : (id === 'gamequill' ? 'gamequill' : 'panax-dark');
-  document.documentElement.setAttribute('data-gq-theme', t);
-  if (state && state.settings) state.settings.theme = t;
+  const list=gqThemeList();
+  const t=(GQ&&GQ.normalizeTheme)?GQ.normalizeTheme(id):(list.some(x=>x.id===id)?id:'panax-dark');
+  document.documentElement.setAttribute('data-gq-theme',t);
+  if(state&&state.settings)state.settings.theme=t;
+  const info=list.find(x=>x.id===t)||list[0];
+  const dot=$('#themeSwDot'),lbl=$('#themeSwLbl'),menu=$('#themeSwMenu');
+  if(dot)dot.style.background=info.c2||'#e4e4e7';
+  if(lbl)lbl.textContent=info.short||info.name;
+  if(menu)$$('[data-theme]',menu).forEach(x=>x.classList.toggle('on',x.dataset.theme===t));
+  const st=$('#stTheme');if(st&&st.value!==t)st.value=t;
   return t;
 }
+function gqInitThemeSwitcher(){
+  const sw=$('#themeSw'),btn=$('#themeSwBtn'),menu=$('#themeSwMenu');
+  if(!sw||!btn||!menu)return;
+  menu.innerHTML=gqThemeList().map(th=>`<button type="button" class="theme-sw-opt" data-theme="${esc(th.id)}">
+    <span class="theme-sw-swatch" style="background:linear-gradient(135deg,${esc(th.c1)},${esc(th.c2)})"></span>
+    <span>${esc(th.name)}</span>
+  </button>`).join('');
+  const close=()=>{sw.classList.remove('open');btn.setAttribute('aria-expanded','false')};
+  btn.addEventListener('click',e=>{e.stopPropagation();const open=!sw.classList.contains('open');sw.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open))});
+  $$('[data-theme]',menu).forEach(opt=>opt.addEventListener('click',()=>{
+    const t=gqApplyTheme(opt.dataset.theme);
+    if(GQ&&GQ.setTheme)GQ.setTheme(t);
+    save(true);
+    close();
+    const info=gqThemeList().find(x=>x.id===t);
+    toast('Тема: '+(info?info.name:t),'ok');
+  }));
+  document.addEventListener('click',e=>{if(!sw.contains(e.target))close()});
+}
 function gqInitTheme(){
+  gqInitThemeSwitcher();
   const fromState = state && state.settings && state.settings.theme;
   const start = fromState || (typeof localStorage !== 'undefined' && localStorage.getItem('gqTheme')) || 'panax-dark';
   gqApplyTheme(start);

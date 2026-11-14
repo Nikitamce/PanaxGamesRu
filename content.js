@@ -6918,8 +6918,11 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
 
   // src/shared/gq-theme.js
   var THEMES = {
-    "panax-dark": { id: "panax-dark", name: "PANAX Dark" },
-    gamequill: { id: "gamequill", name: "GameQuill" }
+    "panax-dark": { id: "panax-dark", name: "PANAX Mono (\u0447\u0451\u0440\u043D\u043E-\u0441\u0435\u0440\u044B\u0439)", short: "PANAX", c1: "#18181b", c2: "#e4e4e7" },
+    "steam-slate": { id: "steam-slate", name: "Steam Slate (\u0433\u0440\u0430\u0444\u0438\u0442 \u0438 \u0441\u0438\u043D\u0438\u0439)", short: "Steam", c1: "#171d25", c2: "#66c0f4" },
+    "emerald-hud": { id: "emerald-hud", name: "Emerald HUD (\u0438\u0437\u0443\u043C\u0440\u0443\u0434\u043D\u044B\u0439)", short: "Emerald", c1: "#121916", c2: "#3ddc97" },
+    "amber-noir": { id: "amber-noir", name: "Amber Noir (\u044F\u043D\u0442\u0430\u0440\u043D\u044B\u0439)", short: "Amber", c1: "#181411", c2: "#f59e0b" },
+    gamequill: { id: "gamequill", name: "GameQuill (\u0444\u0438\u043E\u043B\u0435\u0442\u043E\u0432\u044B\u0439)", short: "GameQuill", c1: "#11151f", c2: "#7c5cff" }
   };
   var DEFAULT_THEME = "panax-dark";
   function normalizeTheme(id) {
