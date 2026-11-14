@@ -1,13 +1,10 @@
 {
   "name": "panax-ru",
-  "version": "0.2.92",
+  "version": "0.3.5",
   "private": true,
-  "description": "Русский интерфейс для panaxgames.com (Chrome MV3)",
+  "description": "Русский UI и виджеты для panaxgames.com (восстановленные исходники из бандлов)",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "pack": "node scripts/build.mjs && node scripts/pack.mjs"
-  },
-  "devDependencies": {
-    "esbuild": "^0.25.0"
+    "extract": "node tools/extract.mjs",
+    "build": "node tools/build.mjs"
   }
 }

@@ -1,27 +1,6 @@
-/** Tags that never hold translatable chrome. SVG is walked for <text>/<tspan>. */
-export const SKIP_TAGS = new Set([
-  'SCRIPT',
-  'STYLE',
-  'NOSCRIPT',
-  'TEXTAREA',
-  'CODE',
-  'PRE',
-  'CANVAS',
-  'MATH',
-  'KBD',
-  'SAMP',
-]);
-
-/** Skip descending into these, except SVG text nodes. */
-export const SKIP_DESCENT = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'CODE', 'PRE', 'CANVAS']);
-
-/**
- * User / editorial content: do not rewrite descendants.
- * Do NOT blanket-skip bare <article> — game detail pages use it for chrome too.
- */
-export const SKIP_ROOT_SELECTORS = [
+var SKIP_ROOT_SELECTORS = [
   '[contenteditable="true"]',
-  '[data-panax-ru-skip]',
+  "[data-panax-ru-skip]",
   '[class*="post-body"]',
   '[class*="PostBody"]',
   '[class*="post_body"]',
@@ -49,122 +28,93 @@ export const SKIP_ROOT_SELECTORS = [
   '[class*="editor-content"]',
   '[class*="deltaContent"]',
   '[class*="post-text"]',
-  '[class*="PostText"]',
+  '[class*="PostText"]'
 ];
-
-/** Ambiguous short English chrome — only translate inside UI chrome, never in posts. */
-export const AMBIGUOUS_SHORT = new Set(
+var AMBIGUOUS_SHORT = new Set(
   [
-    'Hot',
-    'New',
-    'HOT',
-    'NEW',
-    'List',
-    'Lists',
-    'Following',
-    'Followers',
-    'Follower',
-    'Follow',
-    'Rating',
-    'Ratings',
-    'Similar',
-    'Latest',
-    'News',
-    'Discover',
-    'Store',
-    'Home',
-    'More',
-    'Share',
-    'Edit',
-    'Save',
-    'Cancel',
-    'Close',
-    'Back',
-    'Next',
-    'Previous',
-    'All',
-    'Top',
-    'Best',
-    'Free',
-    'Owned',
-    'Playing',
-    'Played',
-    'Completed',
-    'Dropped',
-    'Paused',
-    'Wishlist',
-    'Status',
-    'Release',
-    'About',
-    'Create',
-    'Post',
-    'Like',
-    'On',
-    'To',
-    'And',
-    'Confirm',
-    'Verify',
-  ].map((s) => s.toLowerCase()),
+    "Hot",
+    "New",
+    "HOT",
+    "NEW",
+    "List",
+    "Lists",
+    "Following",
+    "Followers",
+    "Follower",
+    "Follow",
+    "Rating",
+    "Ratings",
+    "Similar",
+    "Latest",
+    "News",
+    "Discover",
+    "Store",
+    "Home",
+    "More",
+    "Share",
+    "Edit",
+    "Save",
+    "Cancel",
+    "Close",
+    "Back",
+    "Next",
+    "Previous",
+    "All",
+    "Top",
+    "Best",
+    "Free",
+    "Owned",
+    "Playing",
+    "Played",
+    "Completed",
+    "Dropped",
+    "Paused",
+    "Wishlist",
+    "Status",
+    "Release",
+    "About",
+    "Create",
+    "Post",
+    "Like",
+    "On",
+    "To",
+    "And",
+    "Confirm",
+    "Verify"
+  ].map((s) => s.toLowerCase())
 );
-
-/** Ancestor looks like site chrome. Word-boundary so "button" inside unrelated classes does not match. */
-const CHROME_HINT =
-  /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
-
-const CHROME_TAGS = new Set(['BUTTON', 'A', 'LABEL', 'NAV', 'HEADER', 'FOOTER', 'OPTION', 'SUMMARY', 'ASIDE']);
-
-/**
- * @param {Element | null} el
- */
-export function isChromeContext(el) {
+var CHROME_HINT = /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
+var CHROME_TAGS = /* @__PURE__ */ new Set(["BUTTON", "A", "LABEL", "NAV", "HEADER", "FOOTER", "OPTION", "SUMMARY", "ASIDE"]);
+function isChromeContext(el) {
   if (!el || el.nodeType !== 1) return false;
   let cur = el;
   let depth = 0;
   while (cur && depth < 14) {
     if (CHROME_TAGS.has(cur.tagName)) return true;
-    const role = cur.getAttribute?.('role');
-    if (
-      role === 'button' ||
-      role === 'tab' ||
-      role === 'navigation' ||
-      role === 'banner' ||
-      role === 'complementary' ||
-      role === 'dialog' ||
-      role === 'menu' ||
-      role === 'menuitem' ||
-      role === 'combobox' ||
-      role === 'listbox' ||
-      role === 'option'
-    ) {
+    const role = cur.getAttribute?.("role");
+    if (role === "button" || role === "tab" || role === "navigation" || role === "banner" || role === "complementary" || role === "dialog" || role === "menu" || role === "menuitem" || role === "combobox" || role === "listbox" || role === "option") {
       return true;
     }
-    if (cur.getAttribute?.('aria-haspopup') || cur.getAttribute?.('aria-expanded')) return true;
+    if (cur.getAttribute?.("aria-haspopup") || cur.getAttribute?.("aria-expanded")) return true;
     const cls = cur.className && String(cur.className);
     if (cls && CHROME_HINT.test(cls)) return true;
     if (cur.matches?.('header, nav, footer, aside, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
       return true;
     }
-    // Top post view header (e.g. "< Post ...")
     if (depth <= 2 && cur.parentElement?.querySelector('svg, button, a[href*="back"], [class*="back"]')) {
       return true;
     }
-    // Element or parent is a clickable button/pill/dropdown
     if (depth <= 2) {
-      if (cur.nextElementSibling?.tagName === 'SVG' || cur.previousElementSibling?.tagName === 'SVG') {
+      if (cur.nextElementSibling?.tagName === "SVG" || cur.previousElementSibling?.tagName === "SVG") {
         return true;
       }
-      if (cls && cls.includes('cursor-pointer')) return true;
+      if (cls && cls.includes("cursor-pointer")) return true;
     }
-    // Stats under a count: sibling/parent looks numeric (12.1k / 10)
     if (depth <= 3) {
       const prev = cur.previousElementSibling;
-      if (prev && /^\d[\d.,]*\s*[kKmMbB]?$/.test((prev.textContent || '').trim())) return true;
+      if (prev && /^\d[\d.,]*\s*[kKmMbB]?$/.test((prev.textContent || "").trim())) return true;
       const parentFirst = cur.parentElement?.firstElementChild;
-      if (
-        parentFirst &&
-        parentFirst !== cur &&
-        /^\d[\d.,]*\s*[kKmMbB]?$/.test((parentFirst.textContent || '').trim())
-      ) {
+      if (parentFirst && parentFirst !== cur && /^\d[\d.,]*\s*[kKmMbB]?$/.test((parentFirst.textContent || "").trim())) {
         return true;
       }
     }
@@ -173,15 +123,10 @@ export function isChromeContext(el) {
   }
   return false;
 }
-
-/**
- * @param {Element | null} el
- */
-export function shouldSkipRoot(el) {
+function shouldSkipRoot(el) {
   if (!el || el.nodeType !== 1) return false;
-  if (el.getAttribute?.('contenteditable') === 'true' || el.isContentEditable) return true;
-  if (el.closest?.('[data-panax-ru-skip]')) return true;
-  // Controls, buttons, pills, dropdown items inside modals or post wrappers are UI chrome
+  if (el.getAttribute?.("contenteditable") === "true" || el.isContentEditable) return true;
+  if (el.closest?.("[data-panax-ru-skip]")) return true;
   if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
     return false;
   }
@@ -189,25 +134,15 @@ export function shouldSkipRoot(el) {
     try {
       if (el.matches?.(sel) || el.closest?.(sel)) return true;
     } catch {
-      /* invalid selector */
     }
   }
-  // Notifications popover, dialogs and menus are UI chrome
   if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
     return false;
   }
   return false;
 }
-
-/**
- * Long prose outside chrome — leave user/editorial text alone.
- * @param {Element | null} el
- * @param {string} text
- */
-export function shouldSkipProse(el, text) {
+function shouldSkipProse(el, text) {
   if (!el || !text) return false;
-  // Posts are word-split spans. Any exact dict hit ("Post", "Like", "On", "To")
-  // would rewrite user text. Translate only inside UI chrome.
   if (!isChromeContext(el)) return true;
   return false;
 }

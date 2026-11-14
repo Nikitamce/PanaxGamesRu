@@ -1,4 +1,4 @@
-export const DEFAULT_SETTINGS = {
+var DEFAULT_SETTINGS = {
   panaxRuEnabled: true,
   showGameWidgets: true,
   showRatings: true,
@@ -6,33 +6,25 @@ export const DEFAULT_SETTINGS = {
   showQuickLinks: true,
   showPlayerStats: true,
   showPriceConvert: true,
-  steamCountry: 'KZ',
-  convertCurrency: 'RUB',
+  steamCountry: "KZ",
+  convertCurrency: "RUB",
   showTranslate: true,
+  showGameQuill: true,
+  gqTheme: "panax-dark"
 };
-
-let currentSettings = { ...DEFAULT_SETTINGS };
-
-export function getSettings() {
+var currentSettings = { ...DEFAULT_SETTINGS };
+function getSettings() {
   return currentSettings;
 }
-
-export function loadSettings() {
+function loadSettings() {
   return new Promise((resolve) => {
-    if (typeof chrome !== 'undefined' && chrome.storage?.local) {
+    if (typeof chrome !== "undefined" && chrome.storage?.local) {
       chrome.storage.local.get(DEFAULT_SETTINGS, (stored) => {
-        currentSettings = { ...DEFAULT_SETTINGS, ...(stored || {}) };
+        currentSettings = { ...DEFAULT_SETTINGS, ...stored || {} };
         resolve(currentSettings);
       });
     } else {
       resolve(currentSettings);
     }
   });
-}
-
-export function updateSettings(partial) {
-  currentSettings = { ...currentSettings, ...partial };
-  if (typeof chrome !== 'undefined' && chrome.storage?.local) {
-    chrome.storage.local.set(currentSettings);
-  }
 }

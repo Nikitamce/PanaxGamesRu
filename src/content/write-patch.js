@@ -1,309 +1,292 @@
-/**
- * MAIN-world intercept: when React writes stubborn English chrome into
- * text nodes, swap to Russian before paint. Needed for hardcoded JSX
- * strings that are not in the next-intl catalog (e.g. Add to Wishlist).
- */
-import { shouldSkipRoot, isChromeContext, AMBIGUOUS_SHORT } from './skip.js';
-import { translateTimestamp, translateTimeFragment, translateActivity, translateCount, translateNotice } from './time.js';
-
-function normalizeKey(s) {
-  return String(s || '')
-    .replace(/[\u200B-\u200D\uFEFF]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+function normalizeKey2(s) {
+  return String(s || "").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, " ").trim();
 }
-
 function preserveEdges(raw, next) {
   const m = String(raw).match(/^(\s*)([\s\S]*?)(\s*)$/);
   if (!m) return next;
   return m[1] + next + m[3];
 }
-
-export function startWritePatch(dict) {
+function startWritePatch(dict) {
   if (globalThis.__PANAX_RU_WRITE_PATCH__) return;
   globalThis.__PANAX_RU_WRITE_PATCH__ = true;
-
-  const map = new Map();
+  const map = /* @__PURE__ */ new Map();
   const add = (en, ru) => {
     if (!en || !ru) return;
     map.set(en, ru);
     map.set(en.toLowerCase(), ru);
   };
-
-  // Hardcoded / stubborn chrome React keeps restoring
   const pairs = [
-    ['Public', dict.Public || 'Публичный'],
-    ['Private', dict.Private || 'Приватный'],
-    ['Followers only', dict['Followers only'] || 'Только подписчики'],
-    ['just dropped a new post', 'опубликовал новый пост'],
-    ['dropped a new post', 'опубликовал новый пост'],
-    ['Add to Wishlist', dict['Add to Wishlist'] || 'В желаемое'],
-    ['Add to wishlist', dict['Add to Wishlist'] || 'В желаемое'],
-    ['View Details', dict['View Details'] || 'Подробнее'],
-    ['View details', dict['View Details'] || 'Подробнее'],
-    ['View full details', dict['View full details'] || 'Подробнее'],
-    ['View Full Details', dict['View full details'] || 'Подробнее'],
-    ['Hot', dict.Hot || 'Горячее'],
-    ['New', dict.New || 'Новое'],
-    ['HOT', 'ГОРЯЧЕЕ'],
-    ['NEW', 'НОВОЕ'],
-    ['Followers', dict.Followers || 'Подписчики'],
-    ['Follower', dict.Follower || 'Подписчик'],
-    ['Following', dict.Following || 'Подписки'],
-    ['Ratings', dict.Ratings || 'Оценки'],
-    ['Rating', dict.Rating || 'Оценка'],
-    ['Wishlist', dict.Wishlist || 'Желаемое'],
-    ['Also Playing', dict['Also Playing'] || 'Тоже играют'],
-    ['Also Wishlisted', dict['Also Wishlisted'] || 'Тоже в желаемом'],
-    ['Set status', dict['Set status'] || 'Статус'],
-    ['Platforms', dict.Platforms || 'Платформы'],
-    ['Developer', dict.Developer || 'Разработчик'],
-    ['Publisher', dict.Publisher || 'Издатель'],
-    ['Release', dict.Release || 'Релиз'],
-    ['Similar games', dict['Similar games'] || 'Похожие игры'],
-    ['Similar', dict.Similar || 'Похожие'],
-    ['Get Started', dict['Get Started'] || 'Начать'],
-    ['Join us for free', dict['Join us for free'] || 'Присоединяйся бесплатно'],
-    ['Join now', dict['Join now'] || 'Присоединиться'],
-    ['Join now and level up your gaming!', dict['Join now and level up your gaming!'] || 'Присоединяйся и прокачивай свой гейминг!'],
-    ["What's Buzzing?", dict["What's Buzzing?"] || 'О чём говорят?'],
-    ['Most talked about right now', dict['Most talked about right now'] || 'Сейчас обсуждают больше всего'],
-    ['Who to follow', dict['Who to follow'] || 'Кого читать'],
-    ['New post', dict['New post'] || 'Новый пост'],
-    ['Public', dict.Public || 'Публично'],
-    ['Completionist', dict.Completionist || '100% прохождение'],
-    ['Main Story', dict['Main Story'] || 'Основной сюжет'],
-    ['Main + Sides', dict['Main + Sides'] || 'Сюжет + побочки'],
-    ['How Long To Beat', dict['How Long To Beat'] || 'How Long To Beat'],
-    ['Level Up!', dict['Level Up!'] || 'Новый уровень!'],
-    ['Level up!', dict['Level Up!'] || 'Новый уровень!'],
-    ['Уровень Up!', 'Новый уровень!'],
-    ['Уровень Up', 'Новый уровень'],
-    ["Check your profile to see what's new.", 'Загляните в свой профиль, чтобы узнать, что нового.'],
-    ['Check your profile to see what’s new.', 'Загляните в свой профиль, чтобы узнать, что нового.'],
-    ["Check your Профиль to see what's new.", 'Загляните в свой профиль, чтобы узнать, что нового.'],
-    ['Check your Профиль to see what’s new.', 'Загляните в свой профиль, чтобы узнать, что нового.'],
-    ["Check your профиль to see what's new.", 'Загляните в свой профиль, чтобы узнать, что нового.'],
-    ['Check your профиль to see what’s new.', 'Загляните в свой профиль, чтобы узнать, что нового.'],
-    ['Check your', 'Загляните в свой'],
-    ["to see what's new.", ', чтобы узнать, что нового.'],
-    ['to see what’s new.', ', чтобы узнать, что нового.'],
-    ["see what's new.", ', чтобы узнать, что нового.'],
-    ['see what’s new.', ', чтобы узнать, что нового.'],
-    ['Log in daily to level up unlock avatar items! Streak resets daily at 3 AM.', 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.'],
-    ['Log in daily to level up & unlock avatar items! Streak resets daily at 3 AM.', 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.'],
-    ['Log in daily to Новый уровень! unlock avatar items! Streak resets daily at 3 AM.', 'Заходите каждый день, чтобы повышать уровень и открывать предметы аватара! Серия сбрасывается каждый день в 3:00.'],
-    ['just dropped a new post', dict['just dropped a new post'] || 'опубликовал(а) новый пост'],
-    ['dropped a new post', dict['dropped a new post'] || 'опубликовал(а) новый пост'],
-    ['replied on your comment', 'ответил на ваш комментарий'],
-    ['replied to your comment', 'ответил на ваш комментарий'],
-    ['replied on your Comment', 'ответил на ваш комментарий'],
-    ['replied to your Comment', 'ответил на ваш комментарий'],
-    ['replied on your Комментарий', 'ответил на ваш комментарий'],
-    ['replied to your Комментарий', 'ответил на ваш комментарий'],
-    ['liked your comment', 'оценил ваш комментарий'],
-    ['liked your Comment', 'оценил ваш комментарий'],
-    ['liked your Комментарий', 'оценил ваш комментарий'],
-    ['Нравится your comment', 'оценил ваш комментарий'],
-    ['Нравится your Comment', 'оценил ваш комментарий'],
-    ['Нравится your Комментарий', 'оценил ваш комментарий'],
-    ['liked your post', 'оценил ваш пост'],
-    ['liked your Post', 'оценил ваш пост'],
-    ['liked your Пост', 'оценил ваш пост'],
-    ['Нравится your post', 'оценил ваш пост'],
-    ['Нравится your Post', 'оценил ваш пост'],
-    ['Нравится your Пост', 'оценил ваш пост'],
-    ['commented on your post', 'прокомментировал ваш пост'],
-    ['commented on your Post', 'прокомментировал ваш пост'],
-    ['commented on your Пост', 'прокомментировал ваш пост'],
-    ['is now', '— скидка'],
-    ['is сейчас', '— скидка'],
-    ['Get it', 'Купите'],
-    ['Get it on Steam', 'Купите в Steam'],
-    ['Get it on Steam for', 'Купите в Steam за'],
-    ['before the sale ends', 'до окончания скидки'],
-    ['before the sale ends on', 'до окончания скидки'],
-    ['What game is this about?', dict['What game is this about?'] || 'О какой игре пост?'],
-    ["What's on your mind? Use ## to tag a game", dict["What's on your mind? Use ## to tag a game"] || 'О чём думаешь? Через ## можно отметить игру'],
-    ['Spoiler alert', dict['Spoiler alert'] || 'Спойлер'],
-    ['Turn off comments', dict['Turn off comments'] || 'Отключить комментарии'],
-    ['Frequently used', dict['Frequently used'] || 'Часто используемые'],
-    ['Smileys & People', dict['Smileys & People'] || 'Смайлы и люди'],
-    ['Animals & Nature', dict['Animals & Nature'] || 'Животные и природа'],
-    ['Food & Drink', dict['Food & Drink'] || 'Еда и напитки'],
-    ['Travel & Places', dict['Travel & Places'] || 'Путешествия и места'],
-    ['Pick an emoji...', dict['Pick an emoji...'] || 'Выберите эмодзи…'],
-    ['Pick an emoji', dict['Pick an emoji'] || 'Выберите эмодзи'],
-    ['Tag a game', dict['Tag a game'] || 'Отметить игру'],
-    ['Enter a game title', dict['Enter a game title'] || 'Введите название игры'],
-    ['Choose a label for this post', dict['Choose a label for this post'] || 'Выберите ярлык для поста'],
-    ['Off-Topic', dict['Off-Topic'] || 'Оффтоп'],
-    ['Not interested in this game?', dict['Not interested in this game?'] || 'Эта игра не интересна?'],
-    ['Hide', dict.Hide || 'Скрыть'],
+    ["Public", dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439"],
+    ["Private", dict.Private || "\u041F\u0440\u0438\u0432\u0430\u0442\u043D\u044B\u0439"],
+    ["Followers only", dict["Followers only"] || "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438"],
+    ["just dropped a new post", "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+    ["dropped a new post", "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+    ["Add to Wishlist", dict["Add to Wishlist"] || "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
+    ["Add to wishlist", dict["Add to Wishlist"] || "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
+    ["View Details", dict["View Details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+    ["View details", dict["View Details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+    ["View full details", dict["View full details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+    ["View Full Details", dict["View full details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+    ["Hot", dict.Hot || "\u0413\u043E\u0440\u044F\u0447\u0435\u0435"],
+    ["New", dict.New || "\u041D\u043E\u0432\u043E\u0435"],
+    ["HOT", "\u0413\u041E\u0420\u042F\u0427\u0415\u0415"],
+    ["NEW", "\u041D\u041E\u0412\u041E\u0415"],
+    ["Followers", dict.Followers || "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438"],
+    ["Follower", dict.Follower || "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A"],
+    ["Following", dict.Following || "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438"],
+    ["Ratings", dict.Ratings || "\u041E\u0446\u0435\u043D\u043A\u0438"],
+    ["Rating", dict.Rating || "\u041E\u0446\u0435\u043D\u043A\u0430"],
+    ["Wishlist", dict.Wishlist || "\u0416\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
+    ["Also Playing", dict["Also Playing"] || "\u0422\u043E\u0436\u0435 \u0438\u0433\u0440\u0430\u044E\u0442"],
+    ["Also Wishlisted", dict["Also Wishlisted"] || "\u0422\u043E\u0436\u0435 \u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C"],
+    ["Set status", dict["Set status"] || "\u0421\u0442\u0430\u0442\u0443\u0441"],
+    ["Platforms", dict.Platforms || "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B"],
+    ["Developer", dict.Developer || "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"],
+    ["Publisher", dict.Publisher || "\u0418\u0437\u0434\u0430\u0442\u0435\u043B\u044C"],
+    ["Release", dict.Release || "\u0420\u0435\u043B\u0438\u0437"],
+    ["Similar games", dict["Similar games"] || "\u041F\u043E\u0445\u043E\u0436\u0438\u0435 \u0438\u0433\u0440\u044B"],
+    ["Similar", dict.Similar || "\u041F\u043E\u0445\u043E\u0436\u0438\u0435"],
+    ["Get Started", dict["Get Started"] || "\u041D\u0430\u0447\u0430\u0442\u044C"],
+    ["Join us for free", dict["Join us for free"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E"],
+    ["Join now", dict["Join now"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"],
+    ["Join now and level up your gaming!", dict["Join now and level up your gaming!"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0438 \u043F\u0440\u043E\u043A\u0430\u0447\u0438\u0432\u0430\u0439 \u0441\u0432\u043E\u0439 \u0433\u0435\u0439\u043C\u0438\u043D\u0433!"],
+    ["What's Buzzing?", dict["What's Buzzing?"] || "\u041E \u0447\u0451\u043C \u0433\u043E\u0432\u043E\u0440\u044F\u0442?"],
+    ["Most talked about right now", dict["Most talked about right now"] || "\u0421\u0435\u0439\u0447\u0430\u0441 \u043E\u0431\u0441\u0443\u0436\u0434\u0430\u044E\u0442 \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E"],
+    ["Who to follow", dict["Who to follow"] || "\u041A\u043E\u0433\u043E \u0447\u0438\u0442\u0430\u0442\u044C"],
+    ["New post", dict["New post"] || "\u041D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+    ["Public", dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E"],
+    ["Completionist", dict.Completionist || "100% \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u0435"],
+    ["Main Story", dict["Main Story"] || "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0441\u044E\u0436\u0435\u0442"],
+    ["Main + Sides", dict["Main + Sides"] || "\u0421\u044E\u0436\u0435\u0442 + \u043F\u043E\u0431\u043E\u0447\u043A\u0438"],
+    ["How Long To Beat", dict["How Long To Beat"] || "How Long To Beat"],
+    ["Level Up!", dict["Level Up!"] || "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!"],
+    ["Level up!", dict["Level Up!"] || "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!"],
+    ["\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up!", "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!"],
+    ["\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up", "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"],
+    ["Check your profile to see what's new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Check your profile to see what\u2019s new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Check your \u041F\u0440\u043E\u0444\u0438\u043B\u044C to see what's new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Check your \u041F\u0440\u043E\u0444\u0438\u043B\u044C to see what\u2019s new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Check your \u043F\u0440\u043E\u0444\u0438\u043B\u044C to see what's new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Check your \u043F\u0440\u043E\u0444\u0438\u043B\u044C to see what\u2019s new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Check your", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439"],
+    ["to see what's new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["to see what\u2019s new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["see what's new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["see what\u2019s new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+    ["Log in daily to level up unlock avatar items! Streak resets daily at 3 AM.", "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00."],
+    ["Log in daily to level up & unlock avatar items! Streak resets daily at 3 AM.", "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00."],
+    ["Log in daily to \u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C! unlock avatar items! Streak resets daily at 3 AM.", "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00."],
+    ["just dropped a new post", dict["just dropped a new post"] || "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+    ["dropped a new post", dict["dropped a new post"] || "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+    ["replied on your comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["replied to your comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["replied on your Comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["replied to your Comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["replied on your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["replied to your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["liked your comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["liked your Comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["liked your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your Comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+    ["liked your post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["liked your Post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["liked your \u041F\u043E\u0441\u0442", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your Post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your \u041F\u043E\u0441\u0442", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["commented on your post", "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["commented on your Post", "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["commented on your \u041F\u043E\u0441\u0442", "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+    ["is now", "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430"],
+    ["is \u0441\u0435\u0439\u0447\u0430\u0441", "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430"],
+    ["Get it", "\u041A\u0443\u043F\u0438\u0442\u0435"],
+    ["Get it on Steam", "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam"],
+    ["Get it on Steam for", "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430"],
+    ["before the sale ends", "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438"],
+    ["before the sale ends on", "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438"],
+    ["What game is this about?", dict["What game is this about?"] || "\u041E \u043A\u0430\u043A\u043E\u0439 \u0438\u0433\u0440\u0435 \u043F\u043E\u0441\u0442?"],
+    ["What's on your mind? Use ## to tag a game", dict["What's on your mind? Use ## to tag a game"] || "\u041E \u0447\u0451\u043C \u0434\u0443\u043C\u0430\u0435\u0448\u044C? \u0427\u0435\u0440\u0435\u0437 ## \u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443"],
+    ["Spoiler alert", dict["Spoiler alert"] || "\u0421\u043F\u043E\u0439\u043B\u0435\u0440"],
+    ["Turn off comments", dict["Turn off comments"] || "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"],
+    ["Frequently used", dict["Frequently used"] || "\u0427\u0430\u0441\u0442\u043E \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0435"],
+    ["Smileys & People", dict["Smileys & People"] || "\u0421\u043C\u0430\u0439\u043B\u044B \u0438 \u043B\u044E\u0434\u0438"],
+    ["Animals & Nature", dict["Animals & Nature"] || "\u0416\u0438\u0432\u043E\u0442\u043D\u044B\u0435 \u0438 \u043F\u0440\u0438\u0440\u043E\u0434\u0430"],
+    ["Food & Drink", dict["Food & Drink"] || "\u0415\u0434\u0430 \u0438 \u043D\u0430\u043F\u0438\u0442\u043A\u0438"],
+    ["Travel & Places", dict["Travel & Places"] || "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F \u0438 \u043C\u0435\u0441\u0442\u0430"],
+    ["Pick an emoji...", dict["Pick an emoji..."] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438\u2026"],
+    ["Pick an emoji", dict["Pick an emoji"] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438"],
+    ["Tag a game", dict["Tag a game"] || "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443"],
+    ["Enter a game title", dict["Enter a game title"] || "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0433\u0440\u044B"],
+    ["Choose a label for this post", dict["Choose a label for this post"] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0440\u043B\u044B\u043A \u0434\u043B\u044F \u043F\u043E\u0441\u0442\u0430"],
+    ["Off-Topic", dict["Off-Topic"] || "\u041E\u0444\u0444\u0442\u043E\u043F"],
+    ["Not interested in this game?", dict["Not interested in this game?"] || "\u042D\u0442\u0430 \u0438\u0433\u0440\u0430 \u043D\u0435 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u0430?"],
+    ["Hide", dict.Hide || "\u0421\u043A\u0440\u044B\u0442\u044C"],
     [
-      'Link games so others can jump straight into the info! In comments, simply type ## to link.',
-      dict['Link games so others can jump straight into the info! In comments, simply type ## to link.'] ||
-        'Отмечайте игры, чтобы другие сразу открывали карточку. В комментариях для этого пишите ##.',
+      "Link games so others can jump straight into the info! In comments, simply type ## to link.",
+      dict["Link games so others can jump straight into the info! In comments, simply type ## to link."] || "\u041E\u0442\u043C\u0435\u0447\u0430\u0439\u0442\u0435 \u0438\u0433\u0440\u044B, \u0447\u0442\u043E\u0431\u044B \u0434\u0440\u0443\u0433\u0438\u0435 \u0441\u0440\u0430\u0437\u0443 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u043B\u0438 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443. \u0412 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F\u0445 \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0438\u0448\u0438\u0442\u0435 ##."
     ],
     [
-      'Games you posted about in the last 7 days, or trending games.',
-      dict['Games you posted about in the last 7 days, or trending games.'] ||
-        'Игры, о которых вы писали за последние 7 дней, и игры в тренде.',
+      "Games you posted about in the last 7 days, or trending games.",
+      dict["Games you posted about in the last 7 days, or trending games."] || "\u0418\u0433\u0440\u044B, \u043E \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0432\u044B \u043F\u0438\u0441\u0430\u043B\u0438 \u0437\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 7 \u0434\u043D\u0435\u0439, \u0438 \u0438\u0433\u0440\u044B \u0432 \u0442\u0440\u0435\u043D\u0434\u0435."
     ],
-    ['Discard this post?', dict['Discard this post?'] || 'Удалить этот пост?'],
-    ["If you leave now, your draft won't be saved.", dict["If you leave now, your draft won't be saved."] || 'Если выйти сейчас, черновик не сохранится.'],
-    ['Keep posting', dict['Keep posting'] || 'Продолжить'],
-    ['Discard', dict.Discard || 'Удалить'],
-    ['Pin games', dict['Pin games'] || 'Закрепить игры'],
-    ['Want quick access to your games?', dict['Want quick access to your games?'] || 'Нужен быстрый доступ к играм?'],
-    ['Pin them to the top!', dict['Pin them to the top!'] || 'Закрепите их наверху!'],
-    ['About Us', dict['About Us'] || 'О нас'],
-    ['Settings', dict.Settings || 'Настройки'],
-    ['Send feedback', dict['Send feedback'] || 'Написать отзыв'],
-    ['Space', dict.Space || 'Пространство'],
-    ['Discover', dict.Discover || 'Обзор'],
-    ['Arcade', dict.Arcade || 'Аркада'],
-    ['Community', dict.Community || 'Сообщество'],
-    ['Translate', dict.Translate || 'Перевести'],
-  ['No comments yet', dict['No comments yet'] || 'Пока нет комментариев'],
-  ['New review', dict['New review'] || 'Новая рецензия'],
-  ['Trophy grade', dict['Trophy grade'] || 'Редкость трофеев'],
-  ['Earned date', dict['Earned date'] || 'Дата получения'],
-  ['Most common', dict['Most common'] || 'Самые частые'],
-  ['Most rare', dict['Most rare'] || 'Самые редкие'],
-  ['Link PS', dict['Link PS'] || 'Привязать PS'],
-  ['Link PS now', dict['Link PS now'] || 'Привязать PS сейчас'],
-  ['Link PS account to share trophies', dict['Link PS account to share trophies'] || 'Привяжите аккаунт PS, чтобы делиться трофеями'],
-  ['Connect with players to grab and guard badges!', dict['Connect with players to grab and guard badges!'] || 'Общайтесь с игроками, чтобы получать и защищать значки!'],
-    ['Game Rate', dict['Game Rate'] || 'Оценки игр'],
-    ['Preferences', dict.Preferences || 'Параметры'],
-    ['Language', dict.Language || 'Язык'],
-    ['Blocked management', dict['Blocked management'] || 'Заблокированные'],
-    ['Service', dict.Service || 'Сервис'],
-    ['FAQ', dict.FAQ || 'Вопросы и ответы'],
-    ['Privacy Policy', dict['Privacy Policy'] || 'Политика конфиденциальности'],
-    ['Terms of Service', dict['Terms of Service'] || 'Условия использования'],
-    ['Cookie Policy', dict['Cookie Policy'] || 'Политика cookie'],
-    ['Community Guideline', dict['Community Guideline'] || 'Правила сообщества'],
-    ['Account', dict.Account || 'Аккаунт'],
-    ['Signed in with Google', dict['Signed in with Google'] || 'Вход через Google'],
-    ['Manage account', dict['Manage account'] || 'Управление аккаунтом'],
-    ['Platforms & games', dict['Platforms & games'] || 'Платформы и игры'],
-    ['Linked platforms', dict['Linked platforms'] || 'Привязанные платформы'],
-    ['Hidden games', dict['Hidden games'] || 'Скрытые игры'],
-    ['Display language', dict['Display language'] || 'Язык интерфейса'],
-    ['Content language', dict['Content language'] || 'Язык контента'],
-    ['English', dict.English || 'Английский'],
-    ['Korean', dict.Korean || 'Корейский'],
-    ['Japanese', dict.Japanese || 'Японский'],
-    ['Portuguese', dict.Portuguese || 'Португальский'],
-    ['Spanish', dict.Spanish || 'Испанский'],
-    ['French', dict.French || 'Французский'],
-    ['More languages are on the way.', dict['More languages are on the way.'] || 'Скоро появятся другие языки.'],
+    ["Discard this post?", dict["Discard this post?"] || "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u043F\u043E\u0441\u0442?"],
+    ["If you leave now, your draft won't be saved.", dict["If you leave now, your draft won't be saved."] || "\u0415\u0441\u043B\u0438 \u0432\u044B\u0439\u0442\u0438 \u0441\u0435\u0439\u0447\u0430\u0441, \u0447\u0435\u0440\u043D\u043E\u0432\u0438\u043A \u043D\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0441\u044F."],
+    ["Keep posting", dict["Keep posting"] || "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"],
+    ["Discard", dict.Discard || "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"],
+    ["Pin games", dict["Pin games"] || "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0438\u0433\u0440\u044B"],
+    ["Want quick access to your games?", dict["Want quick access to your games?"] || "\u041D\u0443\u0436\u0435\u043D \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u0438\u0433\u0440\u0430\u043C?"],
+    ["Pin them to the top!", dict["Pin them to the top!"] || "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u0435 \u0438\u0445 \u043D\u0430\u0432\u0435\u0440\u0445\u0443!"],
+    ["About Us", dict["About Us"] || "\u041E \u043D\u0430\u0441"],
+    ["Settings", dict.Settings || "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"],
+    ["Send feedback", dict["Send feedback"] || "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u043E\u0442\u0437\u044B\u0432"],
+    ["Space", dict.Space || "\u041F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E"],
+    ["Discover", dict.Discover || "\u041E\u0431\u0437\u043E\u0440"],
+    ["Arcade", dict.Arcade || "\u0410\u0440\u043A\u0430\u0434\u0430"],
+    ["Community", dict.Community || "\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E"],
+    ["Translate", dict.Translate || "\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438"],
+    ["No comments yet", dict["No comments yet"] || "\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"],
+    ["New review", dict["New review"] || "\u041D\u043E\u0432\u0430\u044F \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F"],
+    ["Trophy grade", dict["Trophy grade"] || "\u0420\u0435\u0434\u043A\u043E\u0441\u0442\u044C \u0442\u0440\u043E\u0444\u0435\u0435\u0432"],
+    ["Earned date", dict["Earned date"] || "\u0414\u0430\u0442\u0430 \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u044F"],
+    ["Most common", dict["Most common"] || "\u0421\u0430\u043C\u044B\u0435 \u0447\u0430\u0441\u0442\u044B\u0435"],
+    ["Most rare", dict["Most rare"] || "\u0421\u0430\u043C\u044B\u0435 \u0440\u0435\u0434\u043A\u0438\u0435"],
+    ["Link PS", dict["Link PS"] || "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C PS"],
+    ["Link PS now", dict["Link PS now"] || "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C PS \u0441\u0435\u0439\u0447\u0430\u0441"],
+    ["Link PS account to share trophies", dict["Link PS account to share trophies"] || "\u041F\u0440\u0438\u0432\u044F\u0436\u0438\u0442\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 PS, \u0447\u0442\u043E\u0431\u044B \u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0442\u0440\u043E\u0444\u0435\u044F\u043C\u0438"],
+    ["Connect with players to grab and guard badges!", dict["Connect with players to grab and guard badges!"] || "\u041E\u0431\u0449\u0430\u0439\u0442\u0435\u0441\u044C \u0441 \u0438\u0433\u0440\u043E\u043A\u0430\u043C\u0438, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0438 \u0437\u0430\u0449\u0438\u0449\u0430\u0442\u044C \u0437\u043D\u0430\u0447\u043A\u0438!"],
+    ["Game Rate", dict["Game Rate"] || "\u041E\u0446\u0435\u043D\u043A\u0438 \u0438\u0433\u0440"],
+    ["Preferences", dict.Preferences || "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B"],
+    ["Language", dict.Language || "\u042F\u0437\u044B\u043A"],
+    ["Blocked management", dict["Blocked management"] || "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0435"],
+    ["Service", dict.Service || "\u0421\u0435\u0440\u0432\u0438\u0441"],
+    ["FAQ", dict.FAQ || "\u0412\u043E\u043F\u0440\u043E\u0441\u044B \u0438 \u043E\u0442\u0432\u0435\u0442\u044B"],
+    ["Privacy Policy", dict["Privacy Policy"] || "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438"],
+    ["Terms of Service", dict["Terms of Service"] || "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F"],
+    ["Cookie Policy", dict["Cookie Policy"] || "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 cookie"],
+    ["Community Guideline", dict["Community Guideline"] || "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430"],
+    ["Account", dict.Account || "\u0410\u043A\u043A\u0430\u0443\u043D\u0442"],
+    ["Signed in with Google", dict["Signed in with Google"] || "\u0412\u0445\u043E\u0434 \u0447\u0435\u0440\u0435\u0437 Google"],
+    ["Manage account", dict["Manage account"] || "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u043E\u043C"],
+    ["Platforms & games", dict["Platforms & games"] || "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B \u0438 \u0438\u0433\u0440\u044B"],
+    ["Linked platforms", dict["Linked platforms"] || "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B"],
+    ["Hidden games", dict["Hidden games"] || "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0438\u0433\u0440\u044B"],
+    ["Display language", dict["Display language"] || "\u042F\u0437\u044B\u043A \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430"],
+    ["Content language", dict["Content language"] || "\u042F\u0437\u044B\u043A \u043A\u043E\u043D\u0442\u0435\u043D\u0442\u0430"],
+    ["English", dict.English || "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439"],
+    ["Korean", dict.Korean || "\u041A\u043E\u0440\u0435\u0439\u0441\u043A\u0438\u0439"],
+    ["Japanese", dict.Japanese || "\u042F\u043F\u043E\u043D\u0441\u043A\u0438\u0439"],
+    ["Portuguese", dict.Portuguese || "\u041F\u043E\u0440\u0442\u0443\u0433\u0430\u043B\u044C\u0441\u043A\u0438\u0439"],
+    ["Spanish", dict.Spanish || "\u0418\u0441\u043F\u0430\u043D\u0441\u043A\u0438\u0439"],
+    ["French", dict.French || "\u0424\u0440\u0430\u043D\u0446\u0443\u0437\u0441\u043A\u0438\u0439"],
+    ["More languages are on the way.", dict["More languages are on the way."] || "\u0421\u043A\u043E\u0440\u043E \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u0434\u0440\u0443\u0433\u0438\u0435 \u044F\u0437\u044B\u043A\u0438."],
     [
       "Select the language we'll translate posts, reviews, and comments into.",
-      dict["Select the language we'll translate posts, reviews, and comments into."] ||
-        'Выберите язык, на который переводить посты, рецензии и комментарии.',
+      dict["Select the language we'll translate posts, reviews, and comments into."] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u044C \u043F\u043E\u0441\u0442\u044B, \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438."
     ],
     [
-      'Select the language for menus, buttons, and system text.',
-      dict['Select the language for menus, buttons, and system text.'] ||
-        'Выберите язык меню, кнопок и системного текста.',
+      "Select the language for menus, buttons, and system text.",
+      dict["Select the language for menus, buttons, and system text."] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A \u043C\u0435\u043D\u044E, \u043A\u043D\u043E\u043F\u043E\u043A \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0433\u043E \u0442\u0435\u043A\u0441\u0442\u0430."
     ],
     [
-      'Initially set to match your system language (or English if unsupported). Any changes you make will be saved.',
-      dict['Initially set to match your system language (or English if unsupported). Any changes you make will be saved.'] ||
-        'Сначала берётся язык системы (или английский, если язык не поддерживается). Изменения сохраняются.',
+      "Initially set to match your system language (or English if unsupported). Any changes you make will be saved.",
+      dict["Initially set to match your system language (or English if unsupported). Any changes you make will be saved."] || "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0431\u0435\u0440\u0451\u0442\u0441\u044F \u044F\u0437\u044B\u043A \u0441\u0438\u0441\u0442\u0435\u043C\u044B (\u0438\u043B\u0438 \u0430\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439, \u0435\u0441\u043B\u0438 \u044F\u0437\u044B\u043A \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F). \u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044E\u0442\u0441\u044F."
     ],
     [
-      'Language for menus, buttons, and system text',
-      dict['Language for menus, buttons, and system text'] || 'Язык меню, кнопок и системного текста',
+      "Language for menus, buttons, and system text",
+      dict["Language for menus, buttons, and system text"] || "\u042F\u0437\u044B\u043A \u043C\u0435\u043D\u044E, \u043A\u043D\u043E\u043F\u043E\u043A \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0433\u043E \u0442\u0435\u043A\u0441\u0442\u0430"
     ],
     [
-      'Language for translated posts, reviews, and comments',
-      dict['Language for translated posts, reviews, and comments'] ||
-        'Язык переведённых постов, рецензий и комментариев',
+      "Language for translated posts, reviews, and comments",
+      dict["Language for translated posts, reviews, and comments"] || "\u042F\u0437\u044B\u043A \u043F\u0435\u0440\u0435\u0432\u0435\u0434\u0451\u043D\u043D\u044B\u0445 \u043F\u043E\u0441\u0442\u043E\u0432, \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"
     ],
-    ['Connect to update your Trophy Hall', dict['Connect to update your Trophy Hall'] || 'Подключите, чтобы обновить зал трофеев'],
-    ['How to disconnect', dict['How to disconnect'] || 'Как отключить'],
+    ["Connect to update your Trophy Hall", dict["Connect to update your Trophy Hall"] || "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u043B \u0442\u0440\u043E\u0444\u0435\u0435\u0432"],
+    ["How to disconnect", dict["How to disconnect"] || "\u041A\u0430\u043A \u043E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C"]
   ];
   for (const [en, ru] of pairs) add(en, ru);
-
   const EDITOR_SEL = '.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]';
-
   function translateRaw(raw, parent) {
-    if (typeof raw !== 'string') return null;
-    const key = normalizeKey(raw);
+    if (typeof raw !== "string") return null;
+    const key = normalizeKey2(raw);
     if (!key || key.length > 240) return null;
     if (!(parent && parent.isContentEditable)) {
       const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, parent) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
-      if (stamped != null && normalizeKey(stamped) !== key) return preserveEdges(raw, stamped);
+      if (stamped != null && normalizeKey2(stamped) !== key) return preserveEdges(raw, stamped);
     }
     const level = key.match(/^Lv\.?\s*(\d+)$/i);
-    if (level) return preserveEdges(raw, `Лвл ${level[1]}`);
-    if (/^Lv$/i.test(key)) return preserveEdges(raw, 'Лвл');
+    if (level) return preserveEdges(raw, `\u041B\u0432\u043B ${level[1]}`);
+    if (/^Lv$/i.test(key)) return preserveEdges(raw, "\u041B\u0432\u043B");
     const profileTab = key.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/i);
     if (profileTab) {
       const labels = {
-        posts: 'Посты',
-        reviews: 'Рецензии',
-        collections: 'Коллекции',
-        'following games': 'Игры в подписках',
-        top: 'Топ',
+        posts: "\u041F\u043E\u0441\u0442\u044B",
+        reviews: "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+        collections: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+        "following games": "\u0418\u0433\u0440\u044B \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430\u0445",
+        top: "\u0422\u043E\u043F"
       };
       const label = labels[profileTab[1].toLowerCase()];
       if (label) return preserveEdges(raw, profileTab[2] ? `${label} ${profileTab[2]}` : label);
     }
     if (/\bLv\.?\s*\d+\b/i.test(key) && key.length < 80) {
-      const next = key.replace(/\bLv\.?\s*(\d+)\b/gi, 'Лвл $1');
+      const next = key.replace(/\bLv\.?\s*(\d+)\b/gi, "\u041B\u0432\u043B $1");
       if (next !== key) return preserveEdges(raw, next);
     }
     const liked = key.match(/^(.+?)\s+and\s+(?:(\d+)\s+)?others?\s+liked$/i);
     if (liked && key.length < 120) {
       const who = liked[1];
       const n = liked[2];
-      const forms = ['человек', 'человека', 'человек'];
+      const forms = ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"];
       const nAbs = Math.abs(Number(n) || 0);
       const mod10 = nAbs % 10;
       const mod100 = nAbs % 100;
       const form = mod100 >= 11 && mod100 <= 14 ? forms[2] : mod10 === 1 ? forms[0] : mod10 >= 2 && mod10 <= 4 ? forms[1] : forms[2];
-      const tail = /got help/i.test(key) ? (n ? `и ещё ${n} помогло` : 'и другим помогло') : (n ? `и ещё ${n} ${form} оценили` : 'и другие оценили');
+      const tail = /got help/i.test(key) ? n ? `\u0438 \u0435\u0449\u0451 ${n} \u043F\u043E\u043C\u043E\u0433\u043B\u043E` : "\u0438 \u0434\u0440\u0443\u0433\u0438\u043C \u043F\u043E\u043C\u043E\u0433\u043B\u043E" : n ? `\u0438 \u0435\u0449\u0451 ${n} ${form} \u043E\u0446\u0435\u043D\u0438\u043B\u0438` : "\u0438 \u0434\u0440\u0443\u0433\u0438\u0435 \u043E\u0446\u0435\u043D\u0438\u043B\u0438";
       return preserveEdges(raw, `${who} ${tail}`);
     }
-    if (parent && /^more$/i.test(key) && (parent.classList?.contains('more-button-inline') || parent.closest?.('.more-button-inline'))) {
-      return preserveEdges(raw, 'Ещё');
+    if (parent && /^more$/i.test(key) && (parent.classList?.contains("more-button-inline") || parent.closest?.(".more-button-inline"))) {
+      return preserveEdges(raw, "\u0415\u0449\u0451");
     }
     if (parent?.closest?.(EDITOR_SEL) || parent?.matches?.(EDITOR_SEL)) {
       const editor = {
-        edit: 'Изменить', exit: 'Выйти', colors: 'Цвета', hair: 'Волосы', beard: 'Борода', shape: 'Форма',
-        brows: 'Брови', eyes: 'Глаза', nose: 'Нос', mouth: 'Рот', top: 'Верх', bottom: 'Низ', shoes: 'Обувь',
-        glasses: 'Очки', cap: 'Кепка', age: 'Возраст', makeup: 'Макияж', paint: 'Краска', scar: 'Шрам', spot: 'Пятно', pose: 'Поза',
-        custom: 'Своё',
+        edit: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+        exit: "\u0412\u044B\u0439\u0442\u0438",
+        colors: "\u0426\u0432\u0435\u0442\u0430",
+        hair: "\u0412\u043E\u043B\u043E\u0441\u044B",
+        beard: "\u0411\u043E\u0440\u043E\u0434\u0430",
+        shape: "\u0424\u043E\u0440\u043C\u0430",
+        brows: "\u0411\u0440\u043E\u0432\u0438",
+        eyes: "\u0413\u043B\u0430\u0437\u0430",
+        nose: "\u041D\u043E\u0441",
+        mouth: "\u0420\u043E\u0442",
+        top: "\u0412\u0435\u0440\u0445",
+        bottom: "\u041D\u0438\u0437",
+        shoes: "\u041E\u0431\u0443\u0432\u044C",
+        glasses: "\u041E\u0447\u043A\u0438",
+        cap: "\u041A\u0435\u043F\u043A\u0430",
+        age: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
+        makeup: "\u041C\u0430\u043A\u0438\u044F\u0436",
+        paint: "\u041A\u0440\u0430\u0441\u043A\u0430",
+        scar: "\u0428\u0440\u0430\u043C",
+        spot: "\u041F\u044F\u0442\u043D\u043E",
+        pose: "\u041F\u043E\u0437\u0430",
+        custom: "\u0421\u0432\u043E\u0451"
       }[key.toLowerCase()];
       if (editor) return preserveEdges(raw, editor);
     }
     if (parent) {
       if (shouldSkipRoot(parent) || parent.isContentEditable) return null;
-      if (!key.includes(' ')) {
+      if (!key.includes(" ")) {
         if (!isChromeContext(parent)) return null;
-        let host = parent;
-        for (let i = 0; i < 4 && host.parentElement && normalizeKey(host.textContent || '') === key; i += 1) {
-          host = host.parentElement;
+        let host2 = parent;
+        for (let i = 0; i < 4 && host2.parentElement && normalizeKey2(host2.textContent || "") === key; i += 1) {
+          host2 = host2.parentElement;
         }
-        const hostText = normalizeKey(host.textContent || '');
-        if (
-          hostText &&
-          hostText !== key &&
-          hostText.length > key.length + 2 &&
-          !parent.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')
-        ) {
-          const extra = hostText
-            .toLowerCase()
-            .split(key.toLowerCase())
-            .join(' ')
-            .trim()
-            .split(/\s+/)
-            .filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
+        const hostText = normalizeKey2(host2.textContent || "");
+        if (hostText && hostText !== key && hostText.length > key.length + 2 && !parent.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')) {
+          const extra = hostText.toLowerCase().split(key.toLowerCase()).join(" ").trim().split(/\s+/).filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
           if (extra.length >= 1) return null;
         }
       }
@@ -312,7 +295,6 @@ export function startWritePatch(dict) {
     if (!hit || hit === key) return null;
     return preserveEdges(raw, hit);
   }
-
   function patchAccessor(obj, prop) {
     const desc = Object.getOwnPropertyDescriptor(obj, prop);
     if (!desc || !desc.set || !desc.get || !desc.configurable) return false;
@@ -324,30 +306,25 @@ export function startWritePatch(dict) {
       },
       set(v) {
         try {
-          if (typeof v === 'string' && v.length >= 2 && v.length <= 160) {
+          if (typeof v === "string" && v.length >= 2 && v.length <= 160) {
             const parent = this.nodeType === 3 ? this.parentElement : this;
             const next = translateRaw(v, parent);
             if (next != null) v = next;
           }
         } catch {
-          /* ignore */
         }
         return desc.set.call(this, v);
-      },
+      }
     });
     return true;
   }
-
-  // Text nodes: React often sets nodeValue / data
-  patchAccessor(Node.prototype, 'nodeValue');
-  if (typeof CharacterData !== 'undefined') {
-    patchAccessor(CharacterData.prototype, 'data');
+  patchAccessor(Node.prototype, "nodeValue");
+  if (typeof CharacterData !== "undefined") {
+    patchAccessor(CharacterData.prototype, "data");
   }
-
-  // Elements: occasional textContent writes on leaves
-  const textDesc = Object.getOwnPropertyDescriptor(Node.prototype, 'textContent');
+  const textDesc = Object.getOwnPropertyDescriptor(Node.prototype, "textContent");
   if (textDesc?.set && textDesc.configurable) {
-    Object.defineProperty(Node.prototype, 'textContent', {
+    Object.defineProperty(Node.prototype, "textContent", {
       configurable: true,
       enumerable: textDesc.enumerable,
       get() {
@@ -355,30 +332,45 @@ export function startWritePatch(dict) {
       },
       set(v) {
         try {
-          if (typeof v === 'string' && this.nodeType === 1 && this.childElementCount === 0) {
+          if (typeof v === "string" && this.nodeType === 1 && this.childElementCount === 0) {
             const next = translateRaw(v, this);
             if (next != null) v = next;
           }
         } catch {
-          /* ignore */
         }
         return textDesc.set.call(this, v);
-      },
+      }
     });
   }
-
   const EDITOR_WORDS = {
-    edit: 'Изменить', exit: 'Выйти', colors: 'Цвета', hair: 'Волосы', beard: 'Борода', shape: 'Форма',
-    brows: 'Брови', eyes: 'Глаза', nose: 'Нос', mouth: 'Рот', top: 'Верх', bottom: 'Низ', shoes: 'Обувь',
-    glasses: 'Очки', cap: 'Кепка', age: 'Возраст', makeup: 'Макияж', paint: 'Краска', scar: 'Шрам', spot: 'Пятно', pose: 'Поза',
-    custom: 'Своё',
+    edit: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+    exit: "\u0412\u044B\u0439\u0442\u0438",
+    colors: "\u0426\u0432\u0435\u0442\u0430",
+    hair: "\u0412\u043E\u043B\u043E\u0441\u044B",
+    beard: "\u0411\u043E\u0440\u043E\u0434\u0430",
+    shape: "\u0424\u043E\u0440\u043C\u0430",
+    brows: "\u0411\u0440\u043E\u0432\u0438",
+    eyes: "\u0413\u043B\u0430\u0437\u0430",
+    nose: "\u041D\u043E\u0441",
+    mouth: "\u0420\u043E\u0442",
+    top: "\u0412\u0435\u0440\u0445",
+    bottom: "\u041D\u0438\u0437",
+    shoes: "\u041E\u0431\u0443\u0432\u044C",
+    glasses: "\u041E\u0447\u043A\u0438",
+    cap: "\u041A\u0435\u043F\u043A\u0430",
+    age: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
+    makeup: "\u041C\u0430\u043A\u0438\u044F\u0436",
+    paint: "\u041A\u0440\u0430\u0441\u043A\u0430",
+    scar: "\u0428\u0440\u0430\u043C",
+    spot: "\u041F\u044F\u0442\u043D\u043E",
+    pose: "\u041F\u043E\u0437\u0430",
+    custom: "\u0421\u0432\u043E\u0451"
   };
   const editorHost = (el) => el?.closest?.(EDITOR_SEL);
-
   function paintEditorTree(node) {
     if (!node) return;
     if (node.nodeType === 3) {
-      const word = EDITOR_WORDS[normalizeKey(node.nodeValue || '').toLowerCase()];
+      const word = EDITOR_WORDS[normalizeKey2(node.nodeValue || "").toLowerCase()];
       if (word && editorHost(node.parentElement)) node.nodeValue = word;
       return;
     }
@@ -388,107 +380,102 @@ export function startWritePatch(dict) {
       return;
     }
     const nested = node.querySelectorAll?.(EDITOR_SEL);
-    if (nested) for (const host of nested) paintEditorTree(host);
+    if (nested) for (const host2 of nested) paintEditorTree(host2);
   }
-
-  
   const setAttribute = Element.prototype.setAttribute;
-  Element.prototype.setAttribute = function (name, value) {
+  Element.prototype.setAttribute = function(name, value) {
     try {
-      if (typeof value === 'string' && /^(?:data-placeholder|placeholder|aria-placeholder|aria-label)$/i.test(name)) {
-        const key = normalizeKey(value);
+      if (typeof value === "string" && /^(?:data-placeholder|placeholder|aria-placeholder|aria-label)$/i.test(name)) {
+        const key = normalizeKey2(value);
         const thoughts = key.match(/^what are your thoughts on\s+(.+?)\??$/i);
         if (thoughts) {
-          value = 'Что вы думаете о ' + thoughts[1].trim() + '?';
+          value = "\u0427\u0442\u043E \u0432\u044B \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E " + thoughts[1].trim() + "?";
         } else {
           const direct = map.get(key.toLowerCase()) || map.get(key);
           if (direct) value = direct;
         }
       }
-    } catch { /* ignore */ }
+    } catch {
+    }
     return setAttribute.call(this, name, value);
   };
-
   const appendChild = Node.prototype.appendChild;
-  Node.prototype.appendChild = function (child) {
+  Node.prototype.appendChild = function(child) {
     try {
       if (child?.nodeType === 3 && editorHost(this)) {
-        const word = EDITOR_WORDS[normalizeKey(child.nodeValue || '').toLowerCase()];
+        const word = EDITOR_WORDS[normalizeKey2(child.nodeValue || "").toLowerCase()];
         if (word) child.nodeValue = word;
       }
-    } catch { /* ignore */ }
+    } catch {
+    }
     const out = appendChild.call(this, child);
     return out;
   };
-
   const insertBefore = Node.prototype.insertBefore;
-  Node.prototype.insertBefore = function (child, ref) {
+  Node.prototype.insertBefore = function(child, ref) {
     try {
       if (child?.nodeType === 3 && editorHost(this)) {
-        const word = EDITOR_WORDS[normalizeKey(child.nodeValue || '').toLowerCase()];
+        const word = EDITOR_WORDS[normalizeKey2(child.nodeValue || "").toLowerCase()];
         if (word) child.nodeValue = word;
       }
-    } catch { /* ignore */ }
+    } catch {
+    }
     return insertBefore.call(this, child, ref);
   };
-
   const mo = new MutationObserver((list) => {
     for (const rec of list) {
-      if (rec.type === 'attributes') {
+      if (rec.type === "attributes") {
         if (editorHost(rec.target) || rec.target.matches?.(EDITOR_SEL)) paintEditorTree(rec.target);
         continue;
       }
       for (const node of rec.addedNodes) paintEditorTree(node);
     }
   });
-  const shadowRoots = new Set();
+  const shadowRoots = /* @__PURE__ */ new Set();
   const watchRoot = (root) => {
     if (!root || shadowRoots.has(root)) return;
     shadowRoots.add(root);
     try {
-      mo.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+      mo.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
     } catch {
-      /* not a node */
     }
   };
   watchRoot(document.documentElement);
   const attachShadow = Element.prototype.attachShadow;
-  Element.prototype.attachShadow = function (init) {
+  Element.prototype.attachShadow = function(init) {
     const root = attachShadow.call(this, init);
     watchRoot(root);
     return root;
   };
-
-  function paintHost(host) {
-    paintEditorTree(host);
-    const whole = normalizeKey(host.textContent || '').toLowerCase();
+  function paintHost(host2) {
+    paintEditorTree(host2);
+    const whole = normalizeKey2(host2.textContent || "").toLowerCase();
     const ru = EDITOR_WORDS[whole];
     if (ru) {
       const texts = [];
       const walk = (n) => {
         for (const c of n.childNodes) {
           if (c.nodeType === 3) texts.push(c);
-          else if (c.nodeType === 1 && c.tagName !== 'IMG' && c.tagName !== 'SVG' && c.tagName !== 'CANVAS') walk(c);
+          else if (c.nodeType === 1 && c.tagName !== "IMG" && c.tagName !== "SVG" && c.tagName !== "CANVAS") walk(c);
         }
       };
-      walk(host);
+      walk(host2);
       if (texts.length) {
-        const lead = (texts[0].nodeValue.match(/^\s*/) || [''])[0];
+        const lead = (texts[0].nodeValue.match(/^\s*/) || [""])[0];
         texts[0].nodeValue = lead + ru;
-        for (let i = 1; i < texts.length; i += 1) texts[i].nodeValue = '';
+        for (let i = 1; i < texts.length; i += 1) texts[i].nodeValue = "";
       }
     }
     let pending = false;
     const see = (n) => {
       for (const c of n.childNodes) {
-        if (c.nodeType === 3 && EDITOR_WORDS[normalizeKey(c.nodeValue || '').toLowerCase()]) pending = true;
-        else if (c.nodeType === 1 && c.tagName !== 'IMG' && c.tagName !== 'SVG') see(c);
+        if (c.nodeType === 3 && EDITOR_WORDS[normalizeKey2(c.nodeValue || "").toLowerCase()]) pending = true;
+        else if (c.nodeType === 1 && c.tagName !== "IMG" && c.tagName !== "SVG") see(c);
       }
     };
-    see(host);
-    if (!pending) host.setAttribute('data-panax-ru-on', '');
+    see(host2);
+    if (!pending) host2.setAttribute("data-panax-ru-on", "");
   }
-
   const paintRoot = (root) => {
     if (!root?.querySelectorAll) return;
     let hosts;
@@ -497,19 +484,16 @@ export function startWritePatch(dict) {
     } catch {
       return;
     }
-    for (const host of hosts) paintHost(host);
+    for (const host2 of hosts) paintHost(host2);
   };
-
   const paintFrame = () => {
     try {
       paintRoot(document);
       for (const root of shadowRoots) paintRoot(root);
     } catch {
-      /* ignore */
     }
     requestAnimationFrame(paintFrame);
   };
   requestAnimationFrame(paintFrame);
-
-  console.info('[PANAX RU] write-patch active (stubborn chrome)');
+  console.info("[PANAX RU] write-patch active (stubborn chrome)");
 }

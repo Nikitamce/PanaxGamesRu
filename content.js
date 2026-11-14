@@ -1,0 +1,8514 @@
+(() => {
+  // src/locales/ru.json
+  var ru_default = {
+    Agree: "\u0421\u043E\u0433\u043B\u0430\u0441\u0435\u043D",
+    Disagree: "\u041D\u0435 \u0441\u043E\u0433\u043B\u0430\u0441\u0435\u043D",
+    "Cookie Policy": "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 cookie",
+    "We use cookies to improve your experience.": "\u041C\u044B \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C cookie, \u0447\u0442\u043E\u0431\u044B \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C \u0440\u0430\u0431\u043E\u0442\u0443 \u0441\u0430\u0439\u0442\u0430.",
+    "If you disagree, you'll only consent to the required items in our Cookie Policy.": "\u0415\u0441\u043B\u0438 \u0432\u044B \u043D\u0435 \u0441\u043E\u0433\u043B\u0430\u0441\u043D\u044B, \u0431\u0443\u0434\u0443\u0442 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u044B \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0443\u043D\u043A\u0442\u044B \u0438\u0437 \u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0438 cookie.",
+    "If you disagree, you'll only consent to the required items in our Cookie Policy .": "\u0415\u0441\u043B\u0438 \u0432\u044B \u043D\u0435 \u0441\u043E\u0433\u043B\u0430\u0441\u043D\u044B, \u0431\u0443\u0434\u0443\u0442 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u044B \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0443\u043D\u043A\u0442\u044B \u0438\u0437 \u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0438 cookie.",
+    Home: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F",
+    Discover: "\u041E\u0431\u0437\u043E\u0440",
+    News: "\u041D\u043E\u0432\u043E\u0441\u0442\u0438",
+    Community: "\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E",
+    Store: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D",
+    "PANAX Store": "\u041C\u0430\u0433\u0430\u0437\u0438\u043D PANAX",
+    About: "\u041E \u0438\u0433\u0440\u0435",
+    "About Us": "\u041E \u043D\u0430\u0441",
+    Search: "\u041F\u043E\u0438\u0441\u043A",
+    "Search...": "\u041F\u043E\u0438\u0441\u043A\u2026",
+    "Search games...": "\u041F\u043E\u0438\u0441\u043A \u0438\u0433\u0440\u2026",
+    "Search games": "\u041F\u043E\u0438\u0441\u043A \u0438\u0433\u0440",
+    "Log In": "\u0412\u043E\u0439\u0442\u0438",
+    Login: "\u0412\u043E\u0439\u0442\u0438",
+    "Sign In": "\u0412\u043E\u0439\u0442\u0438",
+    "Sign Up": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F",
+    "Sign Out": "\u0412\u044B\u0439\u0442\u0438",
+    "Log Out": "\u0412\u044B\u0439\u0442\u0438",
+    Register: "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F",
+    Profile: "\u041F\u0440\u043E\u0444\u0438\u043B\u044C",
+    Settings: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438",
+    Notifications: "\u0423\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u044F",
+    Messages: "\u0421\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u044F",
+    Activity: "\u0410\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C",
+    Friends: "\u0414\u0440\u0443\u0437\u044C\u044F",
+    Followers: "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438",
+    Following: "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438",
+    Follow: "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0430",
+    Unfollow: "\u041E\u0442\u043F\u0438\u0441\u043A\u0430",
+    "Edit Profile": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C",
+    Share: "\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F",
+    "Copy link": "\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443",
+    Copied: "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E",
+    More: "\u0415\u0449\u0451",
+    "See all": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435",
+    "See more": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0435\u0449\u0451",
+    "Show more": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0435\u0449\u0451",
+    "Show less": "\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C",
+    "Load more": "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0435\u0449\u0451",
+    "View all": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435",
+    Close: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C",
+    Cancel: "\u041E\u0442\u043C\u0435\u043D\u0430",
+    Save: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C",
+    Delete: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C",
+    Edit: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+    Done: "\u0413\u043E\u0442\u043E\u0432\u043E",
+    Confirm: "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C",
+    Submit: "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C",
+    Continue: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C",
+    Back: "\u041D\u0430\u0437\u0430\u0434",
+    Next: "\u0414\u0430\u043B\u0435\u0435",
+    Previous: "\u041D\u0430\u0437\u0430\u0434",
+    Skip: "\u041F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u0442\u044C",
+    Apply: "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C",
+    Reset: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C",
+    Filter: "\u0424\u0438\u043B\u044C\u0442\u0440",
+    Filters: "\u0424\u0438\u043B\u044C\u0442\u0440\u044B",
+    Sort: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430",
+    "Sort by": "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C",
+    All: "\u0412\u0441\u0435",
+    None: "\u041D\u0435\u0442",
+    Clear: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C",
+    "Clear all": "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0432\u0441\u0451",
+    "No results": "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E",
+    "No results found": "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E",
+    "Nothing here yet": "\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u043A\u0430 \u043F\u0443\u0441\u0442\u043E",
+    "Loading...": "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430\u2026",
+    Loading: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+    Error: "\u041E\u0448\u0438\u0431\u043A\u0430",
+    "Try again": "\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C",
+    Retry: "\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C",
+    Required: "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E",
+    Optional: "\u041D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E",
+    Trending: "\u0412 \u0442\u0440\u0435\u043D\u0434\u0435",
+    "Most Playing": "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "Most Wishlisted": "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C",
+    "Coming Soon": "\u0421\u043A\u043E\u0440\u043E",
+    Popular: "\u041F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0435",
+    "New Releases": "\u041D\u043E\u0432\u0438\u043D\u043A\u0438",
+    Upcoming: "\u0421\u043A\u043E\u0440\u043E",
+    "Top Rated": "\u0422\u043E\u043F \u0440\u0435\u0439\u0442\u0438\u043D\u0433",
+    "Recently Added": "\u041D\u0435\u0434\u0430\u0432\u043D\u043E \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043D\u044B\u0435",
+    Recommended: "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u043C\u044B\u0435",
+    "For You": "\u0414\u043B\u044F \u0432\u0430\u0441",
+    Games: "\u0418\u0433\u0440\u044B",
+    Game: "\u0418\u0433\u0440\u0430",
+    Reviews: "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    Review: "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u044F",
+    Ratings: "\u041E\u0446\u0435\u043D\u043A\u0438",
+    Rating: "\u041E\u0446\u0435\u043D\u043A\u0430",
+    Lists: "\u0421\u043F\u0438\u0441\u043A\u0438",
+    List: "\u0421\u043F\u0438\u0441\u043E\u043A",
+    Backlog: "\u0412 \u043F\u043B\u0430\u043D\u0430\u0445",
+    Wishlist: "\u0416\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+    "Want to Play": "\u0425\u043E\u0447\u0443 \u0441\u044B\u0433\u0440\u0430\u0442\u044C",
+    "Want to play": "\u0425\u043E\u0447\u0443 \u0441\u044B\u0433\u0440\u0430\u0442\u044C",
+    Playing: "\u0418\u0433\u0440\u0430\u044E",
+    Played: "\u0421\u044B\u0433\u0440\u0430\u043D\u043E",
+    Completed: "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E",
+    Finished: "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E",
+    Dropped: "\u0411\u0440\u043E\u0448\u0435\u043D\u043E",
+    Paused: "\u041F\u0430\u0443\u0437\u0430",
+    "On Hold": "\u041E\u0442\u043B\u043E\u0436\u0435\u043D\u043E",
+    Retired: "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043E",
+    Owned: "\u0412 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    "Not Owned": "\u041D\u0435\u0442 \u0432 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    Replay: "\u041F\u043E\u0432\u0442\u043E\u0440",
+    Replaying: "\u041F\u0435\u0440\u0435\u0438\u0433\u0440\u044B\u0432\u0430\u044E",
+    Rate: "\u041E\u0446\u0435\u043D\u0438\u0442\u044C",
+    "Rate this game": "\u041E\u0446\u0435\u043D\u0438\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Write a review": "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Write Review": "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Add to list": "\u0412 \u0441\u043F\u0438\u0441\u043E\u043A",
+    "Add to List": "\u0412 \u0441\u043F\u0438\u0441\u043E\u043A",
+    "Add to backlog": "\u0412 \u0431\u044D\u043A\u043B\u043E\u0433",
+    "Add to wishlist": "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+    Remove: "\u0423\u0431\u0440\u0430\u0442\u044C",
+    Log: "\u0417\u0430\u043F\u0438\u0441\u044C",
+    "Log game": "\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Log a game": "\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Similar games": "\u041F\u043E\u0445\u043E\u0436\u0438\u0435 \u0438\u0433\u0440\u044B",
+    "Similar Games": "\u041F\u043E\u0445\u043E\u0436\u0438\u0435 \u0438\u0433\u0440\u044B",
+    Related: "\u0421\u0432\u044F\u0437\u0430\u043D\u043D\u043E\u0435",
+    Details: "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u043E\u0441\u0442\u0438",
+    Overview: "\u041E\u0431\u0437\u043E\u0440",
+    Synopsis: "\u0421\u044E\u0436\u0435\u0442",
+    Description: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435",
+    Genres: "\u0416\u0430\u043D\u0440\u044B",
+    Genre: "\u0416\u0430\u043D\u0440",
+    Platforms: "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B",
+    Highlights: "\u0413\u043B\u0430\u0432\u043D\u043E\u0435",
+    "Game chart": "\u0420\u0435\u0439\u0442\u0438\u043D\u0433 \u0438\u0433\u0440",
+    "Featured collections": "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u044B\u0435 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    "Request platforms": "\u0417\u0430\u043F\u0440\u043E\u0441\u0438\u0442\u044C \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B",
+    "Game types": "\u0422\u0438\u043F\u044B \u0438\u0433\u0440",
+    Main: "\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0438\u0433\u0440\u0430",
+    "DLC & Expansion": "DLC \u0438 \u0434\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435",
+    "Remake & Remaster": "\u0420\u0435\u043C\u0435\u0439\u043A \u0438 \u0440\u0435\u043C\u0430\u0441\u0442\u0435\u0440",
+    "Edition & Collection": "\u0418\u0437\u0434\u0430\u043D\u0438\u0435 \u0438 \u0441\u0431\u043E\u0440\u043D\u0438\u043A",
+    Bundle: "\u041D\u0430\u0431\u043E\u0440",
+    "Share profile": "\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u043F\u0440\u043E\u0444\u0438\u043B\u0435\u043C",
+    "Pin to your profile": "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u0435",
+    "Copy text": "\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0442\u0435\u043A\u0441\u0442",
+    "Unfollow this user": "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F",
+    "Follow this user": "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F",
+    "Not enough ratings yet": "\u041E\u0446\u0435\u043D\u043E\u043A \u043F\u043E\u043A\u0430 \u043D\u0435\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E",
+    "Connect PlayStation account": "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442 PlayStation",
+    "Connect Xbox account": "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442 Xbox",
+    "Tell us your thoughts on a game": "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E\u0431 \u0438\u0433\u0440\u0435",
+    Platform: "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430",
+    Developers: "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0438",
+    Developer: "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A",
+    Publishers: "\u0418\u0437\u0434\u0430\u0442\u0435\u043B\u0438",
+    Publisher: "\u0418\u0437\u0434\u0430\u0442\u0435\u043B\u044C",
+    "Release Date": "\u0414\u0430\u0442\u0430 \u0432\u044B\u0445\u043E\u0434\u0430",
+    "Release date": "\u0414\u0430\u0442\u0430 \u0432\u044B\u0445\u043E\u0434\u0430",
+    Released: "\u0412\u044B\u0448\u043B\u0430",
+    TBA: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u043E",
+    "Early Access": "\u0420\u0430\u043D\u043D\u0438\u0439 \u0434\u043E\u0441\u0442\u0443\u043F",
+    DLC: "DLC",
+    Expansion: "\u0414\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435",
+    Remaster: "\u0420\u0435\u043C\u0430\u0441\u0442\u0435\u0440",
+    Remake: "\u0420\u0435\u043C\u0435\u0439\u043A",
+    "Hours played": "\u0427\u0430\u0441\u043E\u0432 \u0432 \u0438\u0433\u0440\u0435",
+    Playtime: "\u0412\u0440\u0435\u043C\u044F \u0432 \u0438\u0433\u0440\u0435",
+    Achievements: "\u0414\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F",
+    Trophies: "\u0422\u0440\u043E\u0444\u0435\u0438",
+    "Trophy Hall": "\u0417\u0430\u043B \u0442\u0440\u043E\u0444\u0435\u0435\u0432",
+    Collection: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F",
+    Collections: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    Library: "\u0411\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0430",
+    Journal: "\u0416\u0443\u0440\u043D\u0430\u043B",
+    Stats: "\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430",
+    Statistics: "\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430",
+    Members: "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438",
+    Member: "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A",
+    Players: "\u0418\u0433\u0440\u043E\u043A\u0438",
+    Comments: "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438",
+    Comment: "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+    Reply: "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C",
+    Replies: "\u041E\u0442\u0432\u0435\u0442\u044B",
+    Like: "\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F",
+    Likes: "\u041B\u0430\u0439\u043A\u0438",
+    Liked: "\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F",
+    Report: "\u041F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C\u0441\u044F",
+    Block: "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C",
+    Mute: "\u0421\u043A\u0440\u044B\u0442\u044C",
+    Spoiler: "\u0421\u043F\u043E\u0439\u043B\u0435\u0440",
+    Spoilers: "\u0421\u043F\u043E\u0439\u043B\u0435\u0440\u044B",
+    "Contains spoilers": "\u0415\u0441\u0442\u044C \u0441\u043F\u043E\u0439\u043B\u0435\u0440\u044B",
+    "Show spoilers": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0441\u043F\u043E\u0439\u043B\u0435\u0440\u044B",
+    "Hide spoilers": "\u0421\u043A\u0440\u044B\u0442\u044C \u0441\u043F\u043E\u0439\u043B\u0435\u0440\u044B",
+    PC: "\u041F\u041A",
+    PlayStation: "PlayStation",
+    "PlayStation 5": "PlayStation 5",
+    "PlayStation 4": "PlayStation 4",
+    Xbox: "Xbox",
+    "Xbox Series X|S": "Xbox Series X|S",
+    "Xbox One": "Xbox One",
+    "Nintendo Switch": "Nintendo Switch",
+    "Nintendo Switch 2": "Nintendo Switch 2",
+    Steam: "Steam",
+    "Epic Games": "Epic Games",
+    GOG: "GOG",
+    Mobile: "\u041C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0435",
+    iOS: "iOS",
+    Android: "Android",
+    FAQ: "\u0412\u043E\u043F\u0440\u043E\u0441\u044B \u0438 \u043E\u0442\u0432\u0435\u0442\u044B",
+    "Privacy Policy": "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438",
+    Privacy: "\u041A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C",
+    "Terms of Service": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F",
+    Terms: "\u0423\u0441\u043B\u043E\u0432\u0438\u044F",
+    "Community Guidelines": "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430",
+    Contact: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B",
+    "Contact Us": "\u0421\u0432\u044F\u0437\u0430\u0442\u044C\u0441\u044F \u0441 \u043D\u0430\u043C\u0438",
+    Help: "\u041F\u043E\u043C\u043E\u0449\u044C",
+    Support: "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u043A\u0430",
+    Feedback: "\u041E\u0442\u0437\u044B\u0432",
+    Download: "\u0421\u043A\u0430\u0447\u0430\u0442\u044C",
+    "Download App": "\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435",
+    "Get the app": "\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435",
+    "App Store": "App Store",
+    "Google Play": "Google Play",
+    "A platform built": "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430,",
+    "for gamers by gamers": "\u0441\u043E\u0437\u0434\u0430\u043D\u043D\u0430\u044F \u0433\u0435\u0439\u043C\u0435\u0440\u0430\u043C\u0438 \u0434\u043B\u044F \u0433\u0435\u0439\u043C\u0435\u0440\u043E\u0432",
+    "Welcome to PANAX\u2122, where your gaming life comes together.": "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C \u0432 PANAX\u2122 \u2014 \u0437\u0434\u0435\u0441\u044C \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0441\u044F \u0432\u0441\u044F \u0432\u0430\u0448\u0430 \u0438\u0433\u0440\u043E\u0432\u0430\u044F \u0436\u0438\u0437\u043D\u044C.",
+    "PANAX\u2122 Journey in Numbers": "PANAX\u2122 \u0432 \u0446\u0438\u0444\u0440\u0430\u0445",
+    "To Elevate Gaming for Everyone": "\u0427\u0442\u043E\u0431\u044B \u0438\u0433\u0440\u044B \u0441\u0442\u0430\u043B\u0438 \u043B\u0443\u0447\u0448\u0435 \u0434\u043B\u044F \u0432\u0441\u0435\u0445",
+    "PANAX\u2122 Was Born": "\u041F\u043E\u044F\u0432\u0438\u043B\u0441\u044F PANAX\u2122",
+    "Game Ratings": "\u041E\u0446\u0435\u043D\u043E\u043A \u0438\u0433\u0440",
+    "Users growing together": "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430",
+    "Why We Built PANAX\u2122 Community": "\u0417\u0430\u0447\u0435\u043C \u043C\u044B \u0441\u043E\u0437\u0434\u0430\u043B\u0438 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E PANAX\u2122",
+    "To Keep Your Games in One Place": "\u0427\u0442\u043E\u0431\u044B \u0432\u0441\u0435 \u0438\u0433\u0440\u044B \u0431\u044B\u043B\u0438 \u0432 \u043E\u0434\u043D\u043E\u043C \u043C\u0435\u0441\u0442\u0435",
+    "Bring all your platforms together, hold onto your gaming history, and share the moments that matter most.": "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0441\u0435 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B \u0432\u043C\u0435\u0441\u0442\u0435, \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435 \u0438\u0433\u0440\u043E\u0432\u0443\u044E \u0438\u0441\u0442\u043E\u0440\u0438\u044E \u0438 \u0434\u0435\u043B\u0438\u0442\u0435\u0441\u044C \u0432\u0430\u0436\u043D\u044B\u043C\u0438 \u043C\u043E\u043C\u0435\u043D\u0442\u0430\u043C\u0438.",
+    "What PANAX\u2122 Offers": "\u0427\u0442\u043E \u0434\u0430\u0451\u0442 PANAX\u2122",
+    "To Make Gaming More Enjoyable": "\u0427\u0442\u043E\u0431\u044B \u0438\u0433\u0440\u044B \u043F\u0440\u0438\u043D\u043E\u0441\u0438\u043B\u0438 \u0431\u043E\u043B\u044C\u0448\u0435 \u0440\u0430\u0434\u043E\u0441\u0442\u0438",
+    "Powerful Gamer Community": "\u0421\u0438\u043B\u044C\u043D\u043E\u0435 \u0438\u0433\u0440\u043E\u0432\u043E\u0435 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E",
+    "Find people who play like you do, and join groups that match your interests.": "\u041D\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u0442\u0435\u0445, \u043A\u0442\u043E \u0438\u0433\u0440\u0430\u0435\u0442 \u043A\u0430\u043A \u0432\u044B, \u0438 \u0432\u0441\u0442\u0443\u043F\u0430\u0439\u0442\u0435 \u0432 \u0433\u0440\u0443\u043F\u043F\u044B \u043F\u043E \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u0430\u043C.",
+    "Game Backlog Management": "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0431\u044D\u043A\u043B\u043E\u0433\u043E\u043C",
+    "Keep every game you've played in one list, and line up what's next.": "\u0414\u0435\u0440\u0436\u0438\u0442\u0435 \u0432\u0441\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u044B \u0432 \u043E\u0434\u043D\u043E\u043C \u0441\u043F\u0438\u0441\u043A\u0435 \u0438 \u043F\u043B\u0430\u043D\u0438\u0440\u0443\u0439\u0442\u0435, \u0432\u043E \u0447\u0442\u043E \u0441\u044B\u0433\u0440\u0430\u0442\u044C \u0434\u0430\u043B\u044C\u0448\u0435.",
+    "Game Tracking & Sharing": "\u0422\u0440\u0435\u043A\u0438\u043D\u0433 \u0438\u0433\u0440 \u0438 \u043E\u0431\u043C\u0435\u043D \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u043E\u043C",
+    "Log what you're playing, track your achievements, and share your progress with others.": "\u0417\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0439\u0442\u0435, \u0432\u043E \u0447\u0442\u043E \u0438\u0433\u0440\u0430\u0435\u0442\u0435, \u0441\u043B\u0435\u0434\u0438\u0442\u0435 \u0437\u0430 \u0434\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F\u043C\u0438 \u0438 \u0434\u0435\u043B\u0438\u0442\u0435\u0441\u044C \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u043E\u043C.",
+    "A Platform Just for Gamers": "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430 \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u0433\u0435\u0439\u043C\u0435\u0440\u043E\u0432",
+    "No unrelated noise, no distractions. Just the platform and people that make gaming better.": "\u0411\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0433\u043E \u0448\u0443\u043C\u0430 \u0438 \u043E\u0442\u0432\u043B\u0435\u0447\u0435\u043D\u0438\u0439. \u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430 \u0438 \u043B\u044E\u0434\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0434\u0435\u043B\u0430\u044E\u0442 \u0438\u0433\u0440\u044B \u043B\u0443\u0447\u0448\u0435.",
+    "No unrelated noise, no distractions.": "\u0411\u0435\u0437 \u043B\u0438\u0448\u043D\u0435\u0433\u043E \u0448\u0443\u043C\u0430 \u0438 \u043E\u0442\u0432\u043B\u0435\u0447\u0435\u043D\u0438\u0439.",
+    "Just the platform and people that make gaming better.": "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430 \u0438 \u043B\u044E\u0434\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0434\u0435\u043B\u0430\u044E\u0442 \u0438\u0433\u0440\u044B \u043B\u0443\u0447\u0448\u0435.",
+    "Play Anywhere.": "\u0418\u0433\u0440\u0430\u0439\u0442\u0435 \u0433\u0434\u0435 \u0443\u0433\u043E\u0434\u043D\u043E.",
+    "Belong Here.": "\u0411\u0443\u0434\u044C\u0442\u0435 \u0441\u0432\u043E\u0438\u043C\u0438 \u0437\u0434\u0435\u0441\u044C.",
+    "Play Anywhere. Belong Here.": "\u0418\u0433\u0440\u0430\u0439\u0442\u0435 \u0433\u0434\u0435 \u0443\u0433\u043E\u0434\u043D\u043E. \u0411\u0443\u0434\u044C\u0442\u0435 \u0441\u0432\u043E\u0438\u043C\u0438 \u0437\u0434\u0435\u0441\u044C.",
+    "Step into PANAX\u2122, where your gaming world comes to life.": "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u0432 PANAX\u2122 \u2014 \u0437\u0434\u0435\u0441\u044C \u043E\u0436\u0438\u0432\u0430\u0435\u0442 \u0432\u0430\u0448 \u0438\u0433\u0440\u043E\u0432\u043E\u0439 \u043C\u0438\u0440.",
+    "EXPLORE NOW": "\u0421\u041C\u041E\u0422\u0420\u0415\u0422\u042C",
+    "Explore Now": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C",
+    Explore: "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C",
+    "Welcome back": "\u0421 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0435\u043D\u0438\u0435\u043C",
+    Welcome: "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C",
+    "See what's new": "\u0427\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E",
+    "What's new": "\u0427\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E",
+    Latest: "\u0421\u0432\u0435\u0436\u0435\u0435",
+    "Popular this week": "\u041F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0435 \u0437\u0430 \u043D\u0435\u0434\u0435\u043B\u044E",
+    "This week": "\u041D\u0430 \u044D\u0442\u043E\u0439 \u043D\u0435\u0434\u0435\u043B\u0435",
+    "This month": "\u0412 \u044D\u0442\u043E\u043C \u043C\u0435\u0441\u044F\u0446\u0435",
+    Today: "\u0421\u0435\u0433\u043E\u0434\u043D\u044F",
+    Yesterday: "\u0412\u0447\u0435\u0440\u0430",
+    Online: "\u0412 \u0441\u0435\u0442\u0438",
+    Offline: "\u041D\u0435 \u0432 \u0441\u0435\u0442\u0438",
+    Public: "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439",
+    Private: "\u041F\u0440\u0438\u0432\u0430\u0442\u043D\u044B\u0439",
+    "Followers only": "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438",
+    "Friends only": "\u0422\u043E\u043B\u044C\u043A\u043E \u0434\u0440\u0443\u0437\u044C\u044F",
+    Everyone: "\u0412\u0441\u0435",
+    "Only me": "\u0422\u043E\u043B\u044C\u043A\u043E \u044F",
+    Username: "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F",
+    Password: "\u041F\u0430\u0440\u043E\u043B\u044C",
+    Email: "Email",
+    "Forgot password?": "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?",
+    "Forgot Password": "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C",
+    "Create account": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    "Create Account": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    "Already have an account?": "\u0423\u0436\u0435 \u0435\u0441\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442?",
+    "Don't have an account?": "\u041D\u0435\u0442 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430?",
+    "Or continue with": "\u0418\u043B\u0438 \u0432\u043E\u0439\u0442\u0438 \u0447\u0435\u0440\u0435\u0437",
+    Connect: "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C",
+    Connected: "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u043E",
+    Disconnect: "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C",
+    "Link account": "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    Unlink: "\u041E\u0442\u0432\u044F\u0437\u0430\u0442\u044C",
+    Verify: "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C",
+    Verified: "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E",
+    Bio: "\u041E \u0441\u0435\u0431\u0435",
+    "Write a bio": "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043E \u0441\u0435\u0431\u0435",
+    Avatar: "\u0410\u0432\u0430\u0442\u0430\u0440",
+    Cover: "\u041E\u0431\u043B\u043E\u0436\u043A\u0430",
+    "Change cover": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u043E\u0431\u043B\u043E\u0436\u043A\u0443",
+    Upload: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C",
+    "Uploading...": "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430\u2026",
+    Select: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C",
+    Selected: "\u0412\u044B\u0431\u0440\u0430\u043D\u043E",
+    Add: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C",
+    Create: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C",
+    "Create list": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u043F\u0438\u0441\u043E\u043A",
+    "Create List": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u043F\u0438\u0441\u043E\u043A",
+    "New list": "\u041D\u043E\u0432\u044B\u0439 \u0441\u043F\u0438\u0441\u043E\u043A",
+    Untitled: "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F",
+    Name: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435",
+    Title: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A",
+    Tags: "\u0422\u0435\u0433\u0438",
+    Tag: "\u0422\u0435\u0433",
+    Date: "\u0414\u0430\u0442\u0430",
+    Score: "\u041E\u0446\u0435\u043D\u043A\u0430",
+    Average: "\u0421\u0440\u0435\u0434\u043D\u0435\u0435",
+    Avg: "\u0421\u0440.",
+    Rank: "\u0420\u0430\u043D\u0433",
+    Level: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C",
+    XP: "XP",
+    Badge: "\u0417\u043D\u0430\u0447\u043E\u043A",
+    Badges: "\u0417\u043D\u0430\u0447\u043A\u0438",
+    Arcade: "\u0410\u0440\u043A\u0430\u0434\u0430",
+    Giveaway: "\u0420\u043E\u0437\u044B\u0433\u0440\u044B\u0448",
+    Giveaways: "\u0420\u043E\u0437\u044B\u0433\u0440\u044B\u0448\u0438",
+    Events: "\u0421\u043E\u0431\u044B\u0442\u0438\u044F",
+    Event: "\u0421\u043E\u0431\u044B\u0442\u0438\u0435",
+    Groups: "\u0413\u0440\u0443\u043F\u043F\u044B",
+    Group: "\u0413\u0440\u0443\u043F\u043F\u0430",
+    Join: "\u0412\u0441\u0442\u0443\u043F\u0438\u0442\u044C",
+    Leave: "\u0412\u044B\u0439\u0442\u0438",
+    Invite: "\u041F\u0440\u0438\u0433\u043B\u0430\u0441\u0438\u0442\u044C",
+    Send: "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C",
+    Sent: "\u041E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E",
+    Post: "\u041F\u043E\u0441\u0442",
+    Posts: "\u041F\u043E\u0441\u0442\u044B",
+    Feed: "\u041B\u0435\u043D\u0442\u0430",
+    Timeline: "\u041B\u0435\u043D\u0442\u0430",
+    Story: "\u0418\u0441\u0442\u043E\u0440\u0438\u044F",
+    Stories: "\u0418\u0441\u0442\u043E\u0440\u0438\u0438",
+    "Read more": "\u0427\u0438\u0442\u0430\u0442\u044C \u0434\u0430\u043B\u0435\u0435",
+    "Read More": "\u0427\u0438\u0442\u0430\u0442\u044C \u0434\u0430\u043B\u0435\u0435",
+    "Minutes read": "\u043C\u0438\u043D \u0447\u0442\u0435\u043D\u0438\u044F",
+    "min read": "\u043C\u0438\u043D",
+    By: "\u041E\u0442",
+    by: "\u043E\u0442",
+    Updated: "\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E",
+    Published: "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D\u043E",
+    Draft: "\u0427\u0435\u0440\u043D\u043E\u0432\u0438\u043A",
+    "Published on": "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D\u043E",
+    "Last updated": "\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E",
+    "View profile": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C",
+    "View Profile": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C",
+    "Go to profile": "\u041A \u043F\u0440\u043E\u0444\u0438\u043B\u044E",
+    "My games": "\u041C\u043E\u0438 \u0438\u0433\u0440\u044B",
+    "My Games": "\u041C\u043E\u0438 \u0438\u0433\u0440\u044B",
+    "My lists": "\u041C\u043E\u0438 \u0441\u043F\u0438\u0441\u043A\u0438",
+    "My Lists": "\u041C\u043E\u0438 \u0441\u043F\u0438\u0441\u043A\u0438",
+    "My reviews": "\u041C\u043E\u0438 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "My Reviews": "\u041C\u043E\u0438 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "Recently played": "\u041D\u0435\u0434\u0430\u0432\u043D\u043E \u0438\u0433\u0440\u0430\u043B\u0438",
+    "Recently Played": "\u041D\u0435\u0434\u0430\u0432\u043D\u043E \u0438\u0433\u0440\u0430\u043B\u0438",
+    "Recently reviewed": "\u041D\u0435\u0434\u0430\u0432\u043D\u0438\u0435 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "Recently Reviewed": "\u041D\u0435\u0434\u0430\u0432\u043D\u0438\u0435 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "Currently playing": "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "Currently Playing": "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    Favorites: "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435",
+    Favorite: "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435",
+    "Top 10": "\u0422\u043E\u043F-10",
+    GOTY: "GOTY",
+    "Game of the Year": "\u0418\u0433\u0440\u0430 \u0433\u043E\u0434\u0430",
+    Empty: "\u041F\u0443\u0441\u0442\u043E",
+    "Empty list": "\u041F\u0443\u0441\u0442\u043E\u0439 \u0441\u043F\u0438\u0441\u043E\u043A",
+    "No games yet": "\u0418\u0433\u0440 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442",
+    "No reviews yet": "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0439 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442",
+    "No lists yet": "\u0421\u043F\u0438\u0441\u043A\u043E\u0432 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442",
+    "Be the first to review": "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Be the first": "\u0411\u0443\u0434\u044C\u0442\u0435 \u043F\u0435\u0440\u0432\u044B\u043C",
+    "Mark as read": "\u041F\u0440\u043E\u0447\u0438\u0442\u0430\u043D\u043E",
+    "Mark all as read": "\u041F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C \u0432\u0441\u0435",
+    "No notifications": "\u041D\u0435\u0442 \u0443\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u0439",
+    "No recent notifications": "\u041D\u0435\u0442 \u043D\u043E\u0432\u044B\u0445 \u0443\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u0439",
+    New: "\u041D\u043E\u0432\u043E\u0435",
+    Hot: "\u0413\u043E\u0440\u044F\u0447\u0435\u0435",
+    Featured: "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435",
+    Exclusive: "\u042D\u043A\u0441\u043A\u043B\u044E\u0437\u0438\u0432",
+    Limited: "\u041B\u0438\u043C\u0438\u0442",
+    Free: "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E",
+    Paid: "\u041F\u043B\u0430\u0442\u043D\u043E",
+    "Pre-order": "\u041F\u0440\u0435\u0434\u0437\u0430\u043A\u0430\u0437",
+    Preorder: "\u041F\u0440\u0435\u0434\u0437\u0430\u043A\u0430\u0437",
+    "In stock": "\u0412 \u043D\u0430\u043B\u0438\u0447\u0438\u0438",
+    "Out of stock": "\u041D\u0435\u0442 \u0432 \u043D\u0430\u043B\u0438\u0447\u0438\u0438",
+    "Sold out": "\u0420\u0430\u0441\u043F\u0440\u043E\u0434\u0430\u043D\u043E",
+    "Buy now": "\u041A\u0443\u043F\u0438\u0442\u044C",
+    "Buy Now": "\u041A\u0443\u043F\u0438\u0442\u044C",
+    Shop: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D",
+    Cart: "\u041A\u043E\u0440\u0437\u0438\u043D\u0430",
+    Checkout: "\u041E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435",
+    Shipping: "\u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0430",
+    "Learn more": "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+    "Learn More": "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+    "Get started": "\u041D\u0430\u0447\u0430\u0442\u044C",
+    "Get Started": "\u041D\u0430\u0447\u0430\u0442\u044C",
+    Open: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C",
+    "Open menu": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043C\u0435\u043D\u044E",
+    Menu: "\u041C\u0435\u043D\u044E",
+    Account: "\u0410\u043A\u043A\u0430\u0443\u043D\u0442",
+    Preferences: "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B",
+    Language: "\u042F\u0437\u044B\u043A",
+    Theme: "\u0422\u0435\u043C\u0430",
+    Dark: "\u0422\u0451\u043C\u043D\u0430\u044F",
+    Light: "\u0421\u0432\u0435\u0442\u043B\u0430\u044F",
+    System: "\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u0430\u044F",
+    Yes: "\u0414\u0430",
+    No: "\u041D\u0435\u0442",
+    OK: "\u041E\u041A",
+    Ok: "\u041E\u043A",
+    "Got it": "\u041F\u043E\u043D\u044F\u0442\u043D\u043E",
+    "I understand": "\u041F\u043E\u043D\u044F\u0442\u043D\u043E",
+    Dismiss: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C",
+    "Not now": "\u041D\u0435 \u0441\u0435\u0439\u0447\u0430\u0441",
+    "Maybe later": "\u041F\u043E\u0437\u0436\u0435",
+    Enable: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C",
+    Disable: "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C",
+    Off: "\u0412\u044B\u043A\u043B.",
+    Ascending: "\u041F\u043E \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0430\u043D\u0438\u044E",
+    Descending: "\u041F\u043E \u0443\u0431\u044B\u0432\u0430\u043D\u0438\u044E",
+    ASC: "\u0432\u043E\u0437\u0440.",
+    DESC: "\u0443\u0431\u044B\u0432.",
+    "A\u2013Z": "\u0410\u2013\u042F",
+    "Z\u2013A": "\u042F\u2013\u0410",
+    Newest: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043D\u043E\u0432\u044B\u0435",
+    Oldest: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0441\u0442\u0430\u0440\u044B\u0435",
+    "Highest rated": "\u0412\u044B\u0441\u043E\u043A\u0438\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433",
+    "Lowest rated": "\u041D\u0438\u0437\u043A\u0438\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433",
+    "Most popular": "\u0421\u0430\u043C\u044B\u0435 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u044B\u0435",
+    Relevance: "\u041F\u043E \u0440\u0435\u043B\u0435\u0432\u0430\u043D\u0442\u043D\u043E\u0441\u0442\u0438",
+    "Date added": "\u0414\u0430\u0442\u0430 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F",
+    "Last played": "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u0438\u0433\u0440\u0430",
+    Hours: "\u0427\u0430\u0441\u044B",
+    Minutes: "\u041C\u0438\u043D\u0443\u0442\u044B",
+    Seconds: "\u0421\u0435\u043A\u0443\u043D\u0434\u044B",
+    Days: "\u0414\u043D\u0438",
+    Weeks: "\u041D\u0435\u0434\u0435\u043B\u0438",
+    Months: "\u041C\u0435\u0441\u044F\u0446\u044B",
+    Years: "\u0413\u043E\u0434\u044B",
+    ago: "\u043D\u0430\u0437\u0430\u0434",
+    "just now": "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E",
+    "Hot Deals": "\u0410\u043A\u0446\u0438\u0438",
+    "Add to Wishlist": "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+    "View Details": "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+    "View More": "\u0415\u0449\u0451",
+    "Join the Community": "\u0412 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E",
+    "Trending Games": "\u0412 \u0442\u0440\u0435\u043D\u0434\u0435",
+    "Popular This Week": "\u041F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0435",
+    "See All": "\u0412\u0441\u0435",
+    Careers: "\u041A\u0430\u0440\u044C\u0435\u0440\u0430",
+    Press: "\u041F\u0440\u0435\u0441\u0441\u0430",
+    Blog: "\u0411\u043B\u043E\u0433",
+    "Help Center": "\u0421\u043F\u0440\u0430\u0432\u043A\u0430",
+    "Download on the App Store": "\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u0432 App Store",
+    "Get it on Google Play": "\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u0432 Google Play",
+    "All rights reserved.": "\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B.",
+    "All rights reserved": "\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B",
+    "Search by title": "\u041F\u043E\u0438\u0441\u043A \u043F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E",
+    "Advanced Filters": "\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u043D\u044B\u0435 \u0444\u0438\u043B\u044C\u0442\u0440\u044B",
+    "Sort By": "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430",
+    "Filters Applied": "\u0424\u0438\u043B\u044C\u0442\u0440\u044B \u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u044B",
+    "Clear All": "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u0432\u0441\u0451",
+    "Release Status": "\u0421\u0442\u0430\u0442\u0443\u0441 \u0440\u0435\u043B\u0438\u0437\u0430",
+    "Player Perspective": "\u0420\u0430\u043A\u0443\u0440\u0441",
+    "Game Mode": "\u0420\u0435\u0436\u0438\u043C \u0438\u0433\u0440\u044B",
+    Cancelled: "\u041E\u0442\u043C\u0435\u043D\u0435\u043D\u0430",
+    Canceled: "\u041E\u0442\u043C\u0435\u043D\u0435\u043D\u0430",
+    "Apply Filters": "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C \u0444\u0438\u043B\u044C\u0442\u0440\u044B",
+    "No games found": "\u0418\u0433\u0440\u044B \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u044B",
+    "Try adjusting your filters": "\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0444\u0438\u043B\u044C\u0442\u0440\u044B",
+    "Write a Review": "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "About this game": "\u041E\u0431 \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u0435",
+    Screenshots: "\u0421\u043A\u0440\u0438\u043D\u0448\u043E\u0442\u044B",
+    "System Requirements": "\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0435 \u0442\u0440\u0435\u0431\u043E\u0432\u0430\u043D\u0438\u044F",
+    Minimum: "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0435",
+    "Where to buy": "\u0413\u0434\u0435 \u043A\u0443\u043F\u0438\u0442\u044C",
+    "Where to Buy": "\u0413\u0434\u0435 \u043A\u0443\u043F\u0438\u0442\u044C",
+    "You might also like": "\u0412\u0430\u043C \u0442\u0430\u043A\u0436\u0435 \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u043D\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F",
+    "Member Reviews": "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432",
+    "Critic Reviews": "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432",
+    "Load More Reviews": "\u0415\u0449\u0451 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "Highest Rated": "\u0412\u044B\u0441\u043E\u043A\u0438\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433",
+    "Lowest Rated": "\u041D\u0438\u0437\u043A\u0438\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433",
+    "Most Helpful": "\u0421\u0430\u043C\u044B\u0435 \u043F\u043E\u043B\u0435\u0437\u043D\u044B\u0435",
+    "Verified Owner": "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D\u043D\u044B\u0439 \u0432\u043B\u0430\u0434\u0435\u043B\u0435\u0446",
+    "Average Rating": "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u043E\u0446\u0435\u043D\u043A\u0430",
+    "Also known as": "\u0422\u0430\u043A\u0436\u0435 \u0438\u0437\u0432\u0435\u0441\u0442\u043D\u0430 \u043A\u0430\u043A",
+    "Available on": "\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u043D\u0430",
+    "Latest News": "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 \u043D\u043E\u0432\u043E\u0441\u0442\u0438",
+    "Gaming News": "\u0418\u0433\u0440\u043E\u0432\u044B\u0435 \u043D\u043E\u0432\u043E\u0441\u0442\u0438",
+    Industry: "\u0418\u043D\u0434\u0443\u0441\u0442\u0440\u0438\u044F",
+    Interviews: "\u0418\u043D\u0442\u0435\u0440\u0432\u044C\u044E",
+    Opinion: "\u041C\u043D\u0435\u043D\u0438\u0435",
+    Guides: "\u0413\u0430\u0439\u0434\u044B",
+    "Read Article": "\u0427\u0438\u0442\u0430\u0442\u044C \u0441\u0442\u0430\u0442\u044C\u044E",
+    "Related Articles": "\u041F\u043E\u0445\u043E\u0436\u0438\u0435 \u0441\u0442\u0430\u0442\u044C\u0438",
+    "Written by": "\u0410\u0432\u0442\u043E\u0440",
+    "Back to News": "\u041A \u043D\u043E\u0432\u043E\u0441\u0442\u044F\u043C",
+    Subscribe: "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F",
+    Newsletter: "\u0420\u0430\u0441\u0441\u044B\u043B\u043A\u0430",
+    "Leave a comment": "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+    "Welcome to PANAX": "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C \u0432 PANAX",
+    "Sign in to continue": "\u0412\u043E\u0439\u0434\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C",
+    "Continue with Google": "\u0412\u043E\u0439\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 Google",
+    "Continue with Apple": "\u0412\u043E\u0439\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 Apple",
+    "Continue with Discord": "\u0412\u043E\u0439\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 Discord",
+    "Remember me": "\u0417\u0430\u043F\u043E\u043C\u043D\u0438\u0442\u044C \u043C\u0435\u043D\u044F",
+    "Forgot your password?": "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?",
+    "Create your account": "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    "Confirm password": "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u043F\u0430\u0440\u043E\u043B\u044C",
+    "Email address": "Email",
+    Or: "\u0418\u043B\u0438",
+    Singleplayer: "\u041E\u0434\u0438\u043D\u043E\u0447\u043D\u0430\u044F",
+    "Co-op": "\u041A\u043E\u043E\u043F",
+    Competitive: "\u0421\u043E\u0440\u0435\u0432\u043D\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439",
+    "Battle Royale": "Battle Royale",
+    "First-Person": "\u041E\u0442 \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u043B\u0438\u0446\u0430",
+    "Third-Person": "\u041E\u0442 \u0442\u0440\u0435\u0442\u044C\u0435\u0433\u043E \u043B\u0438\u0446\u0430",
+    Isometric: "\u0418\u0437\u043E\u043C\u0435\u0442\u0440\u0438\u044F",
+    "Side View": "\u0421\u0431\u043E\u043A\u0443",
+    "Top-Down": "\u0421\u0432\u0435\u0440\u0445\u0443",
+    "Open World": "\u041E\u0442\u043A\u0440\u044B\u0442\u044B\u0439 \u043C\u0438\u0440",
+    "Action RPG": "Action RPG",
+    "Track 100K+ games, share reviews, collections, and stories.": "\u041E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0439\u0442\u0435 100K+ \u0438\u0433\u0440, \u0434\u0435\u043B\u0438\u0442\u0435\u0441\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F\u043C\u0438, \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F\u043C\u0438 \u0438 \u0438\u0441\u0442\u043E\u0440\u0438\u044F\u043C\u0438.",
+    "Find your gaming crew on PANAX, relive every playthrough together.": "\u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0441\u0432\u043E\u044E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044E \u043D\u0430 PANAX \u0438 \u043F\u0435\u0440\u0435\u0436\u0438\u0432\u0430\u0439\u0442\u0435 \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u0432\u043C\u0435\u0441\u0442\u0435.",
+    "The next generation of Pok\xE9mon arrives": "\u041D\u043E\u0432\u043E\u0435 \u043F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u0435 Pok\xE9mon",
+    OS: "\u041E\u0421",
+    Processor: "\u041F\u0440\u043E\u0446\u0435\u0441\u0441\u043E\u0440",
+    Memory: "\u041F\u0430\u043C\u044F\u0442\u044C",
+    Graphics: "\u0412\u0438\u0434\u0435\u043E\u043A\u0430\u0440\u0442\u0430",
+    Storage: "\u041C\u0435\u0441\u0442\u043E \u043D\u0430 \u0434\u0438\u0441\u043A\u0435",
+    DirectX: "DirectX",
+    "Sound Card": "\u0417\u0432\u0443\u043A\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430",
+    "Additional Notes": "\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u043E",
+    "Completion rate": "\u041F\u0440\u043E\u0446\u0435\u043D\u0442 \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F",
+    Popularity: "\u041F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u044C",
+    Ranked: "\u041C\u0435\u0441\u0442\u043E",
+    helpful: "\u043F\u043E\u043B\u0435\u0437\u043D\u043E",
+    Helpful: "\u041F\u043E\u043B\u0435\u0437\u043D\u043E",
+    "Show full review": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E \u0446\u0435\u043B\u0438\u043A\u043E\u043C",
+    "Read full review": "\u0427\u0438\u0442\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E \u0446\u0435\u043B\u0438\u043A\u043E\u043C",
+    "This review contains spoilers": "\u0412 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438 \u0435\u0441\u0442\u044C \u0441\u043F\u043E\u0439\u043B\u0435\u0440\u044B",
+    "Spoiler warning": "\u0421\u043F\u043E\u0439\u043B\u0435\u0440\u044B",
+    "Expansions & DLC": "\u0414\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F \u0438 DLC",
+    Editions: "\u0418\u0437\u0434\u0430\u043D\u0438\u044F",
+    "Official Site": "\u041E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0430\u0439\u0442",
+    Website: "\u0421\u0430\u0439\u0442",
+    "Age Rating": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442\u043D\u043E\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433",
+    Series: "\u0421\u0435\u0440\u0438\u044F",
+    Franchise: "\u0424\u0440\u0430\u043D\u0448\u0438\u0437\u0430",
+    Adventure: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F",
+    Action: "\u042D\u043A\u0448\u0435\u043D",
+    Strategy: "\u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044F",
+    Simulation: "\u0421\u0438\u043C\u0443\u043B\u044F\u0442\u043E\u0440",
+    Indie: "\u0418\u043D\u0434\u0438",
+    Shooter: "\u0428\u0443\u0442\u0435\u0440",
+    Puzzle: "\u0413\u043E\u043B\u043E\u0432\u043E\u043B\u043E\u043C\u043A\u0430",
+    Platformer: "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435\u0440",
+    Racing: "\u0413\u043E\u043D\u043A\u0438",
+    Sports: "\u0421\u043F\u043E\u0440\u0442",
+    Horror: "\u0425\u043E\u0440\u0440\u043E\u0440",
+    Fighting: "\u0424\u0430\u0439\u0442\u0438\u043D\u0433",
+    "Visual Novel": "\u0412\u0438\u0437\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u043D\u043E\u0432\u0435\u043B\u043B\u0430",
+    RPG: "RPG",
+    Fantasy: "\u0424\u044D\u043D\u0442\u0435\u0437\u0438",
+    "Sci-Fi": "\u041D\u0430\u0443\u0447\u043D\u0430\u044F \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430",
+    Historical: "\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u043E\u0435",
+    Modern: "\u0421\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0441\u0442\u044C",
+    "in backlogs": "\u0432 \u0431\u044D\u043A\u043B\u043E\u0433\u0430\u0445",
+    "in wishlists": "\u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C",
+    "playing now": "\u0441\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "Based on": "\u041D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435",
+    results: "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432",
+    result: "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
+    "Reset filters": "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u0444\u0438\u043B\u044C\u0442\u0440\u044B",
+    "No filters applied": "\u0424\u0438\u043B\u044C\u0442\u0440\u044B \u043D\u0435 \u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u044B",
+    "Any platform": "\u041B\u044E\u0431\u0430\u044F \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430",
+    "Any genre": "\u041B\u044E\u0431\u043E\u0439 \u0436\u0430\u043D\u0440",
+    "Any year": "\u041B\u044E\u0431\u043E\u0439 \u0433\u043E\u0434",
+    Year: "\u0413\u043E\u0434",
+    From: "\u041E\u0442",
+    "Rating range": "\u0414\u0438\u0430\u043F\u0430\u0437\u043E\u043D \u043E\u0446\u0435\u043D\u043E\u043A",
+    "Include DLC": "\u0412\u043A\u043B\u044E\u0447\u0430\u044F DLC",
+    "Exclude DLC": "\u0411\u0435\u0437 DLC",
+    "Only games": "\u0422\u043E\u043B\u044C\u043A\u043E \u0438\u0433\u0440\u044B",
+    "Log in to rate": "\u0412\u043E\u0439\u0434\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043E\u0446\u0435\u043D\u0438\u0442\u044C",
+    "Log in to review": "\u0412\u043E\u0439\u0434\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Log in to add": "\u0412\u043E\u0439\u0434\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C",
+    "Sign in with email": "\u0412\u043E\u0439\u0442\u0438 \u043F\u043E email",
+    "Create an account": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    "By continuing, you agree to our": "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u044F, \u0432\u044B \u043F\u0440\u0438\u043D\u0438\u043C\u0430\u0435\u0442\u0435",
+    and: "\u0438",
+    "Home Feed": "\u041B\u0435\u043D\u0442\u0430",
+    "For you": "\u0414\u043B\u044F \u0432\u0430\u0441",
+    "Following feed": "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438",
+    "What's happening": "\u0427\u0442\u043E \u043F\u0440\u043E\u0438\u0441\u0445\u043E\u0434\u0438\u0442",
+    "Post something": "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u043F\u043E\u0441\u0442",
+    Repost: "\u0420\u0435\u043F\u043E\u0441\u0442",
+    Quote: "\u0426\u0438\u0442\u0430\u0442\u0430",
+    Bookmark: "\u0412 \u0437\u0430\u043A\u043B\u0430\u0434\u043A\u0438",
+    Bookmarks: "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438",
+    "Add game": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Remove from wishlist": "\u0423\u0431\u0440\u0430\u0442\u044C \u0438\u0437 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0433\u043E",
+    "Remove from backlog": "\u0423\u0431\u0440\u0430\u0442\u044C \u0438\u0437 \u0431\u044D\u043A\u043B\u043E\u0433\u0430",
+    "Mark as playing": "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C: \u0438\u0433\u0440\u0430\u044E",
+    "Mark as completed": "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C: \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E",
+    "Mark as dropped": "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C: \u0431\u0440\u043E\u0448\u0435\u043D\u043E",
+    "Mark as want to play": "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C: \u0445\u043E\u0447\u0443 \u0441\u044B\u0433\u0440\u0430\u0442\u044C",
+    "Your rating": "\u0412\u0430\u0448\u0430 \u043E\u0446\u0435\u043D\u043A\u0430",
+    "Community rating": "\u041E\u0446\u0435\u043D\u043A\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430",
+    "Global rating": "\u041E\u0431\u0449\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430",
+    "No reviews yet. Be the first!": "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0439 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442. \u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E!",
+    "Be the first to review this game": "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E \u043E\u0431 \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u0435",
+    "Sort by newest": "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043D\u043E\u0432\u044B\u0435",
+    "Sort by oldest": "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0441\u0442\u0430\u0440\u044B\u0435",
+    "Sort by rating": "\u041F\u043E \u043E\u0446\u0435\u043D\u043A\u0435",
+    Expand: "\u0420\u0430\u0437\u0432\u0435\u0440\u043D\u0443\u0442\u044C",
+    Collapse: "\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C",
+    "Show Less": "\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C",
+    "Show More": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0435\u0449\u0451",
+    "Load More": "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0435\u0449\u0451",
+    "Edit profile": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C",
+    "My Profile": "\u041C\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C",
+    "My Library": "\u041C\u043E\u044F \u0431\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0430",
+    "My Backlog": "\u041C\u043E\u0439 \u0431\u044D\u043A\u043B\u043E\u0433",
+    "My Wishlist": "\u041C\u043E\u0451 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+    "Recently viewed": "\u041D\u0435\u0434\u0430\u0432\u043D\u043E \u0441\u043C\u043E\u0442\u0440\u0435\u043B\u0438",
+    "Continue playing": "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Suggested for you": "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0430\u0446\u0438\u0438 \u0434\u043B\u044F \u0432\u0430\u0441",
+    "Because you played": "\u041F\u043E\u0442\u043E\u043C\u0443 \u0447\u0442\u043E \u0432\u044B \u0438\u0433\u0440\u0430\u043B\u0438 \u0432",
+    "Friends are playing": "\u0414\u0440\u0443\u0437\u044C\u044F \u0438\u0433\u0440\u0430\u044E\u0442",
+    "New from friends": "\u041D\u043E\u0432\u043E\u0435 \u043E\u0442 \u0434\u0440\u0443\u0437\u0435\u0439",
+    "Upcoming releases": "\u0411\u043B\u0438\u0436\u0430\u0439\u0448\u0438\u0435 \u0440\u0435\u043B\u0438\u0437\u044B",
+    "This week\\'s releases": "\u0420\u0435\u043B\u0438\u0437\u044B \u044D\u0442\u043E\u0439 \u043D\u0435\u0434\u0435\u043B\u0438",
+    "Coming this month": "\u0412 \u044D\u0442\u043E\u043C \u043C\u0435\u0441\u044F\u0446\u0435",
+    "Free to Play": "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F",
+    "Free-to-Play": "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F",
+    "Early access": "\u0420\u0430\u043D\u043D\u0438\u0439 \u0434\u043E\u0441\u0442\u0443\u043F",
+    Delisted: "\u0421\u043D\u044F\u0442\u0430 \u0441 \u043F\u0440\u043E\u0434\u0430\u0436\u0438",
+    Prototype: "\u041F\u0440\u043E\u0442\u043E\u0442\u0438\u043F",
+    Alpha: "\u0410\u043B\u044C\u0444\u0430",
+    Beta: "\u0411\u0435\u0442\u0430",
+    "Full Release": "\u041F\u043E\u043B\u043D\u044B\u0439 \u0440\u0435\u043B\u0438\u0437",
+    "Cross-platform": "\u041A\u0440\u043E\u0441\u0441\u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430",
+    "Cloud Saves": "\u041E\u0431\u043B\u0430\u0447\u043D\u044B\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F",
+    "Achievements supported": "\u0415\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F",
+    "Controller support": "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u043A\u0430 \u0433\u0435\u0439\u043C\u043F\u0430\u0434\u0430",
+    "Keyboard & Mouse": "\u041A\u043B\u0430\u0432\u0438\u0430\u0442\u0443\u0440\u0430 \u0438 \u043C\u044B\u0448\u044C",
+    Touch: "\u0421\u0435\u043D\u0441\u043E\u0440",
+    "VR Supported": "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u043A\u0430 VR",
+    "Online Co-op": "\u041E\u043D\u043B\u0430\u0439\u043D-\u043A\u043E\u043E\u043F",
+    "Local Co-op": "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u043A\u043E\u043E\u043F",
+    "Online Multiplayer": "\u041E\u043D\u043B\u0430\u0439\u043D-\u043C\u0443\u043B\u044C\u0442\u0438\u043F\u043B\u0435\u0435\u0440",
+    "Local Multiplayer": "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u043C\u0443\u043B\u044C\u0442\u0438\u043F\u043B\u0435\u0435\u0440",
+    "Split Screen": "\u0420\u0430\u0437\u0434\u0435\u043B\u0451\u043D\u043D\u044B\u0439 \u044D\u043A\u0440\u0430\u043D",
+    LAN: "LAN",
+    MMO: "MMO",
+    PvP: "PvP",
+    PvE: "PvE",
+    "Turn-Based": "\u041F\u043E\u0448\u0430\u0433\u043E\u0432\u0430\u044F",
+    "Real-Time": "\u0412 \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C \u0432\u0440\u0435\u043C\u0435\u043D\u0438",
+    Roguelike: "Roguelike",
+    Metroidvania: "Metroidvania",
+    Soulslike: "Soulslike",
+    Survival: "\u0412\u044B\u0436\u0438\u0432\u0430\u043D\u0438\u0435",
+    Sandbox: "\u041F\u0435\u0441\u043E\u0447\u043D\u0438\u0446\u0430",
+    Narrative: "\u041D\u0430\u0440\u0440\u0430\u0442\u0438\u0432",
+    "Story Rich": "\u0421\u044E\u0436\u0435\u0442\u043D\u0430\u044F",
+    "Pixel Graphics": "\u041F\u0438\u043A\u0441\u0435\u043B\u044C-\u0430\u0440\u0442",
+    "2D": "2D",
+    "3D": "3D",
+    Anime: "\u0410\u043D\u0438\u043C\u0435",
+    Cute: "\u041C\u0438\u043B\u043E\u0435",
+    Atmospheric: "\u0410\u0442\u043C\u043E\u0441\u0444\u0435\u0440\u043D\u043E\u0435",
+    Difficult: "\u0421\u043B\u043E\u0436\u043D\u0430\u044F",
+    Casual: "\u041A\u0430\u0437\u0443\u0430\u043B\u044C\u043D\u0430\u044F",
+    "Family Friendly": "\u0414\u043B\u044F \u0432\u0441\u0435\u0439 \u0441\u0435\u043C\u044C\u0438",
+    Mature: "\u0414\u043B\u044F \u0432\u0437\u0440\u043E\u0441\u043B\u044B\u0445",
+    NSFW: "18+",
+    "Discover games": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0439\u0442\u0435 \u0438\u0433\u0440\u044B",
+    "Browse games": "\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u0438\u0433\u0440",
+    "All Games": "\u0412\u0441\u0435 \u0438\u0433\u0440\u044B",
+    "All games": "\u0412\u0441\u0435 \u0438\u0433\u0440\u044B",
+    "Game Details": "\u041E\u0431 \u0438\u0433\u0440\u0435",
+    Media: "\u041C\u0435\u0434\u0438\u0430",
+    Trailer: "\u0422\u0440\u0435\u0439\u043B\u0435\u0440",
+    Trailers: "\u0422\u0440\u0435\u0439\u043B\u0435\u0440\u044B",
+    Videos: "\u0412\u0438\u0434\u0435\u043E",
+    Images: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F",
+    Artwork: "\u0410\u0440\u0442",
+    "Cover art": "\u041E\u0431\u043B\u043E\u0436\u043A\u0430",
+    Banner: "\u0411\u0430\u043D\u043D\u0435\u0440",
+    "Leave a Review": "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Post Review": "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Update Review": "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Delete Review": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Edit Review": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Your review": "\u0412\u0430\u0448\u0430 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F",
+    "Write your thoughts": "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435",
+    "What did you think?": "\u0427\u0442\u043E \u0432\u044B \u0434\u0443\u043C\u0430\u0435\u0442\u0435?",
+    "Rate and review": "\u041E\u0446\u0435\u043D\u0438\u0442\u0435 \u0438 \u043D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "No rating": "\u0411\u0435\u0437 \u043E\u0446\u0435\u043D\u043A\u0438",
+    "Half star": "\u041F\u043E\u043B\u043E\u0432\u0438\u043D\u0430 \u0437\u0432\u0435\u0437\u0434\u044B",
+    stars: "\u0437\u0432\u0451\u0437\u0434",
+    star: "\u0437\u0432\u0435\u0437\u0434\u0430",
+    "Out of 5": "\u0438\u0437 5",
+    "/5": "/5",
+    "Critic Score": "\u041E\u0446\u0435\u043D\u043A\u0430 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432",
+    "User Score": "\u041E\u0446\u0435\u043D\u043A\u0430 \u0438\u0433\u0440\u043E\u043A\u043E\u0432",
+    "PANAX Score": "\u041E\u0446\u0435\u043D\u043A\u0430 PANAX",
+    "How to set your profile public": "\u041A\u0430\u043A \u0441\u0434\u0435\u043B\u0430\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u043C",
+    "How to set Steam profile public": "\u041A\u0430\u043A \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C Steam",
+    "Community Guideline": "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430",
+    "Cookie Settings": "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 cookie",
+    "Manage cookies": "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 cookie",
+    "Accept all": "\u041F\u0440\u0438\u043D\u044F\u0442\u044C \u0432\u0441\u0435",
+    "Reject all": "\u041E\u0442\u043A\u043B\u043E\u043D\u0438\u0442\u044C \u0432\u0441\u0435",
+    "Necessary only": "\u0422\u043E\u043B\u044C\u043A\u043E \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u044B\u0435",
+    Customize: "\u041D\u0430\u0441\u0442\u0440\u043E\u0438\u0442\u044C",
+    "Save preferences": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438",
+    "Privacy Preferences": "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438",
+    "We value your privacy": "\u041C\u044B \u0446\u0435\u043D\u0438\u043C \u0432\u0430\u0448\u0443 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C",
+    "A platform built for gamers by gamers": "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430, \u0441\u043E\u0437\u0434\u0430\u043D\u043D\u0430\u044F \u0433\u0435\u0439\u043C\u0435\u0440\u0430\u043C\u0438 \u0434\u043B\u044F \u0433\u0435\u0439\u043C\u0435\u0440\u043E\u0432",
+    "Explore now": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C",
+    "Trending Games Now": "\u0412 \u0442\u0440\u0435\u043D\u0434\u0435",
+    "Hot in Community": "\u0413\u043E\u0440\u044F\u0447\u0435\u0435 \u0432 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0435",
+    "Epic Gameplay Moments": "\u042D\u043F\u0438\u0447\u043D\u044B\u0435 \u043C\u043E\u043C\u0435\u043D\u0442\u044B",
+    "What are your Top 10 games?": "\u041A\u0430\u043A\u0438\u0435 \u0432\u0430\u0448\u0438 \u0442\u043E\u043F-10 \u0438\u0433\u0440?",
+    "What's your favorite game of 2025?": "\u041A\u0430\u043A\u0430\u044F \u0432\u0430\u0448\u0430 \u043B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430 2025 \u0433\u043E\u0434\u0430?",
+    "What's your first stop?": "\u0421 \u0447\u0435\u0433\u043E \u043D\u0430\u0447\u043D\u0451\u0442\u0435?",
+    "Games most talked about right now.": "\u0418\u0433\u0440\u044B, \u043E \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0441\u0435\u0439\u0447\u0430\u0441 \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u0433\u043E\u0432\u043E\u0440\u044F\u0442.",
+    "ONLY ON PANAX": "\u0422\u041E\u041B\u042C\u041A\u041E \u041D\u0410 PANAX",
+    "PRE-ORDER": "\u041F\u0420\u0415\u0414\u0417\u0410\u041A\u0410\u0417",
+    "Step into PANAXT, where your gaming world comes to life.": "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u0432 PANAX \u2014 \u0437\u0434\u0435\u0441\u044C \u043E\u0436\u0438\u0432\u0430\u0435\u0442 \u0432\u0430\u0448 \u0438\u0433\u0440\u043E\u0432\u043E\u0439 \u043C\u0438\u0440.",
+    "c2026 PANAXT, Inc. All rights reserved.": "\xA9 2026 PANAX, Inc. \u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B.",
+    "\xA9 2026 PANAX, Inc. All rights reserved.": "\xA9 2026 PANAX, Inc. \u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B.",
+    "What PANAXT Offers": "\u0427\u0442\u043E \u0434\u0430\u0451\u0442 PANAX",
+    "PANAXT Was Born": "\u041F\u043E\u044F\u0432\u0438\u043B\u0441\u044F PANAX",
+    "PANAXT Journey in Numbers": "PANAX \u0432 \u0446\u0438\u0444\u0440\u0430\u0445",
+    "Check profiles on PANAX and connect with gamers!": "\u0421\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0444\u0438\u043B\u0438 \u043D\u0430 PANAX \u0438 \u0437\u043D\u0430\u043A\u043E\u043C\u044C\u0442\u0435\u0441\u044C \u0441 \u0433\u0435\u0439\u043C\u0435\u0440\u0430\u043C\u0438!",
+    "Discover 230,000+ games": "\u0411\u043E\u043B\u0435\u0435 230 000 \u0438\u0433\u0440",
+    "Discover and rate over 230,000 games!": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0439\u0442\u0435 \u0438 \u043E\u0446\u0435\u043D\u0438\u0432\u0430\u0439\u0442\u0435 \u0431\u043E\u043B\u0435\u0435 230 000 \u0438\u0433\u0440!",
+    "Explore and Rate games!": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0439\u0442\u0435 \u0438 \u043E\u0446\u0435\u043D\u0438\u0432\u0430\u0439\u0442\u0435 \u0438\u0433\u0440\u044B!",
+    "Explore more in the App!": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0438!",
+    "Explore new posts": "\u041D\u043E\u0432\u044B\u0435 \u043F\u043E\u0441\u0442\u044B",
+    "Explore trending games and collections on PANAX!": "\u0421\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0442\u0440\u0435\u043D\u0434\u043E\u0432\u044B\u0435 \u0438\u0433\u0440\u044B \u0438 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438 \u043D\u0430 PANAX!",
+    "Search all 400K+ games": "\u041F\u043E\u0438\u0441\u043A \u043F\u043E 400K+ \u0438\u0433\u0440\u0430\u043C",
+    "Search for games, posts, users or collections": "\u041F\u043E\u0438\u0441\u043A \u0438\u0433\u0440, \u043F\u043E\u0441\u0442\u043E\u0432, \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435\u0439 \u0438 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0439",
+    "Search for platforms": "\u041F\u043E\u0438\u0441\u043A \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C",
+    "Search Results": "\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B \u043F\u043E\u0438\u0441\u043A\u0430",
+    "Search users...": "\u041F\u043E\u0438\u0441\u043A \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435\u0439\u2026",
+    "Filter by": "\u0424\u0438\u043B\u044C\u0442\u0440",
+    "Filter by rating": "\u0424\u0438\u043B\u044C\u0442\u0440 \u043F\u043E \u043E\u0446\u0435\u043D\u043A\u0435",
+    "Sign in": "\u0412\u043E\u0439\u0442\u0438",
+    "Sign out": "\u0412\u044B\u0439\u0442\u0438",
+    "Sign up": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F",
+    "Sign up with Email": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u043F\u043E email",
+    "Join now": "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F",
+    "Join now and level up your gaming!": "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0438 \u043F\u0440\u043E\u043A\u0430\u0447\u0438\u0432\u0430\u0439 \u0441\u0432\u043E\u0439 \u0433\u0435\u0439\u043C\u0438\u043D\u0433!",
+    "Join the talk": "\u0412 \u043E\u0431\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u0435",
+    "Join us for free": "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E",
+    "Join us to see the full discussion": "\u0412\u043E\u0439\u0434\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u0432\u0438\u0434\u0435\u0442\u044C \u0432\u0441\u0451 \u043E\u0431\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u0435",
+    "View more": "\u0415\u0449\u0451",
+    "View less": "\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C",
+    "View full details": "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+    "View guide": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0433\u0430\u0439\u0434",
+    "See original": "\u041E\u0440\u0438\u0433\u0438\u043D\u0430\u043B",
+    "See translation": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043F\u0435\u0440\u0435\u0432\u043E\u0434",
+    "See what's dropping": "\u0427\u0442\u043E \u0432\u044B\u0445\u043E\u0434\u0438\u0442",
+    "New release": "\u041D\u043E\u0432\u0438\u043D\u043A\u0430",
+    "Coming soon": "\u0421\u043A\u043E\u0440\u043E",
+    "Add to": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432",
+    "Add to collection": "\u0412 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044E",
+    "Add games": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B",
+    "Add games to your wishlist!": "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0438\u0433\u0440\u044B \u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435!",
+    "Change status": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u0441\u0442\u0430\u0442\u0443\u0441",
+    "Change Rate": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043E\u0446\u0435\u043D\u043A\u0443",
+    "Change theme": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u0435\u043C\u0443",
+    "Change email": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C email",
+    "Change password": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u0430\u0440\u043E\u043B\u044C",
+    "Change your email": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C email",
+    "Change your password": "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u0430\u0440\u043E\u043B\u044C",
+    "Best rated": "\u041B\u0443\u0447\u0448\u0438\u0435 \u043F\u043E \u043E\u0446\u0435\u043D\u043A\u0430\u043C",
+    "All Platforms": "\u0412\u0441\u0435 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B",
+    "All Ratings": "\u0412\u0441\u0435 \u043E\u0446\u0435\u043D\u043A\u0438",
+    "All clear!": "\u0412\u0441\u0451 \u0447\u0438\u0441\u0442\u043E!",
+    "Back to Community": "\u041A \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0443",
+    "Be the first to share thoughts": "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0435\u0440\u0432\u044B\u043C",
+    "Be the first to write a review": "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+    "Build your wishlist": "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+    "Chat with fellow gamers": "\u041E\u0431\u0449\u0430\u0439\u0442\u0435\u0441\u044C \u0441 \u0433\u0435\u0439\u043C\u0435\u0440\u0430\u043C\u0438",
+    "Check it out in the App": "\u0421\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0432 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0438",
+    "Check out the Collections": "\u0421\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    "Check your inbox": "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u043F\u043E\u0447\u0442\u0443",
+    "Choose a label for this post": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0440\u043B\u044B\u043A \u0434\u043B\u044F \u043F\u043E\u0441\u0442\u0430",
+    "Collection name": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    "Collection description": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+    "Comments are disabled": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438 \u043E\u0442\u043A\u043B\u044E\u0447\u0435\u043D\u044B",
+    "Comments are turned off": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438 \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u044B",
+    "Auto (Recommended)": "\u0410\u0432\u0442\u043E (\u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F)",
+    "Attention!": "\u0412\u043D\u0438\u043C\u0430\u043D\u0438\u0435!",
+    "An error occurred. Please try again.": "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437.",
+    "Are you sure you want to sign out?": "\u0422\u043E\u0447\u043D\u043E \u0432\u044B\u0439\u0442\u0438?",
+    "Are you sure you want to delete this review?": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E?",
+    "Are you sure you want to delete this comment?": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439?",
+    "Are you sure you want to delete this post?": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u043F\u043E\u0441\u0442?",
+    "Are you sure you want to close this popup?": "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u044D\u0442\u043E \u043E\u043A\u043D\u043E?",
+    "Are you sure you want to delete your account?": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442?",
+    "By creating an account, you agree to the": "\u0421\u043E\u0437\u0434\u0430\u0432\u0430\u044F \u0430\u043A\u043A\u0430\u0443\u043D\u0442, \u0432\u044B \u043F\u0440\u0438\u043D\u0438\u043C\u0430\u0435\u0442\u0435",
+    "Can't find games?": "\u041D\u0435 \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u0438\u0433\u0440\u044B?",
+    "Can't find this game": "\u0418\u0433\u0440\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430",
+    "Cannot find user": "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D",
+    "Can't message this user": "\u041D\u0435\u043B\u044C\u0437\u044F \u043D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u044D\u0442\u043E\u043C\u0443 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044E",
+    "Can't view this collection": "\u041D\u0435\u043B\u044C\u0437\u044F \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u044D\u0442\u0443 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044E",
+    "Come back anytime!": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0439\u0442\u0435\u0441\u044C \u0432 \u043B\u044E\u0431\u043E\u0435 \u0432\u0440\u0435\u043C\u044F!",
+    "Following games": "\u0418\u0433\u0440\u044B \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430\u0445",
+    "Following ratings": "\u041E\u0446\u0435\u043D\u043A\u0438 \u043F\u043E\u0434\u043F\u0438\u0441\u043E\u043A",
+    "Log in with Steam": "\u0412\u043E\u0439\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 Steam",
+    "News only": "\u0422\u043E\u043B\u044C\u043A\u043E \u043D\u043E\u0432\u043E\u0441\u0442\u0438",
+    "News source": "\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A",
+    "Reviews only": "\u0422\u043E\u043B\u044C\u043A\u043E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "Wishlist Users": "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C",
+    "Hello Player! Thank you for using PANAX.": "\u041F\u0440\u0438\u0432\u0435\u0442! \u0421\u043F\u0430\u0441\u0438\u0431\u043E, \u0447\u0442\u043E \u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0435\u0441\u044C PANAX.",
+    "Thanks for your time!": "\u0421\u043F\u0430\u0441\u0438\u0431\u043E \u0437\u0430 \u0432\u0430\u0448\u0435 \u0432\u0440\u0435\u043C\u044F!",
+    "How long have you been using PANAX?": "\u041A\u0430\u043A \u0434\u0430\u0432\u043D\u043E \u0432\u044B \u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0435\u0441\u044C PANAX?",
+    "Less than a week": "\u041C\u0435\u043D\u044C\u0448\u0435 \u043D\u0435\u0434\u0435\u043B\u0438",
+    "Over 6 months": "\u0411\u043E\u043B\u044C\u0448\u0435 6 \u043C\u0435\u0441\u044F\u0446\u0435\u0432",
+    "1 to 4 weeks": "1\u20134 \u043D\u0435\u0434\u0435\u043B\u0438",
+    "1 to 3 months": "1\u20133 \u043C\u0435\u0441\u044F\u0446\u0430",
+    "3 to 6 months": "3\u20136 \u043C\u0435\u0441\u044F\u0446\u0435\u0432",
+    "Where do you use PANAX the most?": "\u0413\u0434\u0435 \u0432\u044B \u0447\u0430\u0449\u0435 \u0432\u0441\u0435\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0435\u0441\u044C PANAX?",
+    "How could we improve PANAX to better meet your needs?": "\u041A\u0430\u043A \u043D\u0430\u043C \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C PANAX?",
+    "(Optional) PANAX Username": "(\u041D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E) \u0418\u043C\u044F \u0432 PANAX",
+    "If you enter your PANAX Username, we'll let you know how we're updating your feedback :)": "\u0415\u0441\u043B\u0438 \u0443\u043A\u0430\u0436\u0435\u0442\u0435 \u0438\u043C\u044F \u0432 PANAX, \u043C\u044B \u0441\u043E\u043E\u0431\u0449\u0438\u043C, \u043A\u0430\u043A \u0443\u0447\u043B\u0438 \u0432\u0430\u0448 \u043E\u0442\u0437\u044B\u0432 :)",
+    "This quick survey helps us understand what's working and what's not. Your honest feedback shapes what we build next.": "\u041A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u043E\u043F\u0440\u043E\u0441 \u043F\u043E\u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u043D\u044F\u0442\u044C, \u0447\u0442\u043E \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442. \u0412\u0430\u0448\u0438 \u043E\u0442\u0432\u0435\u0442\u044B \u0432\u043B\u0438\u044F\u044E\u0442 \u043D\u0430 \u0442\u043E, \u0447\u0442\u043E \u043C\u044B \u0434\u0435\u043B\u0430\u0435\u043C \u0434\u0430\u043B\u044C\u0448\u0435.",
+    "Bring the games you've played": "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u044B",
+    "Bring your achievements!": "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0434\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F!",
+    "Bring your trophies!": "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0442\u0440\u043E\u0444\u0435\u0438!",
+    "Build feed with your vibe": "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u043B\u0435\u043D\u0442\u0443 \u043F\u043E\u0434 \u0441\u0435\u0431\u044F",
+    "Avatar Hub": "\u0410\u0432\u0430\u0442\u0430\u0440-\u0445\u0430\u0431",
+    "Avatar customization": "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u0430\u0432\u0430\u0442\u0430\u0440\u0430",
+    "AI Summary": "\u0418\u0418-\u0441\u0432\u043E\u0434\u043A\u0430",
+    "Activity insights": "\u0410\u043D\u0430\u043B\u0438\u0442\u0438\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u0438",
+    "All-Time Recap": "\u0418\u0442\u043E\u0433\u0438 \u0437\u0430 \u0432\u0441\u0451 \u0432\u0440\u0435\u043C\u044F",
+    "Ambassador account": "\u0410\u043A\u043A\u0430\u0443\u043D\u0442 \u0430\u043C\u0431\u0430\u0441\u0441\u0430\u0434\u043E\u0440\u0430",
+    "Business account": "\u0411\u0438\u0437\u043D\u0435\u0441-\u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    "Blocked management": "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0435",
+    "Block this user": "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C",
+    "Bronze Trophy": "\u0411\u0440\u043E\u043D\u0437\u043E\u0432\u044B\u0439 \u0442\u0440\u043E\u0444\u0435\u0439",
+    "Card & Board Game": "\u041A\u0430\u0440\u0442\u043E\u0447\u043D\u044B\u0435 \u0438 \u043D\u0430\u0441\u0442\u043E\u043B\u044C\u043D\u044B\u0435",
+    "Casual or cozy games": "\u041A\u0430\u0437\u0443\u0430\u043B\u044C\u043D\u044B\u0435 \u0438 \u0443\u044E\u0442\u043D\u044B\u0435 \u0438\u0433\u0440\u044B",
+    "Action or adventure games": "\u042D\u043A\u0448\u0435\u043D \u0438 \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F",
+    "Classic consoles": "\u041A\u043B\u0430\u0441\u0441\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u043A\u043E\u043D\u0441\u043E\u043B\u0438",
+    "Clean and easy-to-use design": "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u0438 \u0443\u0434\u043E\u0431\u043D\u044B\u0439 \u0434\u0438\u0437\u0430\u0439\u043D",
+    "Check Privacy Policy": "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438",
+    "Claim submitted successfully": "\u0417\u0430\u044F\u0432\u043A\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430",
+    "Comment added successfully": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D",
+    "Comment deleted successfully": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u0443\u0434\u0430\u043B\u0451\u043D",
+    "Comment updated successfully": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043E\u0431\u043D\u043E\u0432\u043B\u0451\u043D",
+    "Profile updated successfully!": "\u041F\u0440\u043E\u0444\u0438\u043B\u044C \u043E\u0431\u043D\u043E\u0432\u043B\u0451\u043D!",
+    "Add nintendo friend code": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u0434 \u0434\u0440\u0443\u0433\u0430 Nintendo",
+    "Follows you": "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D \u043D\u0430 \u0432\u0430\u0441",
+    "Report errors/bugs": "\u0421\u043E\u043E\u0431\u0449\u0438\u0442\u044C \u043E\u0431 \u043E\u0448\u0438\u0431\u043A\u0435",
+    "How does Level work on PANAX?": "\u041A\u0430\u043A \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0432 PANAX?",
+    "10 GAMES": "10 \u0418\u0413\u0420",
+    "10 Games to Know Me": "10 \u0438\u0433\u0440, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u043C\u0435\u043D\u044F \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0437\u0443\u044E\u0442",
+    "Log in daily for Exp. Get a bonus on Day 7!": "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0437\u0430 \u043E\u043F\u044B\u0442\u043E\u043C. \u0411\u043E\u043D\u0443\u0441 \u043D\u0430 7-\u0439 \u0434\u0435\u043D\u044C!",
+    "Be sure to rate your games!": "\u041D\u0435 \u0437\u0430\u0431\u0443\u0434\u044C\u0442\u0435 \u043E\u0446\u0435\u043D\u0438\u0442\u044C \u0441\u0432\u043E\u0438 \u0438\u0433\u0440\u044B!",
+    "Any games you decided to drop?": "\u0415\u0441\u0442\u044C \u0431\u0440\u043E\u0448\u0435\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u044B?",
+    "App Store or Google Play": "App Store \u0438\u043B\u0438 Google Play",
+    "At least 2 characters": "\u041C\u0438\u043D\u0438\u043C\u0443\u043C 2 \u0441\u0438\u043C\u0432\u043E\u043B\u0430",
+    "At PANAX, time spent playing is experience earned.": "\u0412 PANAX \u0432\u0440\u0435\u043C\u044F \u0432 \u0438\u0433\u0440\u0430\u0445 \u2014 \u044D\u0442\u043E \u043E\u043F\u044B\u0442.",
+    "Based on actual 24-hour peak player counts from Steam.": "\u041F\u043E \u043F\u0438\u043A\u043E\u0432\u043E\u043C\u0443 \u043E\u043D\u043B\u0430\u0439\u043D\u0443 Steam \u0437\u0430 24 \u0447\u0430\u0441\u0430.",
+    "Based on players with linked PSN, Xbox, or Steam accounts.": "\u041F\u043E \u0438\u0433\u0440\u043E\u043A\u0430\u043C \u0441 \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u043C\u0438 PSN, Xbox \u0438\u043B\u0438 Steam.",
+    "Better game collection and account-sync features": "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044E \u0438 \u0441\u0438\u043D\u0445\u0440\u043E\u043D\u0438\u0437\u0430\u0446\u0438\u044E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u043E\u0432",
+    "Better performance, design, or usability": "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C, \u0434\u0438\u0437\u0430\u0439\u043D \u0438\u043B\u0438 \u0443\u0434\u043E\u0431\u0441\u0442\u0432\u043E",
+    "Browsing game news or updates": "\u0427\u0438\u0442\u0430\u044E \u043D\u043E\u0432\u043E\u0441\u0442\u0438 \u0438 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F",
+    "Customizing or using my avatar": "\u041D\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u044E \u0430\u0432\u0430\u0442\u0430\u0440",
+    "Built by Physical Game Fans": "\u0421\u0434\u0435\u043B\u0430\u043D\u043E \u0444\u0430\u043D\u0430\u0442\u0430\u043C\u0438 \u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u0438\u0445 \u0438\u0437\u0434\u0430\u043D\u0438\u0439",
+    "Black Myth: Wukong Merch": "\u041C\u0435\u0440\u0447 Black Myth: Wukong",
+    "Black Myth: Wukong Merch and more!": "\u041C\u0435\u0440\u0447 Black Myth: Wukong \u0438 \u0434\u0440\u0443\u0433\u043E\u0435!",
+    "A Few Final Questions": "\u0415\u0449\u0451 \u043F\u0430\u0440\u0430 \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432",
+    "A few things you might be wondering": "\u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E, \u0432\u0430\u043C \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u043E",
+    "Ask us anything about the referral program.": "\u0421\u043F\u0440\u043E\u0441\u0438\u0442\u0435 \u043E \u0440\u0435\u0444\u0435\u0440\u0430\u043B\u044C\u043D\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0435.",
+    "A friend, family member, or colleague": "\u0414\u0440\u0443\u0433, \u0440\u043E\u0434\u0441\u0442\u0432\u0435\u043D\u043D\u0438\u043A \u0438\u043B\u0438 \u043A\u043E\u043B\u043B\u0435\u0433\u0430",
+    "Account creation": "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430",
+    "All locked items removed! Now you can save.": "\u0411\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0438 \u0441\u043D\u044F\u0442\u044B. \u041C\u043E\u0436\u043D\u043E \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C.",
+    "All the details before your next adventure.": "\u0412\u0441\u0435 \u0434\u0435\u0442\u0430\u043B\u0438 \u043F\u0435\u0440\u0435\u0434 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u043C \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435\u043C.",
+    "An account with this email doesn't exist. Please check your email and try again.": "\u0410\u043A\u043A\u0430\u0443\u043D\u0442\u0430 \u0441 \u0442\u0430\u043A\u0438\u043C email \u043D\u0435\u0442. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0430\u0434\u0440\u0435\u0441 \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0441\u043D\u043E\u0432\u0430.",
+    "An unexpected error occurred while toggling like.": "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043B\u0430\u0439\u043A.",
+    "and every game comes backed by honest reviews from the community.": "\u0438 \u0443 \u043A\u0430\u0436\u0434\u043E\u0439 \u0438\u0433\u0440\u044B \u0435\u0441\u0442\u044C \u0447\u0435\u0441\u0442\u043D\u044B\u0435 \u043E\u0442\u0437\u044B\u0432\u044B \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430.",
+    "Android app": "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F Android",
+    "are you leaving?": "\u0423\u0436\u0435 \u0443\u0445\u043E\u0434\u0438\u0442\u0435?",
+    "Awesome games": "\u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0435 \u0438\u0433\u0440\u044B",
+    "Awful games": "\u0423\u0436\u0430\u0441\u043D\u044B\u0435 \u0438\u0433\u0440\u044B",
+    "Badges:": "\u0417\u043D\u0430\u0447\u043A\u0438:",
+    "Block @{username}": "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C @{username}",
+    "Can you recall the emotions you felt while playing?": "\u041F\u043E\u043C\u043D\u0438\u0442\u0435 \u044D\u043C\u043E\u0446\u0438\u0438 \u043E\u0442 \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F?",
+    "A quiet moment is the perfect time to do a Review": "\u0422\u0438\u0445\u0438\u0439 \u043C\u043E\u043C\u0435\u043D\u0442 \u2014 \u0438\u0434\u0435\u0430\u043B\u044C\u043D\u043E\u0435 \u0432\u0440\u0435\u043C\u044F \u0434\u043B\u044F \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "A fictional offer inspired by your gaming history. Not a real job offer or salary guarantee.": "\u0428\u0443\u0442\u043E\u0447\u043D\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043F\u043E \u0432\u0430\u0448\u0435\u0439 \u0438\u0433\u0440\u043E\u0432\u043E\u0439 \u0438\u0441\u0442\u043E\u0440\u0438\u0438. \u041D\u0435 \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0430\u044F \u0440\u0430\u0431\u043E\u0442\u0430 \u0438 \u043D\u0435 \u0433\u0430\u0440\u0430\u043D\u0442\u0438\u044F \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u044B.",
+    "Changing the sort option will reset your manual order, and this action cannot be undone.": "\u0421\u043C\u0435\u043D\u0430 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0438 \u0441\u0431\u0440\u043E\u0441\u0438\u0442 \u0440\u0443\u0447\u043D\u043E\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A. \u042D\u0442\u043E \u043D\u0435\u043B\u044C\u0437\u044F \u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C.",
+    "Check your internet connection or try again.": "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0441\u043D\u043E\u0432\u0430.",
+    "Choose a maximum of 3": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043D\u0435 \u0431\u043E\u043B\u044C\u0448\u0435 3",
+    "Choose as many as you like, and you're all set!": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0443\u0433\u043E\u0434\u043D\u043E \u2014 \u0438 \u0433\u043E\u0442\u043E\u0432\u043E!",
+    "Choose your playtime to explore your fictional earning potential.": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043D\u0430\u0438\u0433\u0440\u0430\u043D\u043D\u043E\u0435 \u0432\u0440\u0435\u043C\u044F \u0438 \u0443\u0437\u043D\u0430\u0439\u0442\u0435 \xAB\u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443\xBB.",
+    "Checking all of your games to update your achievement info. The more games you have, the longer this can take.": "\u041E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u043C \u0434\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F \u043F\u043E \u0432\u0441\u0435\u043C \u0438\u0433\u0440\u0430\u043C. \u0427\u0435\u043C \u0431\u043E\u043B\u044C\u0448\u0435 \u0438\u0433\u0440, \u0442\u0435\u043C \u0434\u043E\u043B\u044C\u0448\u0435.",
+    "Checking all of your games to update your trophy info. The more games you have, the longer this can take.": "\u041E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u043C \u0442\u0440\u043E\u0444\u0435\u0438 \u043F\u043E \u0432\u0441\u0435\u043C \u0438\u0433\u0440\u0430\u043C. \u0427\u0435\u043C \u0431\u043E\u043B\u044C\u0448\u0435 \u0438\u0433\u0440, \u0442\u0435\u043C \u0434\u043E\u043B\u044C\u0448\u0435.",
+    "See all {count}": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 ({count})",
+    "See {count} results": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C {count} \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432",
+    "See {count} result": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C {count} \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
+    "Filters ({count})": "\u0424\u0438\u043B\u044C\u0442\u0440\u044B ({count})",
+    "{count} games": "{count} \u0438\u0433\u0440",
+    "{count} game": "{count} \u0438\u0433\u0440\u0430",
+    "{count} ratings": "{count} \u043E\u0446\u0435\u043D\u043E\u043A",
+    "{count} rating": "{count} \u043E\u0446\u0435\u043D\u043A\u0430",
+    "{count} likes": "{count} \u043B\u0430\u0439\u043A\u043E\u0432",
+    "{count} like": "{count} \u043B\u0430\u0439\u043A",
+    "{count} comments": "{count} \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432",
+    "{count} comment": "{count} \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+    "{count} posts": "{count} \u043F\u043E\u0441\u0442\u043E\u0432",
+    "{count} post": "{count} \u043F\u043E\u0441\u0442",
+    "{count} active players": "{count} \u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0445 \u0438\u0433\u0440\u043E\u043A\u043E\u0432",
+    "{count}d ago": "{count} \u0434\u043D. \u043D\u0430\u0437\u0430\u0434",
+    "{count}h ago": "{count} \u0447 \u043D\u0430\u0437\u0430\u0434",
+    "{count}m ago": "{count} \u043C\u0438\u043D \u043D\u0430\u0437\u0430\u0434",
+    "{count}s ago": "{count} \u0441\u0435\u043A \u043D\u0430\u0437\u0430\u0434",
+    "{time} ago": "{time} \u043D\u0430\u0437\u0430\u0434",
+    "{username}'s Space": "\u041F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E {username}",
+    "Also block {username}": "\u0422\u0430\u043A\u0436\u0435 \u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C {username}",
+    "Available from {level}": "\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0441 {level}",
+    "Filters: {names}": "\u0424\u0438\u043B\u044C\u0442\u0440\u044B: {names}",
+    "Add games to {status}": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 {status}",
+    Beaten: "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E",
+    Quit: "\u0411\u0440\u043E\u0448\u0435\u043D\u043E",
+    "following-common": "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438",
+    "follow-common": "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0430",
+    Multiplayer: "\u041C\u0443\u043B\u044C\u0442\u0438\u043F\u043B\u0435\u0435\u0440",
+    Similar: "\u041F\u043E\u0445\u043E\u0436\u0438\u0435",
+    "Now playing": "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "Now Playing": "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "Most playing": "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "You're all caught up": "\u0412\u044B \u0432\u0441\u0451 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u043B\u0438",
+    "Visit the Latest tab for more.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432\u043E \u0432\u043A\u043B\u0430\u0434\u043A\u0443 \xAB\u0421\u0432\u0435\u0436\u0435\u0435\xBB.",
+    "Follow games and gamers to build your own feed": "\u041F\u043E\u0434\u043F\u0438\u0448\u0438\u0442\u0435\u0441\u044C \u043D\u0430 \u0438\u0433\u0440\u044B \u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432, \u0447\u0442\u043E\u0431\u044B \u0441\u043E\u0431\u0440\u0430\u0442\u044C \u0441\u0432\u043E\u044E \u043B\u0435\u043D\u0442\u0443",
+    "No games followed yet": "\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043F\u043E\u0434\u043F\u0438\u0441\u043E\u043A \u043D\u0430 \u0438\u0433\u0440\u044B",
+    "Stay connected with the games you love.": "\u0421\u043B\u0435\u0434\u0438\u0442\u0435 \u0437\u0430 \u043B\u044E\u0431\u0438\u043C\u044B\u043C\u0438 \u0438\u0433\u0440\u0430\u043C\u0438.",
+    "People You Follow": "\u041B\u044E\u0434\u0438, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0432\u044B \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043D\u044B",
+    "Discover Games": "\u041E\u0431\u0437\u043E\u0440 \u0438\u0433\u0440",
+    "Join the Ultimate Gaming Community!": "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u043A \u0433\u043B\u0430\u0432\u043D\u043E\u043C\u0443 \u0438\u0433\u0440\u043E\u0432\u043E\u043C\u0443 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0443!",
+    "Join the Ultimate Gaming Community": "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u043A \u0433\u043B\u0430\u0432\u043D\u043E\u043C\u0443 \u0438\u0433\u0440\u043E\u0432\u043E\u043C\u0443 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0443",
+    "Discover, track, and share your gaming journey with fellow enthusiasts.": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0439, \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0439 \u0438 \u0434\u0435\u043B\u0438\u0441\u044C \u0438\u0433\u0440\u043E\u0432\u044B\u043C \u043F\u0443\u0442\u0451\u043C \u0441 \u0435\u0434\u0438\u043D\u043E\u043C\u044B\u0448\u043B\u0435\u043D\u043D\u0438\u043A\u0430\u043C\u0438.",
+    "Discover, track, and share your gaming journey with fellow enthusiasts": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0439, \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0439 \u0438 \u0434\u0435\u043B\u0438\u0441\u044C \u0438\u0433\u0440\u043E\u0432\u044B\u043C \u043F\u0443\u0442\u0451\u043C \u0441 \u0435\u0434\u0438\u043D\u043E\u043C\u044B\u0448\u043B\u0435\u043D\u043D\u0438\u043A\u0430\u043C\u0438",
+    "Also Playing": "\u0422\u043E\u0436\u0435 \u0438\u0433\u0440\u0430\u044E\u0442",
+    "Also Wishlisted": "\u0422\u043E\u0436\u0435 \u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C",
+    "Public Lists": "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0435 \u0441\u043F\u0438\u0441\u043A\u0438",
+    "Most Liked": "\u0421\u0430\u043C\u044B\u0435 \u043B\u044E\u0431\u0438\u043C\u044B\u0435",
+    NEW: "\u041D\u041E\u0412\u041E\u0415",
+    HOT: "\u0413\u041E\u0420\u042F\u0427\u0415\u0415",
+    "View Full Details": "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+    "Set status": "\u0421\u0442\u0430\u0442\u0443\u0441",
+    Status: "\u0421\u0442\u0430\u0442\u0443\u0441",
+    Release: "\u0420\u0435\u043B\u0438\u0437",
+    Follower: "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A",
+    "Game info": "\u041E\u0431 \u0438\u0433\u0440\u0435",
+    Information: "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F",
+    "How was it?": "\u041A\u0430\u043A \u0432\u0430\u043C?",
+    "Players with this game": "\u0418\u0433\u0440\u043E\u043A\u0438 \u0441 \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u043E\u0439",
+    "Suggest an edit": "\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u0442\u044C \u043F\u0440\u0430\u0432\u043A\u0443",
+    "See something wrong?": "\u041D\u0430\u0448\u043B\u0438 \u043E\u0448\u0438\u0431\u043A\u0443?",
+    Storyline: "\u0421\u044E\u0436\u0435\u0442",
+    "Most helpful reviews": "\u0421\u0430\u043C\u044B\u0435 \u043F\u043E\u043B\u0435\u0437\u043D\u044B\u0435 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+    "based on": "\u043D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435",
+    "More status": "\u0415\u0449\u0451 \u0441\u0442\u0430\u0442\u0443\u0441\u044B",
+    "Remove status?": "\u0423\u0431\u0440\u0430\u0442\u044C \u0441\u0442\u0430\u0442\u0443\u0441?",
+    "Select a platform": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0443",
+    "Other platforms in mind?": "\u0414\u0440\u0443\u0433\u0430\u044F \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0430?",
+    "Player data": "\u0414\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432",
+    "Nothing to see yet": "\u041F\u043E\u043A\u0430 \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435\u0442",
+    DLCs: "DLC",
+    Expansions: "\u0414\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F",
+    Keyword: "\u041A\u043B\u044E\u0447\u0435\u0432\u043E\u0435 \u0441\u043B\u043E\u0432\u043E",
+    "Main Story": "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0441\u044E\u0436\u0435\u0442",
+    "Main + Sides": "\u0421\u044E\u0436\u0435\u0442 + \u043F\u043E\u0431\u043E\u0447\u043A\u0438",
+    "Main + Extra": "\u0421\u044E\u0436\u0435\u0442 + \u043F\u043E\u0431\u043E\u0447\u043A\u0438",
+    Completionist: "100% \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u0435",
+    "How Long To Beat": "How Long To Beat",
+    "Posts only": "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u0441\u0442\u044B",
+    "New collection": "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F",
+    "What's Buzzing?": "\u041E \u0447\u0451\u043C \u0433\u043E\u0432\u043E\u0440\u044F\u0442?",
+    "Most talked about right now": "\u0421\u0435\u0439\u0447\u0430\u0441 \u043E\u0431\u0441\u0443\u0436\u0434\u0430\u044E\u0442 \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E",
+    "Who to follow": "\u041A\u043E\u0433\u043E \u0447\u0438\u0442\u0430\u0442\u044C",
+    "New post": "\u041D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442",
+    "What game is this about?": "\u041E \u043A\u0430\u043A\u043E\u0439 \u0438\u0433\u0440\u0435 \u043F\u043E\u0441\u0442?",
+    "What's on your mind? Use ## to tag a game": "\u041E \u0447\u0451\u043C \u0434\u0443\u043C\u0430\u0435\u0448\u044C? \u0427\u0435\u0440\u0435\u0437 ## \u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Spoiler alert": "\u0421\u043F\u043E\u0439\u043B\u0435\u0440",
+    "Turn off comments": "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438",
+    "Level Up!": "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!",
+    "Level up!": "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!",
+    "Level up": "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C",
+    "Check your profile to see what's new.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "Check your profile to see what\u2019s new.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "just dropped a new post": "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442",
+    "dropped a new post": "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442",
+    "replied on your comment": "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+    "replied to your comment": "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+    "Level Up": "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C",
+    "\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up!": "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!",
+    "\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up": "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C",
+    "is now": "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430",
+    "Get it": "\u041A\u0443\u043F\u0438\u0442\u0435",
+    "Get it on Steam": "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam",
+    "Get it on Steam for": "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430",
+    "before the sale ends": "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438",
+    "before the sale ends on": "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438",
+    "Steam for": "Steam \u0437\u0430",
+    "see what's new.": ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "see what's new": ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E",
+    "to see what's new.": ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "to see what's new": ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E",
+    "Frequently used": "\u0427\u0430\u0441\u0442\u043E \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0435",
+    "Frequently Used": "\u0427\u0430\u0441\u0442\u043E \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0435",
+    "Smileys & People": "\u0421\u043C\u0430\u0439\u043B\u044B \u0438 \u043B\u044E\u0434\u0438",
+    "People & Body": "\u041B\u044E\u0434\u0438 \u0438 \u0442\u0435\u043B\u043E",
+    "Animals & Nature": "\u0416\u0438\u0432\u043E\u0442\u043D\u044B\u0435 \u0438 \u043F\u0440\u0438\u0440\u043E\u0434\u0430",
+    "Food & Drink": "\u0415\u0434\u0430 \u0438 \u043D\u0430\u043F\u0438\u0442\u043A\u0438",
+    "Travel & Places": "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F \u0438 \u043C\u0435\u0441\u0442\u0430",
+    Objects: "\u041F\u0440\u0435\u0434\u043C\u0435\u0442\u044B",
+    Symbols: "\u0421\u0438\u043C\u0432\u043E\u043B\u044B",
+    Flags: "\u0424\u043B\u0430\u0433\u0438",
+    "Pick an emoji...": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438\u2026",
+    "Log in daily to level up unlock avatar items! Streak resets daily at 3 AM.": "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.",
+    "You're on a 2-day streak": "\u0421\u0435\u0440\u0438\u044F: 2 \u0434\u043D\u044F",
+    Exp: "\u041E\u043F\u044B\u0442",
+    "Pick an emoji": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438",
+    "Search emoji": "\u041F\u043E\u0438\u0441\u043A \u044D\u043C\u043E\u0434\u0437\u0438",
+    "Tag a game": "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443",
+    "Enter a game title": "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0433\u0440\u044B",
+    "Link games so others can jump straight into the info! In comments, simply type ## to link.": "\u041E\u0442\u043C\u0435\u0447\u0430\u0439\u0442\u0435 \u0438\u0433\u0440\u044B, \u0447\u0442\u043E\u0431\u044B \u0434\u0440\u0443\u0433\u0438\u0435 \u0441\u0440\u0430\u0437\u0443 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u043B\u0438 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443. \u0412 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F\u0445 \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0438\u0448\u0438\u0442\u0435 ##.",
+    "Games you posted about in the last 7 days, or trending games.": "\u0418\u0433\u0440\u044B, \u043E \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0432\u044B \u043F\u0438\u0441\u0430\u043B\u0438 \u0437\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 7 \u0434\u043D\u0435\u0439, \u0438 \u0438\u0433\u0440\u044B \u0432 \u0442\u0440\u0435\u043D\u0434\u0435.",
+    Tips: "\u0421\u043E\u0432\u0435\u0442\u044B",
+    Ask: "\u0412\u043E\u043F\u0440\u043E\u0441",
+    LFG: "\u0418\u0449\u0443 \u043F\u0430\u0442\u0438",
+    Flex: "\u0424\u043B\u0435\u043A\u0441",
+    Quiz: "\u0412\u0438\u043A\u0442\u043E\u0440\u0438\u043D\u0430",
+    Impressions: "\u0412\u043F\u0435\u0447\u0430\u0442\u043B\u0435\u043D\u0438\u044F",
+    Moments: "\u041C\u043E\u043C\u0435\u043D\u0442\u044B",
+    Rant: "\u041D\u0430\u043A\u0438\u043F\u0435\u043B\u043E",
+    Deal: "\u0421\u0434\u0435\u043B\u043A\u0430",
+    "Off-Topic": "\u041E\u0444\u0444\u0442\u043E\u043F",
+    "Off Topic": "\u041E\u0444\u0444\u0442\u043E\u043F",
+    Meme: "\u041C\u0435\u043C",
+    Haul: "\u041D\u0430\u0445\u043E\u0434\u043A\u0438",
+    "Not interested in this game?": "\u042D\u0442\u0430 \u0438\u0433\u0440\u0430 \u043D\u0435 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u0430?",
+    Hide: "\u0421\u043A\u0440\u044B\u0442\u044C",
+    "News flash": "\u041C\u043E\u043B\u043D\u0438\u044F",
+    "The first goal is right in front of you!": "\u041F\u0435\u0440\u0432\u0430\u044F \u0446\u0435\u043B\u044C \u0443\u0436\u0435 \u043F\u0435\u0440\u0435\u0434 \u0442\u043E\u0431\u043E\u0439!",
+    "Filters: PC": "\u0424\u0438\u043B\u044C\u0442\u0440\u044B: PC",
+    Recommend: "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u043C",
+    Random: "\u0421\u043B\u0443\u0447\u0430\u0439\u043D\u043E",
+    "Most rated": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u043E\u0446\u0435\u043D\u043E\u043A",
+    "Most reviewed": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439",
+    "Most GOTY awards": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u043D\u0430\u0433\u0440\u0430\u0434 GOTY",
+    "Old release": "\u0421\u0442\u0430\u0440\u044B\u0435 \u0440\u0435\u043B\u0438\u0437\u044B",
+    "A-Z": "\u0410\u2013\u042F",
+    "Z-A": "\u042F\u2013\u0410",
+    "Discard this post?": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u043F\u043E\u0441\u0442?",
+    "If you leave now, your draft won't be saved.": "\u0415\u0441\u043B\u0438 \u0432\u044B\u0439\u0442\u0438 \u0441\u0435\u0439\u0447\u0430\u0441, \u0447\u0435\u0440\u043D\u043E\u0432\u0438\u043A \u043D\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0441\u044F.",
+    "Keep posting": "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C",
+    Discard: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C",
+    "Pin games": "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0438\u0433\u0440\u044B",
+    "Want quick access to your games?": "\u041D\u0443\u0436\u0435\u043D \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u0438\u0433\u0440\u0430\u043C?",
+    "Pin them to the top!": "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u0435 \u0438\u0445 \u043D\u0430\u0432\u0435\u0440\u0445\u0443!",
+    "About us": "\u041E \u043D\u0430\u0441",
+    "Send feedback": "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u043E\u0442\u0437\u044B\u0432",
+    "Send Feedback": "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u043E\u0442\u0437\u044B\u0432",
+    Space: "\u041F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E",
+    Linked: "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u043E",
+    Challenges: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u044F",
+    "Add games to Backlog": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 \u043F\u043B\u0430\u043D\u044B",
+    "Add games to Wishlist": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+    "Add games to Playing": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 \xAB\u0418\u0433\u0440\u0430\u044E\xBB",
+    "Add games to Beaten": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 \xAB\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E\xBB",
+    "Add games to Paused": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 \xAB\u041F\u0430\u0443\u0437\u0430\xBB",
+    "Add games to Quit": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 \xAB\u0411\u0440\u043E\u0448\u0435\u043D\u043E\xBB",
+    "Game Rate": "\u041E\u0446\u0435\u043D\u043A\u0438 \u0438\u0433\u0440",
+    Service: "\u0421\u0435\u0440\u0432\u0438\u0441",
+    "Signed in with Google": "\u0412\u0445\u043E\u0434 \u0447\u0435\u0440\u0435\u0437 Google",
+    "Manage account": "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u043E\u043C",
+    "Platforms & games": "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B \u0438 \u0438\u0433\u0440\u044B",
+    "Platforms & Games": "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B \u0438 \u0438\u0433\u0440\u044B",
+    "Linked platforms": "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B",
+    "Hidden games": "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0438\u0433\u0440\u044B",
+    "Connect to update your Trophy Hall": "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u043B \u0442\u0440\u043E\u0444\u0435\u0435\u0432",
+    "How to disconnect": "\u041A\u0430\u043A \u043E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C",
+    "Use the three-dot button to disconnect and retry.": "\u0427\u0442\u043E\u0431\u044B \u043E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0438 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0441\u043D\u043E\u0432\u0430, \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u043A\u043D\u043E\u043F\u043A\u0443 \u0441 \u0442\u0440\u0435\u043C\u044F \u0442\u043E\u0447\u043A\u0430\u043C\u0438.",
+    "No hidden games": "\u041D\u0435\u0442 \u0441\u043A\u0440\u044B\u0442\u044B\u0445 \u0438\u0433\u0440",
+    "Games hidden from the Rate tab will appear here.": "\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u0438\u0433\u0440\u044B, \u0441\u043A\u0440\u044B\u0442\u044B\u0435 \u043D\u0430 \u0432\u043A\u043B\u0430\u0434\u043A\u0435 \u043E\u0446\u0435\u043D\u043E\u043A.",
+    "Initially set to match your system language (or English if unsupported). Any changes you make will be saved.": "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0431\u0435\u0440\u0451\u0442\u0441\u044F \u044F\u0437\u044B\u043A \u0441\u0438\u0441\u0442\u0435\u043C\u044B (\u0438\u043B\u0438 \u0430\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439, \u0435\u0441\u043B\u0438 \u044F\u0437\u044B\u043A \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F). \u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044E\u0442\u0441\u044F.",
+    "Display language": "\u042F\u0437\u044B\u043A \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430",
+    English: "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439",
+    "Language for menus, buttons, and system text": "\u042F\u0437\u044B\u043A \u043C\u0435\u043D\u044E, \u043A\u043D\u043E\u043F\u043E\u043A \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0433\u043E \u0442\u0435\u043A\u0441\u0442\u0430",
+    "Content language": "\u042F\u0437\u044B\u043A \u043A\u043E\u043D\u0442\u0435\u043D\u0442\u0430",
+    "Language for translated posts, reviews, and comments": "\u042F\u0437\u044B\u043A \u043F\u0435\u0440\u0435\u0432\u0435\u0434\u0451\u043D\u043D\u044B\u0445 \u043F\u043E\u0441\u0442\u043E\u0432, \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432",
+    User: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C",
+    Users: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0438",
+    "No users": "\u041D\u0435\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435\u0439",
+    "No users blocked.": "\u041D\u0438\u043A\u0442\u043E \u043D\u0435 \u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D.",
+    "Updated today": "\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u0441\u0435\u0433\u043E\u0434\u043D\u044F",
+    "Updated just now": "\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E",
+    Lv: "\u041B\u0432\u043B",
+    LV: "\u041B\u0432\u043B",
+    "Select the language we'll translate posts, reviews, and comments into.": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u044C \u043F\u043E\u0441\u0442\u044B, \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438.",
+    "Select the language for menus, buttons, and system text.": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A \u043C\u0435\u043D\u044E, \u043A\u043D\u043E\u043F\u043E\u043A \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0433\u043E \u0442\u0435\u043A\u0441\u0442\u0430.",
+    Korean: "\u041A\u043E\u0440\u0435\u0439\u0441\u043A\u0438\u0439",
+    Japanese: "\u042F\u043F\u043E\u043D\u0441\u043A\u0438\u0439",
+    Portuguese: "\u041F\u043E\u0440\u0442\u0443\u0433\u0430\u043B\u044C\u0441\u043A\u0438\u0439",
+    Spanish: "\u0418\u0441\u043F\u0430\u043D\u0441\u043A\u0438\u0439",
+    French: "\u0424\u0440\u0430\u043D\u0446\u0443\u0437\u0441\u043A\u0438\u0439",
+    "More languages are on the way.": "\u0421\u043A\u043E\u0440\u043E \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u0434\u0440\u0443\u0433\u0438\u0435 \u044F\u0437\u044B\u043A\u0438.",
+    "Make a request": "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0437\u0430\u044F\u0432\u043A\u0443",
+    "Follow back": "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u0432 \u043E\u0442\u0432\u0435\u0442",
+    "Check your": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432",
+    "Check your \u043F\u0440\u043E\u0444\u0438\u043B\u044C to see what's new.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "Check your \u043F\u0440\u043E\u0444\u0438\u043B\u044C to see what\u2019s new.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "Check your \u041F\u0440\u043E\u0444\u0438\u043B\u044C to see what's new.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "Check your \u041F\u0440\u043E\u0444\u0438\u043B\u044C to see what\u2019s new.": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
+    "is \u0441\u0435\u0439\u0447\u0430\u0441": "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430",
+    "before the sale ends \u0432": "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438",
+    Translate: "\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438",
+    "Show original": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B",
+    "Translating...": "\u041F\u0435\u0440\u0435\u0432\u043E\u0434...",
+    "Translation failed": "\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0430",
+    "No comments yet": "\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432",
+    "No comments": "\u041D\u0435\u0442 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432",
+    "Connect with players to grab and guard badges!": "\u041E\u0431\u0449\u0430\u0439\u0442\u0435\u0441\u044C \u0441 \u0438\u0433\u0440\u043E\u043A\u0430\u043C\u0438, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0438 \u0437\u0430\u0449\u0438\u0449\u0430\u0442\u044C \u0437\u043D\u0430\u0447\u043A\u0438!",
+    "New review": "\u041D\u043E\u0432\u0430\u044F \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F",
+    "Trophy grade": "\u0420\u0435\u0434\u043A\u043E\u0441\u0442\u044C \u0442\u0440\u043E\u0444\u0435\u0435\u0432",
+    "Earned date": "\u0414\u0430\u0442\u0430 \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u044F",
+    "Most common": "\u0421\u0430\u043C\u044B\u0435 \u0447\u0430\u0441\u0442\u044B\u0435",
+    "Most rare": "\u0421\u0430\u043C\u044B\u0435 \u0440\u0435\u0434\u043A\u0438\u0435",
+    "Link PS": "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C PS",
+    "Link PS now": "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C PS \u0441\u0435\u0439\u0447\u0430\u0441",
+    "Link PS account to share trophies": "\u041F\u0440\u0438\u0432\u044F\u0436\u0438\u0442\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 PS, \u0447\u0442\u043E\u0431\u044B \u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0442\u0440\u043E\u0444\u0435\u044F\u043C\u0438"
+  };
+
+  // src/content/skip.js
+  var SKIP_ROOT_SELECTORS = [
+    '[contenteditable="true"]',
+    "[data-panax-ru-skip]",
+    '[class*="post-body"]',
+    '[class*="PostBody"]',
+    '[class*="post_body"]',
+    '[class*="post-content"]',
+    '[class*="PostContent"]',
+    '[class*="review-body"]',
+    '[class*="ReviewBody"]',
+    '[class*="review-content"]',
+    '[class*="ReviewContent"]',
+    '[class*="comment-body"]',
+    '[class*="CommentBody"]',
+    '[class*="comment-content"]',
+    '[class*="CommentContent"]',
+    '[class*="activity-body"]',
+    '[class*="ActivityBody"]',
+    '[class*="feed-item-body"]',
+    '[class*="FeedItemBody"]',
+    '[class*="user-content"]',
+    '[class*="UserContent"]',
+    '[class*="user-contents"]',
+    '[class*="rich-text"]',
+    '[class*="RichText"]',
+    '[class*="prose"]',
+    '[class*="markdown"]',
+    '[class*="editor-content"]',
+    '[class*="deltaContent"]',
+    '[class*="post-text"]',
+    '[class*="PostText"]'
+  ];
+  var AMBIGUOUS_SHORT = new Set(
+    [
+      "Hot",
+      "New",
+      "HOT",
+      "NEW",
+      "List",
+      "Lists",
+      "Following",
+      "Followers",
+      "Follower",
+      "Follow",
+      "Rating",
+      "Ratings",
+      "Similar",
+      "Latest",
+      "News",
+      "Discover",
+      "Store",
+      "Home",
+      "More",
+      "Share",
+      "Edit",
+      "Save",
+      "Cancel",
+      "Close",
+      "Back",
+      "Next",
+      "Previous",
+      "All",
+      "Top",
+      "Best",
+      "Free",
+      "Owned",
+      "Playing",
+      "Played",
+      "Completed",
+      "Dropped",
+      "Paused",
+      "Wishlist",
+      "Status",
+      "Release",
+      "About",
+      "Create",
+      "Post",
+      "Like",
+      "On",
+      "To",
+      "And",
+      "Confirm",
+      "Verify"
+    ].map((s) => s.toLowerCase())
+  );
+  var CHROME_HINT = /(?:^|[\s_])(?:tab-button|game-follow|rounded-full|navbar|header|footer|cookie|modal|dialog|drawer|badge|chip|pill|sidebar|toolbar|menu-item|dropdown|picker|audience|cursor-pointer|game-detail|game-info|game-stat|stat-label|status-picker|more-button|notification|notice|popover)(?:$|[\s_]|\b)/i;
+  var CHROME_TAGS = /* @__PURE__ */ new Set(["BUTTON", "A", "LABEL", "NAV", "HEADER", "FOOTER", "OPTION", "SUMMARY", "ASIDE"]);
+  function isChromeContext(el) {
+    if (!el || el.nodeType !== 1) return false;
+    let cur = el;
+    let depth = 0;
+    while (cur && depth < 14) {
+      if (CHROME_TAGS.has(cur.tagName)) return true;
+      const role = cur.getAttribute?.("role");
+      if (role === "button" || role === "tab" || role === "navigation" || role === "banner" || role === "complementary" || role === "dialog" || role === "menu" || role === "menuitem" || role === "combobox" || role === "listbox" || role === "option") {
+        return true;
+      }
+      if (cur.getAttribute?.("aria-haspopup") || cur.getAttribute?.("aria-expanded")) return true;
+      const cls = cur.className && String(cur.className);
+      if (cls && CHROME_HINT.test(cls)) return true;
+      if (cur.matches?.('header, nav, footer, aside, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
+        return true;
+      }
+      if (depth <= 2 && cur.parentElement?.querySelector('svg, button, a[href*="back"], [class*="back"]')) {
+        return true;
+      }
+      if (depth <= 2) {
+        if (cur.nextElementSibling?.tagName === "SVG" || cur.previousElementSibling?.tagName === "SVG") {
+          return true;
+        }
+        if (cls && cls.includes("cursor-pointer")) return true;
+      }
+      if (depth <= 3) {
+        const prev = cur.previousElementSibling;
+        if (prev && /^\d[\d.,]*\s*[kKmMbB]?$/.test((prev.textContent || "").trim())) return true;
+        const parentFirst = cur.parentElement?.firstElementChild;
+        if (parentFirst && parentFirst !== cur && /^\d[\d.,]*\s*[kKmMbB]?$/.test((parentFirst.textContent || "").trim())) {
+          return true;
+        }
+      }
+      cur = cur.parentElement;
+      depth += 1;
+    }
+    return false;
+  }
+  function shouldSkipRoot(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (el.getAttribute?.("contenteditable") === "true" || el.isContentEditable) return true;
+    if (el.closest?.("[data-panax-ru-skip]")) return true;
+    if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
+      return false;
+    }
+    for (const sel of SKIP_ROOT_SELECTORS) {
+      try {
+        if (el.matches?.(sel) || el.closest?.(sel)) return true;
+      } catch {
+      }
+    }
+    if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
+      return false;
+    }
+    return false;
+  }
+  function shouldSkipProse(el, text) {
+    if (!el || !text) return false;
+    if (!isChromeContext(el)) return true;
+    return false;
+  }
+
+  // src/content/time.js
+  function translateTimeFragment(raw, el) {
+    if (!el || shouldSkipRoot(el) || !isChromeContext(el)) return null;
+    const text = clean(raw);
+    if (/^is$/i.test(text)) {
+      const parentText = el.parentElement?.textContent || "";
+      if (/(?:сейчас|now|\d+%)|Get it|sale ends/i.test(parentText)) return "";
+    }
+    if (/^the$/i.test(text)) {
+      const parentText = el.parentElement?.textContent || "";
+      if (/(?:sale ends|до окончания скидки|before the sale)/i.test(parentText)) return "";
+    }
+    if (/^now$/i.test(text)) {
+      const parentText = el.parentElement?.textContent || "";
+      if (/(?:is now|sale ends|Get it|скидк)/i.test(parentText) && parentText.length < 200) return "\u0441\u0435\u0439\u0447\u0430\u0441";
+      return null;
+    }
+    if (/^(?:november|ноябрь|ноября)$/i.test(text)) {
+      const next = el.nextSibling?.textContent || "";
+      return /^\s*\d{1,2}(?:\D|$)/.test(next) ? "\u043D\u043E\u044F\u0431\u0440\u044F" : "\u043D\u043E\u044F\u0431\u0440\u044C";
+    }
+    return null;
+  }
+  var MONTHS = {
+    jan: "\u044F\u043D\u0432",
+    january: "\u044F\u043D\u0432\u0430\u0440\u044F",
+    feb: "\u0444\u0435\u0432",
+    february: "\u0444\u0435\u0432\u0440\u0430\u043B\u044F",
+    mar: "\u043C\u0430\u0440",
+    march: "\u043C\u0430\u0440\u0442\u0430",
+    apr: "\u0430\u043F\u0440",
+    april: "\u0430\u043F\u0440\u0435\u043B\u044F",
+    may: "\u043C\u0430\u044F",
+    jun: "\u0438\u044E\u043D",
+    june: "\u0438\u044E\u043D\u044F",
+    jul: "\u0438\u044E\u043B",
+    july: "\u0438\u044E\u043B\u044F",
+    aug: "\u0430\u0432\u0433",
+    august: "\u0430\u0432\u0433\u0443\u0441\u0442\u0430",
+    sep: "\u0441\u0435\u043D",
+    sept: "\u0441\u0435\u043D",
+    september: "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044F",
+    oct: "\u043E\u043A\u0442",
+    october: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F",
+    nov: "\u043D\u043E\u044F",
+    november: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    dec: "\u0434\u0435\u043A",
+    december: "\u0434\u0435\u043A\u0430\u0431\u0440\u044F",
+    \u043D\u043E\u044F\u0431\u0440\u044C: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    \u043D\u043E\u044F\u0431\u0440\u044F: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    \u043E\u043A\u0442\u044F\u0431\u0440\u044C: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F",
+    \u043E\u043A\u0442\u044F\u0431\u0440\u044F: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F"
+  };
+  var UNIT = {
+    second: ["\u0441\u0435\u043A\u0443\u043D\u0434\u0443", "\u0441\u0435\u043A\u0443\u043D\u0434\u044B", "\u0441\u0435\u043A\u0443\u043D\u0434"],
+    seconds: ["\u0441\u0435\u043A\u0443\u043D\u0434\u0443", "\u0441\u0435\u043A\u0443\u043D\u0434\u044B", "\u0441\u0435\u043A\u0443\u043D\u0434"],
+    minute: ["\u043C\u0438\u043D\u0443\u0442\u0443", "\u043C\u0438\u043D\u0443\u0442\u044B", "\u043C\u0438\u043D\u0443\u0442"],
+    minutes: ["\u043C\u0438\u043D\u0443\u0442\u0443", "\u043C\u0438\u043D\u0443\u0442\u044B", "\u043C\u0438\u043D\u0443\u0442"],
+    hour: ["\u0447\u0430\u0441", "\u0447\u0430\u0441\u0430", "\u0447\u0430\u0441\u043E\u0432"],
+    hours: ["\u0447\u0430\u0441", "\u0447\u0430\u0441\u0430", "\u0447\u0430\u0441\u043E\u0432"],
+    day: ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"],
+    days: ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"],
+    week: ["\u043D\u0435\u0434\u0435\u043B\u044E", "\u043D\u0435\u0434\u0435\u043B\u0438", "\u043D\u0435\u0434\u0435\u043B\u044C"],
+    weeks: ["\u043D\u0435\u0434\u0435\u043B\u044E", "\u043D\u0435\u0434\u0435\u043B\u0438", "\u043D\u0435\u0434\u0435\u043B\u044C"],
+    month: ["\u043C\u0435\u0441\u044F\u0446", "\u043C\u0435\u0441\u044F\u0446\u0430", "\u043C\u0435\u0441\u044F\u0446\u0435\u0432"],
+    months: ["\u043C\u0435\u0441\u044F\u0446", "\u043C\u0435\u0441\u044F\u0446\u0430", "\u043C\u0435\u0441\u044F\u0446\u0435\u0432"],
+    year: ["\u0433\u043E\u0434", "\u0433\u043E\u0434\u0430", "\u043B\u0435\u0442"],
+    years: ["\u0433\u043E\u0434", "\u0433\u043E\u0434\u0430", "\u043B\u0435\u0442"]
+  };
+  var SHORT = { d: "days", h: "hours", m: "minutes", s: "seconds", w: "weeks", y: "years" };
+  function plural(n, forms) {
+    const x = Math.abs(Number(n)) % 100;
+    const d = x % 10;
+    if (x > 10 && x < 20) return forms[2];
+    if (d > 1 && d < 5) return forms[1];
+    if (d === 1) return forms[0];
+    return forms[2];
+  }
+  function clean(s) {
+    return String(s || "").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\u00A0/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function likedTail(n, helped) {
+    if (helped) return n ? `\u0438 \u0435\u0449\u0451 ${n} \u043F\u043E\u043C\u043E\u0433\u043B\u043E` : "\u0438 \u0434\u0440\u0443\u0433\u0438\u043C \u043F\u043E\u043C\u043E\u0433\u043B\u043E";
+    if (!n) return "\u0438 \u0434\u0440\u0443\u0433\u0438\u0435 \u043E\u0446\u0435\u043D\u0438\u043B\u0438";
+    const forms = ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"];
+    const nAbs = Math.abs(Number(n) || 0);
+    const mod10 = nAbs % 10;
+    const mod100 = nAbs % 100;
+    const form = mod100 >= 11 && mod100 <= 14 ? forms[2] : mod10 === 1 ? forms[0] : mod10 >= 2 && mod10 <= 4 ? forms[1] : forms[2];
+    return `\u0438 \u0435\u0449\u0451 ${n} ${form} \u043E\u0446\u0435\u043D\u0438\u043B\u0438`;
+  }
+  var COUNT_FORMS = {
+    like: ["\u043B\u0430\u0439\u043A", "\u043B\u0430\u0439\u043A\u0430", "\u043B\u0430\u0439\u043A\u043E\u0432"],
+    comment: ["\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F", "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"],
+    review: ["\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F", "\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438", "\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439"],
+    rating: ["\u043E\u0446\u0435\u043D\u043A\u0430", "\u043E\u0446\u0435\u043D\u043A\u0438", "\u043E\u0446\u0435\u043D\u043E\u043A"],
+    follower: ["\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A", "\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0430", "\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u043E\u0432"],
+    following: ["\u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430", "\u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0438", "\u043F\u043E\u0434\u043F\u0438\u0441\u043E\u043A"]
+  };
+  function translateCount(raw) {
+    const text = clean(raw);
+    const m = text.match(/^([\d.,]+)\s*([KMBkmb])?\s+(likes?|comments?|reviews?|ratings?|followers?|following)$/i);
+    if (!m) return null;
+    const word = m[3].toLowerCase().replace(/s$/, "").replace(/^follower$/, "follower");
+    const key = word === "following" ? "following" : word;
+    const forms = COUNT_FORMS[key];
+    if (!forms) return null;
+    const n = m[2] ? 5 : Number(m[1].replace(/,/g, ""));
+    const num = `${m[1]}${m[2] || ""}`;
+    return `${num} ${plural(Number.isFinite(n) ? n : 5, forms)}`;
+  }
+  function people(n) {
+    return plural(n, ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"]);
+  }
+  function splitNotice(raw) {
+    const text = clean(raw);
+    if (!text || text.length > 160) return null;
+    let m;
+    if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return { name: "", ru: "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442" };
+    if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return { name: "", ru: "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" };
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return { name: "", ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" };
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return { name: "", ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442" };
+    if (/^(?:liked|нравится|оценил)\s+(?:your|вашу?)\s+(?:review|рецензию|обзор)$/i.test(text)) return { name: "", ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E" };
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:reply|ответ)$/i.test(text)) return { name: "", ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043E\u0442\u0432\u0435\u0442" };
+    if (/^started following$/i.test(text)) return { name: "", ru: "\u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B\u0441\u044F" };
+    if (/^just dropped a new post$/i.test(text)) return { name: "", ru: "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442" };
+    if ((m = text.match(/^(.+?)\s+just dropped a new post$/i)) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442" };
+    }
+    if (m = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i)) {
+      return { name: "", ru: `\u0438 \u0435\u0449\u0451 ${m[1]} ${people(m[1])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043F\u043E\u0441\u0442` };
+    }
+    if (m = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) {
+      return { name: "", ru: `\u0438 \u0435\u0449\u0451 ${m[1]} ${people(m[1])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439` };
+    }
+    if ((m = text.match(/^(.+?)\s+(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i)) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442" };
+    }
+    if ((m = text.match(/^(.+?)\s+(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" };
+    }
+    if ((m = text.match(/^(.+?)\s+started following$/i)) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B\u0441\u044F" };
+    }
+    if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i)) && m[1].length < 60) {
+      return { name: m[1], ru: `\u0438 \u0435\u0449\u0451 ${m[2]} ${people(m[2])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043F\u043E\u0441\u0442` };
+    }
+    if ((m = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) && m[1].length < 60) {
+      return { name: m[1], ru: `\u0438 \u0435\u0449\u0451 ${m[2]} ${people(m[2])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439` };
+    }
+    if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442" };
+    }
+    if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" };
+    }
+    if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|вашу?)\s+(?:review|рецензию|обзор)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E" };
+    }
+    if ((m = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:reply|ответ)$/i)) && !/\band\b/i.test(m[1]) && m[1].length < 60) {
+      return { name: m[1], ru: "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043E\u0442\u0432\u0435\u0442" };
+    }
+    return null;
+  }
+  function translateNotice(raw, context = "") {
+    const text = clean(raw);
+    if (!text || text.length > 200) return null;
+    if (/^(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(text)) {
+      return text.replace(/^(?:Level\s*Up!?|Уровень\s*Up!?)\s*/i, "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C! ");
+    }
+    if (/^Level$/i.test(text) && /(?:up!?|лвл|\d+)/i.test(context)) {
+      return "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!";
+    }
+    if (/^Up!?$/i.test(text) && /(?:level|уровень|новый)/i.test(context)) {
+      return "";
+    }
+    if (/^Check your (?:profile|Профиль|профиль) (?:to|До)?\s*see what['’]s new\.?$/i.test(text)) {
+      return "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.";
+    }
+    if (/^Check your$/i.test(text)) {
+      return "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439";
+    }
+    if (/^(?:to|До)?\s*see what['’]s new\.?$/i.test(text) || /^see what['’]s new\.?$/i.test(text)) {
+      return ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.";
+    }
+    if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
+      return "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.";
+    }
+    if (/^log in daily to$/i.test(text)) {
+      return "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B";
+    }
+    if (/^(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
+      return "\u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.";
+    }
+    if (/^streak resets daily at 3 am\.?$/i.test(text)) {
+      return "\u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.";
+    }
+    if (/^just dropped a new post$/i.test(text) || /^dropped a new post$/i.test(text)) {
+      return "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442";
+    }
+    const dropped = text.match(/^(.+?)\s+just dropped a new post$/i);
+    if (dropped && dropped[1].length < 80) {
+      return `${dropped[1]} \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442`;
+    }
+    const saleTitle = text.match(/^(.+?)\s+(?:is now|is сейчас)\s+(\d+)%(?:\s*off)?$/i);
+    if (saleTitle) {
+      return `${saleTitle[1]} \u2014 \u0441\u043A\u0438\u0434\u043A\u0430 ${saleTitle[2]}%`;
+    }
+    const isNowOff = text.match(/^(?:is now|is сейчас)\s+(\d+)%(?:\s*off)?$/i);
+    if (isNowOff) return `\u2014 \u0441\u043A\u0438\u0434\u043A\u0430 ${isNowOff[1]}%`;
+    if (/^(?:is now|is сейчас)$/i.test(text)) return "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430";
+    const pctOff = text.match(/^(\d+)%\s*(?:off)?$/i);
+    if (pctOff && /(?:is now|is сейчас|скидк|sale)/i.test(context)) return `${pctOff[1]}%`;
+    const upToOff = text.match(/^up to\s+(\d+)%\s*(?:off)?$/i);
+    if (upToOff) return `\u0441\u043A\u0438\u0434\u043A\u0438 \u0434\u043E ${upToOff[1]}%`;
+    const savePct = text.match(/^save\s+(\d+)%$/i);
+    if (savePct) return `\u0441\u043A\u0438\u0434\u043A\u0430 ${savePct[1]}%`;
+    const saleBody = text.match(/^(?:Get it|Купите)?\s*(?:on|в|Вкл\.)?\s*Steam\s*(?:for|за)?\s+([^b]+?)\s*(?:before the sale ends|до окончания скидки)?\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+    if (saleBody) {
+      const mon = MONTHS[saleBody[2].toLowerCase()] || saleBody[2];
+      const day = parseInt(saleBody[3], 10);
+      return `\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430 ${saleBody[1].trim()} \u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438 ${day} ${mon}${saleBody[4] ? ` ${saleBody[4]}` : ""}`;
+    }
+    const endsBefore = text.match(/^(?:before the sale ends|до окончания скидки)\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+    if (endsBefore) {
+      const mon = MONTHS[endsBefore[1].toLowerCase()] || endsBefore[1];
+      const day = parseInt(endsBefore[2], 10);
+      return `\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438 ${day} ${mon}${endsBefore[3] ? ` ${endsBefore[3]}` : ""}`;
+    }
+    if (/^before the sale ends$/i.test(text) || /^before the sale ends on$/i.test(text)) {
+      return "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438";
+    }
+    if (/^Get it on$/i.test(text)) return "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432";
+    if (/^Steam$/i.test(text) && /Get it|Купите/i.test(context)) return "Steam";
+    if (/^before the sale ends on$/i.test(text)) return "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438";
+    if (/^on$/i.test(text) && /sale ends|скидк/i.test(context)) return "\u0432";
+    if (/^Get it on Steam$/i.test(text)) return "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam";
+    if (/^Get it on Steam for$/i.test(text)) return "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430";
+    const salePrice = text.match(/^(?:for|Steam for)\s+([£€$][\d.,]+)$/i);
+    if (salePrice && /(?:Get it|Steam|sale|Купите)/i.test(context)) return `\u0437\u0430 ${salePrice[1]}`;
+    const salePriceWithLead = text.match(/^for\s+([£€$][\d.,]+)\s+before the sale ends on$/i);
+    if (salePriceWithLead) return `\u0437\u0430 ${salePriceWithLead[1]} \u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438`;
+    if (/^Steam for$/i.test(text) && /(?:Get it|sale|Купите)/i.test(context)) return "Steam \u0437\u0430";
+    if (/^before the sale ends on$/i.test(text)) return "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438";
+    if (/^for$/i.test(text) && /(?:Steam|sale|Купите)/i.test(context)) return "\u0437\u0430";
+    const salePrefix = text.match(/^Get it on Steam for\s+(.+?)\s+before the sale ends on$/i);
+    if (salePrefix) return `\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430 ${salePrefix[1]} \u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438`;
+    const saleSuffix = text.match(/^([£€$][\d.,]+)\s+before the sale ends on(?:\s+(.+))?$/i);
+    if (saleSuffix) {
+      const date = saleSuffix[2] ? translateNotice(saleSuffix[2]) : "";
+      if (!saleSuffix[2] || date) return `${saleSuffix[1]} \u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438${date ? ` ${date}` : ""}`;
+    }
+    if (/^Get it$/i.test(text)) return "\u041A\u0443\u043F\u0438\u0442\u0435";
+    if (/^Get it on Steam$/i.test(text)) return "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam";
+    if (/^Get it on Steam for$/i.test(text)) return "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430";
+    if (/^on Steam for$/i.test(text)) return "\u0432 Steam \u0437\u0430";
+    const steamFor = text.match(/^Get it on Steam for\s+(.+)$/i) || text.match(/^Steam for\s+(.+)$/i);
+    if (steamFor) return `\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430 ${steamFor[1]}`;
+    const likedGames = text.match(/^Liked\s+(\d+\+?)\s+games?$/i);
+    if (likedGames) {
+      return `\u041F\u043E\u043D\u0440\u0430\u0432\u0438\u043B\u043E\u0441\u044C ${likedGames[1]} \u0438\u0433\u0440`;
+    }
+    const dateMatch = text.match(/^(?:on\s+)?([a-zA-Z]+)\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i);
+    if (dateMatch && MONTHS[dateMatch[1].toLowerCase()]) {
+      const mon = MONTHS[dateMatch[1].toLowerCase()];
+      const day = parseInt(dateMatch[2], 10);
+      return `${day} ${mon}${dateMatch[3] ? ` ${dateMatch[3]}` : ""}`;
+    }
+    if (/^updates$/i.test(text)) return "\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F";
+    if (/^highlights$/i.test(text)) return "\u0413\u043B\u0430\u0432\u043D\u043E\u0435";
+    if (/^game chart$/i.test(text)) return "\u0420\u0435\u0439\u0442\u0438\u043D\u0433 \u0438\u0433\u0440";
+    if (/^featured collections$/i.test(text)) return "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u044B\u0435 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438";
+    if (/^platforms$/i.test(text)) return "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B";
+    if (/^request platforms$/i.test(text)) return "\u0417\u0430\u043F\u0440\u043E\u0441\u0438\u0442\u044C \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B";
+    if (/^game types$/i.test(text)) return "\u0422\u0438\u043F\u044B \u0438\u0433\u0440";
+    if (/^main$/i.test(text)) return "\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0438\u0433\u0440\u0430";
+    if (/^dlc & expansion$/i.test(text)) return "DLC \u0438 \u0434\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435";
+    if (/^remake & remaster$/i.test(text)) return "\u0420\u0435\u043C\u0435\u0439\u043A \u0438 \u0440\u0435\u043C\u0430\u0441\u0442\u0435\u0440";
+    if (/^edition & collection$/i.test(text)) return "\u0418\u0437\u0434\u0430\u043D\u0438\u0435 \u0438 \u0441\u0431\u043E\u0440\u043D\u0438\u043A";
+    if (/^bundle$/i.test(text)) return "\u041D\u0430\u0431\u043E\u0440";
+    if (/^share profile$/i.test(text)) return "\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u043F\u0440\u043E\u0444\u0438\u043B\u0435\u043C";
+    if (/^connect playstation account$/i.test(text)) return "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442 PlayStation";
+    if (/^connect xbox account$/i.test(text)) return "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442 Xbox";
+    if (/^bookmarks$/i.test(text)) return "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438";
+    if (/^pin to your profile$/i.test(text)) return "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u0435";
+    if (/^copy text$/i.test(text)) return "\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0442\u0435\u043A\u0441\u0442";
+    if (/^unfollow this user$/i.test(text)) return "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
+    if (/^not enough ratings yet$/i.test(text)) return "\u041E\u0446\u0435\u043D\u043E\u043A \u043F\u043E\u043A\u0430 \u043D\u0435\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E";
+    if (/^edit profile$/i.test(text)) return "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C";
+    if (/^tell us your thoughts on a game$/i.test(text)) return "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E\u0431 \u0438\u0433\u0440\u0435";
+    if (/^follow this user$/i.test(text)) return "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
+    if (/^unfollow this user$/i.test(text)) return "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
+    if (/^post$/i.test(text)) return "\u041F\u043E\u0441\u0442";
+    if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442";
+    if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439";
+    if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)$/i.test(text)) return "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448";
+    if (/^started following$/i.test(text)) return "\u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B\u0441\u044F";
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) {
+      return /\band\s+\d+\s+others?\b/i.test(context) ? "\u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043F\u043E\u0441\u0442" : "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442";
+    }
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) {
+      return /\band\s+\d+\s+others?\b/i.test(context) ? "\u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" : "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439";
+    }
+    if (/^(?:liked|нравится|оценил)\s+(?:your|вашу?)\s+(?:review|рецензию|обзор)$/i.test(text)) {
+      return /\band\s+\d+\s+others?\b/i.test(context) ? "\u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E" : "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E";
+    }
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:reply|ответ)$/i.test(text)) {
+      return /\band\s+\d+\s+others?\b/i.test(context) ? "\u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043E\u0442\u0432\u0435\u0442" : "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043E\u0442\u0432\u0435\u0442";
+    }
+    if (/^(?:liked|нравится|оценил)\s+(?:your|ваш)$/i.test(text)) {
+      return /\band\s+\d+\s+others?\b/i.test(context) ? "\u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448" : "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448";
+    }
+    const andLiked = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i);
+    if (andLiked) return `\u0438 \u0435\u0449\u0451 ${andLiked[1]} ${people(andLiked[1])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043F\u043E\u0441\u0442`;
+    const andLikedComment = text.match(/^and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+    if (andLikedComment) return `\u0438 \u0435\u0449\u0451 ${andLikedComment[1]} ${people(andLikedComment[1])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439`;
+    const nameAnd = text.match(/^(.+?)\s+and\s+(\d+)\s+others?$/i);
+    if (nameAnd && nameAnd[1].length < 60) {
+      return `${nameAnd[1]} \u0438 \u0435\u0449\u0451 ${nameAnd[2]} ${people(nameAnd[2])}`;
+    }
+    const namedComment = text.match(/^(.+?)\s+(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i);
+    if (namedComment && namedComment[1].length < 80) return `${namedComment[1]} \u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442`;
+    const namedReplied = text.match(/^(.+?)\s+(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+    if (namedReplied && namedReplied[1].length < 80) return `${namedReplied[1]} \u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439`;
+    const namedLike = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:post|пост)$/i);
+    if (namedLike && !/\band\b/i.test(namedLike[1]) && namedLike[1].length < 80) {
+      return `${namedLike[1]} \u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442`;
+    }
+    const namedLikeComment = text.match(/^(.+?)\s+(?:liked|нравится|оценил)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+    if (namedLikeComment && !/\band\b/i.test(namedLikeComment[1]) && namedLikeComment[1].length < 80) {
+      return `${namedLikeComment[1]} \u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439`;
+    }
+    const othersLike = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:post|пост)$/i);
+    if (othersLike) {
+      return `${othersLike[1]} \u0438 \u0435\u0449\u0451 ${othersLike[2]} ${people(othersLike[2])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043F\u043E\u0441\u0442`;
+    }
+    const othersLikeComment = text.match(/^(.+?)\s+and\s+(\d+)\s+others?\s+(?:liked|нравится|оценили)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i);
+    if (othersLikeComment) {
+      return `${othersLikeComment[1]} \u0438 \u0435\u0449\u0451 ${othersLikeComment[2]} ${people(othersLikeComment[2])} \u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439`;
+    }
+    const started = text.match(/^(.+?)\s+started following$/i);
+    if (started && started[1].length < 60) return `${started[1]} \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B\u0441\u044F`;
+    return null;
+  }
+  function translateActivity(raw) {
+    const text = clean(raw);
+    if (!text || text.length > 160) return null;
+    const deleted = text.match(/^This (comment|post|review|reply) has been deleted\.?$/i);
+    if (deleted) {
+      const kind = deleted[1].toLowerCase();
+      if (kind === "review") return "\u042D\u0442\u0430 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F \u0443\u0434\u0430\u043B\u0435\u043D\u0430.";
+      const noun = { comment: "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", post: "\u043F\u043E\u0441\u0442", reply: "\u043E\u0442\u0432\u0435\u0442" }[kind];
+      return `\u042D\u0442\u043E\u0442 ${noun} \u0443\u0434\u0430\u043B\u0451\u043D.`;
+    }
+    const liked = text.match(/^(?:(.+?)\s+)?and\s+(?:(\d+)\s+)?others?\s+(liked|got help)$/i);
+    if (liked) {
+      const who = liked[1] ? `${liked[1]} ` : "";
+      return `${who}${likedTail(liked[2], /got help/i.test(liked[3]))}`;
+    }
+    if (/^helped$/i.test(text)) return "\u041F\u043E\u043C\u043E\u0433\u043B\u043E";
+    const flair = {
+      tips: "\u0421\u043E\u0432\u0435\u0442\u044B",
+      ask: "\u0412\u043E\u043F\u0440\u043E\u0441",
+      lfg: "\u0418\u0449\u0443 \u043F\u0430\u0442\u0438",
+      flex: "\u0424\u043B\u0435\u043A\u0441",
+      quiz: "\u0412\u0438\u043A\u0442\u043E\u0440\u0438\u043D\u0430",
+      impressions: "\u0412\u043F\u0435\u0447\u0430\u0442\u043B\u0435\u043D\u0438\u044F",
+      moments: "\u041C\u043E\u043C\u0435\u043D\u0442\u044B",
+      rant: "\u041D\u0430\u043A\u0438\u043F\u0435\u043B\u043E",
+      deal: "\u0421\u0434\u0435\u043B\u043A\u0430",
+      "off-topic": "\u041E\u0444\u0444\u0442\u043E\u043F",
+      "off topic": "\u041E\u0444\u0444\u0442\u043E\u043F",
+      meme: "\u041C\u0435\u043C",
+      haul: "\u041D\u0430\u0445\u043E\u0434\u043A\u0438",
+      spoiler: "\u0421\u043F\u043E\u0439\u043B\u0435\u0440",
+      "news flash": "\u041C\u043E\u043B\u043D\u0438\u044F",
+      hide: "\u0421\u043A\u0440\u044B\u0442\u044C",
+      recommend: "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u043C",
+      random: "\u0421\u043B\u0443\u0447\u0430\u0439\u043D\u043E",
+      "most rated": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u043E\u0446\u0435\u043D\u043E\u043A",
+      "most reviewed": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439",
+      "most goty awards": "\u0411\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u043D\u0430\u0433\u0440\u0430\u0434 GOTY",
+      "old release": "\u0421\u0442\u0430\u0440\u044B\u0435 \u0440\u0435\u043B\u0438\u0437\u044B",
+      "a-z": "\u0410\u2013\u042F",
+      "z-a": "\u042F\u2013\u0410"
+    }[text.toLowerCase()];
+    if (flair) return flair;
+    if (/^the first goal is right in front of you!$/i.test(text)) return "\u041F\u0435\u0440\u0432\u0430\u044F \u0446\u0435\u043B\u044C \u0443\u0436\u0435 \u043F\u0435\u0440\u0435\u0434 \u0442\u043E\u0431\u043E\u0439!";
+    if (/^not interested in this game\??$/i.test(text)) return "\u042D\u0442\u0430 \u0438\u0433\u0440\u0430 \u043D\u0435 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u0430?";
+    const filters = text.match(/^filters:\s*(.+)$/i);
+    if (filters && text.length < 80) return `\u0424\u0438\u043B\u044C\u0442\u0440\u044B: ${filters[1]}`;
+    if (/^panax store$/i.test(text)) return "\u041C\u0430\u0433\u0430\u0437\u0438\u043D PANAX";
+    if (/^no comments(?: yet)?$/i.test(text)) return "\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432";
+    if (/^connect with players to grab and guard badges!?$/i.test(text)) {
+      return "\u041E\u0431\u0449\u0430\u0439\u0442\u0435\u0441\u044C \u0441 \u0438\u0433\u0440\u043E\u043A\u0430\u043C\u0438, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0438 \u0437\u0430\u0449\u0438\u0449\u0430\u0442\u044C \u0437\u043D\u0430\u0447\u043A\u0438!";
+    }
+    const joinedMatch = text.match(/^joineds+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december).?s+(d{1,2})(?:,?s*(d{4}))?$/i) || text.match(/^joineds+(d{1,2})s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december).?(?:,?s*(d{4}))?$/i);
+    if (joinedMatch) {
+      const isDayFirst = /^\d/.test(joinedMatch[1]);
+      const monthStr = isDayFirst ? joinedMatch[2] : joinedMatch[1];
+      const dayStr = isDayFirst ? joinedMatch[1] : joinedMatch[2];
+      const yearStr = joinedMatch[3] ? ` ${joinedMatch[3]}` : "";
+      const ruM = MONTHS[monthStr.toLowerCase()];
+      if (ruM) return `\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F: ${dayStr} ${ruM}${yearStr}`;
+    }
+    const thoughtsOn = text.match(/^what are your thoughts on\s+(.+?)\??$/i);
+    if (thoughtsOn) {
+      return "\u0427\u0442\u043E \u0432\u044B \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E " + thoughtsOn[1].trim() + "?";
+    }
+    if (/^discover$/i.test(text)) return "\u041E\u0431\u0437\u043E\u0440";
+    if (/^arcade$/i.test(text)) return "\u0410\u0440\u043A\u0430\u0434\u0430";
+    if (/^pick an emoji[.…]{0,3}$/i.test(text)) return "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438\u2026";
+    if (/^search emoji$/i.test(text)) return "\u041F\u043E\u0438\u0441\u043A \u044D\u043C\u043E\u0434\u0437\u0438";
+    if (/^tell us your thoughts on a game$/i.test(text)) return "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E\u0431 \u0438\u0433\u0440\u0435";
+    if (/^follow this user$/i.test(text)) return "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
+    if (/^unfollow this user$/i.test(text)) return "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
+    if (/^post$/i.test(text)) return "\u041F\u043E\u0441\u0442";
+    if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
+      return "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.";
+    }
+    const expStreak = text.match(/^exp\s*\+\s*([\d.,]+)\s+you(?:'|’)re on an?\s+(\d+)-day streak$/i);
+    if (expStreak) {
+      return `\u041E\u043F\u044B\u0442 + ${expStreak[1]} \u0421\u0435\u0440\u0438\u044F: ${expStreak[2]} ${plural(expStreak[2], ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"])}`;
+    }
+    const streak = text.match(/^you(?:'|’)re on an?\s+(\d+)-day streak$/i);
+    if (streak) return `\u0421\u0435\u0440\u0438\u044F: ${streak[1]} ${plural(streak[1], ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"])}`;
+    const exp = text.match(/^exp\s*\+\s*([\d.,]+)$/i);
+    if (exp) return `\u041E\u043F\u044B\u0442 + ${exp[1]}`;
+    if (/what['’′]s on your mind\??\s*use\s+#+\s*to tag a game[.…]*/i.test(text) && text.length < 90) {
+      return "\u041E \u0447\u0451\u043C \u0434\u0443\u043C\u0430\u0435\u0448\u044C? \u0427\u0435\u0440\u0435\u0437 ## \u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443";
+    }
+    const added = text.match(/^(.*?)added\s+(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i);
+    if (added && text.length < 160) {
+      const prefix = added[1].trim();
+      const forms = UNIT[added[3].toLowerCase()];
+      if (forms && prefix.length <= 80 && !/[.!?]/.test(prefix)) {
+        const tail = `\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043E ${added[2]} ${plural(added[2], forms)} \u043D\u0430\u0437\u0430\u0434`;
+        return prefix ? `${prefix} ${tail}` : tail;
+      }
+    }
+    if (/^linked$/i.test(text)) return "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u043E";
+    if (/^challenges$/i.test(text)) return "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u044F";
+    const addGames = text.match(/^Add games to (Backlog|Wishlist|Playing|Beaten|Paused|Quit)$/i);
+    if (addGames) {
+      const into = {
+        backlog: "\u043F\u043B\u0430\u043D\u044B",
+        wishlist: "\u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+        playing: "\xAB\u0418\u0433\u0440\u0430\u044E\xBB",
+        beaten: "\xAB\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E\xBB",
+        paused: "\xAB\u041F\u0430\u0443\u0437\u0430\xBB",
+        quit: "\xAB\u0411\u0440\u043E\u0448\u0435\u043D\u043E\xBB"
+      }[addGames[1].toLowerCase()];
+      if (into) return `\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0433\u0440\u044B \u0432 ${into}`;
+    }
+    const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?$/i);
+    if (profileTab) {
+      const labels = {
+        posts: "\u041F\u043E\u0441\u0442\u044B",
+        reviews: "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+        collections: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+        "following games": "\u0418\u0433\u0440\u044B \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430\u0445",
+        top: "\u0422\u043E\u043F"
+      };
+      const label = labels[profileTab[1].toLowerCase()];
+      if (label) return profileTab[2] ? `${label} ${profileTab[2].replace(/\s+/g, "")}` : label;
+    }
+    return null;
+  }
+  function translateTimestamp(raw) {
+    const text = clean(raw);
+    if (!text || text.length > 48) return null;
+    const leadMatch = text.match(/^([·•∙⋅・\u2219\u22C5\u30FB.\-–—]+\s*)/);
+    const lead = leadMatch ? leadMatch[1].trim() : "";
+    const body = leadMatch ? text.slice(leadMatch[1].length).trim() : text;
+    if (!body) return null;
+    const out = stampBody(body);
+    if (!out) return null;
+    return lead ? `${lead} ${out}` : out;
+  }
+  function stampBody(body) {
+    if (/^just now$/i.test(body)) return "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E";
+    if (/^yesterday$/i.test(body)) return "\u0432\u0447\u0435\u0440\u0430";
+    if (/^today$/i.test(body)) return "\u0441\u0435\u0433\u043E\u0434\u043D\u044F";
+    if (/^tomorrow$/i.test(body)) return "\u0437\u0430\u0432\u0442\u0440\u0430";
+    const compact = body.match(/^(\d+)\s*([dhmswy])\s*ago$/i);
+    if (compact) {
+      const forms = UNIT[SHORT[compact[2].toLowerCase()]];
+      if (forms) return `${compact[1]} ${plural(compact[1], forms)} \u043D\u0430\u0437\u0430\u0434`;
+    }
+    const wordAgo = body.match(/^(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i);
+    if (wordAgo) {
+      const forms = UNIT[wordAgo[2].toLowerCase()];
+      if (forms) return `${wordAgo[1]} ${plural(wordAgo[1], forms)} \u043D\u0430\u0437\u0430\u0434`;
+    }
+    const addedWords = body.match(/^added\s+(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i);
+    if (addedWords) {
+      const forms = UNIT[addedWords[2].toLowerCase()];
+      if (forms) return `\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043E ${addedWords[1]} ${plural(addedWords[1], forms)} \u043D\u0430\u0437\u0430\u0434`;
+    }
+    const updated = body.match(/^updated\s+(\d+)\s*([dhmswy])\s*ago$/i);
+    if (updated) {
+      const forms = UNIT[SHORT[updated[2].toLowerCase()]];
+      if (forms) return `\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated[1]} ${plural(updated[1], forms)} \u043D\u0430\u0437\u0430\u0434`;
+    }
+    const month = body.match(
+      /^(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i
+    );
+    if (month) {
+      const ru = MONTHS[month[1].toLowerCase()];
+      if (ru) return `${month[2]} ${ru}${month[3] ? ` ${month[3]}` : ""}`;
+    }
+    const dayFirst = body.match(
+      /^(\d{1,2})\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?(?:,?\s*(\d{4}))?$/i
+    );
+    if (dayFirst) {
+      const ru = MONTHS[dayFirst[2].toLowerCase()];
+      if (ru) return `${dayFirst[1]} ${ru}${dayFirst[3] ? ` ${dayFirst[3]}` : ""}`;
+    }
+    return null;
+  }
+
+  // src/content/engine.js
+  var ATTR_OK = /* @__PURE__ */ new Set([
+    "placeholder",
+    "title",
+    "aria-label",
+    "aria-description",
+    "alt",
+    "data-placeholder"
+  ]);
+  var MONTHS_LOWER = {
+    jan: "\u044F\u043D\u0432",
+    january: "\u044F\u043D\u0432\u0430\u0440\u044F",
+    feb: "\u0444\u0435\u0432",
+    february: "\u0444\u0435\u0432\u0440\u0430\u043B\u044F",
+    mar: "\u043C\u0430\u0440",
+    march: "\u043C\u0430\u0440\u0442\u0430",
+    apr: "\u0430\u043F\u0440",
+    april: "\u0430\u043F\u0440\u0435\u043B\u044F",
+    may: "\u043C\u0430\u044F",
+    jun: "\u0438\u044E\u043D",
+    june: "\u0438\u044E\u043D\u044F",
+    jul: "\u0438\u044E\u043B",
+    july: "\u0438\u044E\u043B\u044F",
+    aug: "\u0430\u0432\u0433",
+    august: "\u0430\u0432\u0433\u0443\u0441\u0442\u0430",
+    sep: "\u0441\u0435\u043D",
+    sept: "\u0441\u0435\u043D",
+    september: "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044F",
+    oct: "\u043E\u043A\u0442",
+    october: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F",
+    nov: "\u043D\u043E\u044F",
+    november: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    dec: "\u0434\u0435\u043A",
+    december: "\u0434\u0435\u043A\u0430\u0431\u0440\u044F",
+    \u043D\u043E\u044F\u0431\u0440\u044C: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    \u043D\u043E\u044F\u0431\u0440\u044F: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    \u043E\u043A\u0442\u044F\u0431\u0440\u044C: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F",
+    \u043E\u043A\u0442\u044F\u0431\u0440\u044F: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F"
+  };
+  var MONTHS_SHORT = {
+    Jan: "\u044F\u043D\u0432",
+    Feb: "\u0444\u0435\u0432",
+    Mar: "\u043C\u0430\u0440",
+    Apr: "\u0430\u043F\u0440",
+    May: "\u043C\u0430\u044F",
+    Jun: "\u0438\u044E\u043D",
+    Jul: "\u0438\u044E\u043B",
+    Aug: "\u0430\u0432\u0433",
+    Sep: "\u0441\u0435\u043D",
+    Oct: "\u043E\u043A\u0442",
+    Nov: "\u043D\u043E\u044F",
+    Dec: "\u0434\u0435\u043A"
+  };
+  var MONTHS_FULL = {
+    January: "\u044F\u043D\u0432\u0430\u0440\u044F",
+    February: "\u0444\u0435\u0432\u0440\u0430\u043B\u044F",
+    March: "\u043C\u0430\u0440\u0442\u0430",
+    April: "\u0430\u043F\u0440\u0435\u043B\u044F",
+    May: "\u043C\u0430\u044F",
+    June: "\u0438\u044E\u043D\u044F",
+    July: "\u0438\u044E\u043B\u044F",
+    August: "\u0430\u0432\u0433\u0443\u0441\u0442\u0430",
+    September: "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044F",
+    October: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F",
+    November: "\u043D\u043E\u044F\u0431\u0440\u044F",
+    December: "\u0434\u0435\u043A\u0430\u0431\u0440\u044F"
+  };
+  var MONTHS_NOMINATIVE = {
+    January: "\u044F\u043D\u0432\u0430\u0440\u044C",
+    February: "\u0444\u0435\u0432\u0440\u0430\u043B\u044C",
+    March: "\u043C\u0430\u0440\u0442",
+    April: "\u0430\u043F\u0440\u0435\u043B\u044C",
+    May: "\u043C\u0430\u0439",
+    June: "\u0438\u044E\u043D\u044C",
+    July: "\u0438\u044E\u043B\u044C",
+    August: "\u0430\u0432\u0433\u0443\u0441\u0442",
+    September: "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C",
+    October: "\u043E\u043A\u0442\u044F\u0431\u0440\u044C",
+    November: "\u043D\u043E\u044F\u0431\u0440\u044C",
+    December: "\u0434\u0435\u043A\u0430\u0431\u0440\u044C"
+  };
+  var UNIT2 = {
+    second: ["\u0441\u0435\u043A\u0443\u043D\u0434\u0443", "\u0441\u0435\u043A\u0443\u043D\u0434\u044B", "\u0441\u0435\u043A\u0443\u043D\u0434"],
+    seconds: ["\u0441\u0435\u043A\u0443\u043D\u0434\u0443", "\u0441\u0435\u043A\u0443\u043D\u0434\u044B", "\u0441\u0435\u043A\u0443\u043D\u0434"],
+    minute: ["\u043C\u0438\u043D\u0443\u0442\u0443", "\u043C\u0438\u043D\u0443\u0442\u044B", "\u043C\u0438\u043D\u0443\u0442"],
+    minutes: ["\u043C\u0438\u043D\u0443\u0442\u0443", "\u043C\u0438\u043D\u0443\u0442\u044B", "\u043C\u0438\u043D\u0443\u0442"],
+    hour: ["\u0447\u0430\u0441", "\u0447\u0430\u0441\u0430", "\u0447\u0430\u0441\u043E\u0432"],
+    hours: ["\u0447\u0430\u0441", "\u0447\u0430\u0441\u0430", "\u0447\u0430\u0441\u043E\u0432"],
+    day: ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"],
+    days: ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"],
+    week: ["\u043D\u0435\u0434\u0435\u043B\u044E", "\u043D\u0435\u0434\u0435\u043B\u0438", "\u043D\u0435\u0434\u0435\u043B\u044C"],
+    weeks: ["\u043D\u0435\u0434\u0435\u043B\u044E", "\u043D\u0435\u0434\u0435\u043B\u0438", "\u043D\u0435\u0434\u0435\u043B\u044C"],
+    month: ["\u043C\u0435\u0441\u044F\u0446", "\u043C\u0435\u0441\u044F\u0446\u0430", "\u043C\u0435\u0441\u044F\u0446\u0435\u0432"],
+    months: ["\u043C\u0435\u0441\u044F\u0446", "\u043C\u0435\u0441\u044F\u0446\u0430", "\u043C\u0435\u0441\u044F\u0446\u0435\u0432"],
+    year: ["\u0433\u043E\u0434", "\u0433\u043E\u0434\u0430", "\u043B\u0435\u0442"],
+    years: ["\u0433\u043E\u0434", "\u0433\u043E\u0434\u0430", "\u043B\u0435\u0442"]
+  };
+  var SHORT_AGO = {
+    sec: "seconds",
+    secs: "seconds",
+    min: "minutes",
+    mins: "minutes",
+    hr: "hours",
+    hrs: "hours",
+    mo: "months",
+    mos: "months",
+    yr: "years",
+    yrs: "years"
+  };
+  var COUNT_WORD = {
+    Likes: ["\u043B\u0430\u0439\u043A", "\u043B\u0430\u0439\u043A\u0430", "\u043B\u0430\u0439\u043A\u043E\u0432"],
+    Like: ["\u043B\u0430\u0439\u043A", "\u043B\u0430\u0439\u043A\u0430", "\u043B\u0430\u0439\u043A\u043E\u0432"],
+    Reviews: ["\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F", "\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438", "\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439"],
+    Review: ["\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F", "\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438", "\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439"],
+    Ratings: ["\u043E\u0446\u0435\u043D\u043A\u0430", "\u043E\u0446\u0435\u043D\u043A\u0438", "\u043E\u0446\u0435\u043D\u043E\u043A"],
+    Rating: ["\u043E\u0446\u0435\u043D\u043A\u0430", "\u043E\u0446\u0435\u043D\u043A\u0438", "\u043E\u0446\u0435\u043D\u043E\u043A"],
+    Games: ["\u0438\u0433\u0440\u0430", "\u0438\u0433\u0440\u044B", "\u0438\u0433\u0440"],
+    Game: ["\u0438\u0433\u0440\u0430", "\u0438\u0433\u0440\u044B", "\u0438\u0433\u0440"],
+    Comments: ["\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F", "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"],
+    Comment: ["\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F", "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"],
+    Followers: ["\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A", "\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0430", "\u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u043E\u0432"],
+    Following: ["\u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430", "\u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0438", "\u043F\u043E\u0434\u043F\u0438\u0441\u043E\u043A"],
+    Lists: ["\u0441\u043F\u0438\u0441\u043E\u043A", "\u0441\u043F\u0438\u0441\u043A\u0430", "\u0441\u043F\u0438\u0441\u043A\u043E\u0432"],
+    List: ["\u0441\u043F\u0438\u0441\u043E\u043A", "\u0441\u043F\u0438\u0441\u043A\u0430", "\u0441\u043F\u0438\u0441\u043A\u043E\u0432"],
+    Players: ["\u0438\u0433\u0440\u043E\u043A", "\u0438\u0433\u0440\u043E\u043A\u0430", "\u0438\u0433\u0440\u043E\u043A\u043E\u0432"],
+    Player: ["\u0438\u0433\u0440\u043E\u043A", "\u0438\u0433\u0440\u043E\u043A\u0430", "\u0438\u0433\u0440\u043E\u043A\u043E\u0432"],
+    Results: ["\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442", "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430", "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432"],
+    Result: ["\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442", "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430", "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432"]
+  };
+  function normalizeKey(s) {
+    return String(s).replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/[\u2018\u2019\u02BC\u2032]/g, "'").replace(/[\u201C\u201D]/g, '"').replace(/\u00A0/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function createEngine(dict) {
+    const exact = /* @__PURE__ */ new Map();
+    const fold = /* @__PURE__ */ new Map();
+    const NO_FOLD = /* @__PURE__ */ new Set(["on", "to", "by", "or", "in", "at", "for", "from", "with"]);
+    for (const [key, value] of Object.entries(dict)) {
+      const norm = normalizeKey(key);
+      if (!norm) continue;
+      exact.set(norm, value);
+      const lower = norm.toLowerCase();
+      if (!NO_FOLD.has(lower) && !fold.has(lower)) fold.set(lower, value);
+    }
+    let busy = false;
+    function plural2(n, forms) {
+      const x = Math.abs(Number(n)) % 100;
+      const d = x % 10;
+      if (x > 10 && x < 20) return forms[2];
+      if (d > 1 && d < 5) return forms[1];
+      if (d === 1) return forms[0];
+      return forms[2];
+    }
+    function countRepl(n, word) {
+      const forms = COUNT_WORD[word];
+      if (!forms) return null;
+      const num = String(n).replace(/,/g, "");
+      const base = /[KMBkmb]$/.test(num) ? 5 : Number(num);
+      return `${n} ${plural2(Number.isFinite(base) ? base : 5, forms)}`;
+    }
+    function preserveEdges2(raw, translated) {
+      const lead = raw.match(/^\s*/)[0];
+      const trail = raw.match(/\s*$/)[0];
+      return lead + translated + trail;
+    }
+    function translateText2(raw, el = null) {
+      if (!raw) return null;
+      const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, el) ?? translateNotice(raw, el?.parentElement?.textContent || "") ?? translateActivity(raw) ?? translateCount(raw) ?? editCostume(raw, el);
+      if (stamped != null && normalizeKey(stamped) !== normalizeKey(raw)) return preserveEdges2(raw, stamped);
+      const text = normalizeKey(raw);
+      if (!text || text.length > 420) return null;
+      if (el && shouldSkipProse(el, text)) {
+        const timeLike = /(?:^|[·•.\-\s])\d+\s*[dhms]\s*ago$/i.test(text) || /^\d+\s+[a-z]+\s+ago$/i.test(text) || /^(?:just now|yesterday|today|tomorrow)$/i.test(text) || /^(?:[·•.\-\s]*)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+\d{1,2}(?:,?\s*\d{4})?$/i.test(text) || /^(?:[·•.\-\s]*)?\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?(?:,?\s*\d{4})?$/i.test(text);
+        const multiWord = text.includes(" ") && text.length >= 8;
+        const sectionTitle = /^(Preferences|Service|Settings|Account|Language|FAQ|English|Korean|Japanese|Portuguese|Spanish|French|Lv|LV|Ratings|Collections|Collection|Reviews|Review|Posts|Impressions|Playing|Public|Private|Followers only)$/i.test(text);
+        const levelLine = /\bLv\.?\s*\d+\b/i.test(text) && text.length < 80;
+        const likedLine = /\band\s+(?:\d+\s+)?others?\s+(liked|got help)$/i.test(text) && text.length < 120;
+        const profileLine = /^(?:[·•.\-]\s*)?(follows you|\d+\s*[dhms]\s*ago|posts\s+[\d.,]+\s*[kmb]?|follow back|\d+\s+playing|posts|reviews|collections|following games|top)(?:\s+[\d.,]+\s*[kmb]?)?$/i.test(text);
+        if (!timeLike && !multiWord && !sectionTitle && !levelLine && !likedLine && !profileLine) return null;
+      }
+      if (el && !text.includes(" ")) {
+        let host2 = el;
+        for (let i = 0; i < 4 && host2.parentElement && normalizeKey(host2.textContent || "") === text; i += 1) {
+          host2 = host2.parentElement;
+        }
+        const hostText = normalizeKey(host2.textContent || "");
+        if (hostText && hostText !== text && hostText.length > text.length + 2 && !el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')) {
+          const extra = hostText.toLowerCase().split(text.toLowerCase()).join(" ").trim().split(/\s+/).filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
+          if (extra.length >= 1) return null;
+        }
+      }
+      const hit = exact.get(text) ?? fold.get(text.toLowerCase());
+      if (hit != null) return preserveEdges2(raw, hit);
+      const counted = text.match(
+        /^([\d.,]+[KMBkmb]?)\s+(Likes|Like|Reviews|Review|Ratings|Rating|Games|Game|Comments|Comment|Followers|Following|Lists|List|Players|Player|Results|Result)$/
+      );
+      if (counted) {
+        const next = countRepl(counted[1], counted[2]);
+        if (next) return preserveEdges2(raw, next);
+      }
+      const showing = text.match(/^Showing\s+([\d.,]+)\s+results?$/i);
+      if (showing) {
+        const n = showing[1];
+        const word = plural2(n.replace(/,/g, ""), ["\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442", "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430", "\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432"]);
+        return preserveEdges2(raw, `\u041F\u043E\u043A\u0430\u0437\u0430\u043D\u043E: ${n} ${word}`);
+      }
+      const basedOn = text.match(/^based on\s+([\d.,]+)\s+ratings?$/i);
+      if (basedOn) {
+        const n = basedOn[1];
+        return preserveEdges2(raw, `\u043D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435 ${n} ${plural2(n.replace(/,/g, ""), COUNT_WORD.Ratings)}`);
+      }
+      const releasedOn = text.match(/^Released:\s*(.+)$/i);
+      if (releasedOn) {
+        const dateRaw = releasedOn[1];
+        const dateTr = translateText2(dateRaw);
+        const dateOut = dateTr != null ? normalizeKey(dateTr) : dateRaw;
+        return preserveEdges2(raw, `\u0412\u044B\u0448\u043B\u0430: ${dateOut}`);
+      }
+      const copyright = text.match(/^(?:©|c)\s*(\d{4})\s*PANAX(?:T)?(?:,?\s*Inc\.)?\.?\s*All rights reserved\.?$/i);
+      if (copyright) {
+        return preserveEdges2(raw, `\xA9 ${copyright[1]} PANAX, Inc. \u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B.`);
+      }
+      const levelOnly = text.match(/^Lv\.?\s*(\d+)$/i);
+      if (levelOnly) return preserveEdges2(raw, `\u041B\u0432\u043B ${levelOnly[1]}`);
+      if (/\bLv\.?\s*\d+\b/i.test(text) && text.length < 80 && !/[.!?].*[.!?]/.test(text)) {
+        const next = text.replace(/\bLv\.?\s*(\d+)\b/gi, "\u041B\u0432\u043B $1");
+        if (next !== text) return preserveEdges2(raw, next);
+      }
+      const liked = text.match(/^(.+?)\s+and\s+(?:(\d+)\s+)?others?\s+(liked|got help)$/i);
+      if (liked && text.length < 120) {
+        const who = liked[1];
+        const n = liked[2];
+        const helped = /got help/i.test(liked[3]);
+        const verb = helped ? null : "\u043E\u0446\u0435\u043D\u0438\u043B\u0438";
+        const tail = helped ? n ? `\u0438 \u0435\u0449\u0451 ${n} \u043F\u043E\u043C\u043E\u0433\u043B\u043E` : "\u0438 \u0434\u0440\u0443\u0433\u0438\u043C \u043F\u043E\u043C\u043E\u0433\u043B\u043E" : n ? `\u0438 \u0435\u0449\u0451 ${n} ${plural2(n, ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"])} ${verb}` : `\u0438 \u0434\u0440\u0443\u0433\u0438\u0435 ${verb}`;
+        return preserveEdges2(raw, `${who} ${tail}`);
+      }
+      const followsYou = text.match(/^(?:[·•.\-]\s*)?Follows you$/i);
+      if (followsYou) return preserveEdges2(raw, "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D \u043D\u0430 \u0432\u0430\u0441");
+      const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/i);
+      if (profileTab) {
+        const labels = {
+          posts: "\u041F\u043E\u0441\u0442\u044B",
+          reviews: "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+          collections: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+          "following games": "\u0418\u0433\u0440\u044B \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430\u0445",
+          top: "\u0422\u043E\u043F"
+        };
+        const label = labels[profileTab[1].toLowerCase()];
+        if (label) return preserveEdges2(raw, profileTab[2] ? `${label} ${profileTab[2]}` : label);
+      }
+      const postsCount = text.match(/^Posts\s+(\d+)$/i);
+      if (postsCount) return preserveEdges2(raw, `\u041F\u043E\u0441\u0442\u044B ${postsCount[1]}`);
+      const playingCount = text.match(/^(\d+)\s+Playing$/i);
+      if (playingCount) return preserveEdges2(raw, `${playingCount[1]} \u0438\u0433\u0440\u0430\u044E\u0442`);
+      const inlineUpdated = text.match(/^(.*?\s)?Updated\s+(\d+)\s*([dhms])\s*ago(\s.*)?$/i);
+      if (inlineUpdated && text.length < 80) {
+        const unit = { d: "\u0434", h: "\u0447", m: "\u043C\u0438\u043D", s: "\u0441" }[inlineUpdated[3].toLowerCase()] || inlineUpdated[3];
+        const head = inlineUpdated[1] || "";
+        const tail = inlineUpdated[4] || "";
+        return preserveEdges2(raw, `${head}\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${inlineUpdated[2]} ${unit} \u043D\u0430\u0437\u0430\u0434${tail}`);
+      }
+      const updatedAgo = text.match(/^Updated\s+(\d+)\s*([dhms])\s*ago$/i);
+      if (updatedAgo) {
+        const unit = { d: "\u0434", h: "\u0447", m: "\u043C\u0438\u043D", s: "\u0441" }[updatedAgo[2].toLowerCase()] || updatedAgo[2];
+        return preserveEdges2(raw, `\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updatedAgo[1]} ${unit} \u043D\u0430\u0437\u0430\u0434`);
+      }
+      const updatedWords = text.match(/^Updated\s+(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i);
+      if (updatedWords) {
+        const forms = {
+          second: ["\u0441\u0435\u043A\u0443\u043D\u0434\u0443", "\u0441\u0435\u043A\u0443\u043D\u0434\u044B", "\u0441\u0435\u043A\u0443\u043D\u0434"],
+          minute: ["\u043C\u0438\u043D\u0443\u0442\u0443", "\u043C\u0438\u043D\u0443\u0442\u044B", "\u043C\u0438\u043D\u0443\u0442"],
+          hour: ["\u0447\u0430\u0441", "\u0447\u0430\u0441\u0430", "\u0447\u0430\u0441\u043E\u0432"],
+          day: ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"],
+          week: ["\u043D\u0435\u0434\u0435\u043B\u044E", "\u043D\u0435\u0434\u0435\u043B\u0438", "\u043D\u0435\u0434\u0435\u043B\u044C"],
+          month: ["\u043C\u0435\u0441\u044F\u0446", "\u043C\u0435\u0441\u044F\u0446\u0430", "\u043C\u0435\u0441\u044F\u0446\u0435\u0432"],
+          year: ["\u0433\u043E\u0434", "\u0433\u043E\u0434\u0430", "\u043B\u0435\u0442"]
+        };
+        const word = forms[updatedWords[2].toLowerCase()];
+        const n = updatedWords[1];
+        return preserveEdges2(raw, word ? `\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${n} ${plural2(n, word)} \u043D\u0430\u0437\u0430\u0434` : `\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${n} \u043D\u0430\u0437\u0430\u0434`);
+      }
+      const MONTHS2 = {
+        jan: "\u044F\u043D\u0432",
+        january: "\u044F\u043D\u0432\u0430\u0440\u044F",
+        feb: "\u0444\u0435\u0432",
+        february: "\u0444\u0435\u0432\u0440\u0430\u043B\u044F",
+        mar: "\u043C\u0430\u0440",
+        march: "\u043C\u0430\u0440\u0442\u0430",
+        apr: "\u0430\u043F\u0440",
+        april: "\u0430\u043F\u0440\u0435\u043B\u044F",
+        may: "\u043C\u0430\u044F",
+        jun: "\u0438\u044E\u043D",
+        june: "\u0438\u044E\u043D\u044F",
+        jul: "\u0438\u044E\u043B",
+        july: "\u0438\u044E\u043B\u044F",
+        aug: "\u0430\u0432\u0433",
+        august: "\u0430\u0432\u0433\u0443\u0441\u0442\u0430",
+        sep: "\u0441\u0435\u043D",
+        sept: "\u0441\u0435\u043D",
+        september: "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044F",
+        oct: "\u043E\u043A\u0442",
+        october: "\u043E\u043A\u0442\u044F\u0431\u0440\u044F",
+        nov: "\u043D\u043E\u044F",
+        november: "\u043D\u043E\u044F\u0431\u0440\u044F",
+        dec: "\u0434\u0435\u043A",
+        december: "\u0434\u0435\u043A\u0430\u0431\u0440\u044F"
+      };
+      const monthDate = text.match(
+        /^(?:[·•.\-]\s*)?(?:(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?|(\d{1,2})\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?(?:,?\s*(\d{4}))?)$/i
+      );
+      if (monthDate) {
+        const mon = (monthDate[1] || monthDate[5] || "").toLowerCase();
+        const day = monthDate[2] || monthDate[4];
+        const year = monthDate[3] || monthDate[6] || "";
+        const ruMon = MONTHS2[mon];
+        if (ruMon) return preserveEdges2(raw, `${day} ${ruMon}${year ? ` ${year}` : ""}`);
+      }
+      if (/^just now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
+      if (/^yesterday$/i.test(text)) return preserveEdges2(raw, "\u0432\u0447\u0435\u0440\u0430");
+      if (/^today$/i.test(text)) return preserveEdges2(raw, "\u0441\u0435\u0433\u043E\u0434\u043D\u044F");
+      if (/^tomorrow$/i.test(text)) return preserveEdges2(raw, "\u0437\u0430\u0432\u0442\u0440\u0430");
+      const wordAgo = text.match(/^(?:[·•.\-]\s*)?(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i);
+      if (wordAgo) {
+        const forms = {
+          second: ["\u0441\u0435\u043A\u0443\u043D\u0434\u0443", "\u0441\u0435\u043A\u0443\u043D\u0434\u044B", "\u0441\u0435\u043A\u0443\u043D\u0434"],
+          minute: ["\u043C\u0438\u043D\u0443\u0442\u0443", "\u043C\u0438\u043D\u0443\u0442\u044B", "\u043C\u0438\u043D\u0443\u0442"],
+          hour: ["\u0447\u0430\u0441", "\u0447\u0430\u0441\u0430", "\u0447\u0430\u0441\u043E\u0432"],
+          day: ["\u0434\u0435\u043D\u044C", "\u0434\u043D\u044F", "\u0434\u043D\u0435\u0439"],
+          week: ["\u043D\u0435\u0434\u0435\u043B\u044E", "\u043D\u0435\u0434\u0435\u043B\u0438", "\u043D\u0435\u0434\u0435\u043B\u044C"],
+          month: ["\u043C\u0435\u0441\u044F\u0446", "\u043C\u0435\u0441\u044F\u0446\u0430", "\u043C\u0435\u0441\u044F\u0446\u0435\u0432"],
+          year: ["\u0433\u043E\u0434", "\u0433\u043E\u0434\u0430", "\u043B\u0435\u0442"]
+        };
+        return preserveEdges2(raw, `${wordAgo[1]} ${plural2(wordAgo[1], forms[wordAgo[2].toLowerCase()])} \u043D\u0430\u0437\u0430\u0434`);
+      }
+      const compactAgo = text.match(/^(?:[·•.\-\s]*)?(\d+)\s*([dhmswy])\s*ago$/i);
+      if (compactAgo) {
+        const map = { d: "days", h: "hours", m: "minutes", s: "seconds", w: "weeks", y: "years" };
+        const unitKey = map[compactAgo[2].toLowerCase()];
+        if (unitKey) {
+          return preserveEdges2(raw, `${compactAgo[1]} ${plural2(compactAgo[1], UNIT2[unitKey])} \u043D\u0430\u0437\u0430\u0434`);
+        }
+      }
+      const seeAllCount = text.match(/^See all\s+([\d.,]+)$/i);
+      if (seeAllCount) return preserveEdges2(raw, `\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 (${seeAllCount[1]})`);
+      const filtersCount = text.match(/^Filters\s*\(([\d.,]+)\)$/i);
+      if (filtersCount) return preserveEdges2(raw, `\u0424\u0438\u043B\u044C\u0442\u0440\u044B (${filtersCount[1]})`);
+      const seeResults = text.match(/^See\s+([\d.,]+)\s+results?$/i);
+      if (seeResults) {
+        const n = seeResults[1];
+        return preserveEdges2(
+          raw,
+          `\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C ${n} ${plural2(n.replace(/,/g, ""), COUNT_WORD.Results)}`
+        );
+      }
+      const ago = text.match(/^(\d+)\s+([a-z]+)\s+ago$/i);
+      if (ago) {
+        const key = UNIT2[ago[2].toLowerCase()] ? ago[2].toLowerCase() : SHORT_AGO[ago[2].toLowerCase()];
+        if (key && UNIT2[key]) {
+          return preserveEdges2(raw, `${ago[1]} ${plural2(ago[1], UNIT2[key])} \u043D\u0430\u0437\u0430\u0434`);
+        }
+      }
+      const oneAgo = text.match(/^(?:an?|a)\s+(second|minute|hour|day|week|month|year)\s+ago$/i);
+      if (oneAgo) {
+        const name = oneAgo[1].toLowerCase();
+        return preserveEdges2(raw, `1 ${plural2(1, UNIT2[name] || UNIT2[`${name}s`])} \u043D\u0430\u0437\u0430\u0434`);
+      }
+      if (/^just now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
+      const month = text.match(
+        /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})(?:,)?(?:\s+(\d{4}))?$/
+      );
+      if (month) {
+        return preserveEdges2(
+          raw,
+          `${month[2]} ${MONTHS_SHORT[month[1]]}${month[3] ? ` ${month[3]}` : ""}`
+        );
+      }
+      const monthLong = text.match(
+        /^(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})$/
+      );
+      if (monthLong) {
+        return preserveEdges2(
+          raw,
+          `${monthLong[2]} ${MONTHS_FULL[monthLong[1]]} ${monthLong[3]}`
+        );
+      }
+      const namedMonth = text.match(
+        /^(January|February|March|April|May|June|July|August|September|October|November|December),?\s+(\d{4})$/
+      );
+      if (namedMonth) {
+        return preserveEdges2(
+          raw,
+          `${MONTHS_NOMINATIVE[namedMonth[1]]} ${namedMonth[2]}`
+        );
+      }
+      if (/^[‹«<]\s*Prev$/i.test(text)) return preserveEdges2(raw, "\u2039 \u041D\u0430\u0437\u0430\u0434");
+      if (/^Next\s*[›»>]$/i.test(text)) return preserveEdges2(raw, "\u0414\u0430\u043B\u0435\u0435 \u203A");
+      if (/^Prev$/i.test(text)) return preserveEdges2(raw, "\u041D\u0430\u0437\u0430\u0434");
+      if (/^Next$/i.test(text)) return preserveEdges2(raw, "\u0414\u0430\u043B\u0435\u0435");
+      const withCount = text.match(/^(.+?)\s*\(([\d.,]+)\)$/);
+      if (withCount) {
+        const head = lookup(withCount[1]) ?? fold.get(withCount[1].toLowerCase());
+        if (head) return preserveEdges2(raw, `${head} (${withCount[2]})`);
+      }
+      const withArrow = text.match(/^(.+?)\s*[\u25BC\u25BE\u25B2\u25B8\u2304▼▲›‹>]+$/);
+      if (withArrow) {
+        const head = lookup(withArrow[1]) ?? fold.get(withArrow[1].toLowerCase());
+        if (head) {
+          const suffix = text.slice(withArrow[1].length);
+          return preserveEdges2(raw, head + suffix);
+        }
+      }
+      return null;
+    }
+    function translateAttrs(el) {
+      if (!el || el.nodeType !== 1 || !el.attributes || shouldSkipRoot(el)) return;
+      for (const attr of el.attributes) {
+        const name = attr.name.toLowerCase();
+        if (!ATTR_OK.has(name)) continue;
+        const value = attr.value;
+        if (!value || value.length > 240) continue;
+        if (name === "alt" && value.length > 40) continue;
+        const next = translateText2(value);
+        if (next != null && next.trim() !== value) {
+          el.setAttribute(attr.name, next.trim());
+        }
+      }
+      if (el.tagName === "INPUT") {
+        const type = (el.getAttribute("type") || "").toLowerCase();
+        if (type === "submit" || type === "button" || type === "reset") {
+          const next = translateText2(el.value);
+          if (next != null && next !== el.value) el.value = next.trim();
+        }
+      }
+    }
+    const PHRASING = /* @__PURE__ */ new Set([
+      "SPAN",
+      "SVG",
+      "IMG",
+      "I",
+      "B",
+      "STRONG",
+      "EM",
+      "SMALL",
+      "PATH",
+      "BR",
+      "WBR",
+      "FONT",
+      "U",
+      "S",
+      "MARK",
+      "ABBR",
+      "TIME",
+      "SUB",
+      "SUP",
+      "DIV"
+    ]);
+    const LABEL_TAGS = /* @__PURE__ */ new Set([
+      "A",
+      "BUTTON",
+      "SPAN",
+      "LABEL",
+      "P",
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "H5",
+      "H6",
+      "LI",
+      "DIV",
+      "TD",
+      "TH",
+      "DT",
+      "DD",
+      "LEGEND",
+      "SUMMARY",
+      "OPTION",
+      "TEXT",
+      "TSPAN"
+    ]);
+    const PILL_HINT = /rounded-full|min-w-\[|game-follow|pill|chip|badge|tab/i;
+    function lookup(text) {
+      return exact.get(text) ?? fold.get(text.toLowerCase()) ?? null;
+    }
+    function markPill(el) {
+      if (!el || el.nodeType !== 1) return;
+      const cls = el.className && String(el.className);
+      const host2 = el.closest?.('button, a, [role="button"]') || el;
+      const label = normalizeKey(host2.textContent || "");
+      const inBar = host2.closest?.('header, nav, .tab-button-container, [class*="tab-button-container"]');
+      const wideLabel = /^(?:follow back|подписаться в ответ|edit profile|редактировать профиль|share profile|поделиться профилем|connect playstation account|connect xbox account|подключить аккаунт playstation|подключить аккаунт xbox)$/i.test(label);
+      if (wideLabel && !inBar && host2.tagName !== "BODY" && host2.tagName !== "HTML") {
+        host2.setAttribute("data-panax-ru", "wide");
+      }
+      if (cls && PILL_HINT.test(cls)) el.setAttribute("data-panax-ru", "pill");
+      else if (!el.hasAttribute("data-panax-ru")) el.setAttribute("data-panax-ru", "1");
+    }
+    function ownText(el) {
+      let s = "";
+      for (const n of el.childNodes) {
+        if (n.nodeType === 3) s += n.nodeValue;
+      }
+      return normalizeKey(s);
+    }
+    function translateOwnText(el) {
+      const texts = [...el.childNodes].filter((n) => n.nodeType === 3);
+      if (!texts.length) return false;
+      const joined = texts.map((n) => n.nodeValue).join("");
+      const fragmentedNotice = el.childElementCount > 0 && /Get it|sale ends|Check your|Загляните/.test(el.textContent || "");
+      const next = fragmentedNotice ? null : translateText2(joined, el);
+      if (next != null && normalizeKey(next) !== normalizeKey(joined)) {
+        texts[0].nodeValue = next;
+        for (let i = 1; i < texts.length; i += 1) texts[i].nodeValue = "";
+        markPill(el);
+        return true;
+      }
+      let changed = false;
+      for (const n of texts) {
+        const tr = translateText2(n.nodeValue, el);
+        if (tr != null && tr !== n.nodeValue) {
+          n.nodeValue = tr;
+          changed = true;
+        }
+      }
+      if (changed) markPill(el);
+      return changed;
+    }
+    function translateComposite(el) {
+      if (!el || el.nodeType !== 1 || !LABEL_TAGS.has(el.tagName)) return false;
+      if (el.isContentEditable || shouldSkipRoot(el)) return false;
+      if (el.tagName === "SVG" || el.tagName === "IMG" || el.tagName === "PATH") return false;
+      if (el.childElementCount > 40) return false;
+      if (el.querySelector("input, textarea, select, video, iframe, canvas, svg, img")) {
+        translateOwnText(el);
+        return false;
+      }
+      translateOwnText(el);
+      const kids = [...el.children];
+      const letterSplit = kids.length > 1 && kids.every(
+        (c) => (c.tagName === "SPAN" || c.tagName === "FONT" || c.tagName === "B" || c.tagName === "I") && !c.querySelector("svg, img") && normalizeKey(c.textContent || "").length <= 1
+      );
+      if (!letterSplit) return false;
+      const text = normalizeKey(el.textContent || "");
+      if (!text || text.length < 2 || text.length > 160) return false;
+      if (shouldSkipProse(el, text)) return false;
+      let hit = lookup(text);
+      if (hit == null) {
+        const flex = translateText2(text, el);
+        if (flex != null) hit = normalizeKey(flex);
+      }
+      if (hit == null || hit === text) return false;
+      el.textContent = hit;
+      markPill(el);
+      return true;
+    }
+    let pseudoStyle = null;
+    function ensurePseudoStyle() {
+      if (pseudoStyle && pseudoStyle.isConnected) return pseudoStyle;
+      pseudoStyle = document.getElementById("panax-ru-pseudo");
+      if (!pseudoStyle) {
+        pseudoStyle = document.createElement("style");
+        pseudoStyle.id = "panax-ru-pseudo";
+        (document.head || document.documentElement).appendChild(pseudoStyle);
+      }
+      pseudoStyle.textContent = [
+        ".panax-ru-before::before { content: attr(data-panax-before) !important; }",
+        ".panax-ru-after::after { content: attr(data-panax-after) !important; }"
+      ].join("\n");
+      return pseudoStyle;
+    }
+    function translatePseudos(root) {
+      if (!root || root.nodeType !== 1) return;
+      ensurePseudoStyle();
+      const nodes = root.querySelectorAll("a, button, span, div, label, p, i, em, small, li, h1, h2, h3, h4");
+      for (const el of nodes) {
+        if (shouldSkipRoot(el)) continue;
+        if (normalizeKey(el.textContent || "").length > 64) continue;
+        for (const side of ["::before", "::after"]) {
+          let content = "";
+          try {
+            content = getComputedStyle(el, side).content;
+          } catch {
+            continue;
+          }
+          const clean2 = String(content || "").replace(/^["']|["']$/g, "").trim();
+          if (!clean2 || clean2 === "none" || clean2 === "normal") continue;
+          const translated = translateText2(clean2);
+          if (translated == null) continue;
+          const next = translated.trim();
+          if (!next || next === clean2) continue;
+          if (side === "::before") {
+            el.setAttribute("data-panax-before", next);
+            el.classList.add("panax-ru-before");
+          } else {
+            el.setAttribute("data-panax-after", next);
+            el.classList.add("panax-ru-after");
+          }
+        }
+      }
+    }
+    function paintNotice(el) {
+      if (!el || el.nodeType !== 1 || el.childElementCount > 40) return false;
+      const rawText = el.textContent || "";
+      if (/(?:Level\s*Up|Уровень\s*Up|Log in daily|Check your|is now|is сейчас|Get it|sale ends|до окончания|just dropped a new post|replied\s+(?:on|to)\s+your|(?:liked|нравится)\s+your|commented\s+on\s+your)/i.test(rawText)) {
+        const nodes = [el, ...el.querySelectorAll("p, div, span, a, li, h2, h3, h4")];
+        for (const p of nodes) {
+          const context = normalizeKey(p.textContent || "");
+          if (!/Get it/i.test(context) || !/sale ends/i.test(context) || context.length > 220) continue;
+          const walk = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+          let textNode;
+          while (textNode = walk.nextNode()) {
+            const raw = textNode.nodeValue;
+            const translated = translateNotice(raw, context);
+            if (translated == null) continue;
+            const next2 = preserveEdges2(raw, translated);
+            if (next2 !== raw) textNode.nodeValue = next2;
+          }
+        }
+        for (const p of nodes) {
+          const t = normalizeKey(p.textContent || "");
+          const isNotice = /(?:replied (?:on|to)|liked|нравится|commented on)\s+your/i.test(t) || /оценил(?:и)?ваш|ответилнаваш|прокомментировалваш|нравитсяваш|ваш(?:комментарий|пост|ответ)|вашурецензию/i.test(t);
+          if (!isNotice || t.length >= 160) continue;
+          const verb = /others?\s+(?:liked|нравится|оценили|оценил)/i.test(t) ? "\u043E\u0446\u0435\u043D\u0438\u043B\u0438" : "\u043E\u0446\u0435\u043D\u0438\u043B";
+          const people2 = (num) => plural2(Number(num), ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"]);
+          for (const n of p.childNodes) {
+            if (n.nodeType === 3) {
+              const next2 = n.nodeValue.replace(/оценилваш/gi, `${verb} \u0432\u0430\u0448`).replace(/оцениливаш/gi, "\u043E\u0446\u0435\u043D\u0438\u043B\u0438 \u0432\u0430\u0448").replace(/нравитсяваш/gi, `${verb} \u0432\u0430\u0448`).replace(/ответилнаваш/gi, "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448").replace(/прокомментировалваш/gi, "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448").replace(/вашурецензию/gi, "\u0432\u0430\u0448\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E").replace(/ваш(?:комментарий|пост|ответ)/gi, (m) => ({ "\u0432\u0430\u0448\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439": "\u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u0432\u0430\u0448\u043F\u043E\u0441\u0442": "\u0432\u0430\u0448 \u043F\u043E\u0441\u0442", "\u0432\u0430\u0448\u043E\u0442\u0432\u0435\u0442": "\u0432\u0430\u0448 \u043E\u0442\u0432\u0435\u0442" })[m.toLowerCase()] || m).replace(/replied (?:on|to) your (?:comment|комментарий)/gi, "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439").replace(/replied (?:on|to) your/gi, "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448").replace(/(?:liked|нравится) your (?:comment|комментарий)/gi, `${verb} \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439`).replace(/(?:liked|нравится) your (?:post|пост)/gi, `${verb} \u0432\u0430\u0448 \u043F\u043E\u0441\u0442`).replace(/(?:liked|нравится) your (?:review|рецензию|обзор)/gi, `${verb} \u0432\u0430\u0448\u0443 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E`).replace(/(?:liked|нравится) your/gi, `${verb} \u0432\u0430\u0448`).replace(/commented on your (?:post|пост)/gi, "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442").replace(/commented on your/gi, "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448").replace(/replied (?:on|to)(?=\s|$)/gi, "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430").replace(/commented on(?=\s|$)/gi, "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B").replace(/\b(?:and|&)\s+(\d+)\s+others?\b/gi, (s, num) => `\u0438 \u0435\u0449\u0451 ${num} ${people2(num)}`).replace(/\bYou(?=\s+(?:and|&|и)(?:\s|$))/g, "\u0412\u044B");
+              if (next2 !== n.nodeValue) n.nodeValue = next2;
+            }
+          }
+          for (const cLink of p.querySelectorAll("a, span")) {
+            if (cLink.childElementCount > 0) continue;
+            const raw = cLink.textContent || "";
+            const cText = normalizeKey(raw);
+            let ru = null;
+            if (/^(?:comment|Комментарий)$/i.test(cText)) ru = "\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439";
+            else if (/^(?:post|Пост)$/i.test(cText)) ru = "\u043F\u043E\u0441\u0442";
+            else if (/^(?:liked|Нравится)$/i.test(cText)) ru = verb;
+            else if (/^your$/i.test(cText)) ru = "\u0432\u0430\u0448";
+            if (!ru) continue;
+            const lead2 = raw.match(/^\s*/)[0];
+            const trail = raw.match(/\s*$/)[0];
+            const next2 = lead2 + ru + trail;
+            if (next2 !== raw) {
+              const texts = [...cLink.childNodes].filter((n) => n.nodeType === 3);
+              if (texts.length) {
+                if (texts[0].nodeValue !== next2) texts[0].nodeValue = next2;
+                for (const n of texts.slice(1)) if (n.nodeValue !== "") n.nodeValue = "";
+              }
+            }
+          }
+        }
+        for (const p of nodes) {
+          const t = normalizeKey(p.textContent || "");
+          if (/just dropped a new post/i.test(t) && t.length < 160) {
+            for (const n of p.childNodes) {
+              if (n.nodeType === 3 && /just dropped a new post/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/just dropped a new post/gi, "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442");
+              }
+            }
+          }
+        }
+        for (const p of nodes) {
+          if (p.querySelector("img, svg, div, p")) continue;
+          const t = normalizeKey(p.textContent || "");
+          if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(t)) {
+            p.textContent = "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.";
+          }
+        }
+        for (const p of nodes) {
+          const t = normalizeKey(p.textContent || "");
+          if (!/log in daily/i.test(t) && (/(?:Level\s*Up!|Уровень\s*Up!)/i.test(t) || /(?:Level\s*Up|Уровень\s*Up)/i.test(t) && /\b(?:Lv|Лвл)\.?\s*\d+/i.test(t))) {
+            for (const n of p.childNodes) {
+              if (n.nodeType === 3 && /(?:Level\s*Up!?|Уровень\s*Up!?)/i.test(n.nodeValue)) {
+                n.nodeValue = n.nodeValue.replace(/(?:Level\s*Up!?|Уровень\s*Up!?)\s*/gi, "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C! ");
+              }
+            }
+          }
+        }
+        for (const p of nodes) {
+          if (p.querySelector("img, svg, div, p")) continue;
+          const t = normalizeKey(p.textContent || "");
+          if (/^Check your\s+(?:profile|профиль|Профиль)\s+(?:to|До)?\s*see what['’]s new\.?$/i.test(t)) {
+            const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            let tn;
+            while (tn = walker.nextNode()) textNodes.push(tn);
+            let leadDone = false;
+            let tailDone = false;
+            for (const node of textNodes) {
+              const raw = node.nodeValue;
+              const norm = normalizeKey(raw).toLowerCase();
+              if (!norm) continue;
+              if (/^(?:check your|check|your)$/i.test(norm)) {
+                if (!leadDone) {
+                  node.nodeValue = preserveEdges2(raw, "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439");
+                  leadDone = true;
+                } else {
+                  node.nodeValue = "";
+                }
+              } else if (/^(?:profile|профиль)$/i.test(norm)) {
+                node.nodeValue = preserveEdges2(raw, "\u043F\u0440\u043E\u0444\u0438\u043B\u044C");
+              } else if (/^(?:to|see|what's|what|s|new|new\.)$/i.test(norm) || /(?:to|До)?\s*see what/i.test(norm)) {
+                if (!tailDone) {
+                  node.nodeValue = preserveEdges2(raw, ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.");
+                  tailDone = true;
+                } else {
+                  node.nodeValue = "";
+                }
+              }
+            }
+          }
+        }
+        for (const p of nodes) {
+          const t = normalizeKey(p.textContent || "");
+          if (/\b(?:is\s+now|is\s+сейчас|is)\s+(?:now\s+|сейчас\s+)?\d+%/i.test(t) && t.length < 220) {
+            const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            let tn;
+            while (tn = walker.nextNode()) {
+              if (tn.nodeValue && tn.nodeValue.trim()) textNodes.push(tn);
+            }
+            let placedBadge = false;
+            for (let i = 0; i < textNodes.length; i += 1) {
+              const node = textNodes[i];
+              const val = node.nodeValue;
+              const cleanVal = val.trim().toLowerCase();
+              if (cleanVal === "is") {
+                node.nodeValue = preserveEdges2(val, "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430");
+                placedBadge = true;
+                const nextNode = textNodes[i + 1];
+                if (nextNode && /^(?:now|сейчас)$/i.test(nextNode.nodeValue.trim())) {
+                  nextNode.nodeValue = "";
+                }
+              } else if (cleanVal === "now" || cleanVal === "\u0441\u0435\u0439\u0447\u0430\u0441") {
+                if (!placedBadge) {
+                  node.nodeValue = preserveEdges2(val, "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430");
+                  placedBadge = true;
+                } else {
+                  node.nodeValue = "";
+                }
+              } else if (/\b(?:is\s+now|is\s+сейчас)\b/i.test(val)) {
+                node.nodeValue = val.replace(/\b(?:is\s+now|is\s+сейчас)\s+(\d+)%(?:\s*off)?/gi, "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430 $1%").replace(/\b(?:is\s+now|is\s+сейчас)\b/gi, "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430");
+              }
+            }
+          }
+        }
+        for (const p of nodes) {
+          if (p.querySelector("img, svg, div, p")) continue;
+          const t = normalizeKey(p.textContent || "");
+          if (t.length > 180 || /\b(is now|is сейчас)\b|— скидка/i.test(t)) continue;
+          if (/Get it|before the sale|Купите в Steam|до окончания скидки/i.test(t)) {
+            const m = t.match(/^(?:Get it|Купите)?\s*(?:on|в|Вкл\.)?\s*Steam\s*(?:for|за)?\s+([\s\S]+?)\s*(?:before the sale ends|before\s+(?:the\s+)?sale\s+ends|до окончания скидки)?\s*(?:on|в|Вкл\.)?\s*([a-zA-Zа-яА-ЯёЁ]+)\.?\s*(\d{1,2})(?:,?\s*(\d{4}))?\.?$/i);
+            if (m) {
+              const monKey = m[2].toLowerCase();
+              const mon = MONTHS_LOWER[monKey] || MONTHS_FULL[monKey] || MONTHS_SHORT[monKey] || m[2];
+              const day = parseInt(m[3], 10);
+              const year = m[4] ? ` ${m[4]}` : "";
+              const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+              const textNodes = [];
+              let tn;
+              while (tn = walker.nextNode()) textNodes.push(tn);
+              let buyDone = false;
+              let endsDone = false;
+              let dateDone = false;
+              for (const node of textNodes) {
+                const raw = node.nodeValue;
+                const norm = normalizeKey(raw).toLowerCase();
+                if (!norm) continue;
+                if (/^(?:get it|get|it|on|купите|купите в)$/i.test(norm) || norm === "\u0432" && !endsDone) {
+                  if (!buyDone) {
+                    node.nodeValue = preserveEdges2(raw, "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432");
+                    buyDone = true;
+                  } else {
+                    node.nodeValue = "";
+                  }
+                } else if (/^steam$/i.test(norm)) {
+                } else if (/^for$/i.test(norm)) {
+                  node.nodeValue = preserveEdges2(raw, "\u0437\u0430");
+                } else if (/^(?:before the sale ends|before|the|sale|ends|before the sale ends on)$/i.test(norm)) {
+                  if (!endsDone) {
+                    node.nodeValue = preserveEdges2(raw, "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438");
+                    endsDone = true;
+                  } else {
+                    node.nodeValue = "";
+                  }
+                } else if (norm === "on" || norm === "\u0432" && endsDone) {
+                  node.nodeValue = "";
+                } else if (MONTHS_LOWER[norm] || /^(?:november|ноябрь|ноября|december|декабрь|декабря|october|октябрь|октября)$/i.test(norm)) {
+                  if (!dateDone) {
+                    node.nodeValue = preserveEdges2(raw, `${day} ${mon}${year}`);
+                    dateDone = true;
+                  } else {
+                    node.nodeValue = "";
+                  }
+                } else if (/^\d{1,2}$/.test(norm)) {
+                  if (dateDone) {
+                    node.nodeValue = "";
+                  } else {
+                    node.nodeValue = preserveEdges2(raw, String(day));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      let acc = "";
+      const headerNodes = [];
+      const take = (node) => {
+        if (node.nodeType === 3) {
+          if (normalizeKey(node.nodeValue || "")) headerNodes.push(node);
+          acc += node.nodeValue || "";
+          return;
+        }
+        if (node.nodeType !== 1) return;
+        if (["IMG", "SVG", "TIME", "VIDEO"].includes(node.tagName)) return;
+        const t = normalizeKey(node.textContent || "");
+        if (t.length > 100 && !/commented on|replied (?:on|to)|(?:liked|нравится)\s+(?:your|ваш)|started following/i.test(t)) return;
+        for (const child of node.childNodes) take(child);
+      };
+      for (const child of el.childNodes) {
+        const before = normalizeKey(acc);
+        take(child);
+        if (splitNotice(normalizeKey(acc))) break;
+        if (normalizeKey(acc) === before && child.nodeType === 1 && normalizeKey(child.textContent || "").length > 40) break;
+      }
+      const parsed = splitNotice(normalizeKey(acc));
+      if (!parsed) return false;
+      const name = parsed.name.toLowerCase();
+      const actionNodes = headerNodes.filter((n) => {
+        const own2 = normalizeKey(n.nodeValue || "").toLowerCase();
+        if (!own2) return false;
+        if (name && own2 === name) return false;
+        const parentText = normalizeKey(n.parentElement?.textContent || "").toLowerCase();
+        if (name && parentText === name) return false;
+        return true;
+      });
+      if (!actionNodes.length) return false;
+      const own = normalizeKey(actionNodes[0].nodeValue || "").toLowerCase();
+      const lead = (actionNodes[0].nodeValue.match(/^\s*/) || [""])[0];
+      const next = name && own.startsWith(name) ? `${parsed.name} ${parsed.ru}` : `${lead}${parsed.ru}`;
+      if (actionNodes[0].nodeValue !== next) actionNodes[0].nodeValue = next;
+      for (let i = 1; i < actionNodes.length; i += 1) {
+        if (actionNodes[i].nodeValue !== "") actionNodes[i].nodeValue = "";
+      }
+      return true;
+    }
+    function stampComposer(node) {
+      if (!node || node.nodeType !== 1) return;
+      for (const attr of ["placeholder", "data-placeholder", "aria-placeholder", "aria-label"]) {
+        const ph = node.getAttribute(attr);
+        if (!ph) continue;
+        const next = translateActivity(ph) || translateText2(ph);
+        if (next && normalizeKey(next) !== normalizeKey(ph)) node.setAttribute(attr, next);
+      }
+      const visit = (el) => {
+        for (const child of el.childNodes) {
+          if (child.nodeType === 3) {
+            const prompt = translateActivity(child.nodeValue);
+            if (prompt && /отметить игру|Выберите эмодзи/.test(prompt)) {
+              child.nodeValue = preserveEdges2(child.nodeValue, prompt);
+            }
+          } else if (child.nodeType === 1) {
+            const prompt = translateActivity(child.textContent || "");
+            if (prompt && /отметить игру/.test(prompt) && !child.querySelector("img, svg")) child.textContent = prompt;
+            else visit(child);
+          }
+        }
+      };
+      visit(node);
+    }
+    const EDITOR_LABELS = {
+      edit: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+      exit: "\u0412\u044B\u0439\u0442\u0438",
+      colors: "\u0426\u0432\u0435\u0442\u0430",
+      hair: "\u0412\u043E\u043B\u043E\u0441\u044B",
+      beard: "\u0411\u043E\u0440\u043E\u0434\u0430",
+      shape: "\u0424\u043E\u0440\u043C\u0430",
+      brows: "\u0411\u0440\u043E\u0432\u0438",
+      eyes: "\u0413\u043B\u0430\u0437\u0430",
+      nose: "\u041D\u043E\u0441",
+      mouth: "\u0420\u043E\u0442",
+      top: "\u0412\u0435\u0440\u0445",
+      bottom: "\u041D\u0438\u0437",
+      shoes: "\u041E\u0431\u0443\u0432\u044C",
+      glasses: "\u041E\u0447\u043A\u0438",
+      cap: "\u041A\u0435\u043F\u043A\u0430",
+      age: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
+      makeup: "\u041C\u0430\u043A\u0438\u044F\u0436",
+      paint: "\u041A\u0440\u0430\u0441\u043A\u0430",
+      scar: "\u0428\u0440\u0430\u043C",
+      spot: "\u041F\u044F\u0442\u043D\u043E",
+      pose: "\u041F\u043E\u0437\u0430",
+      custom: "\u0421\u0432\u043E\u0451"
+    };
+    function editCostume(raw, el) {
+      const host2 = el?.closest?.('.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]');
+      if (!host2) return null;
+      return EDITOR_LABELS[normalizeKey(raw).toLowerCase()] || null;
+    }
+    function moreButton(node) {
+      if (!node || node.nodeType !== 3) return null;
+      const parent = node.parentElement;
+      if (!parent?.classList?.contains("more-button-inline") && !parent?.closest?.(".more-button-inline")) return null;
+      if (!/^more$/i.test(normalizeKey(node.nodeValue || ""))) return null;
+      return "\u0415\u0449\u0451";
+    }
+    function walkTimestamps(node) {
+      if (!node) return;
+      if (node.nodeType === 3) {
+        const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
+        if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {
+          node.nodeValue = preserveEdges2(node.nodeValue, stamped);
+        }
+        return;
+      }
+      if (node.nodeType === 11) {
+        for (const child of node.childNodes) walkTimestamps(child);
+        return;
+      }
+      if (node.nodeType !== 1) return;
+      if (node.tagName === "TEXTAREA" || node.isContentEditable) {
+        stampComposer(node);
+        return;
+      }
+      for (const attr of ["placeholder", "title", "aria-label", "data-placeholder"]) {
+        const ph = node.getAttribute?.(attr);
+        if (!ph) continue;
+        const nextPh = translateActivity(ph);
+        if (nextPh && normalizeKey(nextPh) !== normalizeKey(ph)) node.setAttribute(attr, nextPh);
+      }
+      if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(node.tagName)) return;
+      paintNotice(node);
+      const graphic = node.querySelector?.("svg, img, input, textarea, video, canvas");
+      const text = normalizeKey(node.textContent || "");
+      if (!graphic && text.length >= 2 && text.length <= 32 && node.childElementCount <= 6) {
+        const stamped = translateTimestamp(text);
+        if (stamped != null && normalizeKey(stamped) !== text) {
+          const texts = [...node.childNodes].filter((n) => n.nodeType === 3);
+          if (texts.length && node.childElementCount === 0) {
+            texts[0].nodeValue = stamped;
+            for (let i = 1; i < texts.length; i += 1) texts[i].nodeValue = "";
+            return;
+          }
+          if (node.childElementCount > 0 && [...node.children].every((c) => normalizeKey(c.textContent || "").length <= 16)) {
+            node.textContent = stamped;
+            return;
+          }
+        }
+      }
+      for (const child of node.childNodes) walkTimestamps(child);
+    }
+    function translateNode(node) {
+      if (!node) return;
+      try {
+        if (node.nodeType === 11) {
+          for (const child of node.childNodes) translateNode(child);
+          return;
+        }
+        if (node.nodeType === 3) {
+          const parent = node.parentElement;
+          if (parent && parent.isContentEditable) return;
+          if (parent && (shouldSkipRoot(parent) || ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(parent.tagName))) {
+            const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
+            if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {
+              node.nodeValue = preserveEdges2(node.nodeValue, stamped);
+            }
+            return;
+          }
+          const next = translateText2(node.nodeValue, parent);
+          if (next != null && next !== node.nodeValue) {
+            node.nodeValue = next;
+            if (parent) markPill(parent);
+          }
+          return;
+        }
+        if (node.nodeType !== 1) return;
+        if (node.tagName === "TEXTAREA" || node.isContentEditable) {
+          stampComposer(node);
+          return;
+        }
+        if (["SCRIPT", "STYLE", "NOSCRIPT", "CODE", "PRE", "CANVAS"].includes(node.tagName)) {
+          return;
+        }
+        if (shouldSkipRoot(node)) {
+          walkTimestamps(node);
+          return;
+        }
+        if (/^(?:follow back|подписаться в ответ|edit profile|редактировать профиль|share profile|поделиться профилем|connect playstation account|connect xbox account|подключить аккаунт playstation|подключить аккаунт xbox)$/i.test(normalizeKey(node.textContent || ""))) markPill(node);
+        paintNotice(node);
+        translateAttrs(node);
+        if (node.childElementCount > 0 && node.childElementCount <= 4 && !node.querySelector("svg, img, input, textarea")) {
+          const joined = normalizeKey(node.textContent || "");
+          const stamped = joined.length <= 32 ? translateTimestamp(joined) : null;
+          if (stamped != null && normalizeKey(stamped) !== joined && [...node.children].every((c) => normalizeKey(c.textContent || "").length <= 16)) {
+            node.textContent = stamped;
+            markPill(node);
+            return;
+          }
+        }
+        translateOwnText(node);
+        if (translateComposite(node)) return;
+        if (node.shadowRoot) translateNode(node.shadowRoot);
+        for (const child of node.childNodes) translateNode(child);
+      } catch {
+      }
+    }
+    function translateLeafLabels(el) {
+      if (!el || el.nodeType !== 1) return;
+      translateOwnText(el);
+      const label = el.querySelector?.(":scope > span.label, :scope > .label, span.label, .label");
+      if (label && !label.querySelector("svg, img")) {
+        if (label.childElementCount === 0) {
+          const text = normalizeKey(label.textContent || "");
+          const tr = text ? translateText2(text, label) : null;
+          if (tr != null && normalizeKey(tr) !== text) {
+            label.textContent = normalizeKey(tr);
+            markPill(label);
+            label.setAttribute("data-panax-ru", "label");
+          }
+        } else {
+          translateOwnText(label);
+          translateComposite(label);
+        }
+      }
+      let leaves;
+      try {
+        leaves = el.querySelectorAll("span, div, p, a, button, li");
+      } catch {
+        return;
+      }
+      for (const leaf of leaves) {
+        if (shouldSkipRoot(leaf)) continue;
+        if (leaf.querySelector("svg, img, input, textarea")) continue;
+        if (leaf.childElementCount > 0) {
+          translateOwnText(leaf);
+          translateComposite(leaf);
+          continue;
+        }
+        const text = normalizeKey(leaf.textContent || "");
+        if (!text || text.length > 80) continue;
+        const tr = translateText2(text, leaf);
+        if (tr != null && normalizeKey(tr) !== text) {
+          leaf.textContent = normalizeKey(tr);
+          markPill(leaf);
+        }
+      }
+    }
+    function translateKnown(root) {
+      if (!root || root.querySelectorAll == null) return;
+      const sels = [
+        "button.tab-button",
+        '.tab-button:is(button, a, [role="tab"])',
+        ".game-follow-round-button",
+        // Live DOM: <p class="tab-button-label">Following</p>
+        "p.tab-button-label",
+        ".tab-button-label",
+        "button.tab-button p",
+        'button[class*="rounded-full"]',
+        'a[class*="rounded-full"]',
+        "span.label",
+        ".label",
+        // Card CTAs — only in main/cards, not every link in a post
+        'main button[class*="rounded"]',
+        '[class*="game-card"] button',
+        '[class*="GameCard"] button',
+        'article button[class*="rounded-full"]'
+      ];
+      const seen2 = /* @__PURE__ */ new Set();
+      for (const sel of sels) {
+        let list;
+        try {
+          list = root.querySelectorAll(sel);
+        } catch {
+          continue;
+        }
+        for (const el of list) {
+          if (seen2.has(el) || shouldSkipRoot(el)) continue;
+          seen2.add(el);
+          translateLeafLabels(el);
+        }
+      }
+    }
+    const STUBBORN = new Set(
+      [
+        "Hot",
+        "New",
+        "HOT",
+        "NEW",
+        "Following",
+        "Followers",
+        "Follower",
+        "Latest",
+        "News",
+        "Add to Wishlist",
+        "Add to wishlist",
+        "Add to",
+        "View Details",
+        "View details",
+        "View full details",
+        "View Full Details",
+        "Get Started",
+        "Ratings",
+        "Rating",
+        "Also Playing",
+        "Also Wishlisted",
+        "Similar",
+        "Similar games",
+        "Recommended",
+        "Most Wishlisted",
+        "Trending Games Now",
+        "Trending Games",
+        "Set status",
+        "Status",
+        "Wishlist",
+        "Platforms",
+        "Developer",
+        "Publisher",
+        "Release",
+        "Game info",
+        "Join the Ultimate Gaming Community!",
+        "Join now and level up your gaming!",
+        "Join us for free",
+        "Join now",
+        "Discover, track, and share your gaming journey with fellow enthusiasts.",
+        "Players with this game",
+        "Wishlist Users",
+        "How was it?",
+        "Public",
+        "Completionist",
+        "Main Story",
+        "Main + Sides",
+        "How Long To Beat",
+        "Level Up!",
+        "Level up!",
+        "\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up!",
+        "Check your profile to see what's new.",
+        "just dropped a new post",
+        "is now",
+        "Get it",
+        "Get it on Steam",
+        "before the sale ends"
+      ].map(normalizeKey)
+    );
+    const CHROME_SCOPE_SELS = [
+      "header",
+      "nav",
+      "footer",
+      "aside",
+      '[role="banner"]',
+      '[role="navigation"]',
+      '[role="dialog"]',
+      '[role="complementary"]',
+      '[role="menu"]',
+      '[role="menuitem"]',
+      '[class*="opacity-"]',
+      "button.tab-button",
+      '.tab-button:is(button, a, [role="tab"])',
+      "p.tab-button-label",
+      ".game-follow-round-button",
+      'button[class*="rounded-full"]',
+      'a[class*="rounded-full"]',
+      '[class*="game-card"]',
+      '[class*="GameCard"]',
+      '[class*="game-detail"]',
+      '[class*="GameDetail"]',
+      '[class*="game-info"]',
+      '[class*="cookie"]',
+      '[class*="Cookie"]',
+      '[class*="banner"]:not([class*="post"])',
+      '[class*="Banner"]:not([class*="post"])',
+      '[class*="badge"]',
+      '[class*="Badge"]',
+      "main",
+      "main button",
+      'main a[class*="rounded"]'
+    ].join(",");
+    function forceStubborn(root) {
+      if (!root) return;
+      const base = root.nodeType === 1 || root.nodeType === 11 ? root : document.body;
+      if (!base || !base.querySelectorAll) return;
+      let scopes;
+      try {
+        scopes = [...base.querySelectorAll(CHROME_SCOPE_SELS)];
+      } catch {
+        scopes = [];
+      }
+      if (base.matches?.(CHROME_SCOPE_SELS.split(",")[0])) scopes.unshift(base);
+      try {
+        for (const el of base.querySelectorAll('[class*="sticky"], [class*="Sticky"]')) {
+          if (!scopes.includes(el)) scopes.push(el);
+        }
+      } catch {
+      }
+      for (const scope of scopes) {
+        if (shouldSkipRoot(scope)) continue;
+        try {
+          const tw = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+          let node;
+          while (node = tw.nextNode()) {
+            const parent = node.parentElement;
+            if (!parent || shouldSkipRoot(parent) || parent.isContentEditable || ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(parent.tagName)) {
+              continue;
+            }
+            if (!isChromeContext(parent)) continue;
+            const raw = node.nodeValue;
+            const key = normalizeKey(raw || "");
+            if (!key || key.length > 120) continue;
+            if (!STUBBORN.has(key)) continue;
+            const next = translateText2(raw, parent);
+            if (next != null && next !== raw) {
+              node.nodeValue = next;
+              markPill(parent);
+            }
+          }
+        } catch {
+        }
+        let leaves;
+        try {
+          leaves = scope.querySelectorAll("span, button, a, label, li");
+        } catch {
+          continue;
+        }
+        for (const el of leaves) {
+          if (shouldSkipRoot(el) || el.isContentEditable) continue;
+          if (!isChromeContext(el)) continue;
+          if (el.querySelector("svg, img, input, textarea, video, iframe, canvas")) continue;
+          const text = normalizeKey(el.textContent || "");
+          if (!text || text.length > 120 || !STUBBORN.has(text)) continue;
+          const tr = translateText2(text, el);
+          if (tr == null || normalizeKey(tr) === text) continue;
+          if (el.childElementCount === 0) {
+            el.textContent = normalizeKey(tr);
+            markPill(el);
+          } else {
+            translateComposite(el);
+            translateOwnText(el);
+          }
+        }
+      }
+    }
+    function run(root = document.body || document.documentElement) {
+      if (!root || busy) return;
+      busy = true;
+      try {
+        translateNode(root);
+        translateKnown(root.nodeType === 1 ? root : document.body);
+        forceStubborn(root.nodeType === 1 || root.nodeType === 11 ? root : document.body);
+        if (root.nodeType === 1) translatePseudos(root);
+        else if (document.body) translatePseudos(document.body);
+      } finally {
+        busy = false;
+      }
+    }
+    return { translateText: translateText2, translateNode, run, lookup, translatePseudos, translateKnown, forceStubborn };
+  }
+
+  // src/content/observer.js
+  function startObserver(engine) {
+    let scheduled = false;
+    const flush = () => {
+      scheduled = false;
+      engine.run(document.body || document.documentElement);
+    };
+    const schedule = () => {
+      if (scheduled) return;
+      scheduled = true;
+      if (typeof requestAnimationFrame === "function") requestAnimationFrame(flush);
+      else setTimeout(flush, 16);
+    };
+    schedule();
+    const observer = new MutationObserver((records) => {
+      let needsFull = false;
+      for (const record of records) {
+        if (record.type === "characterData") {
+          engine.translateNode(record.target);
+          if (record.target.parentElement) engine.translateNode(record.target.parentElement);
+        }
+        for (const node of record.addedNodes) {
+          engine.translateNode(node);
+          needsFull = true;
+        }
+        if (record.type === "attributes" && record.target) {
+          engine.translateNode(record.target);
+        }
+      }
+      if (needsFull) schedule();
+    });
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ["placeholder", "data-placeholder", "aria-placeholder", "title", "aria-label", "aria-description", "alt"]
+    });
+    window.addEventListener("popstate", schedule);
+    window.addEventListener("hashchange", schedule);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") schedule();
+    });
+    const wrap = (fn) => function patched(...args) {
+      const ret = fn.apply(this, args);
+      schedule();
+      setTimeout(schedule, 50);
+      setTimeout(schedule, 300);
+      return ret;
+    };
+    try {
+      history.pushState = wrap(history.pushState.bind(history));
+      history.replaceState = wrap(history.replaceState.bind(history));
+    } catch {
+    }
+    let ticks = 0;
+    const pulse = () => {
+      schedule();
+      ticks += 1;
+      const delay = ticks < 40 ? 500 : ticks < 80 ? 2e3 : 8e3;
+      setTimeout(pulse, delay);
+    };
+    setTimeout(pulse, 400);
+    return { schedule, observer };
+  }
+
+  // src/content/enrichment/enrichment.css
+  var enrichment_default = "/* ==========================================================================\r\n   PANAX RU - Game Enrichment UI Styles\r\n   Matches Panax Dark Modern Design System\r\n   ========================================================================== */\r\n\r\n.panax-plus-card {\r\n  background: rgba(255, 255, 255, 0.03);\r\n  border: 1px solid rgba(255, 255, 255, 0.08);\r\n  border-radius: 1rem;\r\n  padding: 1.25rem;\r\n  margin-top: 1.25rem;\r\n  margin-bottom: 1.25rem;\r\n  backdrop-filter: blur(8px);\r\n  transition: border-color 0.2s ease, box-shadow 0.2s ease;\r\n}\r\n\r\n.panax-plus-card:hover {\r\n  border-color: rgba(255, 255, 255, 0.14);\r\n}\r\n\r\n.panax-plus-title {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  font-size: 1.05rem;\r\n  font-weight: 700;\r\n  color: #fff;\r\n  margin-bottom: 0.85rem;\r\n}\r\n\r\n.panax-plus-title svg {\r\n  width: 1.25rem;\r\n  height: 1.25rem;\r\n  opacity: 0.8;\r\n}\r\n\r\n/* Badges & Scores row */\r\n.panax-badges-row {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 0.6rem;\r\n  align-items: center;\r\n}\r\n\r\n.panax-badge {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 0.45rem;\r\n  padding: 0.4rem 0.75rem;\r\n  border-radius: 0.6rem;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n  transition: transform 0.15s ease, filter 0.15s ease;\r\n}\r\n\r\n.panax-badge:hover {\r\n  transform: translateY(-1px);\r\n  filter: brightness(1.15);\r\n}\r\n\r\n/* Metacritic Score */\r\n.panax-badge-mc {\r\n  background: #111;\r\n  color: #fff;\r\n  border: 1px solid rgba(255, 255, 255, 0.15);\r\n}\r\n\r\n.panax-badge-mc .mc-val {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 1.7rem;\r\n  height: 1.7rem;\r\n  border-radius: 0.35rem;\r\n  font-weight: 800;\r\n  font-size: 0.95rem;\r\n  color: #fff;\r\n}\r\n\r\n.mc-val.high { background: #66cc33; color: #000; }\r\n.mc-val.mid { background: #ffcc33; color: #000; }\r\n.mc-val.low { background: #ff0000; color: #fff; }\r\n\r\n/* OpenCritic Badges */\r\n.panax-badge-oc {\r\n  color: #fff;\r\n}\r\n.panax-badge-oc.mighty { background: linear-gradient(135deg, #ec4899, #8b5cf6); }\r\n.panax-badge-oc.strong { background: linear-gradient(135deg, #3b82f6, #06b6d4); }\r\n.panax-badge-oc.fair { background: linear-gradient(135deg, #f59e0b, #d97706); }\r\n.panax-badge-oc.weak { background: linear-gradient(135deg, #64748b, #475569); }\r\n\r\n/* ProtonDB & Deck */\r\n.panax-badge-deck {\r\n  background: rgba(16, 185, 129, 0.15);\r\n  color: #34d399;\r\n  border: 1px solid rgba(16, 185, 129, 0.3);\r\n}\r\n\r\n.panax-badge-proton {\r\n  background: rgba(180, 198, 219, 0.12);\r\n  color: #b4c6db;\r\n  border: 1px solid rgba(180, 198, 219, 0.25);\r\n}\r\n.panax-badge-proton.platinum { color: #c4d8ea; background: rgba(196, 216, 234, 0.18); border-color: rgba(196, 216, 234, 0.4); }\r\n.panax-badge-proton.gold { color: #f59e0b; background: rgba(245, 158, 11, 0.18); border-color: rgba(245, 158, 11, 0.4); }\r\n.panax-badge-proton.silver { color: #cbd5e1; background: rgba(203, 213, 225, 0.15); border-color: rgba(203, 213, 225, 0.3); }\r\n.panax-badge-proton.bronze { color: #f97316; background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.3); }\r\n\r\n\r\n/* Steam Price & Store Box */\r\n.panax-steam-box {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.75rem;\r\n}\r\n\r\n.panax-price-row {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-wrap: wrap;\r\n  gap: 0.6rem;\r\n}\r\n\r\n.panax-discount-pill {\r\n  background: #10b981;\r\n  color: #000;\r\n  font-weight: 800;\r\n  font-size: 0.85rem;\r\n  padding: 0.25rem 0.5rem;\r\n  border-radius: 0.35rem;\r\n}\r\n\r\n.panax-price-val {\r\n  font-size: 1.15rem;\r\n  font-weight: 700;\r\n  color: #fff;\r\n}\r\n\r\n.panax-approx-rub {\r\n  font-size: 0.95rem;\r\n  color: rgba(255, 255, 255, 0.6);\r\n  font-weight: 500;\r\n}\r\n\r\n.panax-review-badge {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 0.35rem;\r\n  font-size: 0.85rem;\r\n  color: #38bdf8;\r\n  font-weight: 600;\r\n}\r\n\r\n.panax-tags-row {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 0.4rem;\r\n  margin-top: 0.4rem;\r\n}\r\n\r\n.panax-tag {\r\n  background: rgba(255, 255, 255, 0.06);\r\n  border: 1px solid rgba(255, 255, 255, 0.08);\r\n  padding: 0.2rem 0.55rem;\r\n  border-radius: 0.4rem;\r\n  font-size: 0.75rem;\r\n  color: rgba(255, 255, 255, 0.75);\r\n}\r\n\r\n/* Quick External Links */\r\n.panax-quick-links {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 0.5rem;\r\n  margin-top: 0.75rem;\r\n}\r\n\r\n.panax-quick-btn {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 0.4rem;\r\n  padding: 0.45rem 0.85rem;\r\n  background: rgba(255, 255, 255, 0.05);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n  border-radius: 0.6rem;\r\n  font-size: 0.82rem;\r\n  font-weight: 600;\r\n  color: #e2e8f0;\r\n  text-decoration: none;\r\n  transition: all 0.15s ease;\r\n}\r\n\r\n.panax-quick-btn:hover {\r\n  background: rgba(255, 255, 255, 0.12);\r\n  border-color: rgba(255, 255, 255, 0.25);\r\n  color: #fff;\r\n  transform: translateY(-1px);\r\n}\r\n\r\n/* Tab: Player Data Online & Community Stats */\r\n.panax-online-badge {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  padding: 0.5rem 0.9rem;\r\n  background: rgba(16, 185, 129, 0.12);\r\n  border: 1px solid rgba(16, 185, 129, 0.3);\r\n  border-radius: 0.75rem;\r\n  font-size: 0.95rem;\r\n  font-weight: 700;\r\n  color: #34d399;\r\n}\r\n\r\n.panax-online-dot {\r\n  width: 0.6rem;\r\n  height: 0.6rem;\r\n  border-radius: 50%;\r\n  background: #10b981;\r\n  box-shadow: 0 0 8px #10b981;\r\n  animation: panax-pulse 2s infinite;\r\n}\r\n\r\n@keyframes panax-pulse {\r\n  0% { transform: scale(0.95); opacity: 0.8; }\r\n  50% { transform: scale(1.2); opacity: 1; }\r\n  100% { transform: scale(0.95); opacity: 0.8; }\r\n}\r\n\r\n.panax-steam-stats-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));\r\n  gap: 0.75rem;\r\n  margin-top: 0.85rem;\r\n}\r\n\r\n.panax-stat-box {\r\n  background: rgba(255, 255, 255, 0.03);\r\n  border: 1px solid rgba(255, 255, 255, 0.06);\r\n  border-radius: 0.6rem;\r\n  padding: 0.6rem 0.75rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.2rem;\r\n}\r\n\r\n.panax-stat-box .label {\r\n  font-size: 0.75rem;\r\n  color: rgba(255, 255, 255, 0.55);\r\n}\r\n\r\n.panax-stat-box .val {\r\n  font-size: 1.1rem;\r\n  font-weight: 800;\r\n  color: #fff;\r\n}\r\n\r\n/* Community Progress Breakdown */\r\n.panax-progress-bar-container {\r\n  margin-top: 1rem;\r\n}\r\n\r\n.panax-progress-bar {\r\n  display: flex;\r\n  height: 0.7rem;\r\n  border-radius: 0.35rem;\r\n  overflow: hidden;\r\n  background: rgba(255, 255, 255, 0.08);\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.6rem;\r\n}\r\n\r\n.panax-progress-seg {\r\n  height: 100%;\r\n  transition: width 0.3s ease;\r\n}\r\n\r\n.panax-progress-seg.beaten { background: #10b981; }\r\n.panax-progress-seg.playing { background: #3b82f6; }\r\n.panax-progress-seg.backlog { background: #8b5cf6; }\r\n.panax-progress-seg.paused { background: #f59e0b; }\r\n.panax-progress-seg.dropped { background: #ef4444; }\r\n\r\n.panax-progress-legend {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 0.75rem;\r\n  font-size: 0.75rem;\r\n  color: rgba(255, 255, 255, 0.7);\r\n}\r\n\r\n.panax-legend-item {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 0.35rem;\r\n}\r\n\r\n.panax-legend-dot {\r\n  width: 0.5rem;\r\n  height: 0.5rem;\r\n  border-radius: 50%;\r\n}\r\n\r\n\r\n\r\n/* Translate Buttons (Post, Review, Description) */\r\n.panax-translate-btn {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 0.35rem;\r\n  padding: 0.22rem 0.65rem;\r\n  border-radius: 9999px;\r\n  background: rgba(45, 212, 191, 0.12);\r\n  border: 1px solid rgba(45, 212, 191, 0.28);\r\n  color: #2dd4bf;\r\n  font-size: 0.76rem;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  line-height: 1.25;\r\n  transition: all 0.15s ease;\r\n  user-select: none;\r\n  vertical-align: middle;\r\n}\r\n\r\n.panax-translate-btn:hover {\r\n  background: rgba(45, 212, 191, 0.22);\r\n  border-color: rgba(45, 212, 191, 0.45);\r\n  color: #5eead4;\r\n}\r\n\r\n.panax-translate-btn.is-translated {\r\n  background: rgba(255, 255, 255, 0.08);\r\n  border-color: rgba(255, 255, 255, 0.18);\r\n  color: #94a3b8;\r\n}\r\n\r\n.panax-translate-btn.is-translated:hover {\r\n  background: rgba(255, 255, 255, 0.14);\r\n  color: #f1f5f9;\r\n}\r\n\r\n.panax-translate-btn.is-loading {\r\n  opacity: 0.7;\r\n  cursor: wait;\r\n}\r\n\r\n.panax-translate-spin {\r\n  display: inline-block;\r\n  width: 0.65rem;\r\n  height: 0.65rem;\r\n  border: 1.5px solid currentColor;\r\n  border-top-color: transparent;\r\n  border-radius: 50%;\r\n  animation: panax-spin 0.7s linear infinite;\r\n}\r\n\r\n@keyframes panax-spin {\r\n  to { transform: rotate(360deg); }\r\n}\r\n\r\n.panax-translate-wrap {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n/* Unified Rating additional badges (Steam, Backloggd) */\r\n.panax-badge-steam {\r\n  background: rgba(56, 189, 248, 0.12);\r\n  color: #38bdf8;\r\n  border: 1px solid rgba(56, 189, 248, 0.25);\r\n}\r\n\r\n.panax-badge-steam:hover {\r\n  background: rgba(56, 189, 248, 0.2);\r\n  border-color: rgba(56, 189, 248, 0.4);\r\n}\r\n\r\n.panax-badge-backloggd {\r\n  background: rgba(244, 63, 94, 0.12);\r\n  color: #fb7185;\r\n  border: 1px solid rgba(244, 63, 94, 0.28);\r\n}\r\n\r\n.panax-badge-backloggd:hover {\r\n  background: rgba(244, 63, 94, 0.2);\r\n  border-color: rgba(244, 63, 94, 0.4);\r\n}\r\n";
+
+  // src/content/styles.js
+  var CSS = `
+/* Status follow pills (Played / Playing / \u2026) \u2014 not header CTAs */
+html.panax-ru .game-follow-round-button,
+html.panax-ru button.game-follow-round-button,
+html.panax-ru [data-panax-ru="pill"].game-follow-round-button {
+  min-width: fit-content !important;
+  width: max-content !important;
+  max-width: none !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  padding-left: 0.9rem !important;
+  padding-right: 0.9rem !important;
+}
+
+/* Russian follow-back and other long CTAs: grow the pill, not the header */
+html.panax-ru button[data-panax-ru="wide"],
+html.panax-ru a[data-panax-ru="wide"],
+html.panax-ru [role="button"][data-panax-ru="wide"] {
+  min-width: max-content !important;
+  width: max-content !important;
+  max-width: none !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  text-overflow: clip !important;
+  padding-left: 1.35rem !important;
+  padding-right: 1.35rem !important;
+  box-sizing: border-box !important;
+}
+
+html.panax-ru .edit-btn {
+  width: max-content !important;
+  min-width: max-content !important;
+  overflow: visible !important;
+}
+html.panax-ru .edit-label {
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+html.panax-ru .game-follow-round-button .label,
+html.panax-ru .game-follow-round-button span.label,
+html.panax-ru [data-panax-ru="label"] {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+}
+
+/*
+ * Feed tab BUTTONS only \u2014 never .tab-button-container (that selector
+ * used to match [class*="tab-button"] and blew the sticky bar wider
+ * than the feed column).
+ */
+html.panax-ru button.tab-button,
+html.panax-ru .tab-button:is(button, a, [role="tab"]) {
+  min-width: fit-content !important;
+  width: auto !important;
+  max-width: none !important;
+  overflow: visible !important;
+  overflow-clip-margin: unset !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
+html.panax-ru .tab-button-label,
+html.panax-ru p.tab-button-label {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+}
+
+/* Tab row stays inside the column. Russian labels scroll sideways. */
+html.panax-ru .tab-button-container,
+html.panax-ru [class*="tab-button-container"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+}
+html.panax-ru .tab-button-container::-webkit-scrollbar,
+html.panax-ru [class*="tab-button-container"]::-webkit-scrollbar {
+  height: 4px;
+}
+html.panax-ru .tab-button-container::-webkit-scrollbar-thumb,
+html.panax-ru [class*="tab-button-container"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+}
+
+/* The row that actually scrolls hides its bar and fades the last tab. */
+html.panax-ru .tab-navigation-container {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent !important;
+  padding-bottom: 6px !important;
+}
+html.panax-ru .tab-navigation-container::-webkit-scrollbar {
+  display: block !important;
+  height: 5px !important;
+  width: auto !important;
+}
+html.panax-ru .tab-navigation-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 999px !important;
+}
+html.panax-ru .tab-button-container .gradient-overlay {
+  display: none !important;
+}
+
+/* Card / detail CTAs: grow a little, never force header flex to explode */
+html.panax-ru main button[class*="rounded-full"],
+html.panax-ru main a[class*="rounded-full"],
+html.panax-ru [class*="game-card"] button[class*="rounded-full"],
+html.panax-ru [class*="game-card"] a[class*="rounded-full"],
+html.panax-ru [class*="GameCard"] button,
+html.panax-ru article button[class*="rounded-full"],
+html.panax-ru article a[class*="rounded-full"] {
+  min-width: fit-content !important;
+  width: auto !important;
+  max-width: none !important;
+  white-space: nowrap !important;
+  padding-left: 0.85rem !important;
+  padding-right: 0.85rem !important;
+}
+
+/* Header / sticky top: allow shrink, no max-content blowout */
+html.panax-ru header button[class*="rounded-full"],
+html.panax-ru header a[class*="rounded-full"],
+html.panax-ru nav button[class*="rounded-full"],
+html.panax-ru nav a[class*="rounded-full"],
+html.panax-ru [class*="sticky"] > button[class*="rounded-full"],
+html.panax-ru [class*="sticky"] a[class*="rounded-full"],
+html.panax-ru [class*="navbar"] button[class*="rounded-full"],
+html.panax-ru [class*="Navbar"] button[class*="rounded-full"] {
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
+  flex-shrink: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+/* Clothing editor: never flash the English label. Revealed in the same
+   frame the MAIN-world patch writes the Russian word. */
+html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]):not([data-panax-ru-on]),
+html.panax-ru :is(.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]):not([data-panax-ru-on]) * {
+  color: transparent !important;
+}
+
+#panax-ru-badge {
+  position: fixed;
+  z-index: 2147483646;
+  right: 8px;
+  bottom: 8px;
+  background: #7c3aed;
+  color: #fff;
+  font: 700 12px/1.2 system-ui, sans-serif;
+  padding: 8px 12px;
+  border-radius: 999px;
+  opacity: 0.95;
+  pointer-events: none;
+  box-shadow: 0 2px 12px rgba(124,58,237,.55);
+  letter-spacing: 0.02em;
+}
+`;
+  var GQ_CSS = `
+[data-gq-hidden],[data-gq-composer-hidden]{display:none !important}
+[data-gq-view]{display:block;max-width:100%}
+[data-gq-preview]{display:block;max-width:100%;margin:8px 0}
+.gq-preview-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;
+  font:600 12px/1.3 system-ui,-apple-system,'Segoe UI',sans-serif;color:#d7ccff}
+.gq-preview-bar .gq-ro{font-weight:500;opacity:.8;font-size:11px;color:#8b94aa}
+.gq-preview-bar button{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 system-ui,sans-serif;
+  padding:6px 11px;border-radius:999px;cursor:pointer;
+  background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7ccff}
+.gq-preview-bar button:hover{background:rgba(124,92,255,.28)}
+.gq-preview-bar button.ghost{background:transparent;border-color:#2d3648;color:#8b94aa}
+`;
+  function injectStyles() {
+    if (document.getElementById("panax-ru-css")) return;
+    const style = document.createElement("style");
+    style.id = "panax-ru-css";
+    style.textContent = CSS + "\n" + (enrichment_default || "") + "\n" + GQ_CSS;
+    (document.head || document.documentElement).appendChild(style);
+    document.documentElement.classList.add("panax-ru");
+  }
+
+  // src/content/messages-patch.js
+  function startMessagesPatch(dict) {
+    const fold = /* @__PURE__ */ new Map();
+    for (const [k, v] of Object.entries(dict)) {
+      fold.set(k, v);
+      fold.set(k.toLowerCase(), v);
+    }
+    const BY_KEY = {
+      "following-title": dict.Following || "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438",
+      "following-common": dict.Following || "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438",
+      "follower-common-one": dict.Follower || "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A",
+      "follower-common-other": dict.Followers || "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438",
+      "c-hot-common": dict.Hot || "\u0413\u043E\u0440\u044F\u0447\u0435\u0435",
+      "c-latest-common": dict.Latest || "\u0421\u0432\u0435\u0436\u0435\u0435",
+      "news-common": dict.News || "\u041D\u043E\u0432\u043E\u0441\u0442\u0438",
+      "wishlist-common": dict.Wishlist || "\u0416\u0435\u043B\u0430\u0435\u043C\u043E\u0435",
+      "join-banner-title": dict["Join now and level up your gaming!"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0438 \u043F\u0440\u043E\u043A\u0430\u0447\u0438\u0432\u0430\u0439 \u0441\u0432\u043E\u0439 \u0433\u0435\u0439\u043C\u0438\u043D\u0433!",
+      "join-banner-button": dict["Join us for free"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E",
+      "join-now-button": dict["Join now"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F",
+      "start-button": dict["Get Started"] || "\u041D\u0430\u0447\u0430\u0442\u044C",
+      "view-full-details-button": dict["View full details"] || dict["View Details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+      "welcome-trending-label": dict["Trending Games Now"] || "\u0412 \u0442\u0440\u0435\u043D\u0434\u0435",
+      "discover-common": dict.Discover || "\u041E\u0431\u0437\u043E\u0440",
+      "follow-common": dict.Follow || "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0430",
+      "unfollow-button": dict.Unfollow || "\u041E\u0442\u043F\u0438\u0441\u043A\u0430",
+      "playing-common": dict.Playing || "\u0418\u0433\u0440\u0430\u044E",
+      "backlog-common": dict.Backlog || "\u0412 \u043F\u043B\u0430\u043D\u0430\u0445",
+      "beaten-common": dict.Beaten || dict.Completed || "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E",
+      "paused-common": dict.Paused || "\u041F\u0430\u0443\u0437\u0430",
+      "quit-common": dict.Quit || dict.Dropped || "\u0411\u0440\u043E\u0448\u0435\u043D\u043E",
+      "write-review-button": dict["Write a review"] || dict["Write a Review"] || "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+      "more-link": dict.More || "\u0415\u0449\u0451",
+      "rating-common-one": dict.Rating || "\u041E\u0446\u0435\u043D\u043A\u0430",
+      "rating-common-other": dict.Ratings || "\u041E\u0446\u0435\u043D\u043A\u0438",
+      "platforms-common": dict.Platforms || "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B",
+      "developer-common": dict.Developer || "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A",
+      "publisher-common": dict.Publisher || "\u0418\u0437\u0434\u0430\u0442\u0435\u043B\u044C",
+      "release-common": dict.Release || "\u0420\u0435\u043B\u0438\u0437",
+      "similar-game-common": dict["Similar games"] || "\u041F\u043E\u0445\u043E\u0436\u0438\u0435 \u0438\u0433\u0440\u044B",
+      "set-status-label": dict["Set status"] || "\u0421\u0442\u0430\u0442\u0443\u0441",
+      "status-common": dict.Status || "\u0421\u0442\u0430\u0442\u0443\u0441",
+      "game-info-common": dict["Game info"] || "\u041E\u0431 \u0438\u0433\u0440\u0435",
+      "about-label": dict.About || "\u041E \u0438\u0433\u0440\u0435",
+      "dscrp-common": dict.Description || "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435",
+      "storyline-common": dict.Storyline || "\u0421\u044E\u0436\u0435\u0442",
+      "achv-title": dict.Achievements || "\u0414\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F",
+      "other-status-section": dict["Players with this game"] || "\u0418\u0433\u0440\u043E\u043A\u0438 \u0441 \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u043E\u0439",
+      "other-wishlist-title": dict["Wishlist Users"] || "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C",
+      "rate-status-section": dict["How was it?"] || "\u041A\u0430\u043A \u0432\u0430\u043C?",
+      "most-helpful-review-section": dict["Most helpful reviews"] || "\u0421\u0430\u043C\u044B\u0435 \u043F\u043E\u043B\u0435\u0437\u043D\u044B\u0435 \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+      "player-data-label": dict["Player data"] || "\u0414\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432",
+      "suggest-edit-link": dict["Suggest an edit"] || "\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u0442\u044C \u043F\u0440\u0430\u0432\u043A\u0443",
+      "wrong-info-dscrp": dict["See something wrong?"] || "\u041D\u0430\u0448\u043B\u0438 \u043E\u0448\u0438\u0431\u043A\u0443?",
+      "info-title": dict.Information || "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F",
+      "genre-common": dict.Genre || dict.Genres || "\u0416\u0430\u043D\u0440",
+      "add-to-title": dict["Add to"] || "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432",
+      "first-review-micro": dict["Be the first to write a review"] || "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044E",
+      "whats-buzzing-section": dict["What's Buzzing?"] || "\u041E \u0447\u0451\u043C \u0433\u043E\u0432\u043E\u0440\u044F\u0442?",
+      "who-follow-title": dict["Who to follow"] || "\u041A\u043E\u0433\u043E \u0447\u0438\u0442\u0430\u0442\u044C",
+      "new-post-title": dict["New post"] || "\u041D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442",
+      "public-option": dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E",
+      "public-micro": dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E",
+      "public-label": dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E",
+      "public-common": dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E",
+      "c-public-common": dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E",
+      "completionist-micro": dict.Completionist || "100% \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u0435",
+      "main-story-micro": dict["Main Story"] || "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0441\u044E\u0436\u0435\u0442",
+      "main-sides-micro": dict["Main + Sides"] || "\u0421\u044E\u0436\u0435\u0442 + \u043F\u043E\u0431\u043E\u0447\u043A\u0438",
+      "hltb-section": dict["How Long To Beat"] || "How Long To Beat",
+      "spoiler-alert": dict["Spoiler alert"] || "\u0421\u043F\u043E\u0439\u043B\u0435\u0440",
+      "cmnt-off-option": dict["Turn off comments"] || "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"
+    };
+    function tr(s) {
+      if (typeof s !== "string" || s.length < 2 || s.length > 240) return null;
+      return fold.get(s) ?? fold.get(s.toLowerCase()) ?? null;
+    }
+    function trKey(key, val) {
+      if (typeof val !== "string") return null;
+      const leaf = String(key).split(".").pop();
+      if (leaf && BY_KEY[leaf] && BY_KEY[leaf] !== val) return BY_KEY[leaf];
+      return tr(val);
+    }
+    function patchObject(obj, seen2, depth) {
+      if (!obj || typeof obj !== "object" || depth > 12 || seen2.has(obj)) return 0;
+      seen2.add(obj);
+      let n = 0;
+      if (Array.isArray(obj)) {
+        for (let i = 0; i < obj.length; i += 1) {
+          if (typeof obj[i] === "string") {
+            const next = tr(obj[i]);
+            if (next && next !== obj[i]) {
+              obj[i] = next;
+              n += 1;
+            }
+          } else n += patchObject(obj[i], seen2, depth + 1);
+        }
+        return n;
+      }
+      for (const key of Object.keys(obj)) {
+        const val = obj[key];
+        if (typeof val === "string") {
+          const next = trKey(key, val);
+          if (next && next !== val) {
+            obj[key] = next;
+            n += 1;
+          }
+        } else if (val && typeof val === "object") {
+          n += patchObject(val, seen2, depth + 1);
+        }
+      }
+      return n;
+    }
+    function fiberMessages(fiber, depth) {
+      if (!fiber || depth > 60) return 0;
+      let n = 0;
+      const props = fiber.memoizedProps || fiber.pendingProps;
+      if (props) {
+        if (props.messages && typeof props.messages === "object") {
+          n += patchObject(props.messages, /* @__PURE__ */ new WeakSet(), 0);
+        }
+        if (props.value?.messages && typeof props.value.messages === "object") {
+          n += patchObject(props.value.messages, /* @__PURE__ */ new WeakSet(), 0);
+        }
+        if (props.value && typeof props.value === "object" && props.value.locale) {
+          n += patchObject(props.value, /* @__PURE__ */ new WeakSet(), 0);
+        }
+      }
+      const state2 = fiber.memoizedState;
+      if (state2 && typeof state2 === "object") {
+        let s = state2;
+        let guard = 0;
+        while (s && guard < 24) {
+          if (s.memoizedState?.messages) n += patchObject(s.memoizedState.messages, /* @__PURE__ */ new WeakSet(), 0);
+          if (s.queue?.lastRenderedState?.messages) {
+            n += patchObject(s.queue.lastRenderedState.messages, /* @__PURE__ */ new WeakSet(), 0);
+          }
+          if (s.memoizedState && typeof s.memoizedState === "object" && !Array.isArray(s.memoizedState)) {
+            const ms = s.memoizedState;
+            if (ms.common || ms.community || ms.game) n += patchObject(ms, /* @__PURE__ */ new WeakSet(), 0);
+          }
+          s = s.next;
+          guard += 1;
+        }
+      }
+      n += fiberMessages(fiber.child, depth + 1);
+      n += fiberMessages(fiber.sibling, depth + 1);
+      return n;
+    }
+    function scan2() {
+      const roots = [document.getElementById("__next"), document.body, document.documentElement].filter(Boolean);
+      let total = 0;
+      for (const el of roots) {
+        for (const key of Object.keys(el)) {
+          if (!key.startsWith("__react") && !key.startsWith("_react")) continue;
+          const fiber = el[key];
+          if (!fiber) continue;
+          const start2 = fiber.stateNode || fiber.child || fiber;
+          try {
+            total += fiberMessages(start2, 0);
+          } catch {
+          }
+        }
+      }
+      if (total > 0) console.info(`[PANAX RU] patched ${total} next-intl message values`);
+      return total;
+    }
+    let tries = 0;
+    const tick2 = () => {
+      scan2();
+      tries += 1;
+      if (tries < 80) setTimeout(tick2, 200);
+      else if (tries < 160) setTimeout(tick2, 800);
+      else if (tries < 220) setTimeout(tick2, 3e3);
+    };
+    setTimeout(tick2, 50);
+  }
+
+  // src/content/write-patch.js
+  function normalizeKey2(s) {
+    return String(s || "").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, " ").trim();
+  }
+  function preserveEdges(raw, next) {
+    const m = String(raw).match(/^(\s*)([\s\S]*?)(\s*)$/);
+    if (!m) return next;
+    return m[1] + next + m[3];
+  }
+  function startWritePatch(dict) {
+    if (globalThis.__PANAX_RU_WRITE_PATCH__) return;
+    globalThis.__PANAX_RU_WRITE_PATCH__ = true;
+    const map = /* @__PURE__ */ new Map();
+    const add = (en, ru) => {
+      if (!en || !ru) return;
+      map.set(en, ru);
+      map.set(en.toLowerCase(), ru);
+    };
+    const pairs = [
+      ["Public", dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439"],
+      ["Private", dict.Private || "\u041F\u0440\u0438\u0432\u0430\u0442\u043D\u044B\u0439"],
+      ["Followers only", dict["Followers only"] || "\u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438"],
+      ["just dropped a new post", "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+      ["dropped a new post", "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+      ["Add to Wishlist", dict["Add to Wishlist"] || "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
+      ["Add to wishlist", dict["Add to Wishlist"] || "\u0412 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
+      ["View Details", dict["View Details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+      ["View details", dict["View Details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+      ["View full details", dict["View full details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+      ["View Full Details", dict["View full details"] || "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435"],
+      ["Hot", dict.Hot || "\u0413\u043E\u0440\u044F\u0447\u0435\u0435"],
+      ["New", dict.New || "\u041D\u043E\u0432\u043E\u0435"],
+      ["HOT", "\u0413\u041E\u0420\u042F\u0427\u0415\u0415"],
+      ["NEW", "\u041D\u041E\u0412\u041E\u0415"],
+      ["Followers", dict.Followers || "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u0438"],
+      ["Follower", dict.Follower || "\u041F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A"],
+      ["Following", dict.Following || "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438"],
+      ["Ratings", dict.Ratings || "\u041E\u0446\u0435\u043D\u043A\u0438"],
+      ["Rating", dict.Rating || "\u041E\u0446\u0435\u043D\u043A\u0430"],
+      ["Wishlist", dict.Wishlist || "\u0416\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
+      ["Also Playing", dict["Also Playing"] || "\u0422\u043E\u0436\u0435 \u0438\u0433\u0440\u0430\u044E\u0442"],
+      ["Also Wishlisted", dict["Also Wishlisted"] || "\u0422\u043E\u0436\u0435 \u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C"],
+      ["Set status", dict["Set status"] || "\u0421\u0442\u0430\u0442\u0443\u0441"],
+      ["Platforms", dict.Platforms || "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B"],
+      ["Developer", dict.Developer || "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"],
+      ["Publisher", dict.Publisher || "\u0418\u0437\u0434\u0430\u0442\u0435\u043B\u044C"],
+      ["Release", dict.Release || "\u0420\u0435\u043B\u0438\u0437"],
+      ["Similar games", dict["Similar games"] || "\u041F\u043E\u0445\u043E\u0436\u0438\u0435 \u0438\u0433\u0440\u044B"],
+      ["Similar", dict.Similar || "\u041F\u043E\u0445\u043E\u0436\u0438\u0435"],
+      ["Get Started", dict["Get Started"] || "\u041D\u0430\u0447\u0430\u0442\u044C"],
+      ["Join us for free", dict["Join us for free"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E"],
+      ["Join now", dict["Join now"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"],
+      ["Join now and level up your gaming!", dict["Join now and level up your gaming!"] || "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0441\u044F \u0438 \u043F\u0440\u043E\u043A\u0430\u0447\u0438\u0432\u0430\u0439 \u0441\u0432\u043E\u0439 \u0433\u0435\u0439\u043C\u0438\u043D\u0433!"],
+      ["What's Buzzing?", dict["What's Buzzing?"] || "\u041E \u0447\u0451\u043C \u0433\u043E\u0432\u043E\u0440\u044F\u0442?"],
+      ["Most talked about right now", dict["Most talked about right now"] || "\u0421\u0435\u0439\u0447\u0430\u0441 \u043E\u0431\u0441\u0443\u0436\u0434\u0430\u044E\u0442 \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E"],
+      ["Who to follow", dict["Who to follow"] || "\u041A\u043E\u0433\u043E \u0447\u0438\u0442\u0430\u0442\u044C"],
+      ["New post", dict["New post"] || "\u041D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+      ["Public", dict.Public || "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u043E"],
+      ["Completionist", dict.Completionist || "100% \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u0435"],
+      ["Main Story", dict["Main Story"] || "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0441\u044E\u0436\u0435\u0442"],
+      ["Main + Sides", dict["Main + Sides"] || "\u0421\u044E\u0436\u0435\u0442 + \u043F\u043E\u0431\u043E\u0447\u043A\u0438"],
+      ["How Long To Beat", dict["How Long To Beat"] || "How Long To Beat"],
+      ["Level Up!", dict["Level Up!"] || "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!"],
+      ["Level up!", dict["Level Up!"] || "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!"],
+      ["\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up!", "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C!"],
+      ["\u0423\u0440\u043E\u0432\u0435\u043D\u044C Up", "\u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"],
+      ["Check your profile to see what's new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Check your profile to see what\u2019s new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Check your \u041F\u0440\u043E\u0444\u0438\u043B\u044C to see what's new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Check your \u041F\u0440\u043E\u0444\u0438\u043B\u044C to see what\u2019s new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Check your \u043F\u0440\u043E\u0444\u0438\u043B\u044C to see what's new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Check your \u043F\u0440\u043E\u0444\u0438\u043B\u044C to see what\u2019s new.", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Check your", "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439"],
+      ["to see what's new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["to see what\u2019s new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["see what's new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["see what\u2019s new.", ", \u0447\u0442\u043E\u0431\u044B \u0443\u0437\u043D\u0430\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E."],
+      ["Log in daily to level up unlock avatar items! Streak resets daily at 3 AM.", "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00."],
+      ["Log in daily to level up & unlock avatar items! Streak resets daily at 3 AM.", "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00."],
+      ["Log in daily to \u041D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C! unlock avatar items! Streak resets daily at 3 AM.", "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00."],
+      ["just dropped a new post", dict["just dropped a new post"] || "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+      ["dropped a new post", dict["dropped a new post"] || "\u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043B(\u0430) \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0442"],
+      ["replied on your comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["replied to your comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["replied on your Comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["replied to your Comment", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["replied on your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["replied to your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["liked your comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["liked your Comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["liked your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your Comment", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your \u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"],
+      ["liked your post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["liked your Post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["liked your \u041F\u043E\u0441\u0442", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your Post", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["\u041D\u0440\u0430\u0432\u0438\u0442\u0441\u044F your \u041F\u043E\u0441\u0442", "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["commented on your post", "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["commented on your Post", "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["commented on your \u041F\u043E\u0441\u0442", "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442"],
+      ["is now", "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430"],
+      ["is \u0441\u0435\u0439\u0447\u0430\u0441", "\u2014 \u0441\u043A\u0438\u0434\u043A\u0430"],
+      ["Get it", "\u041A\u0443\u043F\u0438\u0442\u0435"],
+      ["Get it on Steam", "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam"],
+      ["Get it on Steam for", "\u041A\u0443\u043F\u0438\u0442\u0435 \u0432 Steam \u0437\u0430"],
+      ["before the sale ends", "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438"],
+      ["before the sale ends on", "\u0434\u043E \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0441\u043A\u0438\u0434\u043A\u0438"],
+      ["What game is this about?", dict["What game is this about?"] || "\u041E \u043A\u0430\u043A\u043E\u0439 \u0438\u0433\u0440\u0435 \u043F\u043E\u0441\u0442?"],
+      ["What's on your mind? Use ## to tag a game", dict["What's on your mind? Use ## to tag a game"] || "\u041E \u0447\u0451\u043C \u0434\u0443\u043C\u0430\u0435\u0448\u044C? \u0427\u0435\u0440\u0435\u0437 ## \u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443"],
+      ["Spoiler alert", dict["Spoiler alert"] || "\u0421\u043F\u043E\u0439\u043B\u0435\u0440"],
+      ["Turn off comments", dict["Turn off comments"] || "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"],
+      ["Frequently used", dict["Frequently used"] || "\u0427\u0430\u0441\u0442\u043E \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0435"],
+      ["Smileys & People", dict["Smileys & People"] || "\u0421\u043C\u0430\u0439\u043B\u044B \u0438 \u043B\u044E\u0434\u0438"],
+      ["Animals & Nature", dict["Animals & Nature"] || "\u0416\u0438\u0432\u043E\u0442\u043D\u044B\u0435 \u0438 \u043F\u0440\u0438\u0440\u043E\u0434\u0430"],
+      ["Food & Drink", dict["Food & Drink"] || "\u0415\u0434\u0430 \u0438 \u043D\u0430\u043F\u0438\u0442\u043A\u0438"],
+      ["Travel & Places", dict["Travel & Places"] || "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F \u0438 \u043C\u0435\u0441\u0442\u0430"],
+      ["Pick an emoji...", dict["Pick an emoji..."] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438\u2026"],
+      ["Pick an emoji", dict["Pick an emoji"] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u043C\u043E\u0434\u0437\u0438"],
+      ["Tag a game", dict["Tag a game"] || "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u0438\u0433\u0440\u0443"],
+      ["Enter a game title", dict["Enter a game title"] || "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0433\u0440\u044B"],
+      ["Choose a label for this post", dict["Choose a label for this post"] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0440\u043B\u044B\u043A \u0434\u043B\u044F \u043F\u043E\u0441\u0442\u0430"],
+      ["Off-Topic", dict["Off-Topic"] || "\u041E\u0444\u0444\u0442\u043E\u043F"],
+      ["Not interested in this game?", dict["Not interested in this game?"] || "\u042D\u0442\u0430 \u0438\u0433\u0440\u0430 \u043D\u0435 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u0430?"],
+      ["Hide", dict.Hide || "\u0421\u043A\u0440\u044B\u0442\u044C"],
+      [
+        "Link games so others can jump straight into the info! In comments, simply type ## to link.",
+        dict["Link games so others can jump straight into the info! In comments, simply type ## to link."] || "\u041E\u0442\u043C\u0435\u0447\u0430\u0439\u0442\u0435 \u0438\u0433\u0440\u044B, \u0447\u0442\u043E\u0431\u044B \u0434\u0440\u0443\u0433\u0438\u0435 \u0441\u0440\u0430\u0437\u0443 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u043B\u0438 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443. \u0412 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u044F\u0445 \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0438\u0448\u0438\u0442\u0435 ##."
+      ],
+      [
+        "Games you posted about in the last 7 days, or trending games.",
+        dict["Games you posted about in the last 7 days, or trending games."] || "\u0418\u0433\u0440\u044B, \u043E \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0432\u044B \u043F\u0438\u0441\u0430\u043B\u0438 \u0437\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 7 \u0434\u043D\u0435\u0439, \u0438 \u0438\u0433\u0440\u044B \u0432 \u0442\u0440\u0435\u043D\u0434\u0435."
+      ],
+      ["Discard this post?", dict["Discard this post?"] || "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u043F\u043E\u0441\u0442?"],
+      ["If you leave now, your draft won't be saved.", dict["If you leave now, your draft won't be saved."] || "\u0415\u0441\u043B\u0438 \u0432\u044B\u0439\u0442\u0438 \u0441\u0435\u0439\u0447\u0430\u0441, \u0447\u0435\u0440\u043D\u043E\u0432\u0438\u043A \u043D\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0441\u044F."],
+      ["Keep posting", dict["Keep posting"] || "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"],
+      ["Discard", dict.Discard || "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"],
+      ["Pin games", dict["Pin games"] || "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0438\u0433\u0440\u044B"],
+      ["Want quick access to your games?", dict["Want quick access to your games?"] || "\u041D\u0443\u0436\u0435\u043D \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u0438\u0433\u0440\u0430\u043C?"],
+      ["Pin them to the top!", dict["Pin them to the top!"] || "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u0435 \u0438\u0445 \u043D\u0430\u0432\u0435\u0440\u0445\u0443!"],
+      ["About Us", dict["About Us"] || "\u041E \u043D\u0430\u0441"],
+      ["Settings", dict.Settings || "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"],
+      ["Send feedback", dict["Send feedback"] || "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u043E\u0442\u0437\u044B\u0432"],
+      ["Space", dict.Space || "\u041F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E"],
+      ["Discover", dict.Discover || "\u041E\u0431\u0437\u043E\u0440"],
+      ["Arcade", dict.Arcade || "\u0410\u0440\u043A\u0430\u0434\u0430"],
+      ["Community", dict.Community || "\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E"],
+      ["Translate", dict.Translate || "\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438"],
+      ["No comments yet", dict["No comments yet"] || "\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"],
+      ["New review", dict["New review"] || "\u041D\u043E\u0432\u0430\u044F \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u044F"],
+      ["Trophy grade", dict["Trophy grade"] || "\u0420\u0435\u0434\u043A\u043E\u0441\u0442\u044C \u0442\u0440\u043E\u0444\u0435\u0435\u0432"],
+      ["Earned date", dict["Earned date"] || "\u0414\u0430\u0442\u0430 \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u044F"],
+      ["Most common", dict["Most common"] || "\u0421\u0430\u043C\u044B\u0435 \u0447\u0430\u0441\u0442\u044B\u0435"],
+      ["Most rare", dict["Most rare"] || "\u0421\u0430\u043C\u044B\u0435 \u0440\u0435\u0434\u043A\u0438\u0435"],
+      ["Link PS", dict["Link PS"] || "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C PS"],
+      ["Link PS now", dict["Link PS now"] || "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C PS \u0441\u0435\u0439\u0447\u0430\u0441"],
+      ["Link PS account to share trophies", dict["Link PS account to share trophies"] || "\u041F\u0440\u0438\u0432\u044F\u0436\u0438\u0442\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 PS, \u0447\u0442\u043E\u0431\u044B \u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0442\u0440\u043E\u0444\u0435\u044F\u043C\u0438"],
+      ["Connect with players to grab and guard badges!", dict["Connect with players to grab and guard badges!"] || "\u041E\u0431\u0449\u0430\u0439\u0442\u0435\u0441\u044C \u0441 \u0438\u0433\u0440\u043E\u043A\u0430\u043C\u0438, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0438 \u0437\u0430\u0449\u0438\u0449\u0430\u0442\u044C \u0437\u043D\u0430\u0447\u043A\u0438!"],
+      ["Game Rate", dict["Game Rate"] || "\u041E\u0446\u0435\u043D\u043A\u0438 \u0438\u0433\u0440"],
+      ["Preferences", dict.Preferences || "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B"],
+      ["Language", dict.Language || "\u042F\u0437\u044B\u043A"],
+      ["Blocked management", dict["Blocked management"] || "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0435"],
+      ["Service", dict.Service || "\u0421\u0435\u0440\u0432\u0438\u0441"],
+      ["FAQ", dict.FAQ || "\u0412\u043E\u043F\u0440\u043E\u0441\u044B \u0438 \u043E\u0442\u0432\u0435\u0442\u044B"],
+      ["Privacy Policy", dict["Privacy Policy"] || "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438"],
+      ["Terms of Service", dict["Terms of Service"] || "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F"],
+      ["Cookie Policy", dict["Cookie Policy"] || "\u041F\u043E\u043B\u0438\u0442\u0438\u043A\u0430 cookie"],
+      ["Community Guideline", dict["Community Guideline"] || "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430"],
+      ["Account", dict.Account || "\u0410\u043A\u043A\u0430\u0443\u043D\u0442"],
+      ["Signed in with Google", dict["Signed in with Google"] || "\u0412\u0445\u043E\u0434 \u0447\u0435\u0440\u0435\u0437 Google"],
+      ["Manage account", dict["Manage account"] || "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u043E\u043C"],
+      ["Platforms & games", dict["Platforms & games"] || "\u041F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B \u0438 \u0438\u0433\u0440\u044B"],
+      ["Linked platforms", dict["Linked platforms"] || "\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B"],
+      ["Hidden games", dict["Hidden games"] || "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0438\u0433\u0440\u044B"],
+      ["Display language", dict["Display language"] || "\u042F\u0437\u044B\u043A \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430"],
+      ["Content language", dict["Content language"] || "\u042F\u0437\u044B\u043A \u043A\u043E\u043D\u0442\u0435\u043D\u0442\u0430"],
+      ["English", dict.English || "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439"],
+      ["Korean", dict.Korean || "\u041A\u043E\u0440\u0435\u0439\u0441\u043A\u0438\u0439"],
+      ["Japanese", dict.Japanese || "\u042F\u043F\u043E\u043D\u0441\u043A\u0438\u0439"],
+      ["Portuguese", dict.Portuguese || "\u041F\u043E\u0440\u0442\u0443\u0433\u0430\u043B\u044C\u0441\u043A\u0438\u0439"],
+      ["Spanish", dict.Spanish || "\u0418\u0441\u043F\u0430\u043D\u0441\u043A\u0438\u0439"],
+      ["French", dict.French || "\u0424\u0440\u0430\u043D\u0446\u0443\u0437\u0441\u043A\u0438\u0439"],
+      ["More languages are on the way.", dict["More languages are on the way."] || "\u0421\u043A\u043E\u0440\u043E \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u0434\u0440\u0443\u0433\u0438\u0435 \u044F\u0437\u044B\u043A\u0438."],
+      [
+        "Select the language we'll translate posts, reviews, and comments into.",
+        dict["Select the language we'll translate posts, reviews, and comments into."] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u044C \u043F\u043E\u0441\u0442\u044B, \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438."
+      ],
+      [
+        "Select the language for menus, buttons, and system text.",
+        dict["Select the language for menus, buttons, and system text."] || "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A \u043C\u0435\u043D\u044E, \u043A\u043D\u043E\u043F\u043E\u043A \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0433\u043E \u0442\u0435\u043A\u0441\u0442\u0430."
+      ],
+      [
+        "Initially set to match your system language (or English if unsupported). Any changes you make will be saved.",
+        dict["Initially set to match your system language (or English if unsupported). Any changes you make will be saved."] || "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0431\u0435\u0440\u0451\u0442\u0441\u044F \u044F\u0437\u044B\u043A \u0441\u0438\u0441\u0442\u0435\u043C\u044B (\u0438\u043B\u0438 \u0430\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439, \u0435\u0441\u043B\u0438 \u044F\u0437\u044B\u043A \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F). \u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044E\u0442\u0441\u044F."
+      ],
+      [
+        "Language for menus, buttons, and system text",
+        dict["Language for menus, buttons, and system text"] || "\u042F\u0437\u044B\u043A \u043C\u0435\u043D\u044E, \u043A\u043D\u043E\u043F\u043E\u043A \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0433\u043E \u0442\u0435\u043A\u0441\u0442\u0430"
+      ],
+      [
+        "Language for translated posts, reviews, and comments",
+        dict["Language for translated posts, reviews, and comments"] || "\u042F\u0437\u044B\u043A \u043F\u0435\u0440\u0435\u0432\u0435\u0434\u0451\u043D\u043D\u044B\u0445 \u043F\u043E\u0441\u0442\u043E\u0432, \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0439 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432"
+      ],
+      ["Connect to update your Trophy Hall", dict["Connect to update your Trophy Hall"] || "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u043B \u0442\u0440\u043E\u0444\u0435\u0435\u0432"],
+      ["How to disconnect", dict["How to disconnect"] || "\u041A\u0430\u043A \u043E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C"]
+    ];
+    for (const [en, ru] of pairs) add(en, ru);
+    const EDITOR_SEL = '.edit-btn, .edit-label, .footer-btn, .floating-btn, .subtab-btn, .tab-btn, [class*="subtab-btn"], [class*="footer-btn"], [class*="floating-btn"]';
+    function translateRaw(raw, parent) {
+      if (typeof raw !== "string") return null;
+      const key = normalizeKey2(raw);
+      if (!key || key.length > 240) return null;
+      if (!(parent && parent.isContentEditable)) {
+        const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, parent) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
+        if (stamped != null && normalizeKey2(stamped) !== key) return preserveEdges(raw, stamped);
+      }
+      const level = key.match(/^Lv\.?\s*(\d+)$/i);
+      if (level) return preserveEdges(raw, `\u041B\u0432\u043B ${level[1]}`);
+      if (/^Lv$/i.test(key)) return preserveEdges(raw, "\u041B\u0432\u043B");
+      const profileTab = key.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/i);
+      if (profileTab) {
+        const labels = {
+          posts: "\u041F\u043E\u0441\u0442\u044B",
+          reviews: "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u0438",
+          collections: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+          "following games": "\u0418\u0433\u0440\u044B \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0430\u0445",
+          top: "\u0422\u043E\u043F"
+        };
+        const label = labels[profileTab[1].toLowerCase()];
+        if (label) return preserveEdges(raw, profileTab[2] ? `${label} ${profileTab[2]}` : label);
+      }
+      if (/\bLv\.?\s*\d+\b/i.test(key) && key.length < 80) {
+        const next = key.replace(/\bLv\.?\s*(\d+)\b/gi, "\u041B\u0432\u043B $1");
+        if (next !== key) return preserveEdges(raw, next);
+      }
+      const liked = key.match(/^(.+?)\s+and\s+(?:(\d+)\s+)?others?\s+liked$/i);
+      if (liked && key.length < 120) {
+        const who = liked[1];
+        const n = liked[2];
+        const forms = ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430", "\u0447\u0435\u043B\u043E\u0432\u0435\u043A"];
+        const nAbs = Math.abs(Number(n) || 0);
+        const mod10 = nAbs % 10;
+        const mod100 = nAbs % 100;
+        const form = mod100 >= 11 && mod100 <= 14 ? forms[2] : mod10 === 1 ? forms[0] : mod10 >= 2 && mod10 <= 4 ? forms[1] : forms[2];
+        const tail = /got help/i.test(key) ? n ? `\u0438 \u0435\u0449\u0451 ${n} \u043F\u043E\u043C\u043E\u0433\u043B\u043E` : "\u0438 \u0434\u0440\u0443\u0433\u0438\u043C \u043F\u043E\u043C\u043E\u0433\u043B\u043E" : n ? `\u0438 \u0435\u0449\u0451 ${n} ${form} \u043E\u0446\u0435\u043D\u0438\u043B\u0438` : "\u0438 \u0434\u0440\u0443\u0433\u0438\u0435 \u043E\u0446\u0435\u043D\u0438\u043B\u0438";
+        return preserveEdges(raw, `${who} ${tail}`);
+      }
+      if (parent && /^more$/i.test(key) && (parent.classList?.contains("more-button-inline") || parent.closest?.(".more-button-inline"))) {
+        return preserveEdges(raw, "\u0415\u0449\u0451");
+      }
+      if (parent?.closest?.(EDITOR_SEL) || parent?.matches?.(EDITOR_SEL)) {
+        const editor = {
+          edit: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+          exit: "\u0412\u044B\u0439\u0442\u0438",
+          colors: "\u0426\u0432\u0435\u0442\u0430",
+          hair: "\u0412\u043E\u043B\u043E\u0441\u044B",
+          beard: "\u0411\u043E\u0440\u043E\u0434\u0430",
+          shape: "\u0424\u043E\u0440\u043C\u0430",
+          brows: "\u0411\u0440\u043E\u0432\u0438",
+          eyes: "\u0413\u043B\u0430\u0437\u0430",
+          nose: "\u041D\u043E\u0441",
+          mouth: "\u0420\u043E\u0442",
+          top: "\u0412\u0435\u0440\u0445",
+          bottom: "\u041D\u0438\u0437",
+          shoes: "\u041E\u0431\u0443\u0432\u044C",
+          glasses: "\u041E\u0447\u043A\u0438",
+          cap: "\u041A\u0435\u043F\u043A\u0430",
+          age: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
+          makeup: "\u041C\u0430\u043A\u0438\u044F\u0436",
+          paint: "\u041A\u0440\u0430\u0441\u043A\u0430",
+          scar: "\u0428\u0440\u0430\u043C",
+          spot: "\u041F\u044F\u0442\u043D\u043E",
+          pose: "\u041F\u043E\u0437\u0430",
+          custom: "\u0421\u0432\u043E\u0451"
+        }[key.toLowerCase()];
+        if (editor) return preserveEdges(raw, editor);
+      }
+      if (parent) {
+        if (shouldSkipRoot(parent) || parent.isContentEditable) return null;
+        if (!key.includes(" ")) {
+          if (!isChromeContext(parent)) return null;
+          let host2 = parent;
+          for (let i = 0; i < 4 && host2.parentElement && normalizeKey2(host2.textContent || "") === key; i += 1) {
+            host2 = host2.parentElement;
+          }
+          const hostText = normalizeKey2(host2.textContent || "");
+          if (hostText && hostText !== key && hostText.length > key.length + 2 && !parent.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], nav, header, [role="navigation"], [class*="tab-button"], select, option, label')) {
+            const extra = hostText.toLowerCase().split(key.toLowerCase()).join(" ").trim().split(/\s+/).filter((w) => w.length >= 2 && /^[a-z]+$/i.test(w));
+            if (extra.length >= 1) return null;
+          }
+        }
+      }
+      const hit = map.get(key) ?? map.get(key.toLowerCase());
+      if (!hit || hit === key) return null;
+      return preserveEdges(raw, hit);
+    }
+    function patchAccessor(obj, prop) {
+      const desc = Object.getOwnPropertyDescriptor(obj, prop);
+      if (!desc || !desc.set || !desc.get || !desc.configurable) return false;
+      Object.defineProperty(obj, prop, {
+        configurable: true,
+        enumerable: desc.enumerable,
+        get() {
+          return desc.get.call(this);
+        },
+        set(v) {
+          try {
+            if (typeof v === "string" && v.length >= 2 && v.length <= 160) {
+              const parent = this.nodeType === 3 ? this.parentElement : this;
+              const next = translateRaw(v, parent);
+              if (next != null) v = next;
+            }
+          } catch {
+          }
+          return desc.set.call(this, v);
+        }
+      });
+      return true;
+    }
+    patchAccessor(Node.prototype, "nodeValue");
+    if (typeof CharacterData !== "undefined") {
+      patchAccessor(CharacterData.prototype, "data");
+    }
+    const textDesc = Object.getOwnPropertyDescriptor(Node.prototype, "textContent");
+    if (textDesc?.set && textDesc.configurable) {
+      Object.defineProperty(Node.prototype, "textContent", {
+        configurable: true,
+        enumerable: textDesc.enumerable,
+        get() {
+          return textDesc.get.call(this);
+        },
+        set(v) {
+          try {
+            if (typeof v === "string" && this.nodeType === 1 && this.childElementCount === 0) {
+              const next = translateRaw(v, this);
+              if (next != null) v = next;
+            }
+          } catch {
+          }
+          return textDesc.set.call(this, v);
+        }
+      });
+    }
+    const EDITOR_WORDS = {
+      edit: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+      exit: "\u0412\u044B\u0439\u0442\u0438",
+      colors: "\u0426\u0432\u0435\u0442\u0430",
+      hair: "\u0412\u043E\u043B\u043E\u0441\u044B",
+      beard: "\u0411\u043E\u0440\u043E\u0434\u0430",
+      shape: "\u0424\u043E\u0440\u043C\u0430",
+      brows: "\u0411\u0440\u043E\u0432\u0438",
+      eyes: "\u0413\u043B\u0430\u0437\u0430",
+      nose: "\u041D\u043E\u0441",
+      mouth: "\u0420\u043E\u0442",
+      top: "\u0412\u0435\u0440\u0445",
+      bottom: "\u041D\u0438\u0437",
+      shoes: "\u041E\u0431\u0443\u0432\u044C",
+      glasses: "\u041E\u0447\u043A\u0438",
+      cap: "\u041A\u0435\u043F\u043A\u0430",
+      age: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
+      makeup: "\u041C\u0430\u043A\u0438\u044F\u0436",
+      paint: "\u041A\u0440\u0430\u0441\u043A\u0430",
+      scar: "\u0428\u0440\u0430\u043C",
+      spot: "\u041F\u044F\u0442\u043D\u043E",
+      pose: "\u041F\u043E\u0437\u0430",
+      custom: "\u0421\u0432\u043E\u0451"
+    };
+    const editorHost = (el) => el?.closest?.(EDITOR_SEL);
+    function paintEditorTree(node) {
+      if (!node) return;
+      if (node.nodeType === 3) {
+        const word = EDITOR_WORDS[normalizeKey2(node.nodeValue || "").toLowerCase()];
+        if (word && editorHost(node.parentElement)) node.nodeValue = word;
+        return;
+      }
+      if (node.nodeType !== 1) return;
+      if (node.matches?.(EDITOR_SEL) || editorHost(node)) {
+        for (const child of node.childNodes) paintEditorTree(child);
+        return;
+      }
+      const nested = node.querySelectorAll?.(EDITOR_SEL);
+      if (nested) for (const host2 of nested) paintEditorTree(host2);
+    }
+    const setAttribute = Element.prototype.setAttribute;
+    Element.prototype.setAttribute = function(name, value) {
+      try {
+        if (typeof value === "string" && /^(?:data-placeholder|placeholder|aria-placeholder|aria-label)$/i.test(name)) {
+          const key = normalizeKey2(value);
+          const thoughts = key.match(/^what are your thoughts on\s+(.+?)\??$/i);
+          if (thoughts) {
+            value = "\u0427\u0442\u043E \u0432\u044B \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E " + thoughts[1].trim() + "?";
+          } else {
+            const direct = map.get(key.toLowerCase()) || map.get(key);
+            if (direct) value = direct;
+          }
+        }
+      } catch {
+      }
+      return setAttribute.call(this, name, value);
+    };
+    const appendChild = Node.prototype.appendChild;
+    Node.prototype.appendChild = function(child) {
+      try {
+        if (child?.nodeType === 3 && editorHost(this)) {
+          const word = EDITOR_WORDS[normalizeKey2(child.nodeValue || "").toLowerCase()];
+          if (word) child.nodeValue = word;
+        }
+      } catch {
+      }
+      const out = appendChild.call(this, child);
+      return out;
+    };
+    const insertBefore = Node.prototype.insertBefore;
+    Node.prototype.insertBefore = function(child, ref) {
+      try {
+        if (child?.nodeType === 3 && editorHost(this)) {
+          const word = EDITOR_WORDS[normalizeKey2(child.nodeValue || "").toLowerCase()];
+          if (word) child.nodeValue = word;
+        }
+      } catch {
+      }
+      return insertBefore.call(this, child, ref);
+    };
+    const mo = new MutationObserver((list) => {
+      for (const rec of list) {
+        if (rec.type === "attributes") {
+          if (editorHost(rec.target) || rec.target.matches?.(EDITOR_SEL)) paintEditorTree(rec.target);
+          continue;
+        }
+        for (const node of rec.addedNodes) paintEditorTree(node);
+      }
+    });
+    const shadowRoots = /* @__PURE__ */ new Set();
+    const watchRoot = (root) => {
+      if (!root || shadowRoots.has(root)) return;
+      shadowRoots.add(root);
+      try {
+        mo.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
+      } catch {
+      }
+    };
+    watchRoot(document.documentElement);
+    const attachShadow = Element.prototype.attachShadow;
+    Element.prototype.attachShadow = function(init) {
+      const root = attachShadow.call(this, init);
+      watchRoot(root);
+      return root;
+    };
+    function paintHost(host2) {
+      paintEditorTree(host2);
+      const whole = normalizeKey2(host2.textContent || "").toLowerCase();
+      const ru = EDITOR_WORDS[whole];
+      if (ru) {
+        const texts = [];
+        const walk = (n) => {
+          for (const c of n.childNodes) {
+            if (c.nodeType === 3) texts.push(c);
+            else if (c.nodeType === 1 && c.tagName !== "IMG" && c.tagName !== "SVG" && c.tagName !== "CANVAS") walk(c);
+          }
+        };
+        walk(host2);
+        if (texts.length) {
+          const lead = (texts[0].nodeValue.match(/^\s*/) || [""])[0];
+          texts[0].nodeValue = lead + ru;
+          for (let i = 1; i < texts.length; i += 1) texts[i].nodeValue = "";
+        }
+      }
+      let pending = false;
+      const see = (n) => {
+        for (const c of n.childNodes) {
+          if (c.nodeType === 3 && EDITOR_WORDS[normalizeKey2(c.nodeValue || "").toLowerCase()]) pending = true;
+          else if (c.nodeType === 1 && c.tagName !== "IMG" && c.tagName !== "SVG") see(c);
+        }
+      };
+      see(host2);
+      if (!pending) host2.setAttribute("data-panax-ru-on", "");
+    }
+    const paintRoot = (root) => {
+      if (!root?.querySelectorAll) return;
+      let hosts;
+      try {
+        hosts = root.querySelectorAll(EDITOR_SEL);
+      } catch {
+        return;
+      }
+      for (const host2 of hosts) paintHost(host2);
+    };
+    const paintFrame = () => {
+      try {
+        paintRoot(document);
+        for (const root of shadowRoots) paintRoot(root);
+      } catch {
+      }
+      requestAnimationFrame(paintFrame);
+    };
+    requestAnimationFrame(paintFrame);
+    console.info("[PANAX RU] write-patch active (stubborn chrome)");
+  }
+
+  // src/content/rating-icons.js
+  var FILES = {
+    icon_legendary_text_off: "legendary-off.png",
+    icon_legendary_text_on: "legendary-on.png",
+    icon_awesome_v2_text_off: "awesome-off.png",
+    icon_awesome_v2_text_on: "awesome-on.png",
+    icon_awesome_text_off: "awesome-off.png",
+    icon_awesome_text_on: "awesome-on.png",
+    icon_good_text_off: "good-off.png",
+    icon_good_text_on: "good-on.png",
+    icon_decent_text_off: "decent-off.png",
+    icon_decent_text_on: "decent-on.png",
+    icon_dislike_text_off: "dislike-off.png",
+    icon_dislike_text_on: "dislike-on.png",
+    icon_awful_text_off: "awful-off.png",
+    icon_awful_text_on: "awful-on.png"
+  };
+  function localUrl(file) {
+    try {
+      return chrome.runtime.getURL(`ratings/${file}`);
+    } catch {
+      return null;
+    }
+  }
+  var KEYS = Object.keys(FILES).sort((a, b) => b.length - a.length);
+  function matchFile(url) {
+    if (!url) return null;
+    const decoded = (() => {
+      try {
+        return decodeURIComponent(url);
+      } catch {
+        return url;
+      }
+    })();
+    for (const key of KEYS) {
+      if (decoded.includes(key)) return FILES[key];
+    }
+    return null;
+  }
+  function swapImg(img2) {
+    const written = [img2.getAttribute("src"), img2.getAttribute("srcset")].filter(Boolean).join(" ");
+    const file = matchFile(written) || matchFile(img2.currentSrc || img2.src || "");
+    if (!file) return;
+    const next = localUrl(file);
+    if (!next) return;
+    if (img2.getAttribute("src") === next && !img2.getAttribute("srcset")) return;
+    img2.removeAttribute("srcset");
+    img2.src = next;
+    img2.setAttribute("data-panax-ru-rating", file);
+  }
+  function swapBg(el) {
+    const style = el.getAttribute("style") || "";
+    const file = matchFile(style);
+    if (!file) return;
+    const next = localUrl(file);
+    if (!next || style.includes(next)) return;
+    el.style.backgroundImage = `url("${next}")`;
+  }
+  function startRatingIcons() {
+    if (!chrome?.runtime?.getURL) return;
+    const run = (root) => {
+      if (!root?.querySelectorAll) return;
+      root.querySelectorAll("img, source").forEach(swapImg);
+      root.querySelectorAll('[style*="icon_"]').forEach(swapBg);
+    };
+    const boot2 = () => run(document);
+    if (document.body) boot2();
+    else document.addEventListener("DOMContentLoaded", boot2, { once: true });
+    const obs = new MutationObserver((list) => {
+      for (const rec of list) {
+        if (rec.type === "attributes" && (rec.target?.tagName === "IMG" || rec.target?.tagName === "SOURCE")) {
+          swapImg(rec.target);
+        }
+        for (const node of rec.addedNodes) {
+          if (node.nodeType !== 1) continue;
+          if (node.tagName === "IMG" || node.tagName === "SOURCE") swapImg(node);
+          run(node);
+        }
+      }
+    });
+    obs.observe(document.documentElement, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["src", "srcset", "style"]
+    });
+  }
+
+  // src/content/logo.js
+  function logoUrl() {
+    try {
+      return chrome.runtime.getURL("logo/panax-logo.png");
+    } catch {
+      return null;
+    }
+  }
+  function install(url) {
+    const id = "panax-ru-logo-style";
+    if (document.getElementById(id)) return;
+    const style = document.createElement("style");
+    style.id = id;
+    style.textContent = `
+    svg[viewBox="0 0 83 32"] {
+      background: url("${url}") center / contain no-repeat !important;
+    }
+    svg[viewBox="0 0 83 32"] * {
+      visibility: hidden !important;
+    }
+  `;
+    (document.documentElement || document.head).appendChild(style);
+  }
+  function startLogo() {
+    const url = logoUrl();
+    if (!url) return;
+    const boot2 = () => install(url);
+    boot2();
+    document.addEventListener("DOMContentLoaded", boot2, { once: true });
+    const obs = new MutationObserver(boot2);
+    obs.observe(document.documentElement, { childList: true });
+  }
+
+  // src/content/api/request.js
+  function bgRequest(details) {
+    return new Promise((resolve, reject) => {
+      if (typeof chrome !== "undefined" && chrome.runtime?.sendMessage) {
+        try {
+          chrome.runtime.sendMessage({ type: "panax_xhr", details }, (res) => {
+            if (chrome.runtime.lastError) {
+              return reject(new Error(chrome.runtime.lastError.message));
+            }
+            if (!res) {
+              return reject(new Error("No response from background worker"));
+            }
+            if (!res.success) {
+              return reject(new Error(res.error || `HTTP ${res.status}`));
+            }
+            let parsed = res.responseText;
+            if (details.responseType !== "text") {
+              try {
+                parsed = JSON.parse(res.responseText);
+              } catch (_) {
+              }
+            }
+            resolve(parsed);
+          });
+          return;
+        } catch (err) {
+        }
+      }
+      fetch(details.url, {
+        method: details.method || "GET",
+        headers: details.headers || {},
+        body: details.data
+      }).then(async (res) => {
+        if (!res.ok && !details.allow404) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        if (details.responseType === "text") {
+          return res.text();
+        }
+        return res.json().catch(() => res.text());
+      }).then(resolve).catch(reject);
+    });
+  }
+
+  // src/content/api/opencritic.js
+  function cleanTitle(s) {
+    return String(s || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+  function scoreTitleMatch(a, b) {
+    const normA = cleanTitle(a);
+    const normB = cleanTitle(b);
+    if (!normA || !normB) return 0;
+    if (normA === normB) return 100;
+    if (normA.startsWith(normB) || normB.startsWith(normA)) return 85;
+    if (normA.includes(normB) || normB.includes(normA)) return 75;
+    return 0;
+  }
+  async function fetchOpenCritic(title) {
+    const q = String(title || "").trim();
+    if (!q) return null;
+    try {
+      const list = await bgRequest({
+        url: `https://api.opencritic.com/api/game/search?criteria=${encodeURIComponent(q)}`,
+        headers: {
+          Accept: "application/json",
+          Referer: "https://opencritic.com/"
+        }
+      });
+      if (!Array.isArray(list) || !list.length) return null;
+      const scored = list.map((item) => ({
+        item,
+        score: scoreTitleMatch(item.name, q),
+        dist: Number(item.dist) || 99
+      }));
+      scored.sort((a, b) => b.score - a.score || a.dist - b.dist);
+      const best = scored[0];
+      if (!best || best.score < 60 && best.dist > 0.2) return null;
+      const hit = best.item;
+      let detail = null;
+      try {
+        detail = await bgRequest({
+          url: `https://api.opencritic.com/api/game/${hit.id}`,
+          headers: {
+            Accept: "application/json",
+            Referer: "https://opencritic.com/"
+          }
+        });
+      } catch (_) {
+      }
+      const data = detail || hit;
+      const tier = data.tier || hit.tier;
+      const score = Math.round(Number(data.topCriticScore || hit.topCriticScore || data.medianScore || 0));
+      const percentRecommended = Math.round(Number(data.percentRecommended || 0));
+      const slug = data.slug || hit.slug;
+      const url = slug ? `https://opencritic.com/game/${data.id}/${slug}` : `https://opencritic.com/game/${data.id}`;
+      return {
+        id: data.id,
+        name: data.name || hit.name,
+        tier: tier || null,
+        score: score > 0 ? score : null,
+        percentRecommended: percentRecommended > 0 ? percentRecommended : null,
+        url
+      };
+    } catch (err) {
+      console.debug("[PANAX RU] OpenCritic fetch error:", err);
+      return null;
+    }
+  }
+
+  // src/content/api/metacritic.js
+  function slugify(s) {
+    return String(s || "").toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+  async function fetchMetacritic(title) {
+    const slug = slugify(title);
+    if (!slug) return null;
+    const url = `https://www.metacritic.com/game/${slug}/`;
+    try {
+      const html = await bgRequest({
+        url,
+        responseType: "text",
+        headers: {
+          Accept: "text/html,application/xhtml+xml"
+        }
+      });
+      if (typeof html !== "string") return null;
+      const metascoreMatch = html.match(/Metascore\s+(\d+)\s+out of 100/i) || html.match(/c-siteReviewScore[^\>]*\><span>(\d+)/i) || html.match(/"metascore":\s*"?(\d+)"?/i) || html.match(/class="[^"]*c-productScoreInfo_scoreNumber[^"]*"[^>]*>(\d+)/i);
+      const userScoreMatch = html.match(/c-siteReviewScore_user[^\>]*\><span>([\d.]+)/i) || html.match(/"userScore":\s*"([\d.]+)"/i) || html.match(/User score\s+([\d.]+)\s+out of 10/i);
+      const metascore = metascoreMatch ? Number(metascoreMatch[1]) : null;
+      const userScore = userScoreMatch ? parseFloat(userScoreMatch[1]) : null;
+      if (!metascore && !userScore) return null;
+      return {
+        score: metascore,
+        userScore: Number.isFinite(userScore) ? userScore : null,
+        url
+      };
+    } catch (err) {
+      console.debug("[PANAX RU] Metacritic fetch error:", err);
+      return null;
+    }
+  }
+
+  // src/content/api/protondb.js
+  async function fetchProtonDb(appId) {
+    const id = Number(appId);
+    if (!Number.isFinite(id) || id <= 0) return null;
+    try {
+      const data = await bgRequest({
+        url: `https://www.protondb.com/api/v1/reports/summaries/${id}.json`,
+        allow404: true,
+        headers: { Accept: "application/json" }
+      });
+      if (data && typeof data === "object") {
+        const tier = typeof data.tier === "string" ? data.tier : null;
+        if (tier) {
+          return {
+            tier,
+            score: data.score != null ? Number(data.score) : null,
+            total: data.total != null ? Number(data.total) : null,
+            bestReportedTier: data.bestReportedTier || null,
+            url: `https://www.protondb.com/app/${id}`
+          };
+        }
+      }
+    } catch (err) {
+      console.debug("[PANAX RU] ProtonDB official API failed, trying mirror...", err);
+    }
+    try {
+      const reports = await bgRequest({
+        url: `https://protondb.max-p.me/games/${id}/reports/`,
+        allow404: true,
+        headers: { Accept: "application/json" }
+      });
+      if (Array.isArray(reports) && reports.length) {
+        const tierWeights = { platinum: 5, gold: 4, silver: 3, bronze: 2, borked: 1 };
+        const sample = reports.slice(0, 15);
+        const counts = {};
+        for (const rep of sample) {
+          const r = (rep.rating || "").toLowerCase();
+          if (tierWeights[r]) counts[r] = (counts[r] || 0) + 1;
+        }
+        let bestTier = "gold";
+        let maxCount = 0;
+        for (const [t, c] of Object.entries(counts)) {
+          if (c > maxCount) {
+            maxCount = c;
+            bestTier = t;
+          }
+        }
+        return {
+          tier: bestTier,
+          score: null,
+          total: reports.length,
+          bestReportedTier: bestTier,
+          url: `https://www.protondb.com/app/${id}`
+        };
+      }
+    } catch (err) {
+      console.debug("[PANAX RU] ProtonDB mirror failed:", err);
+    }
+    return null;
+  }
+
+  // src/content/api/fx.js
+  var CURRENCY_SYMBOLS = {
+    RUB: "\u20BD",
+    USD: "$",
+    EUR: "\u20AC",
+    KZT: "\u20B8",
+    UAH: "\u20B4",
+    GBP: "\xA3",
+    TRY: "\u20BA",
+    CNY: "\xA5",
+    PLN: "z\u0142",
+    BRL: "R$",
+    JPY: "\xA5",
+    KRW: "\u20A9"
+  };
+  var cachedRates = null;
+  var lastFetch = 0;
+  async function fetchExchangeRates() {
+    const now = Date.now();
+    if (cachedRates && now - lastFetch < 6 * 3600 * 1e3) {
+      return cachedRates;
+    }
+    try {
+      const data = await bgRequest({
+        url: "https://open.er-api.com/v6/latest/USD"
+      });
+      if (data?.rates?.RUB) {
+        cachedRates = data.rates;
+        lastFetch = now;
+        return cachedRates;
+      }
+    } catch (_) {
+    }
+    try {
+      const data = await bgRequest({
+        url: "https://latest.currency-api.pages.dev/v1/currencies/usd.json"
+      });
+      if (data?.usd) {
+        const upper = {};
+        for (const [k, v] of Object.entries(data.usd)) {
+          upper[k.toUpperCase()] = v;
+        }
+        cachedRates = upper;
+        lastFetch = now;
+        return cachedRates;
+      }
+    } catch (_) {
+    }
+    return {
+      USD: 1,
+      RUB: 95,
+      KZT: 495,
+      EUR: 0.92,
+      UAH: 41,
+      TRY: 34
+    };
+  }
+  async function convertCurrency(amount, fromCurrency, toCurrency = "RUB") {
+    if (!amount || amount <= 0) return null;
+    const from = String(fromCurrency || "").toUpperCase();
+    const to = String(toCurrency || "").toUpperCase();
+    if (!from || !to || from === to) return null;
+    const rates = await fetchExchangeRates();
+    if (!rates) return null;
+    const rateFrom = rates[from];
+    const rateTo = rates[to];
+    if (!rateFrom || !rateTo) return null;
+    const converted = amount / rateFrom * rateTo;
+    const rounded = Math.round(converted);
+    const symbol = CURRENCY_SYMBOLS[to] || to;
+    return {
+      amount: rounded,
+      currency: to,
+      symbol,
+      formatted: `~ ${rounded.toLocaleString("ru-RU")} ${symbol}`
+    };
+  }
+
+  // src/content/settings.js
+  var DEFAULT_SETTINGS = {
+    panaxRuEnabled: true,
+    showGameWidgets: true,
+    showRatings: true,
+    showSteamStore: true,
+    showQuickLinks: true,
+    showPlayerStats: true,
+    showPriceConvert: true,
+    steamCountry: "KZ",
+    convertCurrency: "RUB",
+    showTranslate: true,
+    showGameQuill: true,
+    gqTheme: "panax-dark"
+  };
+  var currentSettings = { ...DEFAULT_SETTINGS };
+  function getSettings() {
+    return currentSettings;
+  }
+  function loadSettings() {
+    return new Promise((resolve) => {
+      if (typeof chrome !== "undefined" && chrome.storage?.local) {
+        chrome.storage.local.get(DEFAULT_SETTINGS, (stored) => {
+          currentSettings = { ...DEFAULT_SETTINGS, ...stored || {} };
+          resolve(currentSettings);
+        });
+      } else {
+        resolve(currentSettings);
+      }
+    });
+  }
+
+  // src/content/api/steam.js
+  function cleanTitle2(s) {
+    return String(s || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+  function scoreTitleMatch2(a, b) {
+    const normA = cleanTitle2(a);
+    const normB = cleanTitle2(b);
+    if (!normA || !normB) return 0;
+    if (normA === normB) return 100;
+    if (normA.startsWith(normB) || normB.startsWith(normA)) return 85;
+    if (normA.includes(normB) || normB.includes(normA)) return 75;
+    return 0;
+  }
+  var REVIEW_SCORE_RU = {
+    "Overwhelmingly Positive": "\u041A\u0440\u0430\u0439\u043D\u0435 \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Very Positive": "\u041E\u0447\u0435\u043D\u044C \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Positive": "\u041F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Mostly Positive": "\u0412 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Mixed": "\u0421\u043C\u0435\u0448\u0430\u043D\u043D\u044B\u0435",
+    "Mostly Negative": "\u0412 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u043E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Negative": "\u041E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Very Negative": "\u041E\u0447\u0435\u043D\u044C \u043E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435",
+    "Overwhelmingly Negative": "\u041A\u0440\u0430\u0439\u043D\u0435 \u043E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435"
+  };
+  async function resolveSteam(title) {
+    const q = String(title || "").trim();
+    if (!q) return null;
+    const currentSettings2 = getSettings();
+    const country = (currentSettings2.steamCountry || "KZ").toLowerCase();
+    const targetCurrency = currentSettings2.convertCurrency || "RUB";
+    try {
+      const searchRes = await bgRequest({
+        url: `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=${country}`
+      });
+      const items = searchRes?.items || [];
+      if (!items.length) return null;
+      const scored = items.filter((it) => it.type === "app" || !it.type).map((it) => ({
+        it,
+        score: scoreTitleMatch2(it.name, q)
+      }));
+      scored.sort((a, b) => b.score - a.score);
+      const best = scored[0];
+      if (!best || best.score < 50) return null;
+      const appId = Number(best.it.id);
+      if (!appId) return null;
+      const reviewsInput = encodeURIComponent(JSON.stringify({ appid: appId, num_per_page: 0 }));
+      const browseInput = encodeURIComponent(
+        JSON.stringify({
+          ids: [{ appid: appId }],
+          context: { language: "english", country_code: country.toUpperCase(), steam_realm: 1 },
+          data_request: { include_platforms: true }
+        })
+      );
+      const [detailsRes, reviewsRes, browseRes, playersRes] = await Promise.allSettled([
+        bgRequest({
+          url: `https://store.steampowered.com/api/appdetails?appids=${appId}&l=russian&cc=${country}`
+        }),
+        bgRequest({
+          url: `https://api.steampowered.com/IUserReviewsService/GetAppReviews/v1/?input_json=${reviewsInput}`
+        }),
+        bgRequest({
+          url: `https://api.steampowered.com/IStoreBrowseService/GetItems/v1/?input_json=${browseInput}`
+        }),
+        bgRequest({
+          url: `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=${appId}`
+        })
+      ]);
+      const details = detailsRes.status === "fulfilled" ? detailsRes.value?.[appId]?.data : null;
+      const reviewData = reviewsRes.status === "fulfilled" ? reviewsRes.value?.response?.query_summary : null;
+      const browseItem = browseRes.status === "fulfilled" ? browseRes.value?.response?.store_items?.[0] : null;
+      const currentPlayers = playersRes.status === "fulfilled" ? playersRes.value?.response?.player_count : null;
+      const priceOverview = details?.price_overview || null;
+      const isFree = details?.is_free || false;
+      let priceFormatted = "";
+      let discountPercent = 0;
+      let convertedPrice = null;
+      if (isFree) {
+        priceFormatted = "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E";
+      } else if (priceOverview) {
+        priceFormatted = priceOverview.final_formatted || "";
+        discountPercent = priceOverview.discount_percent || 0;
+        const finalMajor = (priceOverview.final || 0) / 100;
+        if (currentSettings2.showPriceConvert !== false) {
+          convertedPrice = await convertCurrency(finalMajor, priceOverview.currency, targetCurrency);
+        }
+      }
+      let reviewScoreDesc = "";
+      let reviewPercent = null;
+      let reviewCount = null;
+      if (reviewData && reviewData.total_reviews > 0) {
+        reviewCount = reviewData.total_reviews;
+        reviewPercent = Math.round(reviewData.total_positive / reviewData.total_reviews * 100);
+        reviewScoreDesc = REVIEW_SCORE_RU[reviewData.review_score_desc] || reviewData.review_score_desc || "";
+      } else if (details?.recommendations?.total) {
+        reviewCount = details.recommendations.total;
+      }
+      const genres = (details?.genres || []).map((g) => g.description);
+      const categories = (details?.categories || []).map((c) => c.description);
+      let steamDeckStatus = null;
+      const deckCat = Number(browseItem?.platforms?.steam_deck_compat_category);
+      if (deckCat === 3) steamDeckStatus = "\u041F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u043E";
+      else if (deckCat === 2) steamDeckStatus = "\u041C\u043E\u0436\u043D\u043E \u0438\u0433\u0440\u0430\u0442\u044C";
+      else if (deckCat === 1) steamDeckStatus = "\u041D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F";
+      else if (categories.some((c) => /deck/i.test(c))) steamDeckStatus = "\u041F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u043E";
+      return {
+        appId,
+        name: details?.name || best.it.name,
+        url: `https://store.steampowered.com/app/${appId}/`,
+        headerImage: details?.header_image || best.it.tiny_image,
+        priceFormatted,
+        discountPercent,
+        convertedPrice,
+        approxRub: convertedPrice?.amount || null,
+        // backwards compatibility
+        reviewPercent,
+        reviewCount,
+        reviewScoreDesc,
+        genres,
+        categories,
+        steamDeckStatus,
+        currentPlayers: Number.isFinite(currentPlayers) ? currentPlayers : null
+      };
+    } catch (err) {
+      console.debug("[PANAX RU] Steam resolve error:", err);
+      return null;
+    }
+  }
+  async function fetchSteamCharts(appId) {
+    const id = Number(appId);
+    if (!id) return null;
+    try {
+      const raw = await bgRequest({
+        url: `https://steamcharts.com/app/${id}/chart-data.json`,
+        responseType: "text"
+      });
+      if (!raw) return null;
+      const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+      if (!Array.isArray(parsed) || !parsed.length) return null;
+      let allTimePeak = 0;
+      let peak24h = 0;
+      const oneDayAgo = Date.now() - 24 * 3600 * 1e3;
+      for (const item of parsed) {
+        const ts = item[0];
+        const count = item[1];
+        if (count > allTimePeak) allTimePeak = count;
+        if (ts >= oneDayAgo && count > peak24h) peak24h = count;
+      }
+      return {
+        allTimePeak: allTimePeak || null,
+        peak24h: peak24h || null
+      };
+    } catch (err) {
+      console.debug("[PANAX RU] SteamCharts error:", err);
+      return null;
+    }
+  }
+
+  // src/content/api/backloggd.js
+  var cache = /* @__PURE__ */ new Map();
+  function titleToSlug(title) {
+    return String(title || "").toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+  async function fetchBackloggdRating(title) {
+    const q = String(title || "").trim();
+    if (!q) return null;
+    const slug = titleToSlug(q);
+    if (cache.has(slug)) {
+      return cache.get(slug);
+    }
+    const url = `https://www.backloggd.com/games/${slug}/`;
+    try {
+      const html = await bgRequest({
+        url,
+        responseType: "text",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+      });
+      if (!html || typeof html !== "string") return null;
+      const match = html.match(/"ratingValue":\s*"?([0-5](?:\.\d+)?)"?/i) || html.match(/<h1[^>]*>\s*([0-5]\.\d+)\s*<\/h1>/i);
+      if (match) {
+        const score = Number(match[1]);
+        if (Number.isFinite(score) && score > 0 && score <= 5) {
+          const result = {
+            rating: score.toFixed(1),
+            url
+          };
+          cache.set(slug, result);
+          return result;
+        }
+      }
+    } catch (err) {
+      console.debug("[PANAX RU] Backloggd fetch error:", err);
+    }
+    return null;
+  }
+
+  // src/content/enrichment/game-enrichment.js
+  var activeGameTitle = "";
+  var activeSteamData = null;
+  var activeSteamCharts = null;
+  var activeOcData = null;
+  var activeMcData = null;
+  var activeProtonData = null;
+  var activeBackloggdData = null;
+  var isFetching = false;
+  var userSelectedTab = null;
+  function isGamePage() {
+    const p = location.pathname;
+    return p.includes("/game-detail/");
+  }
+  function hookTabClicks() {
+    const elements = document.querySelectorAll('button, a, div, span, [role="tab"]');
+    for (const el of elements) {
+      if (el.children.length > 3) continue;
+      const t = (el.textContent || "").trim().toLowerCase();
+      if (t === "\u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" || t === "player data") {
+        if (!el.dataset.panaxHooked) {
+          el.dataset.panaxHooked = "1";
+          el.addEventListener("click", () => {
+            userSelectedTab = "players";
+            injectUi();
+            setTimeout(injectUi, 40);
+          });
+        }
+      } else if (t === "\u043E \u0438\u0433\u0440\u0435" || t === "about") {
+        if (!el.dataset.panaxHooked) {
+          el.dataset.panaxHooked = "1";
+          el.addEventListener("click", () => {
+            userSelectedTab = "about";
+            injectUi();
+            setTimeout(injectUi, 40);
+          });
+        }
+      } else if (t === "\u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E" || t === "community") {
+        if (!el.dataset.panaxHooked) {
+          el.dataset.panaxHooked = "1";
+          el.addEventListener("click", () => {
+            userSelectedTab = "community";
+            injectUi();
+            setTimeout(injectUi, 40);
+          });
+        }
+      }
+    }
+  }
+  function getGameTitleFromDom() {
+    const titleTag = document.title || "";
+    const fromTitle = titleTag.replace(/\s*\|\s*PANAX.*$/i, "").trim();
+    if (fromTitle && fromTitle !== "PANAX") return fromTitle;
+    const h1 = document.querySelector("h1");
+    if (h1 && h1.textContent?.trim()) return h1.textContent.trim();
+    const metaOg = document.querySelector('meta[property="og:title"]');
+    if (metaOg?.content) {
+      const t = metaOg.content.replace(/\s*\|\s*PANAX.*$/i, "").trim();
+      if (t && t !== "PANAX") return t;
+    }
+    const header = document.querySelector('div[class*="text-2xl"], div[class*="text-xl"], h2');
+    if (header && header.textContent?.trim()) {
+      const text = header.textContent.trim();
+      if (text.length < 80 && !text.includes("\n")) return text;
+    }
+    return "";
+  }
+  function findSectionCard(keywords) {
+    const normKeywords = keywords.map((k) => k.toLowerCase());
+    const elements = document.querySelectorAll("h1, h2, h3, h4, h5, h6, div, span, p");
+    for (const el of elements) {
+      if (el.children.length > 3) continue;
+      const text = (el.textContent || "").trim().toLowerCase();
+      if (!text) continue;
+      for (const kw of normKeywords) {
+        if (text === kw || text.startsWith(kw)) {
+          let cur = el;
+          let bestCard = el.parentElement;
+          while (cur && cur.parentElement && cur.parentElement !== document.body) {
+            const p = cur.parentElement;
+            if (p === document.body) break;
+            const cls = cur.className || "";
+            if (cur.tagName === "SECTION" || /rounded|bg-|space-y|border|card/i.test(cls)) {
+              const h2 = cur.offsetHeight || cur.getBoundingClientRect().height;
+              if (h2 > 40 && h2 < 1400) {
+                bestCard = cur;
+                break;
+              }
+            }
+            cur = p;
+          }
+          return bestCard;
+        }
+      }
+    }
+    return null;
+  }
+  function findTabsBar() {
+    const bars = document.querySelectorAll("div, nav");
+    for (const bar of bars) {
+      if (bar.children.length >= 2 && bar.children.length <= 6) {
+        const t = (bar.textContent || "").toLowerCase();
+        const hasPlayersTab = t.includes("\u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432") || t.includes("player data");
+        const hasAboutTab = t.includes("\u043E \u0438\u0433\u0440\u0435") || t.includes("about");
+        if (hasPlayersTab && hasAboutTab) return bar;
+      }
+    }
+    return null;
+  }
+  function getActiveTab() {
+    if (userSelectedTab) return userSelectedTab;
+    const tabsBar = findTabsBar();
+    const candidates = document.querySelectorAll("h1, h2, h3, h4, div, span, p");
+    for (const h2 of candidates) {
+      if (h2.children.length > 2) continue;
+      const txt = (h2.textContent || "").trim().toLowerCase();
+      if (tabsBar && h2.compareDocumentPosition(tabsBar) & Node.DOCUMENT_POSITION_FOLLOWING) {
+        continue;
+      }
+      if (txt === "how long to beat") {
+        if (h2.offsetParent !== null && h2.getBoundingClientRect().height > 0) return "about";
+      }
+      if (txt.startsWith("\u043A\u0430\u043A \u0432\u0430\u043C?") || txt.startsWith("how was it?") || txt.startsWith("\u0438\u0433\u0440\u043E\u043A\u0438 \u0441 \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u043E\u0439") || txt.startsWith("players with this game")) {
+        if (h2.offsetParent !== null && h2.getBoundingClientRect().height > 0) return "players";
+      }
+    }
+    if (tabsBar) {
+      for (const tabEl of tabsBar.children) {
+        const tabText = (tabEl.textContent || "").toLowerCase();
+        const cls = String(tabEl.className || "");
+        const isAria = tabEl.getAttribute("aria-selected") === "true" || tabEl.getAttribute("data-state") === "active";
+        const hasUnderline = !!tabEl.querySelector('div[class*="bg-white"], div[class*="border"], span[class*="border"], hr');
+        const isBrightWhite = /\btext-white\b(?!\/)/.test(cls) && !/\b(?:text-white\/\d+|opacity-\d+)\b/.test(cls);
+        if (isAria || hasUnderline || isBrightWhite) {
+          if (tabText.includes("\u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432") || tabText.includes("player data")) {
+            return "players";
+          }
+          if (tabText.includes("\u043E \u0438\u0433\u0440\u0435") || tabText.includes("about")) {
+            return "about";
+          }
+          if (tabText.includes("\u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E") || tabText.includes("community")) {
+            return "community";
+          }
+        }
+      }
+    }
+    return "about";
+  }
+  function renderRatingsCard(oc, mc, steam, proton, bl) {
+    let badgesHtml = "";
+    if (oc?.tier) {
+      const tierClass = (oc.tier || "").toLowerCase();
+      const scoreText = oc.score ? ` \xB7 ${oc.score}` : "";
+      const recText = oc.percentRecommended ? ` (${oc.percentRecommended}% \u0440\u0435\u043A\u043E\u043C.)` : "";
+      badgesHtml += `
+      <a class="panax-badge panax-badge-oc ${tierClass}" href="${oc.url}" target="_blank" rel="noopener noreferrer" title="OpenCritic Score">
+        <span>OpenCritic: <strong>${oc.tier}${scoreText}</strong>${recText}</span>
+      </a>
+    `;
+    }
+    if (mc?.score != null) {
+      const s = mc.score;
+      const tier = s >= 75 ? "high" : s >= 50 ? "mid" : "low";
+      badgesHtml += `
+      <a class="panax-badge panax-badge-mc" href="${mc.url}" target="_blank" rel="noopener noreferrer" title="Metascore">
+        <span class="mc-val ${tier}">${s}</span>
+        <span>Metacritic</span>
+      </a>
+    `;
+    }
+    if (steam?.reviewPercent != null) {
+      badgesHtml += `
+      <a class="panax-badge panax-badge-steam" href="${steam.url}#app_reviews_hash" target="_blank" rel="noopener noreferrer" title="\u041E\u0446\u0435\u043D\u043A\u0438 \u0432 Steam">
+        <span>\u{1F44D} Steam: <strong>${steam.reviewPercent}%</strong></span>
+      </a>
+    `;
+    }
+    if (bl?.rating) {
+      badgesHtml += `
+      <a class="panax-badge panax-badge-backloggd" href="${bl.url}" target="_blank" rel="noopener noreferrer" title="\u041E\u0446\u0435\u043D\u043A\u0430 \u043D\u0430 Backloggd">
+        <span>\u2605 <strong>${bl.rating}</strong> Backloggd</span>
+      </a>
+    `;
+    }
+    if (steam?.steamDeckStatus) {
+      badgesHtml += `
+      <span class="panax-badge panax-badge-deck" title="\u0421\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C \u0441\u043E Steam Deck">
+        <span>\u{1F3AE} Steam Deck: ${steam.steamDeckStatus}</span>
+      </span>
+    `;
+    }
+    if (proton?.tier) {
+      const tierLower = proton.tier.toLowerCase();
+      const tierUpper = proton.tier.toUpperCase();
+      badgesHtml += `
+      <a class="panax-badge panax-badge-proton ${tierLower}" href="${proton.url}" target="_blank" rel="noopener noreferrer" title="ProtonDB Tier">
+        <span>\u{1F427} ProtonDB: ${tierUpper}</span>
+      </a>
+    `;
+    }
+    if (!badgesHtml) {
+      badgesHtml = `
+      <span style="font-size: 0.85rem; color: #9ca3af; margin-right: 0.5rem;">\u041E\u0446\u0435\u043D\u043A\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432:</span>
+      <a class="panax-badge panax-badge-oc" href="https://opencritic.com/search?criteria=${encodeURIComponent(activeGameTitle)}" target="_blank" rel="noopener noreferrer">OpenCritic \u2197</a>
+      <a class="panax-badge panax-badge-mc" href="https://www.metacritic.com/search/${encodeURIComponent(activeGameTitle)}/" target="_blank" rel="noopener noreferrer">Metacritic \u2197</a>
+    `;
+    }
+    return `
+    <div class="panax-plus-card" id="panax-ratings-card">
+      <div class="panax-plus-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <span>\u041E\u0446\u0435\u043D\u043A\u0438 \u043A\u0440\u0438\u0442\u0438\u043A\u043E\u0432 \u0438 \u0441\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C</span>
+      </div>
+      <div class="panax-badges-row">
+        ${badgesHtml}
+      </div>
+    </div>
+  `;
+  }
+  function renderSteamStoreCard(steam, settings = {}) {
+    if (!steam) return "";
+    let priceHtml = "";
+    if (steam.priceFormatted) {
+      const converted = steam.convertedPrice?.formatted;
+      const showConverted = settings.showPriceConvert !== false && converted;
+      priceHtml = `
+      <div class="panax-price-row">
+        ${steam.discountPercent > 0 ? `<span class="panax-discount-pill">-${steam.discountPercent}%</span>` : ""}
+        <span class="panax-price-val">${steam.priceFormatted}</span>
+        ${showConverted ? `<span class="panax-approx-rub">${converted}</span>` : ""}
+      </div>
+    `;
+    }
+    let reviewHtml = "";
+    if (steam.reviewPercent != null) {
+      const desc = steam.reviewScoreDesc ? ` \xB7 ${steam.reviewScoreDesc}` : "";
+      reviewHtml = `
+      <div class="panax-review-badge">
+        <span>\u{1F44D} ${steam.reviewPercent}% \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442 (${steam.reviewCount?.toLocaleString("ru-RU")} \u043E\u0442\u0437\u044B\u0432\u043E\u0432)${desc}</span>
+      </div>
+    `;
+    } else if (steam.reviewCount) {
+      reviewHtml = `
+      <div class="panax-review-badge">
+        <span>\u{1F44D} ${steam.reviewCount.toLocaleString("ru-RU")} \u043E\u0442\u0437\u044B\u0432\u043E\u0432 \u0432 Steam</span>
+      </div>
+    `;
+    }
+    let tagsHtml = "";
+    const tags = [...steam.genres || [], ...steam.categories || []].slice(0, 10);
+    if (tags.length) {
+      tagsHtml = `
+      <div class="panax-tags-row">
+        ${tags.map((t) => `<span class="panax-tag">${t}</span>`).join("")}
+      </div>
+    `;
+    }
+    return `
+    <div class="panax-plus-card" id="panax-steam-card">
+      <div class="panax-plus-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span>\u041C\u0430\u0433\u0430\u0437\u0438\u043D Steam</span>
+      </div>
+      <div class="panax-steam-box">
+        ${priceHtml}
+        ${reviewHtml}
+        ${tagsHtml}
+      </div>
+    </div>
+  `;
+  }
+  function renderQuickLinks(title, steam, oc, mc, bl) {
+    const encTitle = encodeURIComponent(title);
+    const links = [];
+    if (steam?.url) {
+      links.push(`<a class="panax-quick-btn" href="${steam.url}" target="_blank" rel="noopener noreferrer">Steam</a>`);
+      links.push(`<a class="panax-quick-btn" href="https://steamdb.info/app/${steam.appId}/" target="_blank" rel="noopener noreferrer">SteamDB</a>`);
+    }
+    links.push(`<a class="panax-quick-btn" href="https://www.pcgamingwiki.com/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}" target="_blank" rel="noopener noreferrer">PCGamingWiki</a>`);
+    if (oc?.url) {
+      links.push(`<a class="panax-quick-btn" href="${oc.url}" target="_blank" rel="noopener noreferrer">OpenCritic</a>`);
+    } else {
+      links.push(`<a class="panax-quick-btn" href="https://opencritic.com/search?criteria=${encTitle}" target="_blank" rel="noopener noreferrer">OpenCritic</a>`);
+    }
+    if (mc?.url) {
+      links.push(`<a class="panax-quick-btn" href="${mc.url}" target="_blank" rel="noopener noreferrer">Metacritic</a>`);
+    } else {
+      links.push(`<a class="panax-quick-btn" href="https://www.metacritic.com/search/${encTitle}/" target="_blank" rel="noopener noreferrer">Metacritic</a>`);
+    }
+    if (bl?.url) {
+      links.push(`<a class="panax-quick-btn" href="${bl.url}" target="_blank" rel="noopener noreferrer">Backloggd</a>`);
+    }
+    links.push(`<a class="panax-quick-btn" href="https://www.youtube.com/results?search_query=${encTitle}+gameplay+trailer" target="_blank" rel="noopener noreferrer">YouTube</a>`);
+    links.push(`<a class="panax-quick-btn" href="https://www.igdb.com/search?q=${encTitle}" target="_blank" rel="noopener noreferrer">IGDB</a>`);
+    return `
+    <div class="panax-plus-card" id="panax-quick-links-card">
+      <div class="panax-plus-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        <span>\u0411\u044B\u0441\u0442\u0440\u044B\u0435 \u0441\u0441\u044B\u043B\u043A\u0438</span>
+      </div>
+      <div class="panax-quick-links">
+        ${links.join("")}
+      </div>
+    </div>
+  `;
+  }
+  function renderPlayerStatsCard(steam, charts) {
+    let onlineBadge = "";
+    if (steam?.currentPlayers != null) {
+      onlineBadge = `
+      <div class="panax-online-badge">
+        <span class="panax-online-dot"></span>
+        <span>${steam.currentPlayers.toLocaleString("ru-RU")} \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u043E\u043D\u043B\u0430\u0439\u043D (Steam)</span>
+      </div>
+    `;
+    } else if (isFetching) {
+      onlineBadge = `
+      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
+        <span class="panax-online-dot" style="background: #eab308; box-shadow: none;"></span>
+        <span>Steam: \u041F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435 \u043E\u043D\u043B\u0430\u0439\u043D\u0430...</span>
+      </div>
+    `;
+    } else {
+      onlineBadge = `
+      <div class="panax-online-badge" style="background: rgba(255, 255, 255, 0.05); color: #9ca3af; border-color: rgba(255, 255, 255, 0.1);">
+        <span class="panax-online-dot" style="background: #6b7280; box-shadow: none;"></span>
+        <span>Steam: \u041E\u043D\u043B\u0430\u0439\u043D \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D</span>
+      </div>
+    `;
+    }
+    let statsGrid = "";
+    if (charts?.peak24h || charts?.allTimePeak) {
+      statsGrid = `
+      <div class="panax-steam-stats-grid">
+        ${charts.peak24h ? `
+          <div class="panax-stat-box">
+            <span class="label">\u041F\u0438\u043A \u0437\u0430 24 \u0447\u0430\u0441\u0430</span>
+            <span class="val">${charts.peak24h.toLocaleString("ru-RU")}</span>
+          </div>
+        ` : ""}
+        ${charts.allTimePeak ? `
+          <div class="panax-stat-box">
+            <span class="label">\u0420\u0435\u043A\u043E\u0440\u0434 \u043E\u043D\u043B\u0430\u0439\u043D\u0430</span>
+            <span class="val">${charts.allTimePeak.toLocaleString("ru-RU")}</span>
+          </div>
+        ` : ""}
+      </div>
+    `;
+    }
+    return `
+    <div class="panax-plus-card" id="panax-players-card">
+      <div class="panax-plus-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>\u0410\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430 \u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432</span>
+      </div>
+      ${onlineBadge}
+      ${statsGrid}
+    </div>
+  `;
+  }
+  async function loadGameData(title) {
+    if (isFetching || !title) return;
+    isFetching = true;
+    try {
+      const [steamRes, ocRes, mcRes, blRes] = await Promise.allSettled([
+        resolveSteam(title),
+        fetchOpenCritic(title),
+        fetchMetacritic(title),
+        fetchBackloggdRating(title)
+      ]);
+      activeSteamData = steamRes.status === "fulfilled" ? steamRes.value : null;
+      activeOcData = ocRes.status === "fulfilled" ? ocRes.value : null;
+      activeMcData = mcRes.status === "fulfilled" ? mcRes.value : null;
+      activeBackloggdData = blRes.status === "fulfilled" ? blRes.value : null;
+      if (activeSteamData?.appId) {
+        const [protonRes, chartsRes] = await Promise.allSettled([
+          fetchProtonDb(activeSteamData.appId),
+          fetchSteamCharts(activeSteamData.appId)
+        ]);
+        activeProtonData = protonRes.status === "fulfilled" ? protonRes.value : null;
+        activeSteamCharts = chartsRes.status === "fulfilled" ? chartsRes.value : null;
+      }
+    } catch (err) {
+      console.debug("[PANAX RU] Error fetching enrichments:", err);
+    } finally {
+      isFetching = false;
+      injectUi();
+    }
+  }
+  function findMountTarget(tab) {
+    if (tab === "about") {
+      const hltb = findSectionCard(["how long to beat"]);
+      if (hltb?.parentElement) {
+        return { parent: hltb.parentElement, before: hltb.nextSibling };
+      }
+      const plat = findSectionCard(["\u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B", "platforms"]);
+      if (plat?.parentElement) {
+        return { parent: plat.parentElement, before: plat.nextSibling };
+      }
+      const errReport = findSectionCard(["\u043D\u0430\u0448\u043B\u0438 \u043E\u0448\u0438\u0431\u043A\u0443", "\u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u0442\u044C \u043F\u0440\u0430\u0432\u043A\u0443", "suggest edit", "found an error"]);
+      if (errReport?.parentElement) {
+        return { parent: errReport.parentElement, before: errReport.nextSibling };
+      }
+      const descSec = findSectionCard(["\u043E\u0431 \u0438\u0433\u0440\u0435", "about game", "\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"]);
+      if (descSec?.parentElement) {
+        return { parent: descSec.parentElement, before: descSec.nextSibling };
+      }
+    }
+    if (tab === "players") {
+      const players = findSectionCard(["\u0438\u0433\u0440\u043E\u043A\u0438 \u0441 \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u043E\u0439", "players with this game"]);
+      if (players?.parentElement) {
+        return { parent: players.parentElement, before: players };
+      }
+      const rate = findSectionCard(["\u043A\u0430\u043A \u0432\u0430\u043C?", "how was it?"]);
+      if (rate?.parentElement) {
+        return { parent: rate.parentElement, before: rate };
+      }
+      const ratingsSec = findSectionCard(["\u043E\u0446\u0435\u043D\u043A\u0438", "ratings"]);
+      if (ratingsSec?.parentElement) {
+        return { parent: ratingsSec.parentElement, before: ratingsSec };
+      }
+      const tabsBar = findTabsBar();
+      if (tabsBar?.parentElement) {
+        const next = tabsBar.nextElementSibling;
+        if (next && next !== tabsBar) {
+          return { parent: next, before: next.firstChild };
+        }
+        return { parent: tabsBar.parentElement, before: tabsBar.nextSibling };
+      }
+    }
+    const tabCandidates = document.querySelectorAll('button, [role="tab"], div, a, span');
+    for (const btn of tabCandidates) {
+      const t = (btn.textContent || "").trim().toLowerCase();
+      if (t === "\u043E \u0438\u0433\u0440\u0435" || t === "about" || t === "\u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" || t === "player data") {
+        const tabsRow = btn.closest('div[class*="flex"], div[class*="tabs"], nav') || btn.parentElement;
+        if (tabsRow?.parentElement) {
+          const next = tabsRow.nextElementSibling;
+          if (next && next !== tabsRow) return { parent: next, before: null };
+        }
+      }
+    }
+    return null;
+  }
+  function injectUi() {
+    const settings = getSettings();
+    if (!isGamePage() || settings.showGameWidgets === false) {
+      document.getElementById("panax-about-enrichment")?.remove();
+      document.getElementById("panax-players-card-container")?.remove();
+      return;
+    }
+    const currentTitle = getGameTitleFromDom();
+    if (!currentTitle) return;
+    hookTabClicks();
+    const tab = getActiveTab();
+    if (tab === "about") {
+      document.getElementById("panax-players-card-container")?.remove();
+      if (settings.showRatings !== false || settings.showSteamStore !== false || settings.showQuickLinks !== false) {
+        const target = findMountTarget("about");
+        if (target?.parent) {
+          let container = document.getElementById("panax-about-enrichment");
+          if (!container) {
+            container = document.createElement("div");
+            container.id = "panax-about-enrichment";
+            target.parent.insertBefore(container, target.before);
+          } else if (!container.isConnected || container.parentElement !== target.parent) {
+            target.parent.insertBefore(container, target.before);
+          }
+          let html = "";
+          if (settings.showRatings !== false) {
+            html += renderRatingsCard(activeOcData, activeMcData, activeSteamData, activeProtonData, activeBackloggdData);
+          }
+          if (settings.showSteamStore !== false) {
+            html += renderSteamStoreCard(activeSteamData, settings);
+          }
+          if (settings.showQuickLinks !== false) {
+            html += renderQuickLinks(currentTitle, activeSteamData, activeOcData, activeMcData, activeBackloggdData);
+          }
+          if (html.trim() && container.innerHTML !== html) {
+            container.innerHTML = html;
+          }
+        }
+      }
+    } else if (tab === "players") {
+      document.getElementById("panax-about-enrichment")?.remove();
+      if (settings.showPlayerStats !== false) {
+        const target = findMountTarget("players");
+        if (target?.parent) {
+          let container = document.getElementById("panax-players-card-container");
+          if (!container) {
+            container = document.createElement("div");
+            container.id = "panax-players-card-container";
+            target.parent.insertBefore(container, target.before);
+          } else if (!container.isConnected || container.parentElement !== target.parent) {
+            target.parent.insertBefore(container, target.before);
+          }
+          const html = renderPlayerStatsCard(activeSteamData, activeSteamCharts);
+          if (container.innerHTML !== html) {
+            container.innerHTML = html;
+          }
+        }
+      }
+    } else if (tab === "community") {
+      document.getElementById("panax-about-enrichment")?.remove();
+      document.getElementById("panax-players-card-container")?.remove();
+    }
+  }
+  async function startEnrichment() {
+    if (typeof chrome === "undefined" || !chrome.runtime?.sendMessage) return;
+    await loadSettings();
+    document.addEventListener(
+      "click",
+      (e) => {
+        let cur = e.target;
+        let depth = 0;
+        while (cur && depth < 5 && cur !== document.body) {
+          const t = (cur.textContent || "").trim().toLowerCase();
+          if (t === "\u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" || t === "player data") {
+            userSelectedTab = "players";
+            document.getElementById("panax-about-enrichment")?.remove();
+            injectUi();
+            setTimeout(injectUi, 40);
+            setTimeout(injectUi, 200);
+            break;
+          } else if (t === "\u043E \u0438\u0433\u0440\u0435" || t === "about") {
+            userSelectedTab = "about";
+            document.getElementById("panax-players-card-container")?.remove();
+            injectUi();
+            setTimeout(injectUi, 40);
+            setTimeout(injectUi, 200);
+            break;
+          } else if (t === "\u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E" || t === "community") {
+            userSelectedTab = "community";
+            document.getElementById("panax-about-enrichment")?.remove();
+            document.getElementById("panax-players-card-container")?.remove();
+            injectUi();
+            break;
+          }
+          cur = cur.parentElement;
+          depth += 1;
+        }
+      },
+      true
+    );
+    if (typeof chrome !== "undefined" && chrome.storage?.onChanged) {
+      chrome.storage.onChanged.addListener((changes, area) => {
+        if (area === "local") {
+          loadSettings().then(() => {
+            document.getElementById("panax-about-enrichment")?.remove();
+            document.getElementById("panax-players-card-container")?.remove();
+            injectUi();
+          });
+        }
+      });
+    }
+    let lastUrl = location.href;
+    function tick2() {
+      if (!isGamePage()) {
+        document.getElementById("panax-about-enrichment")?.remove();
+        document.getElementById("panax-players-card-container")?.remove();
+        activeGameTitle = "";
+        userSelectedTab = null;
+        return;
+      }
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        userSelectedTab = null;
+      }
+      const title = getGameTitleFromDom();
+      if (title && title !== activeGameTitle) {
+        activeGameTitle = title;
+        activeSteamData = null;
+        activeSteamCharts = null;
+        activeOcData = null;
+        activeMcData = null;
+        activeProtonData = null;
+        activeBackloggdData = null;
+        userSelectedTab = null;
+        loadGameData(title).then(() => injectUi());
+      } else {
+        injectUi();
+      }
+    }
+    window.addEventListener("popstate", tick2);
+    const origPushState = history.pushState;
+    history.pushState = function(...args) {
+      origPushState.apply(this, args);
+      setTimeout(tick2, 100);
+    };
+    const origReplaceState = history.replaceState;
+    history.replaceState = function(...args) {
+      origReplaceState.apply(this, args);
+      setTimeout(tick2, 100);
+    };
+    tick2();
+    let timer = null;
+    const obs = new MutationObserver(() => {
+      if (timer) return;
+      timer = setTimeout(() => {
+        timer = null;
+        if (location.href !== lastUrl) {
+          lastUrl = location.href;
+          tick2();
+        } else if (isGamePage()) {
+          tick2();
+        }
+      }, 150);
+    });
+    obs.observe(document.body || document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // src/content/api/translate.js
+  var cache2 = /* @__PURE__ */ new Map();
+  function hashText(s) {
+    let h2 = 5381;
+    const str2 = String(s || "");
+    for (let i = 0; i < str2.length; i++) {
+      h2 = (h2 << 5) + h2 ^ str2.charCodeAt(i);
+    }
+    return (h2 >>> 0).toString(36);
+  }
+  async function translateText(text, targetLang = "ru") {
+    const plain = String(text || "").trim();
+    const tl = String(targetLang || "ru").trim().toLowerCase().slice(0, 2);
+    if (!plain) return null;
+    const key = `${tl}:${hashText(plain)}`;
+    if (cache2.has(key)) {
+      return cache2.get(key);
+    }
+    try {
+      const url = `https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=auto&tl=${encodeURIComponent(tl)}&q=${encodeURIComponent(plain)}`;
+      const data = await bgRequest({
+        url,
+        responseType: "json",
+        headers: { Accept: "application/json" }
+      });
+      if (Array.isArray(data) && data[0]) {
+        const segs = Array.isArray(data[0]) ? data.map((item) => Array.isArray(item) ? item[0] : item).join(" ") : String(data[0]);
+        const detected = Array.isArray(data[0]) && data[0][1] ? String(data[0][1]).toLowerCase().slice(0, 2) : "";
+        if (segs) {
+          const result = { text: segs.trim(), detectedSourceLang: detected };
+          cache2.set(key, result);
+          return result;
+        }
+      }
+    } catch (err) {
+      console.debug("[PANAX RU] Google translate failed, trying MyMemory fallback...", err);
+    }
+    try {
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(plain.slice(0, 500))}&langpair=auto|${encodeURIComponent(tl)}`;
+      const data = await bgRequest({
+        url,
+        responseType: "json",
+        headers: { Accept: "application/json" }
+      });
+      const translated = data?.responseData?.translatedText;
+      if (translated && !translated.startsWith("MYMEMORY WARNING:")) {
+        const result = {
+          text: translated.trim(),
+          detectedSourceLang: ""
+        };
+        cache2.set(key, result);
+        return result;
+      }
+    } catch (err) {
+      console.debug("[PANAX RU] MyMemory translation failed:", err);
+    }
+    return null;
+  }
+
+  // src/content/features/post-translate.js
+  var BTN_CLASS = "panax-translate-btn";
+  var STATE_ATTR = "data-panax-translated";
+  var ORIG_ATTR = "data-panax-original";
+  var isListening = false;
+  function escapeHtml(str2) {
+    return String(str2 || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function extractCleanText(el) {
+    if (!el) return "";
+    const clone = el.cloneNode(true);
+    clone.querySelectorAll(
+      '[aria-hidden="true"], .more-button-inline, .panax-translate-btn, .panax-translate-wrap, .view-all-wrapper, [id^="user-summary-"]'
+    ).forEach((n) => n.remove());
+    clone.querySelectorAll("br").forEach((br) => br.replaceWith("\n"));
+    clone.querySelectorAll("p, div, li, h1, h2, h3, h4, h5, h6").forEach((block2) => {
+      block2.append("\n");
+    });
+    return (clone.textContent || "").replace(/\u00a0/g, " ").replace(/\n{3,}/g, "\n\n").trim();
+  }
+  function plainToHtml(text) {
+    return escapeHtml(String(text || "")).replace(/\r\n|\r|\n/g, "<br>");
+  }
+  function setBtnState(btn, state2) {
+    if (!btn) return;
+    if (state2 === "loading") {
+      btn.innerHTML = `<span class="panax-translate-spin"></span><span>\u041F\u0435\u0440\u0435\u0432\u043E\u0434...</span>`;
+      btn.classList.add("is-loading");
+    } else if (state2 === "translated") {
+      btn.innerHTML = `<span>\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B</span>`;
+      btn.classList.remove("is-loading");
+      btn.classList.add("is-translated");
+      btn.setAttribute(STATE_ATTR, "true");
+    } else if (state2 === "error") {
+      btn.innerHTML = `<span>\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0430</span>`;
+      btn.classList.remove("is-loading");
+      setTimeout(() => setBtnState(btn, "idle"), 1800);
+    } else {
+      btn.innerHTML = `<span>\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438</span>`;
+      btn.classList.remove("is-loading");
+      btn.classList.remove("is-translated");
+      btn.removeAttribute(STATE_ATTR);
+    }
+  }
+  function createTranslateBtn(targetType = "review") {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `${BTN_CLASS} ${BTN_CLASS}--${targetType}`;
+    btn.setAttribute("data-target-type", targetType);
+    btn.setAttribute("data-panax-ru-skip", "1");
+    btn.innerHTML = `<span>\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438</span>`;
+    return btn;
+  }
+  function isEnglishText(text) {
+    if (!text || text.length < 4) return false;
+    const cleaned = text.replace(/https?:\/\/\S+/g, "").replace(/[@#][A-Za-z0-9_-]+/g, "");
+    const latin = (cleaned.match(/[A-Za-z]/g) || []).length;
+    const cyrillic = (cleaned.match(/[А-Яа-яЁё]/g) || []).length;
+    return latin >= 4 && latin > cyrillic;
+  }
+  async function translateDeltaRenderer(deltaEl, isRestore) {
+    if (isRestore) {
+      const saved = deltaEl.__panaxOrigBlocks;
+      if (Array.isArray(saved)) {
+        for (const item of saved) {
+          if (item.el && item.html != null) {
+            item.el.innerHTML = item.html;
+          }
+        }
+        delete deltaEl.__panaxOrigBlocks;
+      }
+      if (deltaEl.__panaxWasCollapsed) {
+        const wrapper2 = deltaEl.querySelector(".content-wrapper");
+        if (wrapper2) wrapper2.style.maxHeight = "";
+        delete deltaEl.__panaxWasCollapsed;
+      }
+      return true;
+    }
+    const wrapper = deltaEl.querySelector(".content-wrapper > div") || deltaEl.querySelector(".content-wrapper") || deltaEl;
+    const children = Array.from(wrapper.children).filter(
+      (ch) => !ch.querySelector(".media-item, img, video") && !ch.classList.contains("media-item")
+    );
+    const hasMedia = !!wrapper.querySelector(".media-item, img, video");
+    const targets = !hasMedia ? [wrapper] : children.filter((ch) => isEnglishText(extractCleanText(ch)));
+    if (!targets.length) return false;
+    const origBlocks = targets.map((el) => ({ el, html: el.innerHTML, text: extractCleanText(el) }));
+    const combined = origBlocks.map((b) => b.text).join("\n\n===PANAX_SPLIT===\n\n");
+    const res = await translateText(combined, "ru");
+    if (!res?.text) return false;
+    deltaEl.__panaxOrigBlocks = origBlocks;
+    const contentWrapper = deltaEl.querySelector(".content-wrapper");
+    if (contentWrapper && contentWrapper.classList.contains("content-wrapper-collapsed")) {
+      contentWrapper.style.maxHeight = "none";
+      deltaEl.__panaxWasCollapsed = true;
+    }
+    const parts = res.text.split(/\s*===\s*PANAX_SPLIT\s*===\s*/i);
+    if (parts.length === origBlocks.length) {
+      origBlocks.forEach((b, idx) => {
+        b.el.innerHTML = `<span style="white-space: pre-wrap; color: var(--color-text-common-user-contents, #fff);">${plainToHtml(parts[idx].trim())}</span>`;
+      });
+    } else {
+      origBlocks[0].el.innerHTML = `<span style="white-space: pre-wrap; color: var(--color-text-common-user-contents, #fff);">${plainToHtml(res.text.replace(/===\s*PANAX_SPLIT\s*===/gi, "\n\n").trim())}</span>`;
+      for (let i = 1; i < origBlocks.length; i++) {
+        origBlocks[i].el.innerHTML = "";
+      }
+    }
+    return true;
+  }
+  async function handleTranslateClick(btn) {
+    if (btn.classList.contains("is-loading")) return;
+    const textEl = btn.__panaxTargetTextEl;
+    if (!textEl) return;
+    const isTranslated = btn.getAttribute(STATE_ATTR) === "true";
+    if (textEl.classList?.contains("delta-content-renderer")) {
+      if (isTranslated) {
+        await translateDeltaRenderer(textEl, true);
+        setBtnState(btn, "idle");
+        return;
+      }
+      setBtnState(btn, "loading");
+      const ok = await translateDeltaRenderer(textEl, false);
+      setBtnState(btn, ok ? "translated" : "error");
+      return;
+    }
+    if (isTranslated) {
+      const original = textEl.__panaxOriginalHtml ?? textEl.getAttribute(ORIG_ATTR);
+      if (original != null) {
+        textEl.innerHTML = original;
+        delete textEl.__panaxOriginalHtml;
+        textEl.removeAttribute(ORIG_ATTR);
+      }
+      setBtnState(btn, "idle");
+      return;
+    }
+    const sourceHtml = textEl.innerHTML;
+    const plain = extractCleanText(textEl);
+    if (!plain) return;
+    setBtnState(btn, "loading");
+    const res = await translateText(plain, "ru");
+    if (!res?.text) {
+      setBtnState(btn, "error");
+      return;
+    }
+    textEl.__panaxOriginalHtml = sourceHtml;
+    textEl.setAttribute(ORIG_ATTR, "1");
+    textEl.innerHTML = `<span style="white-space: pre-wrap; display: block; color: var(--color-text-common-user-contents, #fff); font-size: 15px; line-height: 21px;">${plainToHtml(res.text)}</span>`;
+    setBtnState(btn, "translated");
+  }
+  function findPostOrReviewBodyEl(cardRoot) {
+    if (!cardRoot) return null;
+    const delta = cardRoot.querySelector(".delta-content-renderer");
+    if (delta && isEnglishText(extractCleanText(delta))) {
+      return delta;
+    }
+    const candidates = cardRoot.querySelectorAll(
+      'div[class*="text-(--color-text-common-user-contents)"], span[style*="color-text-common-user-contents"], span[style*="overflow-wrap: anywhere"], span[style*="overflowWrap"]'
+    );
+    for (const el of candidates) {
+      if (el.closest(
+        ".comment-item-container, .num-liked, .like-num-text, .buttons-post-smart, .buttons-review-smart, .post-game-tag, .attached-game-post, .top-text-post-compact, .spoiler-container"
+      )) {
+        continue;
+      }
+      const wrapper = el.closest('div[class*="whitespace-pre-wrap"]') || el.closest('div[style*="position: relative"][style*="width: 100%"]') || el.closest('div[style*="position:relative"]') || el.parentElement;
+      if (wrapper && isEnglishText(extractCleanText(wrapper))) {
+        return wrapper;
+      }
+    }
+    return null;
+  }
+  function injectTranslateButtons() {
+    const settings = getSettings();
+    if (settings.showTranslate === false) {
+      document.querySelectorAll(`.${BTN_CLASS}`).forEach((b) => b.remove());
+      return;
+    }
+    const comments = document.querySelectorAll(".comment-item-container");
+    for (const comment of comments) {
+      if (comment.querySelector(`.${BTN_CLASS}`)) continue;
+      const textContentEl = comment.querySelector(".comment-content .text-content");
+      if (!textContentEl) continue;
+      const plain = extractCleanText(textContentEl);
+      if (!isEnglishText(plain)) continue;
+      const btn = createTranslateBtn("review");
+      btn.__panaxTargetTextEl = textContentEl;
+      const commentInfo = comment.querySelector(".comment-info");
+      if (commentInfo) {
+        commentInfo.appendChild(btn);
+      } else {
+        const wrap = document.createElement("div");
+        wrap.className = "panax-translate-wrap mt-1";
+        wrap.appendChild(btn);
+        textContentEl.parentElement?.appendChild(wrap);
+      }
+    }
+    const actionBars = document.querySelectorAll(".buttons-post, .buttons-review");
+    for (const bar of actionBars) {
+      if (bar.querySelector(`.${BTN_CLASS}`)) continue;
+      const smartWrap = bar.closest(".buttons-post-smart, .buttons-review-smart") || bar;
+      const cardRoot = smartWrap.closest('div[class*="bg-(--color-bg-layer-01"]') || smartWrap.parentElement?.parentElement;
+      if (!cardRoot) continue;
+      if (cardRoot.querySelector(`.${BTN_CLASS}`)) continue;
+      const bodyEl = findPostOrReviewBodyEl(cardRoot);
+      if (!bodyEl) continue;
+      const btn = createTranslateBtn("review");
+      btn.__panaxTargetTextEl = bodyEl;
+      bar.appendChild(btn);
+    }
+    if (location.pathname.includes("/game-detail/")) {
+      const descCandidates = document.querySelectorAll(
+        '#collapseSummary, [class*="GameDetail_description"], [class*="description_wrap"], [class*="game_description"]'
+      );
+      for (const desc of descCandidates) {
+        if (desc.closest("aside, nav, .comment-item-container")) continue;
+        if (desc.querySelector(`.${BTN_CLASS}`) || desc.parentElement?.querySelector(`.${BTN_CLASS}`)) continue;
+        const text = extractCleanText(desc);
+        if (isEnglishText(text)) {
+          const btn = createTranslateBtn("review");
+          btn.__panaxTargetTextEl = desc;
+          const wrap = document.createElement("div");
+          wrap.className = "panax-translate-wrap mt-2";
+          wrap.appendChild(btn);
+          desc.after(wrap);
+        }
+      }
+      const allUserText = document.querySelectorAll(
+        'div[class*="text-(--color-text-common-user-contents)"], span[style*="color-text-common-user-contents"], p[class*="text-(--color-text-common"]'
+      );
+      for (const el of allUserText) {
+        if (el.closest(
+          'aside, nav, header, footer, .comment-item-container, .panax-plus-card, [class*="bg-(--color-bg-layer-01"] .buttons-post-smart, [class*="bg-(--color-bg-layer-01"] .buttons-review-smart'
+        )) {
+          continue;
+        }
+        const postCard = el.closest('div[class*="bg-(--color-bg-layer-01"]');
+        if (postCard && postCard.querySelector(".buttons-post, .buttons-review")) continue;
+        const block2 = el.closest('div[class*="whitespace-pre-wrap"]') || el.closest('div[style*="position: relative"][style*="width: 100%"]') || el;
+        if (block2.querySelector(`.${BTN_CLASS}`) || block2.parentElement?.querySelector(`.${BTN_CLASS}`)) continue;
+        const plain = extractCleanText(block2);
+        if (plain.length >= 40 && isEnglishText(plain)) {
+          const btn = createTranslateBtn("review");
+          btn.__panaxTargetTextEl = block2;
+          const wrap = document.createElement("div");
+          wrap.className = "panax-translate-wrap mt-2";
+          wrap.appendChild(btn);
+          block2.after(wrap);
+        }
+      }
+    }
+  }
+  function startPostTranslate() {
+    if (isListening) return;
+    isListening = true;
+    document.addEventListener(
+      "click",
+      (e) => {
+        const btn = e.target?.closest?.(`.${BTN_CLASS}`);
+        if (btn) {
+          e.preventDefault();
+          e.stopPropagation();
+          handleTranslateClick(btn);
+        }
+      },
+      true
+    );
+    injectTranslateButtons();
+    setInterval(injectTranslateButtons, 700);
+  }
+
+  // src/shared/gq-hash.js
+  var CRC_TABLE = null;
+  function crc32(bytes) {
+    if (!CRC_TABLE) {
+      CRC_TABLE = new Uint32Array(256);
+      for (let n = 0; n < 256; n++) {
+        let c = n;
+        for (let k = 0; k < 8; k++) c = c & 1 ? 3988292384 ^ c >>> 1 : c >>> 1;
+        CRC_TABLE[n] = c >>> 0;
+      }
+    }
+    let crc = 4294967295;
+    for (let i = 0; i < bytes.length; i++) crc = CRC_TABLE[(crc ^ bytes[i]) & 255] ^ crc >>> 8;
+    return (crc ^ 4294967295) >>> 0;
+  }
+  function fnv1a(str2) {
+    let h2 = 2166136261;
+    for (let i = 0; i < str2.length; i++) {
+      h2 ^= str2.charCodeAt(i);
+      h2 = Math.imul(h2, 16777619) >>> 0;
+    }
+    return h2.toString(16).padStart(8, "0");
+  }
+  var URLISH = /^[(\[]?(?:[a-z][a-z0-9+.-]*:\/\/\S*|[\w-]+(?:\.[\w-]+)+(?:[/?#]\S*)?)[)\].,;:!?]*$/i;
+  function fingerprintText(text) {
+    const tokens = String(text || "").replace(/[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]/g, "").toLowerCase().split(/\s+/).filter((t) => t && !URLISH.test(t));
+    const letters = (tokens.join(" ").match(new RegExp("\\p{L}+", "gu")) || []).join("");
+    return { len: letters.length, h: fnv1a(letters) };
+  }
+
+  // src/shared/gq-payload.js
+  var PREFIX = "GQ1.";
+  var MAX_COMPRESSED = 48 * 1024;
+  var MAX_RAW = 400 * 1024;
+  var GQError = class extends Error {
+    constructor(code, message) {
+      super(message || code);
+      this.code = code;
+    }
+  };
+  var te = new TextEncoder();
+  var td = new TextDecoder("utf-8", { fatal: true });
+  async function streamBytes(readable, limit) {
+    const reader = readable.getReader();
+    const chunks = [];
+    let total = 0;
+    for (; ; ) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > limit) {
+        try {
+          await reader.cancel();
+        } catch {
+        }
+        throw new GQError("too-large", "payload expands beyond limit");
+      }
+      chunks.push(value);
+    }
+    const out = new Uint8Array(total);
+    let off = 0;
+    for (const c of chunks) {
+      out.set(c, off);
+      off += c.byteLength;
+    }
+    return out;
+  }
+  async function inflate(bytes, limit = MAX_RAW) {
+    const ds = new DecompressionStream("deflate-raw");
+    const w = ds.writable.getWriter();
+    w.write(bytes).catch(() => {
+    });
+    w.close().catch(() => {
+    });
+    try {
+      return await streamBytes(ds.readable, limit);
+    } catch (e) {
+      if (e instanceof GQError) throw e;
+      throw new GQError("corrupt", "inflate failed");
+    }
+  }
+  function toB64url(bytes) {
+    let bin = "";
+    for (let i = 0; i < bytes.length; i += 32768) bin += String.fromCharCode(...bytes.subarray(i, i + 32768));
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function fromB64url(s) {
+    if (!/^[A-Za-z0-9_-]*$/.test(s)) throw new GQError("corrupt", "bad base64");
+    const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4);
+    let bin;
+    try {
+      bin = atob(b64);
+    } catch {
+      throw new GQError("corrupt", "bad base64");
+    }
+    const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  var hex8 = (n) => (n >>> 0).toString(16).padStart(8, "0");
+  async function parseJsonBytes(comp) {
+    const raw = await inflate(comp);
+    let json;
+    try {
+      json = JSON.parse(td.decode(raw));
+    } catch {
+      throw new GQError("corrupt", "bad json");
+    }
+    return json;
+  }
+  async function decodeText(text) {
+    if (typeof text !== "string" || !text.startsWith(PREFIX)) throw new GQError("not-gq", "no prefix");
+    if (text.length > MAX_COMPRESSED * 1.4 + 32) throw new GQError("too-large", "carrier too long");
+    const m = /^GQ1\.([A-Za-z0-9_-]+)\.([0-9a-f]{8})$/.exec(text);
+    if (!m) throw new GQError("corrupt", "bad shape");
+    const comp = fromB64url(m[1]);
+    if (hex8(crc32(comp)) !== m[2]) throw new GQError("checksum", "crc mismatch");
+    return parseJsonBytes(comp);
+  }
+  async function decodeBytes(bytes) {
+    if (!bytes || bytes.length < 8 || bytes[0] !== 71 || bytes[1] !== 81) throw new GQError("not-gq", "no magic");
+    if (bytes[2] !== 1) throw new GQError("version", "unsupported version");
+    if (bytes.length - 7 > MAX_COMPRESSED) throw new GQError("too-large", "carrier too long");
+    const crc = (bytes[3] << 24 | bytes[4] << 16 | bytes[5] << 8 | bytes[6]) >>> 0;
+    const comp = bytes.subarray(7);
+    if (crc32(comp) !== crc) throw new GQError("checksum", "crc mismatch");
+    return parseJsonBytes(comp);
+  }
+  var VS_RUN = /(?:[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]){16,}/g;
+  function vsExtract(text) {
+    if (typeof text !== "string" || text.length < 16) return null;
+    const runs = text.match(VS_RUN);
+    if (!runs) return null;
+    for (const run of runs.sort((a, b) => b.length - a.length)) {
+      const out = [];
+      for (const ch of run) {
+        const cp = ch.codePointAt(0);
+        if (cp >= 65024 && cp <= 65039) out.push(cp - 65024);
+        else if (cp >= 917760 && cp <= 917999) out.push(cp - 917760 + 16);
+      }
+      if (out[0] === 71 && out[1] === 81) return Uint8Array.from(out);
+    }
+    return null;
+  }
+  function findTextCarriers(s) {
+    if (typeof s !== "string") return [];
+    return s.match(/GQ1\.[A-Za-z0-9_-]{8,}\.[0-9a-f]{8}/g) || [];
+  }
+  function carrierFromDelta(delta) {
+    const ops = delta && Array.isArray(delta.ops) ? delta.ops : null;
+    if (!ops) return null;
+    for (let i = ops.length - 1; i >= 0; i--) {
+      const a = ops[i] && ops[i].attributes;
+      if (a && typeof a.gq === "string" && a.gq.startsWith(PREFIX)) return { kind: "attr", text: a.gq };
+    }
+    let all = "";
+    for (const op of ops) if (op && typeof op.insert === "string") all += op.insert;
+    const bytes = vsExtract(all);
+    return bytes ? { kind: "vs", bytes } : null;
+  }
+  async function decodeCarrier(c) {
+    if (!c) throw new GQError("not-gq", "no carrier");
+    if (typeof c === "string") return decodeText(c);
+    if (c.kind === "attr") return decodeText(c.text);
+    if (c.kind === "vs") return decodeBytes(c.bytes);
+    throw new GQError("not-gq", "unknown carrier");
+  }
+
+  // src/shared/gq-image.js
+  var MAX_DATA_IMAGE = 40 * 1024;
+  var MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+  var LOCAL_TARGET_BYTES = 28 * 1024;
+  var PANAX_IMAGE_CDN = "https://d21t60rno19oyf.cloudfront.net";
+  var PANAX_IMAGE_CDN_HOST = "d21t60rno19oyf.cloudfront.net";
+  var SITE_IMAGE_HOSTS = [
+    "gamedb-oz.s3.amazonaws.com",
+    "gamedb-oz.s3.ap-northeast-2.amazonaws.com",
+    "gamedb-oz.s3.ap-southeast-1.amazonaws.com",
+    "gamedb-oz.s3-accelerate.amazonaws.com",
+    PANAX_IMAGE_CDN_HOST
+  ];
+  var UUID_RE = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
+  var PANAX_INPUT_RE = new RegExp("^/image/input/(" + UUID_RE + ")$");
+  var PANAX_DERIV_RE = new RegExp("^/image/(large|medium|small)/(" + UUID_RE + ")\\.webp$", "i");
+  var SIGNED_PARAM_RE = /^(AWSAccessKeyId|Signature|Expires|x-amz-security-token|X-Amz-Algorithm|X-Amz-Credential|X-Amz-Date|X-Amz-Expires|X-Amz-SignedHeaders|X-Amz-Signature|X-Amz-Security-Token|content-type|x-amz-meta-.+)$/i;
+  var extraAllowedOrigins = [];
+  var encodeUnsafe = (href) => href.replace(/['"()\\\s<>`]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"));
+  var PRIVATE_HOST = /^(localhost|127\.0\.0\.1|::1|0\.0\.0\.0)$/i;
+  var PRIVATE_IP = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|0\.)/;
+  function isPrivateHost(host2) {
+    const h2 = String(host2 || "").toLowerCase();
+    if (PRIVATE_HOST.test(h2) || h2.endsWith(".local") || h2.endsWith(".localhost")) return true;
+    if (PRIVATE_IP.test(h2)) return true;
+    return false;
+  }
+  function isSiteImageHost(host2) {
+    const h2 = String(host2 || "").toLowerCase();
+    if (SITE_IMAGE_HOSTS.includes(h2)) return true;
+    if (/(^|\.)s3[.-]/.test(h2) && h2.includes("gamedb")) return true;
+    return false;
+  }
+  function isSiteImageUrl(v) {
+    try {
+      const u = new URL(String(v || ""));
+      if (u.protocol === "https:" && isSiteImageHost(u.hostname)) return true;
+      if (isAllowedExtraOrigin(u) && (PANAX_INPUT_RE.test(u.pathname) || PANAX_DERIV_RE.test(u.pathname))) return true;
+      return false;
+    } catch {
+      return false;
+    }
+  }
+  function hasSignedQuery(urlOrSearch) {
+    try {
+      const u = typeof urlOrSearch === "string" && urlOrSearch.includes("://") ? new URL(urlOrSearch) : null;
+      const params = u ? u.searchParams : new URLSearchParams(String(urlOrSearch || "").replace(/^\?/, ""));
+      for (const k of params.keys()) if (SIGNED_PARAM_RE.test(k)) return true;
+      return false;
+    } catch {
+      return /AWSAccessKeyId|X-Amz-Signature|x-amz-security-token|X-Amz-Security-Token/i.test(String(urlOrSearch || ""));
+    }
+  }
+  function toPublicPanaxImageUrl(v, opts = {}) {
+    try {
+      const u = new URL(String(v || "").trim());
+      const input = PANAX_INPUT_RE.exec(u.pathname);
+      const deriv = PANAX_DERIV_RE.exec(u.pathname);
+      if (!input && !deriv) return "";
+      const path = input ? "/image/input/" + input[1].toLowerCase() : "/image/" + deriv[1].toLowerCase() + "/" + deriv[2].toLowerCase() + ".webp";
+      if (isAllowedExtraOrigin(u)) return u.origin + path;
+      if (opts.pageOrigin && originsEqual(u, opts.pageOrigin)) return u.origin + path;
+      if (isPrivateHost(u.hostname)) return "";
+      return PANAX_IMAGE_CDN + path;
+    } catch {
+      return "";
+    }
+  }
+  function isAllowedExtraOrigin(u) {
+    for (const o of extraAllowedOrigins) {
+      try {
+        const a = new URL(o);
+        if (a.protocol === u.protocol && a.hostname === u.hostname && (a.port || defaultPort(a.protocol)) === (u.port || defaultPort(u.protocol))) return true;
+      } catch {
+      }
+    }
+    return false;
+  }
+  function defaultPort(proto) {
+    return proto === "https:" ? "443" : proto === "http:" ? "80" : "";
+  }
+  function safeUserImageUrl(v, opts = {}) {
+    const maxData = opts.maxData ?? MAX_DATA_IMAGE;
+    if (v == null) return "";
+    const raw = String(v).trim();
+    if (!raw) return "";
+    if (/^data:/i.test(raw)) {
+      const compact = raw.replace(/\s+/g, "");
+      const m = /^data:image\/(png|jpe?g|webp|gif);base64,([A-Za-z0-9+/]+={0,2})$/i.exec(compact);
+      if (!m) return "";
+      if (compact.length > maxData) return "";
+      return compact;
+    }
+    const panax = toPublicPanaxImageUrl(raw);
+    if (panax) return encodeUnsafe(panax);
+    try {
+      const u = new URL(raw);
+      if (u.username || u.password) return "";
+      if (u.protocol !== "https:" && u.protocol !== "http:") return "";
+      if (hasSignedQuery(u)) {
+        u.search = "";
+        u.hash = "";
+      }
+      const extra = isAllowedExtraOrigin(u);
+      if (isPrivateHost(u.hostname)) {
+        if (!extra) return "";
+      } else if (u.protocol === "http:") {
+        u.protocol = "https:";
+      } else if (u.protocol !== "https:") {
+        return "";
+      }
+      if (u.href.length > 2048) return "";
+      return encodeUnsafe(u.href);
+    } catch {
+      return "";
+    }
+  }
+  function s3PutUrl(presigned, opts = {}) {
+    const t = new URL(String(presigned || ""));
+    if (t.protocol !== "https:" && t.protocol !== "http:") throw new Error("bad presign");
+    if (isPrivateHost(t.hostname) || opts.pageOrigin && originsEqual(t, opts.pageOrigin)) {
+      return t.origin + t.pathname + t.search;
+    }
+    return "https://gamedb-oz.s3.amazonaws.com" + t.pathname + t.search;
+  }
+  function originsEqual(u, origin) {
+    try {
+      const o = new URL(origin);
+      return o.protocol === u.protocol && o.hostname === u.hostname && (o.port || defaultPort(o.protocol)) === (u.port || defaultPort(u.protocol));
+    } catch {
+      return false;
+    }
+  }
+  function base64ToBytes(b64) {
+    if (typeof Buffer !== "undefined") return new Uint8Array(Buffer.from(String(b64), "base64"));
+    const bin = atob(String(b64));
+    const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function isRasterImageType(type) {
+    return /^(image\/(png|jpe?g|webp|gif))$/i.test(String(type || ""));
+  }
+  function isGifBytes(bytes) {
+    const u8 = bytes instanceof Uint8Array ? bytes : bytes ? new Uint8Array(bytes) : new Uint8Array();
+    return u8.length >= 6 && u8[0] === 71 && u8[1] === 73 && u8[2] === 70 && u8[3] === 56;
+  }
+  function shouldPreserveAnimation(file, bytes) {
+    const type = file && file.type || "";
+    const name = file && file.name || "";
+    if (/^image\/gif$/i.test(type) || /\.gif$/i.test(name)) return true;
+    if (bytes && isGifBytes(bytes)) return true;
+    if (bytes && inspectImageBytes(bytes).animated) return true;
+    if (/^image\/webp$/i.test(type) && bytes && inspectImageBytes(bytes).type === "webp" && inspectImageBytes(bytes).animated) return true;
+    return false;
+  }
+  var MAX_GALLERY_ITEMS = 10;
+  var CAPTION_MAX = 200;
+  function gifFrameCount(bytes) {
+    const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || []);
+    if (!isGifBytes(u8) || u8.length < 14) return 0;
+    const gct = u8[10] & 128;
+    const gctSize = gct ? 3 * 2 ** ((u8[10] & 7) + 1) : 0;
+    let i = 13 + gctSize;
+    let frames = 0;
+    while (i < u8.length) {
+      const b = u8[i];
+      if (b === 59) break;
+      if (b === 44) {
+        if (i + 10 > u8.length) break;
+        const lct = u8[i + 9] & 128;
+        const lsz = lct ? 3 * 2 ** ((u8[i + 9] & 7) + 1) : 0;
+        i = i + 10 + lsz;
+        if (i >= u8.length) break;
+        i += 1;
+        while (i < u8.length && u8[i] !== 0) i += 1 + u8[i];
+        i += 1;
+        frames += 1;
+        continue;
+      }
+      if (b === 33) {
+        i += 2;
+        while (i < u8.length && u8[i] !== 0) i += 1 + u8[i];
+        i += 1;
+        continue;
+      }
+      i += 1;
+    }
+    return frames;
+  }
+  function webpInfo(u8) {
+    const out = { type: "webp", animated: false, frames: 0 };
+    if (u8.length < 16) return out;
+    let i = 12;
+    while (i + 8 <= u8.length) {
+      const tag = String.fromCharCode(u8[i], u8[i + 1], u8[i + 2], u8[i + 3]);
+      const size = u8[i + 4] | u8[i + 5] << 8 | u8[i + 6] << 16 | u8[i + 7] << 24;
+      if (tag === "VP8X" && i + 12 <= u8.length) {
+        if (u8[i + 8] & 2) out.animated = true;
+      }
+      if (tag === "ANIM") out.animated = true;
+      if (tag === "ANMF") {
+        out.animated = true;
+        out.frames += 1;
+      }
+      i += 8 + size + (size & 1);
+    }
+    return out;
+  }
+  function inspectImageBytes(bytes) {
+    const u8 = bytes instanceof Uint8Array ? bytes : bytes ? new Uint8Array(bytes) : new Uint8Array();
+    if (isGifBytes(u8)) {
+      const frames = gifFrameCount(u8);
+      return { type: "gif", animated: frames > 1, frames };
+    }
+    if (u8.length >= 16 && u8[0] === 82 && u8[1] === 73 && u8[2] === 70 && u8[3] === 70 && u8[8] === 87 && u8[9] === 69 && u8[10] === 66 && u8[11] === 80) {
+      return webpInfo(u8);
+    }
+    if (u8.length >= 3 && u8[0] === 255 && u8[1] === 216 && u8[2] === 255) return { type: "jpeg", animated: false, frames: 1 };
+    if (u8.length >= 8 && u8[0] === 137 && u8[1] === 80 && u8[2] === 78 && u8[3] === 71) return { type: "png", animated: false, frames: 1 };
+    return { type: "unknown", animated: false, frames: 0 };
+  }
+  function panaxImageId(v) {
+    try {
+      const u = new URL(String(v || "").trim());
+      const input = PANAX_INPUT_RE.exec(u.pathname);
+      if (input) return input[1].toLowerCase();
+      const deriv = PANAX_DERIV_RE.exec(u.pathname);
+      if (deriv) return deriv[2].toLowerCase();
+      return "";
+    } catch {
+      return "";
+    }
+  }
+  function panaxDerivativeUrl(id, size, opts = {}) {
+    const uuid = String(id || "").toLowerCase();
+    if (!new RegExp("^" + UUID_RE + "$").test(uuid)) return "";
+    const kind = size === "medium" || size === "small" || size === "large" ? size : "large";
+    const origin = opts.origin || PANAX_IMAGE_CDN;
+    return origin + "/image/" + kind + "/" + uuid + ".webp";
+  }
+  function panaxInputUrl(id, opts = {}) {
+    const uuid = String(id || "").toLowerCase();
+    if (!new RegExp("^" + UUID_RE + "$").test(uuid)) return "";
+    return (opts.origin || PANAX_IMAGE_CDN) + "/image/input/" + uuid;
+  }
+  var FLAT_GIF_HINT = "\u0421\u0435\u0440\u0432\u0435\u0440 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u043B \u0433\u0438\u0444\u043A\u0443 \u043A\u0430\u043A \u0441\u0442\u0430\u0442\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0434\u0440. \u0427\u0442\u043E\u0431\u044B \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F \u0442\u043E\u0447\u043D\u043E \u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430, \u0432\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0441\u0441\u044B\u043B\u043A\u0443 \u0441 Giphy, Tenor \u0438\u043B\u0438 Imgur \u043D\u0430 \u0441\u0430\u043C \u0444\u0430\u0439\u043B .gif.";
+  var ANON_USER_TOKEN = "ad9739191285443a88dd2994ce7da73fbcf58f8d6525407989193eaebcca77d4";
+  async function uploadImageToPanax(p) {
+    const fetchImpl = p.fetchImpl || (typeof fetch === "function" ? fetch.bind(globalThis) : null);
+    if (!fetchImpl) return { ok: false, code: "no-fetch", error: "fetch \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D" };
+    const bytes = p.bytes instanceof Uint8Array ? p.bytes : new Uint8Array(p.bytes || []);
+    const contentType = isRasterImageType(p.contentType) ? p.contentType : "image/jpeg";
+    const width = Math.max(0, Math.round(+p.width || 0));
+    const height = Math.max(0, Math.round(+p.height || 0));
+    if (!bytes.length) return { ok: false, code: "empty", error: "\u043F\u0443\u0441\u0442\u043E\u0439 \u0444\u0430\u0439\u043B" };
+    if (bytes.length > MAX_UPLOAD_BYTES) return { ok: false, code: "too-large", error: "\u0444\u0430\u0439\u043B \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u0431\u043E\u043B\u044C\u0448\u043E\u0439" };
+    const q = new URLSearchParams({
+      file_type: "image",
+      content_type: contentType,
+      width: String(width || ""),
+      height: String(height || "")
+    });
+    let presign;
+    try {
+      presign = await getJson(fetchImpl, "/community/upload-pre-signed-url?" + q.toString(), {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "X-Anonymous-User-Token": ANON_USER_TOKEN
+        }
+      });
+    } catch (e) {
+      const code = e && e.status === 401 ? "auth" : e && e.code ? e.code : "presign";
+      return { ok: false, code, error: e && e.message || "\u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0430\u0434\u0440\u0435\u0441 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438", status: e && e.status };
+    }
+    const uploadUrl = presign && (presign.upload_pre_signed_url || presign.url);
+    if (!uploadUrl) return { ok: false, code: "presign", error: "\u0441\u0435\u0440\u0432\u0435\u0440 \u043D\u0435 \u0432\u0435\u0440\u043D\u0443\u043B \u0430\u0434\u0440\u0435\u0441 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438" };
+    let putTo;
+    try {
+      putTo = s3PutUrl(uploadUrl, { pageOrigin: p.pageOrigin });
+    } catch (e) {
+      return { ok: false, code: "presign", error: "\u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u0430\u0434\u0440\u0435\u0441 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438" };
+    }
+    const put = await fetchImpl(putTo, {
+      method: "PUT",
+      body: bytes,
+      credentials: "omit",
+      headers: {
+        "Content-Type": contentType,
+        "x-amz-meta-width": String(width || 0),
+        "x-amz-meta-height": String(height || 0)
+      }
+    });
+    if (!put.ok) return { ok: false, code: "put", error: "\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u0444\u0430\u0439\u043B\u0430 \u043D\u0435 \u0443\u0434\u0430\u043B\u0430\u0441\u044C (" + put.status + ")", status: put.status };
+    const deadline = Date.now() + 3e4;
+    let conv = null;
+    let completed = false;
+    while (Date.now() < deadline) {
+      try {
+        conv = await getJson(fetchImpl, "/community/check-image-convert?pre_signed_url=" + encodeURIComponent(uploadUrl), {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "X-Anonymous-User-Token": ANON_USER_TOKEN
+          }
+        });
+        if (conv && conv.is_completed) {
+          completed = true;
+          break;
+        }
+        if (conv && (conv.status === "ERROR" || conv.status === "CANCELED")) {
+          return { ok: false, code: "convert", error: "\u0441\u0435\u0440\u0432\u0435\u0440 \u043D\u0435 \u0441\u043C\u043E\u0433 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435" };
+        }
+      } catch (e) {
+        if (e && e.status === 401) return { ok: false, code: "auth", error: e.message || "\u043D\u0443\u0436\u0435\u043D \u0432\u0445\u043E\u0434 \u043D\u0430 \u0441\u0430\u0439\u0442\u0435", status: 401 };
+      }
+      await sleep(1e3);
+    }
+    if (!completed) return { ok: false, code: "convert", error: "\u0441\u0435\u0440\u0432\u0435\u0440 \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u043B \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0443 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0432\u043E\u0432\u0440\u0435\u043C\u044F" };
+    const candidates = [
+      conv && (conv.image_url || conv.public_url || conv.url || conv.converted_url),
+      uploadUrl
+    ];
+    let href = "";
+    for (const c of candidates) {
+      if (!c) continue;
+      href = toPublicPanaxImageUrl(c, { pageOrigin: p.pageOrigin }) || safeUserImageUrl(c);
+      if (href && !hasSignedQuery(href)) break;
+      href = "";
+    }
+    if (!href) return { ok: false, code: "url", error: "\u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0430\u0434\u0440\u0435\u0441 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F" };
+    const wantAnim = shouldPreserveAnimation({ type: contentType }, bytes);
+    const probeUntil = Date.now() + 12e3;
+    let probed = null;
+    while (Date.now() < probeUntil) {
+      probed = await probeFetched(fetchImpl, href);
+      if (probed) break;
+      await sleep(800);
+    }
+    if (!probed) return { ok: false, code: "not-ready", error: "\u043F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0430\u0434\u0440\u0435\u0441 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u043F\u043E\u043A\u0430 \u043D\u0435 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0441\u044F", url: href };
+    const picked = await pickAnimatedPublicUrl(fetchImpl, href, probed, { wantAnim, pageOrigin: p.pageOrigin });
+    const out = {
+      ok: true,
+      url: picked.url,
+      width,
+      height,
+      origin: "upload",
+      probed: true,
+      animated: !!picked.animated,
+      kind: picked.kind || ""
+    };
+    if (wantAnim && !picked.animated) {
+      out.warning = FLAT_GIF_HINT;
+    }
+    return out;
+  }
+  async function pickAnimatedPublicUrl(fetchImpl, href, firstProbe, opts = {}) {
+    const wantAnim = !!opts.wantAnim;
+    const list = [];
+    const add = (u) => {
+      const clean2 = toPublicPanaxImageUrl(u, { pageOrigin: opts.pageOrigin }) || safeUserImageUrl(u);
+      if (clean2 && !hasSignedQuery(clean2) && !list.includes(clean2)) list.push(clean2);
+    };
+    add(href);
+    const id = panaxImageId(href);
+    if (id) {
+      const origin = new URL(href).origin;
+      const local = isPrivateHost(new URL(href).hostname) || isAllowedExtraOrigin(new URL(href));
+      const base = local ? { origin } : {};
+      add(panaxInputUrl(id, base));
+      add(panaxDerivativeUrl(id, "large", base));
+      add(panaxDerivativeUrl(id, "medium", base));
+    }
+    let bestStill = href;
+    let bestStillKind = firstProbe && firstProbe.info && firstProbe.info.type || "";
+    for (let i = 0; i < list.length; i++) {
+      const u = list[i];
+      const probe = i === 0 && firstProbe && firstProbe.url === u ? firstProbe : await probeFetched(fetchImpl, u);
+      if (!probe) continue;
+      const info = probe.info || inspectImageBytes(probe.bytes || []);
+      if (info.animated) return { url: u, animated: true, kind: info.type, frames: info.frames, contentType: probe.contentType };
+      if (!bestStill) {
+        bestStill = u;
+        bestStillKind = info.type;
+      }
+      if (info.type === "gif" || info.type === "webp") {
+        bestStill = u;
+        bestStillKind = info.type;
+      }
+    }
+    return { url: bestStill, animated: false, kind: bestStillKind };
+  }
+  async function probeFetched(fetchImpl, url) {
+    try {
+      const r = await fetchImpl(url, { method: "GET", credentials: "omit", headers: { Accept: "image/*,*/*" } });
+      if (!r.ok) return null;
+      const ct = r.headers && typeof r.headers.get === "function" && r.headers.get("content-type") || "";
+      if (ct && !/^image\//i.test(ct) && !/^application\/octet-stream/i.test(ct)) return null;
+      let buf = new Uint8Array();
+      if (typeof r.arrayBuffer === "function") buf = new Uint8Array(await r.arrayBuffer());
+      if (!buf.length) return null;
+      return { url, contentType: ct, bytes: buf, info: inspectImageBytes(buf) };
+    } catch {
+      return null;
+    }
+  }
+  function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
+  async function getJson(fetchImpl, url, init) {
+    const r = await fetchImpl(url, init);
+    const text = await r.text();
+    let data = null;
+    try {
+      data = text ? JSON.parse(text) : null;
+    } catch {
+      data = null;
+    }
+    if (!r.ok) {
+      const msg = data && (data.detail || data.error || data.message) || "HTTP " + r.status;
+      const err = new Error(typeof msg === "string" ? msg : "HTTP " + r.status);
+      err.status = r.status;
+      err.code = r.status === 401 ? "auth" : "http";
+      throw err;
+    }
+    if (data && data.success === false) {
+      const err = new Error(data.error && data.error.message || data.detail || "request failed");
+      err.code = "http";
+      throw err;
+    }
+    if (data && data.success === true && data.data != null) return data.data;
+    return data;
+  }
+
+  // src/content/gamequill/action-rewrite.js
+  function collectSiteImages(ops) {
+    const out = [];
+    const seen2 = /* @__PURE__ */ new Set();
+    for (const op of ops || []) {
+      const emb = op && op.insert && typeof op.insert === "object" ? op.insert["custom-image"] : null;
+      if (!emb || typeof emb !== "object") continue;
+      const url = safeUserImageUrl(emb.url);
+      if (!url || !url.startsWith("https:") || !isSiteImageUrl(url) || seen2.has(url)) continue;
+      seen2.add(url);
+      const width = Math.max(0, Math.min(2e4, Math.round(+emb.width || 0)));
+      const height = Math.max(0, Math.min(2e4, Math.round(+emb.height || 0)));
+      const id = panaxImageId(url);
+      const row = { image_url: url, width, height };
+      if (id) {
+        let opts = {};
+        try {
+          const parsed = new URL(url);
+          if (isPrivateHost(parsed.hostname)) opts = { origin: parsed.origin };
+        } catch {
+        }
+        row.image_url = panaxInputUrl(id, opts) || url;
+        row.large_image_url = panaxDerivativeUrl(id, "large", opts);
+        row.medium_image_url = panaxDerivativeUrl(id, "medium", opts);
+        row.small_image_url = panaxDerivativeUrl(id, "small", opts);
+      }
+      out.push(row);
+    }
+    return out;
+  }
+  var escFlight = (s) => typeof s === "string" && s[0] === "$" ? "$" + s : s;
+  function unescFlight(s) {
+    if (typeof s !== "string") return "";
+    if (s === "$undefined") return "";
+    if (s.startsWith("$$")) return s.slice(1);
+    return s;
+  }
+  function findPostArg(args) {
+    if (!Array.isArray(args)) return null;
+    for (const a of args) {
+      if (!a || typeof a !== "object" || Array.isArray(a) || !("content" in a)) continue;
+      if ("delta_content" in a || "object_type" in a) return a;
+    }
+    return null;
+  }
+  function rewriteActionBody(bodyText, armed2, decide2 = () => true) {
+    if (typeof bodyText !== "string" || bodyText.length > 5e6 || bodyText[0] !== "[") return null;
+    if (!bodyText.includes("delta_content") && !bodyText.includes("object_type")) return null;
+    let args;
+    try {
+      args = JSON.parse(bodyText);
+    } catch {
+      return null;
+    }
+    const obj = findPostArg(args);
+    if (!obj) return null;
+    const sent = unescFlight(obj.content);
+    const a = fingerprintText(sent);
+    const b = fingerprintText(armed2.plain);
+    const changed = a.h !== b.h;
+    if (!decide2({ changed, sentText: sent })) return { body: bodyText, changed, rewritten: false };
+    obj.content = escFlight(String(armed2.plain || "").trim());
+    obj.delta_content = escFlight(JSON.stringify({ ops: armed2.ops }));
+    const extra = collectSiteImages(armed2.ops);
+    if (extra.length) {
+      const existing = Array.isArray(obj.images) ? obj.images.filter((x) => x && typeof x === "object") : [];
+      const seen2 = new Set(existing.map((x) => x.image_url).filter(Boolean));
+      const merged = existing.slice();
+      for (const im of extra) {
+        if (seen2.has(im.image_url)) continue;
+        seen2.add(im.image_url);
+        merged.push(im);
+      }
+      obj.images = merged;
+    }
+    return { body: JSON.stringify(args), changed, rewritten: true };
+  }
+  function toQuillOps(ops) {
+    return (ops || []).map((op) => {
+      if (!op.attributes) return { insert: op.insert };
+      const a = { ...op.attributes };
+      delete a.gq;
+      if (typeof op.insert === "string" && op.insert !== "\n") delete a.header;
+      return Object.keys(a).length ? { insert: op.insert, attributes: a } : { insert: op.insert };
+    });
+  }
+
+  // src/content/gamequill/main-bridge.js
+  var SS_KEY = "gq:carriers";
+  var MAX_MAP = 60;
+  function readMap() {
+    try {
+      const m = JSON.parse(sessionStorage.getItem(SS_KEY) || "{}");
+      return m && typeof m === "object" ? m : {};
+    } catch {
+      return {};
+    }
+  }
+  function remember(postId, carrier) {
+    if (!postId || !carrier) return;
+    try {
+      const m = readMap();
+      if (m[postId] === carrier) return;
+      delete m[postId];
+      m[postId] = carrier;
+      const keys = Object.keys(m);
+      while (keys.length > MAX_MAP) delete m[keys.shift()];
+      sessionStorage.setItem(SS_KEY, JSON.stringify(m));
+    } catch {
+    }
+  }
+  function fiberOf(el) {
+    for (const k in el) if (k.startsWith("__reactFiber$")) return el[k];
+    return null;
+  }
+  function carrierString(delta) {
+    const c = carrierFromDelta(delta);
+    if (!c) return "";
+    return c.kind === "attr" ? c.text : "vs:" + toB64url(c.bytes);
+  }
+  function postIdFrom(fiber) {
+    let f = fiber;
+    for (let i = 0; f && i < 40; i++, f = f.return) {
+      const p = f.memoizedProps;
+      if (!p || typeof p !== "object") continue;
+      const id = p.id ?? (p.post && p.post.id) ?? p.postId;
+      if ((typeof id === "number" || typeof id === "string" && /^\d{1,20}$/.test(id)) && i > 0) return String(id);
+    }
+    return "";
+  }
+  var seen = /* @__PURE__ */ new WeakMap();
+  function scanRenderers() {
+    const list = document.querySelectorAll(".delta-content-renderer");
+    for (const el of list) {
+      const fiber = fiberOf(el);
+      if (!fiber) continue;
+      let delta = null;
+      let f = fiber;
+      for (let i = 0; f && i < 8; i++, f = f.return) {
+        const p = f.memoizedProps;
+        if (p && p.deltaContent) {
+          delta = p.deltaContent;
+          break;
+        }
+      }
+      if (seen.get(el) === delta) continue;
+      seen.set(el, delta);
+      let obj = delta;
+      if (typeof obj === "string") {
+        try {
+          obj = JSON.parse(obj);
+        } catch {
+          obj = null;
+        }
+      }
+      const carrier = obj ? carrierString(obj) : "";
+      if (!carrier) {
+        if (el.hasAttribute("data-gq-carrier")) el.removeAttribute("data-gq-carrier");
+        continue;
+      }
+      const pid = postIdFrom(fiber);
+      if (pid) {
+        el.setAttribute("data-gq-post-id", pid);
+        remember(pid, carrier);
+      }
+      if (el.getAttribute("data-gq-carrier") !== carrier) el.setAttribute("data-gq-carrier", carrier);
+    }
+  }
+  var scanQueued = false;
+  function queueScan() {
+    if (scanQueued) return;
+    scanQueued = true;
+    setTimeout(() => {
+      scanQueued = false;
+      try {
+        scanRenderers();
+      } catch {
+      }
+    }, 120);
+  }
+  var armed = null;
+  function findQuill() {
+    const container = document.querySelector(".ql-container");
+    if (!container) return null;
+    if (container.__quill) return container.__quill;
+    let f = fiberOf(container) || fiberOf(container.querySelector(".ql-editor") || container);
+    for (let i = 0; f && i < 30; i++, f = f.return) {
+      const sn = f.stateNode;
+      if (sn && typeof sn === "object") {
+        if (sn.quill && typeof sn.quill.setContents === "function") return sn.quill;
+        if (sn.editor && typeof sn.editor.setContents === "function") return sn.editor;
+        if (typeof sn.getEditor === "function") {
+          try {
+            const q = sn.getEditor();
+            if (q && typeof q.setContents === "function") return q;
+          } catch {
+          }
+        }
+      }
+      const ref = f.ref && typeof f.ref === "object" ? f.ref.current : null;
+      if (ref && ref.quill && typeof ref.quill.setContents === "function") return ref.quill;
+      const pr = f.memoizedProps && f.memoizedProps.ref;
+      if (pr && typeof pr === "object" && pr.current && pr.current.quill) return pr.current.quill;
+    }
+    return null;
+  }
+  function pasteInto(html, text) {
+    const ed = document.querySelector(".ql-editor");
+    if (!ed) return false;
+    ed.focus();
+    try {
+      const sel = window.getSelection();
+      const r = document.createRange();
+      r.selectNodeContents(ed);
+      sel.removeAllRanges();
+      sel.addRange(r);
+    } catch {
+    }
+    const dt = new DataTransfer();
+    dt.setData("text/html", html);
+    dt.setData("text/plain", text);
+    const ev = new ClipboardEvent("paste", { clipboardData: dt, bubbles: true, cancelable: true });
+    ed.dispatchEvent(ev);
+    return ev.defaultPrevented;
+  }
+  function onArm(e) {
+    let d;
+    try {
+      d = JSON.parse(String(e.detail || ""));
+    } catch {
+      return;
+    }
+    if (!d || !Array.isArray(d.ops) || typeof d.plain !== "string") return;
+    armed = { ops: d.ops, plain: d.plain, at: Date.now() };
+    const wantEmbeds = (d.ops || []).filter((o) => o && o.insert && typeof o.insert === "object" && o.insert["custom-image"]).length;
+    const fillQuill = (source) => {
+      const q = findQuill();
+      if (!q) return "";
+      q.setContents({ ops: toQuillOps(d.ops) }, source);
+      return "quill";
+    };
+    let method = "";
+    try {
+      method = fillQuill("user") || "";
+    } catch {
+      method = "";
+    }
+    if (method === "quill" && wantEmbeds > 1) {
+      let n = 0;
+      const t = setInterval(() => {
+        n += 1;
+        if (!armed || Date.now() - armed.at > 8e3 || n > 12) {
+          clearInterval(t);
+          return;
+        }
+        try {
+          const q = findQuill();
+          if (!q || typeof q.getContents !== "function") return;
+          const got = (q.getContents().ops || []).filter((o) => o && o.insert && typeof o.insert === "object" && o.insert["custom-image"]).length;
+          if (got < wantEmbeds) fillQuill("user");
+        } catch {
+        }
+      }, 400);
+    }
+    if (!method) {
+      try {
+        if (pasteInto(String(d.html || ""), d.plain)) method = "paste";
+      } catch {
+      }
+    }
+    document.dispatchEvent(new CustomEvent("gq:armed", { detail: JSON.stringify({ ok: !!method, method }) }));
+  }
+  function onDisarm() {
+    armed = null;
+  }
+  function headerValue(headers, name) {
+    if (!headers) return null;
+    try {
+      if (headers instanceof Headers) return headers.get(name);
+      if (Array.isArray(headers)) {
+        const h2 = headers.find((x) => String(x[0]).toLowerCase() === name.toLowerCase());
+        return h2 ? h2[1] : null;
+      }
+      for (const k of Object.keys(headers)) if (k.toLowerCase() === name.toLowerCase()) return headers[k];
+    } catch {
+    }
+    return null;
+  }
+  var decide = ({ changed }) => {
+    if (!changed) return true;
+    return window.confirm(
+      "GameQuill: \u0442\u0435\u043A\u0441\u0442 \u043F\u043E\u0441\u0442\u0430 \u0438\u0437\u043C\u0435\u043D\u0438\u043B\u0438 \u043F\u043E\u0441\u043B\u0435 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0430 \u0438\u0437 GameQuill.\n\n\u041E\u041A: \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C \u0432\u0435\u0440\u0441\u0438\u044E \u0438\u0437 GameQuill (\u043F\u0440\u0430\u0432\u043A\u0438, \u0441\u0434\u0435\u043B\u0430\u043D\u043D\u044B\u0435 \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435 \u0441\u0430\u0439\u0442\u0430, \u043F\u0440\u043E\u043F\u0430\u0434\u0443\u0442).\n\u041E\u0442\u043C\u0435\u043D\u0430: \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A \u0435\u0441\u0442\u044C, \u0431\u0435\u0437 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u044F GameQuill."
+    );
+  };
+  function rewriteBody(body) {
+    if (!armed) return null;
+    if (typeof body === "string") {
+      const r = rewriteActionBody(body, armed, decide);
+      return r ? { body: r.body, rewritten: r.rewritten } : null;
+    }
+    if (typeof FormData !== "undefined" && body instanceof FormData) {
+      let hit = null;
+      const fd = new FormData();
+      for (const [k, v] of body.entries()) {
+        if (!hit && typeof v === "string" && v.includes("delta_content")) {
+          const r = rewriteActionBody(v, armed, decide);
+          if (r) {
+            hit = r;
+            fd.append(k, r.body);
+            continue;
+          }
+        }
+        fd.append(k, v);
+      }
+      return hit ? { body: fd, rewritten: hit.rewritten } : null;
+    }
+    return null;
+  }
+  function scanResponse(res) {
+    try {
+      const m = /^\/post\/write/.test(location.pathname) ? new URLSearchParams(location.search).get("id") : null;
+      res.clone().text().then((t) => {
+        const found = findTextCarriers(t);
+        if (found.length && m && found.length === 1) remember(String(m).replace(/\D/g, ""), found[0]);
+        if (found.length) queueScan();
+      }).catch(() => {
+      });
+    } catch {
+    }
+  }
+  function patchFetch() {
+    const orig = window.fetch;
+    if (typeof orig !== "function" || orig.__gqPatched) return;
+    const patched = function(input, init) {
+      let isAction = false;
+      try {
+        const hdr = headerValue(init && init.headers, "Next-Action") || (input instanceof Request ? input.headers.get("Next-Action") : null);
+        isAction = !!hdr && (!init || !init.method || String(init.method).toUpperCase() === "POST");
+        if (isAction && armed && init && init.body != null) {
+          const r = rewriteBody(init.body);
+          if (r && r.rewritten) {
+            init = { ...init, body: r.body };
+            const p2 = orig.call(this, input, init);
+            return p2.then((res) => {
+              if (res && res.ok) armed = null;
+              return res;
+            });
+          }
+        }
+      } catch (err) {
+        console.warn("[GameQuill] request hook error", err);
+      }
+      const p = orig.call(this, input, init);
+      if (isAction) p.then(scanResponse, () => {
+      });
+      return p;
+    };
+    patched.__gqPatched = true;
+    window.fetch = patched;
+  }
+  async function onUpload(e) {
+    let msg;
+    try {
+      msg = JSON.parse(e.detail || "{}");
+    } catch {
+      return;
+    }
+    const reply = (res) => {
+      document.dispatchEvent(new CustomEvent("gq:upload-done", { detail: JSON.stringify({ reqId: msg.reqId, ...res }) }));
+    };
+    try {
+      const bytes = base64ToBytes(msg.b64 || "");
+      const res = await uploadImageToPanax({
+        bytes,
+        contentType: msg.contentType || "image/jpeg",
+        width: msg.width || 0,
+        height: msg.height || 0,
+        pageOrigin: location.origin
+      });
+      reply(res);
+    } catch (err) {
+      reply({ ok: false, code: "error", error: err && err.message || "\u043E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438" });
+    }
+  }
+  function startGameQuillMain() {
+    if (globalThis.__GQ_MAIN__) return;
+    globalThis.__GQ_MAIN__ = true;
+    if (false) {
+      setAllowedImageOrigins(["http://localhost:8765", "http://127.0.0.1:8765"]);
+    }
+    patchFetch();
+    document.addEventListener("gq:arm", onArm);
+    document.addEventListener("gq:disarm", onDisarm);
+    document.addEventListener("gq:rescan", queueScan);
+    document.addEventListener("gq:upload", onUpload);
+    const start2 = () => {
+      queueScan();
+      new MutationObserver(queueScan).observe(document.documentElement, { childList: true, subtree: true });
+      setInterval(queueScan, 2e3);
+    };
+    if (document.documentElement) start2();
+    else document.addEventListener("DOMContentLoaded", start2, { once: true });
+  }
+
+  // src/shared/gq-schema.js
+  var LIMITS = {
+    str: 300,
+    longStr: 600,
+    url: 2048,
+    html: 2e4,
+    blocks: 300,
+    aspects: 30,
+    pc: 40,
+    arr: 20,
+    mapKeys: 16
+  };
+  var TEXTY = ["text", "h2", "h3", "quote", "spoiler"];
+  var WIDGETS = ["game", "steam", "youtube", "workshop", "image"];
+  var BLOCK_TYPES = [...TEXTY, "divider", ...WIDGETS];
+  var VERDICTS = ["yes", "neutral", "no", "none"];
+  var IMAGE_HOSTS = [
+    "cdn.akamai.steamstatic.com",
+    "shared.akamai.steamstatic.com",
+    "shared.fastly.steamstatic.com",
+    "cdn.cloudflare.steamstatic.com",
+    "shared.cloudflare.steamstatic.com",
+    "steamcdn-a.akamaihd.net",
+    "cdn.fastly.steamstatic.com",
+    "store.akamai.steamstatic.com",
+    "i.ytimg.com",
+    "img.youtube.com",
+    "images.igdb.com",
+    "media.rawg.io"
+  ];
+  var DEFAULT_INTEG = {
+    backloggd: { name: "Backloggd", icon: "\u{1F3AE}", color: "#4f8cff" },
+    igdb: { name: "IGDB", icon: "\u{1F579}\uFE0F", color: "#9147ff" },
+    steam: { name: "Steam Store", icon: "\u2668\uFE0F", color: "#66c0f4" },
+    workshop: { name: "Steam Workshop", icon: "\u{1F6E0}\uFE0F", color: "#66c0f4" },
+    youtube: { name: "YouTube", icon: "\u25B6\uFE0F", color: "#ff4d6d" },
+    rawg: { name: "RAWG", icon: "\u{1F7E1}", color: "#f6c445" },
+    metacritic: { name: "Metacritic", icon: "\u{1F4CA}", color: "#ffcc33" },
+    hltb: { name: "HowLongToBeat", icon: "\u23F1\uFE0F", color: "#e05353" }
+  };
+  var isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  function str(v, max = LIMITS.str) {
+    if (v === null || v === void 0) return "";
+    if (typeof v === "number" && Number.isFinite(v)) v = String(v);
+    if (typeof v !== "string") return "";
+    let s = v.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "");
+    s = s.replace(/\uDB40[\uDD00-\uDDEF]/g, "").replace(/[\uFE00-\uFE0F]{2,}/g, "");
+    return s.length > max ? s.slice(0, max) : s;
+  }
+  function int(v, min, max, def = 0) {
+    const n = typeof v === "string" ? parseInt(v, 10) : v;
+    if (typeof n !== "number" || !Number.isFinite(n)) return def;
+    return Math.max(min, Math.min(max, Math.round(n)));
+  }
+  var encodeUnsafe2 = (href) => href.replace(/['"()\\\s<>`]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"));
+  function safeUrl(v) {
+    const s = str(v, LIMITS.url).trim();
+    if (!s) return "";
+    try {
+      const u = new URL(s);
+      if (u.protocol !== "https:" && u.protocol !== "http:") return "";
+      if (u.username || u.password) return "";
+      return encodeUnsafe2(u.href);
+    } catch {
+      return "";
+    }
+  }
+  function safeImageUrl(v) {
+    const href = safeUrl(v);
+    if (!href) return "";
+    try {
+      const u = new URL(href);
+      if (u.protocol !== "https:") return "";
+      const host2 = u.hostname.toLowerCase();
+      if (!IMAGE_HOSTS.includes(host2)) return "";
+      return encodeUnsafe2(u.href);
+    } catch {
+      return "";
+    }
+  }
+  function safeColor(v) {
+    const s = str(v, 40).trim();
+    if (/^#[0-9a-fA-F]{3,8}$/.test(s)) return s;
+    if (/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*(,\s*(0|1|0?\.\d+)\s*)?\)$/.test(s)) return s;
+    return "";
+  }
+  function strArr(v, max = LIMITS.arr, len = 60) {
+    if (!Array.isArray(v)) return [];
+    return v.slice(0, max).map((x) => str(x, len)).filter(Boolean);
+  }
+  function keyMap(v, valueFn) {
+    const out = {};
+    if (!isObj(v)) return out;
+    let n = 0;
+    for (const [k, val] of Object.entries(v)) {
+      if (n >= LIMITS.mapKeys) break;
+      if (!/^[a-z0-9][a-z0-9-]{0,39}$/.test(k)) continue;
+      const nv = valueFn(val);
+      if (nv === "" || nv === null || nv === void 0) continue;
+      out[k] = nv;
+      n++;
+    }
+    return out;
+  }
+  var ORIGIN_OK = (o, url) => o === "upload" || o === "local" || o === "url" ? o : String(url || "").startsWith("data:") ? "local" : "url";
+  function normalizeImageItem(it) {
+    if (!isObj(it)) return null;
+    const url = safeUserImageUrl(it.url);
+    if (!url) return null;
+    const caption = str(it.caption, CAPTION_MAX).replace(/\s+/g, " ").trim();
+    const alt = str(it.alt || caption, CAPTION_MAX).replace(/\s+/g, " ").trim();
+    return {
+      url,
+      width: int(it.width, 0, 2e4, 0),
+      height: int(it.height, 0, 2e4, 0),
+      caption,
+      alt,
+      origin: ORIGIN_OK(it.origin, url)
+    };
+  }
+  function countGalleryFrames(doc) {
+    let n = 0;
+    const blocks = doc && Array.isArray(doc.blocks) ? doc.blocks : [];
+    for (const b of blocks) {
+      if (!b || b.type !== "image") continue;
+      const d = b.data || {};
+      if (Array.isArray(d.items) && d.items.length) n += d.items.length;
+      else if (d.url) n += 1;
+    }
+    return n;
+  }
+  function normalizeImageData(d) {
+    if (!isObj(d)) return { url: "", width: 0, height: 0, alt: "", origin: "url", caption: "", items: [] };
+    const rawItems = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
+    const items = [];
+    const seen2 = /* @__PURE__ */ new Set();
+    for (const it of rawItems) {
+      if (items.length >= MAX_GALLERY_ITEMS) break;
+      const n = normalizeImageItem(it);
+      if (!n || seen2.has(n.url)) continue;
+      seen2.add(n.url);
+      items.push(n);
+    }
+    const caption = str(d.caption, CAPTION_MAX).replace(/\s+/g, " ").trim();
+    if (!items.length) return { url: "", width: 0, height: 0, alt: "", origin: "url", caption, items: [] };
+    const first = items[0];
+    return {
+      url: first.url,
+      width: first.width,
+      height: first.height,
+      alt: first.alt || caption,
+      origin: first.origin,
+      caption,
+      items
+    };
+  }
+  function widgetData(type, d) {
+    d = isObj(d) ? d : {};
+    if (type === "game") {
+      return {
+        gameId: str(d.gameId, 80),
+        title: str(d.title, 200),
+        year: str(d.year, 12),
+        dev: str(d.dev, 120),
+        pub: str(d.pub, 120),
+        genres: strArr(d.genres, 8, 40),
+        plat: strArr(d.plat, 8, 30),
+        cover: safeImageUrl(d.cover),
+        links: keyMap(d.links, safeUrl),
+        ratings: keyMap(d.ratings, (x) => str(x, 16)),
+        source: str(d.source, 40)
+      };
+    }
+    if (type === "steam") {
+      return {
+        title: str(d.title, 200),
+        app: str(d.app, 16).replace(/\D/g, ""),
+        price: str(d.price, 40),
+        old: str(d.old, 40),
+        disc: str(d.disc, 12),
+        date: str(d.date, 40),
+        tags: strArr(d.tags, 8, 30),
+        cover: safeImageUrl(d.cover),
+        url: safeUrl(d.url)
+      };
+    }
+    if (type === "youtube") {
+      return {
+        title: str(d.title, 200),
+        channel: str(d.channel, 80),
+        dur: str(d.dur, 12),
+        url: safeUrl(d.url),
+        cover: safeImageUrl(d.cover)
+      };
+    }
+    if (type === "workshop") {
+      return {
+        title: str(d.title, 200),
+        author: str(d.author, 80),
+        subs: str(d.subs, 20),
+        game: str(d.game, 120),
+        url: safeUrl(d.url),
+        cover: safeImageUrl(d.cover)
+      };
+    }
+    if (type === "image") {
+      return normalizeImageData(d);
+    }
+    return {};
+  }
+  function normalizeReview(input, opts = {}) {
+    if (!isObj(input)) return null;
+    const clean2 = typeof opts.sanitizeHtml === "function" ? opts.sanitizeHtml : (h2) => h2;
+    const r = {
+      v: 1,
+      title: str(input.title, LIMITS.str),
+      game: str(input.game, LIMITS.str),
+      author: str(input.author, 80),
+      score: int(input.score, 0, 10),
+      recommend: VERDICTS.includes(input.recommend) ? input.recommend : "none",
+      aspects: [],
+      pros: [],
+      cons: [],
+      blocks: [],
+      integ: {},
+      fp: null,
+      updatedAt: int(input.updatedAt, 0, 864e13, 0)
+    };
+    if (Array.isArray(input.aspects)) {
+      for (const a of input.aspects.slice(0, LIMITS.aspects)) {
+        if (!isObj(a)) continue;
+        const name = str(a.name, 80).trim();
+        if (!name) continue;
+        r.aspects.push({ name, score: int(a.score, 0, 10), unrated: a.unrated === "na" ? "na" : "unsure" });
+      }
+    }
+    for (const k of ["pros", "cons"]) {
+      if (!Array.isArray(input[k])) continue;
+      for (const p of input[k].slice(0, LIMITS.pc)) {
+        const text = str(isObj(p) ? p.text : p, LIMITS.longStr).replace(/\s+/g, " ").trim();
+        if (text) r[k].push({ text });
+      }
+    }
+    if (Array.isArray(input.blocks)) {
+      for (const b of input.blocks.slice(0, LIMITS.blocks)) {
+        if (!isObj(b) || !BLOCK_TYPES.includes(b.type)) continue;
+        const nb = { type: b.type };
+        if (TEXTY.includes(b.type)) {
+          nb.html = clean2(str(b.html, LIMITS.html));
+          if (b.type === "spoiler") nb.hidden = b.hidden !== false;
+        } else if (b.type === "divider") {
+          nb.data = { style: int(isObj(b.data) ? b.data.style : 1, 1, 3, 1) };
+        } else if (b.type === "image") {
+          const data = widgetData(b.type, b.data);
+          if (!data || !data.items || !data.items.length || !data.url) continue;
+          nb.data = data;
+        } else {
+          nb.data = widgetData(b.type, b.data);
+        }
+        r.blocks.push(nb);
+      }
+    }
+    if (isObj(input.integ)) {
+      r.integ = keyMap(input.integ, (v) => {
+        if (!isObj(v)) return null;
+        const name = str(v.name, 40).trim();
+        if (!name) return null;
+        return { name, icon: str(v.icon, 8), color: safeColor(v.color) || "#7c5cff" };
+      });
+    }
+    if (isObj(input.fp) && typeof input.fp.h === "string" && /^[0-9a-f]{8}$/.test(input.fp.h)) {
+      r.fp = { len: int(input.fp.len, 0, 1e7), h: input.fp.h };
+    }
+    return r;
+  }
+  function integMeta(review, key) {
+    return review && review.integ && review.integ[key] || DEFAULT_INTEG[key] || { name: key, icon: "\u{1F517}", color: "#7c5cff" };
+  }
+
+  // src/shared/gq-theme.js
+  var THEMES = {
+    "panax-dark": { id: "panax-dark", name: "PANAX Dark" },
+    gamequill: { id: "gamequill", name: "GameQuill" }
+  };
+  var DEFAULT_THEME = "panax-dark";
+  function normalizeTheme(id) {
+    const k = String(id || "").trim();
+    return THEMES[k] ? k : DEFAULT_THEME;
+  }
+
+  // src/shared/gq-html.js
+  var INLINE_OK = /* @__PURE__ */ new Set(["B", "STRONG", "I", "EM", "U", "S", "STRIKE", "DEL", "CODE", "MARK", "A", "BR", "SPAN", "FONT", "SUB", "SUP"]);
+  var BLOCK_OK = /* @__PURE__ */ new Set(["P", "DIV", "UL", "OL", "LI", "H1", "H2", "H3", "H4", "BLOCKQUOTE"]);
+  var DROP_WITH_CONTENT = /* @__PURE__ */ new Set(["SCRIPT", "STYLE", "TEMPLATE", "IFRAME", "OBJECT", "EMBED", "SVG", "MATH", "NOSCRIPT", "TEXTAREA", "SELECT", "TITLE", "HEAD"]);
+  var FONT_SIZES = { "1": "0.8em", "2": "0.85em", "3": "", "4": "1.1em", "5": "1.2em", "6": "1.4em", "7": "1.6em" };
+  var OK_FONT_SIZES = /* @__PURE__ */ new Set(["0.8em", "0.85em", "1.1em", "1.2em", "1.4em", "1.6em"]);
+  function parseHtml(html, win) {
+    const P = win && win.DOMParser || (typeof DOMParser !== "undefined" ? DOMParser : null);
+    if (!P) throw new Error("DOMParser unavailable");
+    const d = new P().parseFromString("<!doctype html><body>" + String(html || ""), "text/html");
+    return d.body;
+  }
+  function safeInlineStyle(styleText) {
+    const out = {};
+    String(styleText || "").split(";").forEach((decl) => {
+      const i = decl.indexOf(":");
+      if (i < 0) return;
+      const prop = decl.slice(0, i).trim().toLowerCase();
+      const val = decl.slice(i + 1).trim();
+      if (prop === "color") {
+        const c = safeColor(val);
+        if (c) out.color = c;
+      } else if (prop === "background-color" || prop === "background") {
+        const c = safeColor(val);
+        if (c) out["background-color"] = c;
+      } else if (prop === "font-size" && OK_FONT_SIZES.has(val)) {
+        out["font-size"] = val;
+      } else if (prop === "font-weight" && /^(bold|[5-9]00)$/.test(val)) {
+        out["font-weight"] = "bold";
+      }
+    });
+    return out;
+  }
+  function styleString(obj) {
+    return Object.entries(obj).map(([k, v]) => `${k}:${v}`).join(";");
+  }
+  function rebuild(src, dst, doc, depth = 0) {
+    if (depth > 24) return;
+    for (const n of Array.from(src.childNodes)) {
+      if (n.nodeType === 3) {
+        dst.appendChild(doc.createTextNode(n.nodeValue));
+        continue;
+      }
+      if (n.nodeType !== 1) continue;
+      const tag = n.tagName.toUpperCase();
+      if (DROP_WITH_CONTENT.has(tag)) continue;
+      if (!INLINE_OK.has(tag) && !BLOCK_OK.has(tag)) {
+        rebuild(n, dst, doc, depth + 1);
+        continue;
+      }
+      let el;
+      if (tag === "FONT") {
+        el = doc.createElement("span");
+        const st = {};
+        const c = safeColor(n.getAttribute("color"));
+        if (c) st.color = c;
+        const fs = FONT_SIZES[String(n.getAttribute("size") || "").trim()];
+        if (fs) st["font-size"] = fs;
+        Object.assign(st, safeInlineStyle(n.getAttribute("style")));
+        if (Object.keys(st).length) el.setAttribute("style", styleString(st));
+      } else if (tag === "H1" || tag === "H2" || tag === "H3" || tag === "H4") {
+        el = doc.createElement("div");
+        const b = doc.createElement("b");
+        el.appendChild(b);
+        rebuild(n, b, doc, depth + 1);
+        dst.appendChild(el);
+        continue;
+      } else {
+        el = doc.createElement(tag.toLowerCase());
+        if (tag === "A") {
+          const href = safeUrl(n.getAttribute("href"));
+          if (href) {
+            el.setAttribute("href", href);
+            el.setAttribute("target", "_blank");
+            el.setAttribute("rel", "noopener noreferrer nofollow ugc");
+          }
+          const cls = String(n.getAttribute("class") || "");
+          if (/\bgame-chip\b/.test(cls)) el.setAttribute("class", "game-chip");
+          else if (/\blnk\b/.test(cls)) el.setAttribute("class", "lnk");
+        } else if (tag === "SPAN") {
+          const st = safeInlineStyle(n.getAttribute("style"));
+          if (Object.keys(st).length) el.setAttribute("style", styleString(st));
+        }
+      }
+      rebuild(n, el, doc, depth + 1);
+      dst.appendChild(el);
+    }
+  }
+  function sanitizeHtml(html, win) {
+    const body = parseHtml(html, win);
+    const doc = body.ownerDocument;
+    const holder = doc.createElement("div");
+    rebuild(body, holder, doc);
+    return holder.innerHTML;
+  }
+  function sanitizeToFragment(html, targetDoc, win) {
+    const body = parseHtml(html, win);
+    const frag = targetDoc.createDocumentFragment();
+    rebuild(body, frag, targetDoc);
+    return frag;
+  }
+
+  // src/shared/gq-cover.js
+  var PALETTES = [
+    ["#ff2fb3", "#12062b", "#22d3ee"],
+    ["#c8a24a", "#14100a", "#ff7a3d"],
+    ["#6ea8ff", "#060a24", "#b388ff"],
+    ["#7ee787", "#14202b", "#ffd166"],
+    ["#ff8a3d", "#171a22", "#66d9ff"],
+    ["#ff8fb1", "#1b0f24", "#7cf3d4"],
+    ["#7fd4ff", "#07131f", "#a7ff9c"],
+    ["#ffd23f", "#1a1207", "#ff4d6d"]
+  ];
+  function wrapTitle(t, max = 13) {
+    const w = t.split(" ");
+    const L = [];
+    let c = "";
+    w.forEach((x) => {
+      if ((c + " " + x).trim().length > max && c) {
+        L.push(c.trim());
+        c = x;
+      } else c = (c + " " + x).trim();
+    });
+    if (c) L.push(c);
+    return L.slice(0, 3);
+  }
+  function paletteFor(seed) {
+    let s = 0;
+    for (const ch of String(seed)) s = s * 31 + ch.charCodeAt(0) >>> 0;
+    return PALETTES[s % PALETTES.length];
+  }
+  var xmlEsc = (s) => String(s).replace(/[<>&"']/g, "");
+  function coverSvg(seed, title, pal) {
+    seed = String(seed || title || "gq");
+    title = String(title || "GAME").slice(0, 60);
+    pal = pal || paletteFor(seed);
+    let s = 0;
+    for (const ch of seed) s = s * 131 + ch.charCodeAt(0) >>> 0;
+    const rnd = () => {
+      s = s * 1664525 + 1013904223 >>> 0;
+      return s / 4294967296;
+    };
+    const [a, b, acc] = pal;
+    let dots = "";
+    for (let i = 0; i < 46; i++) dots += `<circle cx="${(rnd() * 320).toFixed(0)}" cy="${(rnd() * 290).toFixed(0)}" r="${(rnd() * 1.5 + 0.4).toFixed(1)}" fill="#fff" opacity="${(rnd() * 0.55 + 0.15).toFixed(2)}"/>`;
+    const cx = (50 + rnd() * 220).toFixed(0), cy = (80 + rnd() * 90).toFixed(0), r = (34 + rnd() * 40).toFixed(0);
+    const p1 = `0,480 0,${(300 + rnd() * 50).toFixed(0)} ${(80 + rnd() * 60).toFixed(0)},${(200 + rnd() * 50).toFixed(0)} ${(170 + rnd() * 50).toFixed(0)},${(300 + rnd() * 40).toFixed(0)} 320,${(230 + rnd() * 50).toFixed(0)} 320,480`;
+    const p2 = `0,480 0,${(360 + rnd() * 40).toFixed(0)} ${(120 + rnd() * 60).toFixed(0)},${(300 + rnd() * 40).toFixed(0)} ${(230 + rnd() * 50).toFixed(0)},${(380 + rnd() * 30).toFixed(0)} 320,${(320 + rnd() * 40).toFixed(0)} 320,480`;
+    const lines = wrapTitle(title.toUpperCase());
+    let txt = "";
+    lines.forEach((l, i) => {
+      txt += `<text x="24" y="${400 + i * 27}" font-family="Arial Black,Arial,sans-serif" font-size="${lines.length > 2 ? 21 : 25}" font-weight="900" fill="#fff" letter-spacing="1">${xmlEsc(l)}</text>`;
+    });
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 480" width="320" height="480"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient><radialGradient id="s" cx="50%" cy="50%"><stop offset="0" stop-color="${acc}" stop-opacity=".95"/><stop offset="1" stop-color="${acc}" stop-opacity="0"/></radialGradient><linearGradient id="d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></linearGradient></defs><rect width="320" height="480" fill="url(#g)"/>${dots}<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#s)"/><circle cx="${cx}" cy="${cy}" r="${(r / 2.6).toFixed(0)}" fill="#fff" opacity=".22"/><polygon points="${p1}" fill="#000" opacity=".38"/><polygon points="${p2}" fill="#000" opacity=".55"/><rect y="330" width="320" height="150" fill="url(#d)"/><rect x="24" y="352" width="42" height="4" rx="2" fill="${acc}"/>${txt}<text x="24" y="${400 + lines.length * 27 + 4}" font-family="Arial,sans-serif" font-size="11" fill="#fff" opacity=".55" letter-spacing="3">GAMEQUILL \xB7 COVER</text><rect x="0.5" y="0.5" width="319" height="479" fill="none" stroke="#fff" stroke-opacity=".12"/></svg>`;
+  }
+  function coverArt(seed, title, pal) {
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(coverSvg(seed, title, pal));
+  }
+
+  // src/shared/gq-fallback.js
+  var SCORES = [
+    null,
+    { i: "\u{1F4A9}", t: "\u041F\u0440\u043E\u0432\u0430\u043B", d: "\u041D\u0435 \u0438\u0433\u0440\u0430\u0439\u0442\u0435 \u043D\u0438 \u043F\u0440\u0438 \u043A\u0430\u043A\u0438\u0445 \u0443\u0441\u043B\u043E\u0432\u0438\u044F\u0445" },
+    { i: "\u{1F922}", t: "\u0423\u0436\u0430\u0441\u043D\u043E", d: "\u0421\u043B\u043E\u043C\u0430\u043D\u043E, \u0441\u043A\u0443\u0447\u043D\u043E, \u0431\u0435\u0437\u043D\u0430\u0434\u0435\u0436\u043D\u043E" },
+    { i: "\u{1F616}", t: "\u041F\u043B\u043E\u0445\u043E", d: "\u041C\u0438\u043D\u0443\u0441\u043E\u0432 \u0441\u0438\u043B\u044C\u043D\u043E \u0431\u043E\u043B\u044C\u0448\u0435, \u0447\u0435\u043C \u043F\u043B\u044E\u0441\u043E\u0432" },
+    { i: "\u{1F615}", t: "\u0421\u043B\u0430\u0431\u043E", d: "\u041D\u0438\u0436\u0435 \u0441\u0440\u0435\u0434\u043D\u0435\u0433\u043E \u2014 \u043C\u043D\u043E\u0433\u043E \u043F\u0440\u043E\u0431\u043B\u0435\u043C" },
+    { i: "\u{1F610}", t: "\u0421\u0440\u0435\u0434\u043D\u0435", d: "\u041F\u0440\u043E\u0445\u043E\u0434\u043D\u044F\u043A \u043D\u0430 \u043E\u0434\u0438\u043D \u0432\u0435\u0447\u0435\u0440" },
+    { i: "\u{1F642}", t: "\u041D\u0435\u043F\u043B\u043E\u0445\u043E", d: "\u0415\u0441\u0442\u044C \u0437\u0430 \u0447\u0442\u043E \u043F\u043E\u0445\u0432\u0430\u043B\u0438\u0442\u044C \u0438 \u043F\u043E\u0440\u0443\u0433\u0430\u0442\u044C" },
+    { i: "\u{1F60A}", t: "\u0425\u043E\u0440\u043E\u0448\u043E", d: "\u041A\u0440\u0435\u043F\u043A\u0430\u044F \u0440\u0430\u0431\u043E\u0442\u0430, \u0441\u0442\u043E\u0438\u0442 \u0432\u043D\u0438\u043C\u0430\u043D\u0438\u044F" },
+    { i: "\u{1F60D}", t: "\u041E\u0442\u043B\u0438\u0447\u043D\u043E", d: "\u041E\u0434\u0438\u043D \u0438\u0437 \u043B\u0443\u0447\u0448\u0438\u0445 \u0440\u0435\u043B\u0438\u0437\u043E\u0432 \u0436\u0430\u043D\u0440\u0430" },
+    { i: "\u{1F929}", t: "\u0412\u0435\u043B\u0438\u043A\u043E\u043B\u0435\u043F\u043D\u043E", d: "\u041F\u043E\u0447\u0442\u0438 \u0438\u0434\u0435\u0430\u043B, \u043C\u0435\u043B\u043A\u0438\u0435 \u043E\u0433\u0440\u0435\u0445\u0438" },
+    { i: "\u{1F451}", t: "\u0428\u0435\u0434\u0435\u0432\u0440", d: "\u042D\u0442\u0430\u043B\u043E\u043D, \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u043A \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044E" }
+  ];
+  var VERDICT = {
+    yes: { e: "\u{1F44D}", t: "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E", c: "#3ddc97" },
+    neutral: { e: "\u{1F914}", t: "\u041D\u0435\u0439\u0442\u0440\u0430\u043B\u044C\u043D\u043E", c: "#ffc84a" },
+    no: { e: "\u{1F44E}", t: "\u041D\u0435 \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E", c: "#ff5f6d" },
+    none: { e: "\u2754", t: "\u0412\u0435\u0440\u0434\u0438\u043A\u0442 \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D", c: "" }
+  };
+  var UNRATED = { unsure: "\u0430\u0432\u0442\u043E\u0440 \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D \u0432 \u043E\u0446\u0435\u043D\u043A\u0435", na: "\u043D\u0435 \u043F\u0440\u0438\u043C\u0435\u043D\u0438\u043C\u043E \u043A \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u0435" };
+  var FOOTER_TEXT = "\u2726 \u041E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u043E \u0432 GameQuill";
+
+  // src/content/gamequill/render.js
+  function h(doc, tag, attrs, ...kids) {
+    const el = doc.createElement(tag);
+    if (attrs) {
+      for (const [k, v] of Object.entries(attrs)) {
+        if (v === null || v === void 0 || v === false) continue;
+        if (k === "class") el.className = v;
+        else if (k === "text") el.textContent = v;
+        else el.setAttribute(k, String(v));
+      }
+    }
+    for (const k of kids.flat()) {
+      if (k === null || k === void 0 || k === false || k === "") continue;
+      el.append(typeof k === "string" ? doc.createTextNode(k) : k);
+    }
+    return el;
+  }
+  function link(doc, href, cls, ...kids) {
+    const u = safeUrl(href);
+    if (!u) return h(doc, "span", { class: cls }, ...kids);
+    return h(doc, "a", { class: cls, href: u, target: "_blank", rel: "noopener noreferrer nofollow ugc" }, ...kids);
+  }
+  function img(doc, src, seed, title, cls) {
+    const safe = safeImageUrl(src);
+    return h(doc, "img", {
+      class: cls,
+      src: safe || coverArt(seed || title || "gq", title || "Game", paletteFor(seed || title || "gq")),
+      alt: "",
+      loading: "lazy",
+      referrerpolicy: "no-referrer",
+      decoding: "async"
+    });
+  }
+  function richText(doc, html, cls) {
+    const d = h(doc, "div", { class: cls });
+    d.append(sanitizeToFragment(html || "", doc));
+    return d;
+  }
+  function scoreBlock(doc, r) {
+    const sc = SCORES[r.score];
+    const stars = h(doc, "div", { class: "stars", "aria-label": r.score ? `\u041E\u0446\u0435\u043D\u043A\u0430 ${r.score} \u0438\u0437 10` : "\u0411\u0435\u0437 \u043E\u0446\u0435\u043D\u043A\u0438" });
+    for (let i = 1; i <= 10; i++) stars.append(h(doc, "span", { class: "star" + (i <= r.score ? " lit" : "") }, "\u2605"));
+    const left = h(
+      doc,
+      "div",
+      { class: "sc-left" },
+      stars,
+      h(doc, "div", { class: "sc-num" }, h(doc, "b", { text: r.score ? String(r.score) : "\u2014" }), h(doc, "i", { text: "\u0438\u0437 10" })),
+      sc ? h(doc, "div", { class: "sc-cap" }, h(doc, "span", { class: "ico", text: sc.i }), h(doc, "span", null, h(doc, "b", { text: sc.t }), " \xB7 " + r.score + "/10", h(doc, "span", { class: "d", text: sc.d }))) : null
+    );
+    const v = VERDICT[r.recommend];
+    const verdict = r.recommend !== "none" && v ? h(doc, "div", { class: "verdict v-" + r.recommend }, h(doc, "span", { class: "e", text: v.e }), v.t) : null;
+    return h(doc, "div", { class: "scorecard" }, left, verdict);
+  }
+  function aspectsBlock(doc, r) {
+    if (!r.aspects.length || !r.aspects.some((a) => a.score > 0 || a.unrated === "na")) return null;
+    const box = h(doc, "div", { class: "aspects" }, h(doc, "div", { class: "sec-h", text: "\u{1F4CA} \u041E\u0446\u0435\u043D\u043A\u0438 \u0430\u0441\u043F\u0435\u043A\u0442\u043E\u0432" }));
+    for (const a of r.aspects) {
+      const row = h(doc, "div", { class: "asp" + (a.score ? "" : " off") }, h(doc, "div", { class: "asp-n", text: a.name }));
+      if (a.score) {
+        const dots = h(doc, "div", { class: "dots" });
+        for (let i = 1; i <= 10; i++) dots.append(h(doc, "span", { class: "dot" + (i <= a.score ? " lit" : "") }));
+        row.append(dots, h(doc, "div", { class: "asp-v", text: a.score + "/10" }));
+      } else {
+        row.append(h(doc, "div", { class: "asp-note", text: UNRATED[a.unrated] || UNRATED.unsure }));
+      }
+      box.append(row);
+    }
+    return box;
+  }
+  function gameWidget(doc, r, d) {
+    const keys = Object.keys(d.links || {});
+    const badges = Object.entries(d.ratings || {}).map(([k, v]) => {
+      const m = integMeta(r, k);
+      return h(doc, "span", { class: "badge" }, `${m.icon} ${v} \xB7 ${m.name}`);
+    });
+    const links = keys.map((k) => {
+      const m = integMeta(r, k);
+      const a = link(doc, d.links[k], "srcbtn", `${m.icon} ${m.name}`);
+      const c = safeColor(m.color);
+      if (c) a.style.setProperty("--c", c);
+      return a;
+    });
+    return h(
+      doc,
+      "div",
+      { class: "w w-game" },
+      img(doc, d.cover, d.gameId || d.title, d.title, "w-cover"),
+      h(
+        doc,
+        "div",
+        { class: "w-info" },
+        h(doc, "div", { class: "w-kick", text: "\u{1F3AE} \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u0438\u0433\u0440\u044B" + (d.source ? " \xB7 " + d.source : "") }),
+        h(doc, "div", { class: "w-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
+        h(doc, "div", { class: "w-sub", text: [d.year, d.dev, d.pub].filter(Boolean).join(" \xB7 ") }),
+        h(doc, "div", { class: "w-tags" }, ...(d.genres || []).map((g) => h(doc, "span", { text: g }))),
+        badges.length ? h(doc, "div", { class: "w-badges" }, ...badges) : null,
+        links.length ? h(doc, "div", { class: "w-links" }, ...links) : null
+      )
+    );
+  }
+  function steamWidget(doc, d) {
+    return h(
+      doc,
+      "div",
+      { class: "w w-steam" },
+      h(
+        doc,
+        "div",
+        { class: "ws-head" },
+        img(doc, d.cover, d.app || d.title, d.title, "ws-cap"),
+        h(
+          doc,
+          "div",
+          null,
+          h(doc, "div", { class: "ws-t", text: d.title || "\u0418\u0433\u0440\u0430 \u0432 Steam" }),
+          h(doc, "div", { class: "ws-s", text: "\u0412 \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0435 Steam" + (d.date ? " \xB7 \u0432\u044B\u043F\u0443\u0441\u043A " + d.date : "") }),
+          h(doc, "div", { class: "ws-tags" }, ...(d.tags || []).map((t) => h(doc, "span", { text: t })))
+        )
+      ),
+      h(
+        doc,
+        "div",
+        { class: "ws-body" },
+        h(
+          doc,
+          "div",
+          { class: "ws-price" },
+          d.disc ? h(doc, "span", { class: "disc", text: d.disc }) : null,
+          d.old ? h(doc, "span", { class: "old", text: d.old }) : null,
+          h(doc, "span", { class: "now", text: d.price || "\u0426\u0435\u043D\u0430 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430" })
+        ),
+        link(doc, d.url, "ws-btn", "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 Steam \u2192")
+      )
+    );
+  }
+  function ytWidget(doc, d) {
+    const thumb = link(doc, d.url, "yt-thumb", img(doc, d.cover, d.url || d.title, d.title, "yt-img"), h(doc, "span", { class: "yt-play", text: "\u25B6" }), d.dur ? h(doc, "span", { class: "yt-dur", text: d.dur }) : null);
+    return h(
+      doc,
+      "div",
+      { class: "w w-yt" },
+      thumb,
+      h(
+        doc,
+        "div",
+        { class: "yt-info" },
+        h(doc, "div", { class: "yt-t", text: d.title || "\u0412\u0438\u0434\u0435\u043E" }),
+        h(doc, "div", { class: "yt-c", text: (d.channel || "\u041A\u0430\u043D\u0430\u043B") + " \xB7 YouTube" }),
+        link(doc, d.url, "yt-go", "\u25B6 \u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043D\u0430 YouTube")
+      )
+    );
+  }
+  function wsWidget(doc, d) {
+    const meta = "\u041C\u0430\u0441\u0442\u0435\u0440\u0441\u043A\u0430\u044F Steam \xB7 \u0430\u0432\u0442\u043E\u0440 " + (d.author || "\u2014") + (d.subs ? " \xB7 \u{1F465} " + d.subs + " \u043F\u043E\u0434\u043F\u0438\u0441\u0447\u0438\u043A\u043E\u0432" : "") + (d.game ? " \xB7 " + d.game : "");
+    return h(
+      doc,
+      "div",
+      { class: "w w-ws" },
+      h(doc, "div", { class: "ws-ic", text: "\u{1F6E0}\uFE0F" }),
+      h(doc, "div", null, h(doc, "div", { class: "ws-tt", text: d.title || "\u041F\u0440\u0435\u0434\u043C\u0435\u0442 \u043C\u0430\u0441\u0442\u0435\u0440\u0441\u043A\u043E\u0439" }), h(doc, "div", { class: "ws-ss", text: meta })),
+      link(doc, d.url, "ws-sub", "\u041E\u0442\u043A\u0440\u044B\u0442\u044C")
+    );
+  }
+  function imageItems(d) {
+    if (Array.isArray(d.items) && d.items.length) return d.items;
+    if (d && d.url) return [d];
+    return [];
+  }
+  function imageBlock(doc, d) {
+    const items = imageItems(d);
+    const n = Math.min(Math.max(items.length, 0), 10);
+    const fig = h(doc, "figure", { class: "blk img collage c" + (n || 1) });
+    if (!items.length) {
+      fig.append(h(doc, "div", { class: "img-err", text: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E (\u0430\u0434\u0440\u0435\u0441 \u043E\u0442\u043A\u043B\u043E\u043D\u0451\u043D \u0438\u043B\u0438 \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0451\u043D)" }));
+      return fig;
+    }
+    const grid = h(doc, "div", { class: "collage-grid" });
+    items.forEach((it, i) => {
+      const href = safeUserImageUrl(it.url);
+      const label = it.caption || it.alt || "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 " + (i + 1);
+      const cell = h(doc, "button", {
+        type: "button",
+        class: "cell",
+        "data-gq-lb": String(i),
+        "data-caption": it.caption || "",
+        "aria-label": label
+      });
+      if (!href) {
+        cell.append(h(doc, "div", { class: "img-err", text: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E (\u0430\u0434\u0440\u0435\u0441 \u043E\u0442\u043A\u043B\u043E\u043D\u0451\u043D \u0438\u043B\u0438 \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0451\u043D)" }));
+      } else {
+        const el = doc.createElement("img");
+        el.setAttribute("src", href);
+        el.setAttribute("alt", it.alt || it.caption || "");
+        el.setAttribute("referrerpolicy", "no-referrer");
+        el.setAttribute("loading", "eager");
+        const err = h(doc, "div", { class: "img-err", text: "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435" });
+        err.hidden = true;
+        el.addEventListener("error", () => {
+          el.hidden = true;
+          err.hidden = false;
+        });
+        cell.append(el, err);
+      }
+      grid.append(cell);
+    });
+    fig.append(grid);
+    if (d.caption) fig.append(h(doc, "figcaption", { class: "img-cap", text: d.caption }));
+    return fig;
+  }
+  function closeLightbox(root) {
+    const lb = root && root.querySelector(":scope > .gq-lb");
+    if (!lb) return;
+    if (typeof lb._gqOff === "function") lb._gqOff();
+    lb.remove();
+  }
+  function bindImageLightbox(root) {
+    if (!root || root.getAttribute("data-gq-lb-bound")) return;
+    root.setAttribute("data-gq-lb-bound", "1");
+    const doc = root.ownerDocument;
+    root.addEventListener("click", (e) => {
+      const cell = e.target && e.target.closest && e.target.closest("[data-gq-lb]");
+      if (!cell || !root.contains(cell)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const fig = cell.closest(".blk.img");
+      if (!fig) return;
+      const cells = [...fig.querySelectorAll("[data-gq-lb]")];
+      const items = cells.map((c) => {
+        const im = c.querySelector("img");
+        return {
+          url: im && im.getAttribute("src") || "",
+          caption: c.getAttribute("data-caption") || im && im.getAttribute("alt") || ""
+        };
+      }).filter((it) => it.url);
+      if (!items.length) return;
+      const start2 = Math.max(0, cells.indexOf(cell));
+      const shared = fig.querySelector("figcaption") && fig.querySelector("figcaption").textContent || "";
+      openLightbox(root, items, start2, shared);
+    });
+  }
+  function openLightbox(root, items, start2, shared) {
+    closeLightbox(root);
+    const doc = root.ownerDocument;
+    const overlay = h(doc, "div", { class: "gq-lb", role: "dialog", "aria-modal": "true", "aria-label": "\u041F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F" });
+    const img2 = doc.createElement("img");
+    img2.setAttribute("alt", "");
+    img2.setAttribute("referrerpolicy", "no-referrer");
+    const cap = h(doc, "div", { class: "lb-cap" });
+    const count = h(doc, "div", { class: "lb-count" });
+    const closeBtn = h(doc, "button", { type: "button", class: "lb-x", "aria-label": "\u0417\u0430\u043A\u0440\u044B\u0442\u044C" }, "\u2715");
+    const prev = h(doc, "button", { type: "button", class: "lb-nav lb-prev", "aria-label": "\u041F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0435\u0435" }, "\u2039");
+    const next = h(doc, "button", { type: "button", class: "lb-nav lb-next", "aria-label": "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0435" }, "\u203A");
+    overlay.append(closeBtn, prev, img2, next, cap, count);
+    let index = start2;
+    const show = (i) => {
+      if (!items.length) return;
+      index = (i + items.length) % items.length;
+      const it = items[index];
+      img2.setAttribute("src", it.url);
+      const text = it.caption || shared || "";
+      cap.textContent = text;
+      cap.hidden = !text;
+      count.textContent = items.length > 1 ? index + 1 + " / " + items.length : "";
+      count.hidden = items.length < 2;
+      prev.hidden = items.length < 2;
+      next.hidden = items.length < 2;
+    };
+    const close = () => closeLightbox(root);
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      close();
+    });
+    prev.addEventListener("click", (e) => {
+      e.stopPropagation();
+      show(index - 1);
+    });
+    next.addEventListener("click", (e) => {
+      e.stopPropagation();
+      show(index + 1);
+    });
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) close();
+    });
+    const onKey = (e) => {
+      if (!root.querySelector(":scope > .gq-lb")) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        show(index - 1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        show(index + 1);
+      }
+    };
+    doc.addEventListener("keydown", onKey);
+    overlay._gqOff = () => doc.removeEventListener("keydown", onKey);
+    root.append(overlay);
+    show(start2);
+    try {
+      closeBtn.focus();
+    } catch {
+    }
+  }
+  function block(doc, r, b) {
+    switch (b.type) {
+      case "h2":
+        return richText(doc, b.html, "blk h2");
+      case "h3":
+        return richText(doc, b.html, "blk h3");
+      case "text":
+        return richText(doc, b.html, "blk txt");
+      case "quote":
+        return richText(doc, b.html, "blk quote");
+      case "spoiler": {
+        const det = h(doc, "details", { class: "blk spoiler" }, h(doc, "summary", null, "\u26A0\uFE0F \u0421\u043F\u043E\u0439\u043B\u0435\u0440 \u2014 \u043D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C"));
+        if (!b.hidden) det.setAttribute("open", "");
+        det.append(richText(doc, b.html, "sp-body"));
+        return det;
+      }
+      case "divider":
+        return h(doc, "hr", { class: "divider d" + (b.data && b.data.style || 1) });
+      case "game":
+        return gameWidget(doc, r, b.data || {});
+      case "steam":
+        return steamWidget(doc, b.data || {});
+      case "youtube":
+        return ytWidget(doc, b.data || {});
+      case "workshop":
+        return wsWidget(doc, b.data || {});
+      case "image":
+        return imageBlock(doc, b.data || {});
+      default:
+        return null;
+    }
+  }
+  function prosCons(doc, r) {
+    if (!r.pros.length && !r.cons.length) return null;
+    const col = (cls, title, items, sign) => h(doc, "div", { class: "pc " + cls }, h(doc, "h4", { text: title }), ...items.map((it) => h(doc, "div", { class: "pc-i" }, h(doc, "span", { class: "pc-ic", text: sign }), h(doc, "span", { text: it.text }))));
+    return h(doc, "div", { class: "proscons" }, r.pros.length ? col("p", "\u2705 \u041F\u043B\u044E\u0441\u044B", r.pros, "+") : null, r.cons.length ? col("c", "\u274C \u041C\u0438\u043D\u0443\u0441\u044B", r.cons, "\u2212") : null);
+  }
+  function renderReview(doc, r) {
+    const root = h(doc, "article", { class: "gq" });
+    const head = h(doc, "header", { class: "doc-head" });
+    if (r.title) head.append(h(doc, "h1", { class: "doc-title", text: r.title }));
+    const meta = [r.game ? "\u{1F3AE} " + r.game : "", r.author ? "\u270D\uFE0F " + r.author : ""].filter(Boolean);
+    if (meta.length) head.append(h(doc, "div", { class: "doc-meta" }, ...meta.map((m) => h(doc, "span", { class: "chip", text: m }))));
+    if (r.score || r.recommend !== "none") head.append(scoreBlock(doc, r));
+    const asp = aspectsBlock(doc, r);
+    if (asp) head.append(asp);
+    if (head.childNodes.length) root.append(head);
+    const blocks = h(doc, "div", { class: "blocks" });
+    for (const b of r.blocks) {
+      const n = block(doc, r, b);
+      if (n) blocks.append(n);
+    }
+    root.append(blocks);
+    const pc = prosCons(doc, r);
+    if (pc) root.append(pc);
+    bindImageLightbox(root);
+    return root;
+  }
+
+  // src/content/gamequill/render.css
+  var render_default = `/* GameQuill reader view \u2014 lives inside a closed shadow root. */
+:host{all:initial;display:block}
+*{box-sizing:border-box}
+.wrap{
+  --bg:#000000;--panel:#1e1e1e;--panel2:#252525;--panel3:#303030;--line:#3b3b3b;--line2:#474747;
+  --txt:#f2f2f2;--mut:#a3a3a3;--dim:#808080;--acc:#7c4dff;--acc2:#00aef7;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
+  --f:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;
+  --fd:system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-family:var(--f);color:var(--txt);font-size:15px;line-height:1.6;position:relative;
+  background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;margin:6px 0;
+  -webkit-font-smoothing:antialiased;text-align:left;
+}
+.wrap[data-gq-theme="panax-dark"]{
+  --bg:#000000;--panel:#1e1e1e;--panel2:#252525;--panel3:#303030;--line:#3b3b3b;--line2:#474747;
+  --txt:#f2f2f2;--mut:#a3a3a3;--dim:#808080;--acc:#7c4dff;--acc2:#00aef7;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
+  --f:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;
+  --fd:system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:#000;border-color:#303030;border-radius:16px;
+}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 var(--f);padding:6px 11px;border-radius:999px;
+  background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7ccff;cursor:pointer}
+.pill:hover{background:rgba(124,92,255,.28)}
+.pill.ghost{background:transparent;border-color:var(--line2);color:var(--mut)}
+.note{font-size:11.5px;color:var(--dim)}
+.body{position:relative}
+.wrap.compact .body{max-height:460px;overflow:hidden}
+.wrap.compact .body::after{content:'';position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.more{display:none;margin:8px auto 0}
+.wrap.compact .more{display:flex}
+.wrap.mini .body{display:none}
+a{color:var(--acc2)}
+.gq{display:block}
+.doc-head{background:linear-gradient(160deg,rgba(124,92,255,.14),rgba(34,211,238,.05) 45%,transparent);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px;position:relative;overflow:hidden}
+.doc-title{font-family:var(--fd);font-weight:700;font-size:26px;letter-spacing:-.5px;line-height:1.2;margin:0 0 6px;color:#fff}
+.doc-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:var(--mut)}
+.chip{background:rgba(255,255,255,.05);border:1px solid var(--line);padding:3px 9px;border-radius:20px}
+.scorecard{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.sc-left{flex:1;min-width:240px}
+.stars{display:flex;gap:2px;margin-bottom:6px}
+.star{font-size:23px;color:#2b3346;line-height:1}
+.star.lit{color:var(--gold);text-shadow:0 0 12px rgba(255,200,74,.5)}
+.sc-num{display:flex;align-items:baseline;gap:8px}
+.sc-num b{font-family:var(--fd);font-size:30px;line-height:1;background:linear-gradient(135deg,#ffd97a,#ff9d5c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sc-num i{font-style:normal;color:var(--dim);font-size:13px}
+.sc-cap{display:flex;align-items:center;gap:9px;margin-top:6px;font-size:13px;color:var(--mut)}
+.sc-cap .ico{font-size:22px}
+.sc-cap b{color:var(--txt)}
+.sc-cap .d{font-size:11.5px;color:var(--dim);display:block}
+.verdict{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:12px;font-weight:700;font-size:14px;border:1px solid var(--line)}
+.verdict .e{font-size:18px}
+.v-yes{background:linear-gradient(135deg,rgba(61,220,151,.2),rgba(61,220,151,.05));border-color:rgba(61,220,151,.55);color:#b9ffe0}
+.v-neutral{background:linear-gradient(135deg,rgba(255,200,74,.2),rgba(255,200,74,.05));border-color:rgba(255,200,74,.5);color:#ffe9b0}
+.v-no{background:linear-gradient(135deg,rgba(255,95,109,.2),rgba(255,95,109,.05));border-color:rgba(255,95,109,.55);color:#ffc3c8}
+.aspects{margin-top:16px;border-top:1px dashed var(--line2);padding-top:12px}
+.sec-h{font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px}
+.asp{display:flex;align-items:center;gap:10px;padding:5px 8px;border-radius:10px;background:rgba(255,255,255,.02);margin-bottom:3px}
+.asp.off{opacity:.7}
+.asp-n{width:150px;flex:0 0 150px;font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dots{display:flex;gap:3px;flex:1}
+.dot{width:13px;height:13px;border-radius:50%;background:#242c3e}
+.dot.lit{background:linear-gradient(135deg,#8b7bff,#22d3ee);box-shadow:0 0 8px rgba(124,92,255,.45)}
+.asp-v{width:48px;text-align:right;font-family:var(--fd);font-size:12.5px;color:var(--gold)}
+.asp-note{font-size:11.5px;color:var(--dim);font-style:italic}
+.blocks{margin-top:6px}
+.blk{padding:4px 6px;font-size:15.5px;line-height:1.75;color:#dfe4f2;overflow-wrap:anywhere}
+.blk.h2{font-family:var(--fd);font-size:22px;font-weight:700;line-height:1.3;color:#fff;margin-top:10px}
+.blk.h3{font-family:var(--fd);font-size:17px;font-weight:600;color:#f0e6ff;margin-top:6px}
+.blk.quote{border-left:3px solid var(--acc);background:linear-gradient(90deg,rgba(124,92,255,.09),transparent);font-style:italic;color:#cfd6ea;padding:8px 14px;border-radius:0 10px 10px 0;margin:6px 0}
+.blk.spoiler{border:1px dashed var(--line2);border-radius:10px;background:rgba(255,255,255,.03);margin:6px 0;padding:6px 10px}
+.blk.spoiler summary{cursor:pointer;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.3px}
+.sp-body{padding-top:6px}
+.blk mark{background:rgba(255,200,74,.32);color:#fff;padding:0 3px;border-radius:3px}
+.blk code{background:#0b0e16;border:1px solid var(--line);padding:1px 6px;border-radius:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;color:#7ce7d4}
+.blk a.lnk,.blk a:not(.game-chip){color:var(--acc2);text-decoration:underline;text-underline-offset:2px}
+.blk a.game-chip{display:inline-flex;align-items:center;gap:4px;padding:1px 9px;border-radius:999px;background:rgba(124,92,255,.16);border:1px solid rgba(124,92,255,.42);color:#d7ccff;text-decoration:none;font-weight:600;font-size:.92em}
+.blk ul,.blk ol{margin:6px 0;padding-left:24px}
+.blk li{margin:3px 0}
+.blk p,.blk div{margin:0}
+.divider{border:none;height:2px;margin:14px 8px;background:linear-gradient(90deg,transparent,var(--line2) 20%,var(--acc) 50%,var(--line2) 80%,transparent)}
+.divider.d2{height:0;border-top:2px dashed var(--line2);background:none}
+.divider.d3{height:auto;background:none;text-align:center;color:var(--dim)}
+.divider.d3::after{content:'\u2726 \u2726 \u2726';letter-spacing:8px}
+.w{margin:10px 4px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.w-game{display:flex;gap:16px;padding:14px;background:linear-gradient(120deg,#171c2b,#111521 60%)}
+.w-cover{width:96px;height:144px;object-fit:cover;border-radius:10px;flex:0 0 96px;border:1px solid var(--line2);background:#1c2231}
+.w-info{flex:1;min-width:0}
+.w-kick{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--dim);font-weight:700;margin-bottom:5px}
+.w-title{font-family:var(--fd);font-size:18px;font-weight:700;line-height:1.2;margin-bottom:3px;color:#fff}
+.w-sub{font-size:12px;color:var(--mut);margin-bottom:8px}
+.w-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.w-tags span{font-size:10.5px;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--mut)}
+.w-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:8px;background:rgba(255,200,74,.12);border:1px solid rgba(255,200,74,.3);color:var(--gold)}
+.w-links{display:flex;gap:6px;flex-wrap:wrap}
+.srcbtn{--c:#7c5cff;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:9px;text-decoration:none;color:#fff;background:color-mix(in srgb,var(--c) 22%,#131826);border:1px solid color-mix(in srgb,var(--c) 55%,transparent)}
+.srcbtn:hover{background:var(--c)}
+.w-steam{background:linear-gradient(160deg,#1b2838,#16202d 55%,#101720)}
+.ws-head{display:flex;gap:14px;padding:12px 14px;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.ws-cap{width:150px;height:70px;object-fit:cover;border-radius:8px;flex:0 0 150px;border:1px solid rgba(255,255,255,.1);background:#1c2231}
+.ws-t{font-size:16px;font-weight:700;color:#fff;line-height:1.2}
+.ws-s{font-size:11.5px;color:#8f98a0;margin-top:4px}
+.ws-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.ws-tags span{font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(102,192,244,.13);color:#66c0f4}
+.ws-body{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px;flex-wrap:wrap}
+.ws-price{display:flex;align-items:center;gap:8px}
+.ws-price .disc{background:#4c6b22;color:#beee11;font-weight:800;padding:3px 7px;border-radius:4px;font-size:13px}
+.ws-price .old{text-decoration:line-through;color:#738895;font-size:12px}
+.ws-price .now{color:#fff;font-weight:700}
+.ws-btn{background:linear-gradient(90deg,#75b022,#588a1b);color:#d2e885;font-weight:700;padding:8px 16px;border-radius:6px;text-decoration:none;font-size:13px}
+.w-yt{display:flex;background:#141824}
+.yt-thumb{position:relative;flex:0 0 220px;height:124px;display:grid;place-items:center;overflow:hidden;text-decoration:none;background:#1c2231}
+.yt-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.yt-play{position:relative;z-index:2;width:50px;height:36px;background:#ff0033;border-radius:9px;display:grid;place-items:center;color:#fff;font-size:15px;padding-left:3px}
+.yt-dur{position:absolute;right:8px;bottom:8px;z-index:2;background:rgba(0,0,0,.82);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;font-weight:600}
+.yt-info{padding:12px 14px;flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.yt-t{font-size:14.5px;font-weight:700;color:#fff;line-height:1.35}
+.yt-c{font-size:12px;color:var(--mut)}
+.yt-go{margin-top:auto;font-size:11.5px;color:#ff4d6d;font-weight:700;text-decoration:none}
+.w-ws{display:flex;align-items:center;gap:14px;padding:12px 14px;background:linear-gradient(120deg,#1a2130,#141926)}
+.ws-ic{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,#2b3a52,#1b2434);border:1px solid var(--line2);display:grid;place-items:center;font-size:20px;flex:0 0 44px}
+.ws-tt{font-weight:700;font-size:14px;color:#fff}
+.ws-ss{font-size:11.5px;color:var(--mut);margin-top:2px}
+.ws-sub{margin-left:auto;background:linear-gradient(90deg,#4c6b22,#588a1b);color:#d2e885;font-weight:700;padding:7px 14px;border-radius:6px;text-decoration:none;font-size:12px;white-space:nowrap}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.pc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.pc.p{border-top:3px solid var(--grn)}
+.pc.c{border-top:3px solid var(--red)}
+.pc h4{margin:0 0 8px;font-family:var(--fd);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+.pc-i{display:flex;gap:8px;align-items:flex-start;font-size:14px;margin:5px 0}
+.pc-ic{flex:0 0 20px;height:20px;border-radius:6px;display:grid;place-items:center;font-weight:800}
+.pc.p .pc-ic{background:rgba(61,220,151,.15);color:var(--grn)}
+.pc.c .pc-ic{background:rgba(255,95,109,.15);color:var(--red)}
+@media (max-width:640px){
+  .proscons{grid-template-columns:1fr}
+  .w-game,.w-yt{flex-direction:column}
+  .yt-thumb{flex-basis:auto;width:100%}
+  .asp-n{width:110px;flex-basis:110px}
+}
+.wrap.mini{background:none;border:0;padding:0;margin:4px 0}
+.wrap.mini .bar{margin:0}
+
+.blk.img{margin:12px 0;padding:0;border:0;background:none}
+.blk.img .collage-grid{display:grid;gap:6px;border-radius:14px;overflow:hidden;background:#0b0e16}
+.blk.img.collage.c1 .collage-grid{grid-template-columns:1fr}
+.blk.img.collage.c2 .collage-grid{grid-template-columns:1fr 1fr}
+.blk.img.collage.c3 .collage-grid{grid-template-columns:1.25fr 1fr;grid-template-rows:minmax(120px,1fr) minmax(120px,1fr);min-height:280px}
+.blk.img.collage.c3 .cell:first-child{grid-row:1/3}
+.blk.img.collage.c4 .collage-grid{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;min-height:300px}
+.blk.img.collage.c5 .collage-grid{grid-template-columns:repeat(6,1fr);grid-template-rows:1fr 1fr;min-height:300px}
+.blk.img.collage.c5 .cell:nth-child(1),.blk.img.collage.c5 .cell:nth-child(2){grid-column:span 3}
+.blk.img.collage.c5 .cell:nth-child(n+3){grid-column:span 2}
+.blk.img.collage.c6 .collage-grid,.blk.img.collage.c7 .collage-grid,.blk.img.collage.c8 .collage-grid,.blk.img.collage.c9 .collage-grid,.blk.img.collage.c10 .collage-grid{grid-template-columns:repeat(3,1fr)}
+.blk.img .cell{position:relative;display:block;width:100%;margin:0;padding:0;border:0;background:#11151f;cursor:zoom-in;overflow:hidden;min-height:90px;color:inherit}
+.blk.img .cell img{display:block;width:100%;height:100%;object-fit:cover;border-radius:0;background:#11151f}
+.blk.img.collage.c1 .cell img{object-fit:contain;max-height:640px;height:auto;width:100%;border-radius:12px}
+.blk.img.collage.c1 .collage-grid{overflow:visible;background:transparent}
+.blk.img .img-cap{margin:8px 6px 0;text-align:center;font-size:13px;color:var(--mut);font-style:italic;line-height:1.45}
+
+.blk.img .img-err{margin:0;padding:18px 14px;border:1px dashed var(--line2);border-radius:12px;background:#11151f;color:var(--mut);font-size:13px;text-align:center}
+.blk.img img[hidden],.blk.img .img-err[hidden]{display:none}
+
+.gq-lb{position:fixed;inset:0;z-index:2147483000;background:rgba(6,8,14,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px 32px;gap:10px}
+.gq-lb img{max-width:min(96vw,1120px);max-height:76vh;object-fit:contain;border-radius:10px;box-shadow:0 16px 50px rgba(0,0,0,.5);background:#0b0e16}
+.gq-lb .lb-cap{color:#e9ecf6;font-size:14px;text-align:center;max-width:720px;line-height:1.45}
+.gq-lb .lb-count{color:#8b94aa;font-size:12px}
+.gq-lb .lb-x,.gq-lb .lb-nav{position:absolute;border:1px solid var(--line2);background:rgba(17,21,31,.86);color:#e9ecf6;border-radius:999px;cursor:pointer;font-size:20px;line-height:1;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.gq-lb .lb-x{top:16px;right:16px;font-size:18px}
+.gq-lb .lb-prev{left:12px;top:50%;transform:translateY(-50%)}
+.gq-lb .lb-next{right:12px;top:50%;transform:translateY(-50%)}
+.gq-lb .lb-x:hover,.gq-lb .lb-nav:hover{background:rgba(124,92,255,.35);border-color:rgba(124,92,255,.6)}
+
+
+/* === 0.3.5 PANAX Dark chrome (rendered review) === */
+.wrap[data-gq-theme="gamequill"]{
+  --bg:#0c0f18;--panel:#11151f;--panel2:#161b27;--panel3:#1c2231;--line:#222a3a;--line2:#2d3648;
+  --txt:#e9ecf6;--mut:#8b94aa;--dim:#5b6479;--acc:#7c5cff;--acc2:#22d3ee;--gold:#ffc84a;--grn:#3ddc97;--red:#ff5f6d;
+  --f:'GQ Inter','Inter Variable',Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fd:'GQ Unbounded','GQ Inter',system-ui,sans-serif;
+}
+.wrap[data-gq-theme="panax-dark"] .doc-head{
+  background:#1e1e1e;
+  border:1px solid #303030;
+  border-radius:16px;
+}
+.wrap[data-gq-theme="panax-dark"] .pill{
+  background:rgba(0,174,247,.12);
+  border-color:rgba(0,174,247,.35);
+  color:#d8eef5;
+}
+.wrap[data-gq-theme="panax-dark"] .v-yes{
+  background:#5f7f8a;
+  border-color:#6a8b96;
+  color:#fff;
+}
+.wrap[data-gq-theme="panax-dark"] .v-neutral{
+  background:#535353;
+  border-color:#6a6a6a;
+  color:#f2f2f2;
+}
+.wrap[data-gq-theme="panax-dark"] .v-no{
+  background:#3b3b3b;
+  border-color:#ff5f6d;
+  color:#ffc3c8;
+}
+.wrap[data-gq-theme="panax-dark"] .asp{background:#1e1e1e}
+.wrap[data-gq-theme="panax-dark"] .dot{background:#303030}
+.wrap[data-gq-theme="panax-dark"] .dot.lit{
+  background:#00aef7;
+  box-shadow:none;
+}
+.wrap[data-gq-theme="panax-dark"] .blk{color:#e8e8e8}
+.wrap[data-gq-theme="panax-dark"] .blk.h2{color:#fff}
+.wrap[data-gq-theme="panax-dark"] .blk.h3{color:#f2f2f2}
+.wrap[data-gq-theme="panax-dark"] .blk.quote{
+  background:linear-gradient(90deg,rgba(124,77,255,.08),transparent);
+  color:#e8e8e8;
+}
+.wrap[data-gq-theme="panax-dark"] .blk a.game-chip{
+  background:rgba(124,77,255,.16);
+  border-color:rgba(124,77,255,.42);
+}
+.wrap[data-gq-theme="panax-dark"] .w-game{
+  background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
+}
+.wrap[data-gq-theme="panax-dark"] .blk.img .collage-grid{background:#000;border-radius:16px}
+.wrap[data-gq-theme="panax-dark"] .blk.img .cell,
+.wrap[data-gq-theme="panax-dark"] .blk.img .cell img,
+.wrap[data-gq-theme="panax-dark"] .blk.img .img-err{background:#1e1e1e}
+.wrap[data-gq-theme="panax-dark"] .gq-lb{background:rgba(0,0,0,.88)}
+.wrap[data-gq-theme="panax-dark"] .gq-lb .lb-cap{color:#f2f2f2}
+.wrap[data-gq-theme="panax-dark"] .gq-lb .lb-count{color:#a3a3a3}
+.wrap[data-gq-theme="panax-dark"] .gq-lb .lb-x,
+.wrap[data-gq-theme="panax-dark"] .gq-lb .lb-nav{background:rgba(30,30,30,.92);color:#f2f2f2}
+.wrap[data-gq-theme="panax-dark"] .gq-lb .lb-x:hover,
+.wrap[data-gq-theme="panax-dark"] .gq-lb .lb-nav:hover{background:rgba(0,174,247,.28);border-color:rgba(0,174,247,.5)}
+.wrap[data-gq-theme="panax-dark"] .star{color:#303030}
+.wrap[data-gq-theme="panax-dark"] .star.lit{color:var(--gold);text-shadow:0 0 12px rgba(255,200,74,.5)}
+`;
+
+  // src/content/gamequill/native-text.js
+  function nativeText(el) {
+    let t = "";
+    const walk = (n) => {
+      for (const c of n.childNodes) {
+        if (c.nodeType === 3) t += c.nodeValue;
+        else if (c.nodeType === 1) {
+          if (c.getAttribute("aria-hidden") === "true" || c.hasAttribute("data-gq-view")) continue;
+          const tag = c.tagName;
+          if (tag === "BR" || tag === "P" || tag === "DIV" || tag === "LI" || /^H\d$/.test(tag)) t += "\n";
+          walk(c);
+        }
+      }
+    };
+    walk(el);
+    const i = t.indexOf(FOOTER_TEXT);
+    return i >= 0 ? t.slice(0, i) : t;
+  }
+
+  // src/content/gamequill/detect.js
+  var FOOTER_RE = /✦\s*Оформлено в GameQuill/;
+  var QUICK_VS = /[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]/;
+  function isComposerPath(pathname = "") {
+    const p = String(pathname || "").replace(/\/+$/, "") || "/";
+    return /^\/(?:[a-z]{2}\/)?post\/write$/i.test(p);
+  }
+  function isComposerPage(loc = globalThis.location, root = document) {
+    const p = loc && loc.pathname || "";
+    if (isComposerPath(p)) return true;
+    try {
+      if (root && root.querySelector) {
+        if (/post\/write/i.test(p) && root.querySelector(".ql-container, .ql-editor")) return true;
+        if (root.querySelector(".new-post-header, .post-write-content")) return true;
+      }
+    } catch {
+    }
+    return false;
+  }
+  function isPostPage(loc = globalThis.location) {
+    const p = (loc && loc.pathname || "").replace(/\/+$/, "") || "/";
+    if (isComposerPath(p)) return false;
+    if (/^\/post\/\d+$/.test(p)) return true;
+    if (/^\/\d+$/.test(p)) return true;
+    return false;
+  }
+  function looksLikePayloadText(text) {
+    if (typeof text !== "string" || text.length < 8) return false;
+    return FOOTER_RE.test(text) || QUICK_VS.test(text);
+  }
+  function carrierKeyFromText(text) {
+    if (!text) return "";
+    const bytes = vsExtract(text);
+    return bytes ? "vs:" + toB64url(bytes) : "";
+  }
+  var SKIP = "[data-gq-view],[data-gq-preview],[data-panax-ru-skip],gq-composer,gq-composer-preview";
+  function contentRootFromMarker(node, loc = globalThis.location, root = document) {
+    let el = node && node.nodeType === 3 ? node.parentElement : node;
+    if (!el || !el.closest) return null;
+    if (isComposerPage(loc, root) && el.closest(".ql-editor, .ql-container, .ql-toolbar")) return null;
+    const rendered = el.closest(".delta-content-renderer");
+    if (rendered) return rendered;
+    const attributed = el.closest("[data-gq-carrier]");
+    if (attributed) return attributed;
+    while (el.parentElement && el.parentElement !== root.body && el.parentElement !== root.documentElement) {
+      const p = el.parentElement;
+      if (p.closest && p.closest(SKIP)) break;
+      if (isComposerPage(loc, root) && p.closest(".ql-editor, .ql-container, .ql-toolbar")) return null;
+      if (p.classList && p.classList.contains("delta-content-renderer")) return p;
+      const et = (el.textContent || "").length;
+      const pt = (p.textContent || "").length;
+      if (pt > et * 1.8 + 120) break;
+      if (p.classList && (p.classList.contains("card") || p.getAttribute("data-gq-view") != null)) break;
+      el = p;
+    }
+    return el;
+  }
+  function findViewRoots(root = document, loc = globalThis.location) {
+    const out = [];
+    const seen2 = /* @__PURE__ */ new Set();
+    const add = (el) => {
+      if (!el || seen2.has(el) || el.closest && el.closest(SKIP)) return;
+      if (isComposerPage(loc, root) && el.closest && el.closest(".ql-editor, .ql-container, .ql-toolbar")) return;
+      seen2.add(el);
+      out.push(el);
+    };
+    if (root.querySelectorAll) {
+      root.querySelectorAll(".delta-content-renderer, [data-gq-carrier]").forEach(add);
+    }
+    const scope = root.documentElement || root.body || root;
+    if (!scope || !root.createTreeWalker) return out;
+    const walker = root.createTreeWalker(scope, 4, {
+      acceptNode(n2) {
+        const t = n2.nodeValue || "";
+        if (!looksLikePayloadText(t)) return 3;
+        return 1;
+      }
+    });
+    let n;
+    while (n = walker.nextNode()) add(contentRootFromMarker(n, loc, root));
+    return out;
+  }
+
+  // src/content/gamequill/viewer.js
+  var state = /* @__PURE__ */ new WeakMap();
+  var cache3 = /* @__PURE__ */ new Map();
+  var enabled = true;
+  function injectFonts() {
+    if (document.getElementById("gq-fonts")) return;
+    const u = (f) => chrome.runtime.getURL("fonts/" + f);
+    const face = (fam, file, style, range) => `@font-face{font-family:'${fam}';font-style:${style};font-weight:100 900;font-display:swap;src:url('${u(file)}') format('woff2');unicode-range:${range}}`;
+    const LAT = "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD";
+    const CYR = "U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116";
+    const s = document.createElement("style");
+    s.id = "gq-fonts";
+    s.textContent = [
+      face("GQ Inter", "inter-latin-wght-normal.woff2", "normal", LAT),
+      face("GQ Inter", "inter-cyrillic-wght-normal.woff2", "normal", CYR),
+      face("GQ Inter", "inter-latin-wght-italic.woff2", "italic", LAT),
+      face("GQ Inter", "inter-cyrillic-wght-italic.woff2", "italic", CYR),
+      face("GQ Unbounded", "unbounded-latin-wght-normal.woff2", "normal", LAT),
+      face("GQ Unbounded", "unbounded-cyrillic-wght-normal.woff2", "normal", CYR)
+    ].join("\n");
+    (document.head || document.documentElement).appendChild(s);
+  }
+  function carrierKey(el) {
+    const a = el.getAttribute && el.getAttribute("data-gq-carrier");
+    if (a) return a;
+    return carrierKeyFromText(el.textContent || "");
+  }
+  function loadDoc(key) {
+    if (!cache3.has(key)) {
+      const p = (async () => {
+        try {
+          const raw = key.startsWith("vs:") ? await decodeCarrier({ kind: "vs", bytes: fromB64url(key.slice(3)) }) : await decodeCarrier(key);
+          return normalizeReview(raw, { sanitizeHtml: (h2) => sanitizeHtml(h2) });
+        } catch (e) {
+          console.debug("[GameQuill] bad carrier", e && e.code);
+          return null;
+        }
+      })();
+      cache3.set(key, p);
+      if (cache3.size > 200) cache3.delete(cache3.keys().next().value);
+    }
+    return cache3.get(key);
+  }
+  function stopInteractive(e) {
+    const t = e.target;
+    if (t && t.closest && t.closest("a,button,summary,details")) e.stopPropagation();
+  }
+  function buildView(el, doc, mismatch) {
+    const host2 = document.createElement("div");
+    const theme = normalizeTheme((getSettings() || {}).gqTheme || DEFAULT_THEME);
+    host2.setAttribute("data-gq-view", "");
+    host2.setAttribute("data-gq-frames", String(countGalleryFrames(doc)));
+    host2.setAttribute("data-gq-theme", theme);
+    host2.setAttribute("data-panax-ru-skip", "");
+    const root = host2.attachShadow({ mode: "closed" });
+    const style = document.createElement("style");
+    style.textContent = render_default;
+    const wrap = document.createElement("div");
+    wrap.className = "wrap";
+    wrap.setAttribute("data-gq-theme", theme);
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "pill";
+    const note = document.createElement("span");
+    note.className = "note";
+    bar.append(toggle, note);
+    const body = document.createElement("div");
+    body.className = "body";
+    body.append(renderReview(document, doc));
+    const more = document.createElement("button");
+    more.type = "button";
+    more.className = "pill ghost more";
+    more.textContent = "\u0420\u0430\u0437\u0432\u0435\u0440\u043D\u0443\u0442\u044C \u043E\u0431\u0437\u043E\u0440 \u25BE";
+    wrap.append(bar, body, more);
+    root.append(style, wrap);
+    ["click", "mousedown", "mouseup", "pointerdown", "pointerup", "touchstart", "touchend"].forEach((t) => wrap.addEventListener(t, stopInteractive));
+    let showing = !mismatch;
+    const compactable = !isPostPage();
+    const apply = () => {
+      if (showing) {
+        el.setAttribute("data-gq-hidden", "");
+        wrap.classList.remove("mini");
+        toggle.textContent = "\u2728 GameQuill \xB7 \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B";
+        note.textContent = "";
+      } else {
+        el.removeAttribute("data-gq-hidden");
+        wrap.classList.add("mini");
+        wrap.classList.remove("compact");
+        toggle.textContent = "\u2728 \u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435 GameQuill";
+        note.textContent = mismatch ? "\u0442\u0435\u043A\u0441\u0442 \u043F\u043E\u0441\u0442\u0430 \u0438\u0437\u043C\u0435\u043D\u0451\u043D \u043F\u043E\u0441\u043B\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u044F" : "";
+      }
+      if (showing && compactable && !wrap.dataset.expanded) wrap.classList.add("compact");
+    };
+    toggle.addEventListener("click", () => {
+      showing = !showing;
+      apply();
+    });
+    more.addEventListener("click", () => {
+      wrap.dataset.expanded = "1";
+      wrap.classList.remove("compact");
+    });
+    apply();
+    return host2;
+  }
+  function teardown(el) {
+    const st = state.get(el);
+    if (st && st.host) st.host.remove();
+    el.removeAttribute("data-gq-hidden");
+    state.delete(el);
+  }
+  async function processEl(el) {
+    const key = enabled ? carrierKey(el) : "";
+    const st = state.get(el);
+    if (!key) {
+      if (st) teardown(el);
+      return;
+    }
+    if (st && st.key === key) {
+      if (st.host && !st.host.isConnected && el.isConnected && el.parentNode) el.after(st.host);
+      return;
+    }
+    if (st) teardown(el);
+    state.set(el, { key, host: null });
+    const doc = await loadDoc(key);
+    const cur = state.get(el);
+    if (!cur || cur.key !== key || !el.isConnected) return;
+    if (!doc) return;
+    const fp = fingerprintText(nativeText(el));
+    const mismatch = !!(doc.fp && (doc.fp.h !== fp.h || doc.fp.len !== fp.len));
+    const host2 = buildView(el, doc, mismatch);
+    el.after(host2);
+    cur.host = host2;
+  }
+  var queued = false;
+  function scan() {
+    if (queued) return;
+    queued = true;
+    setTimeout(() => {
+      queued = false;
+      findViewRoots(document).forEach((el) => {
+        processEl(el).catch(() => {
+        });
+      });
+    }, 150);
+  }
+  function setViewerEnabled(on) {
+    enabled = !!on;
+    scan();
+  }
+  function startViewer(opts = {}) {
+    if (globalThis.__GQ_VIEWER__) return;
+    globalThis.__GQ_VIEWER__ = true;
+    enabled = opts.enabled !== false;
+    injectFonts();
+    const mo = new MutationObserver(scan);
+    const go = () => {
+      mo.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-gq-carrier"] });
+      scan();
+      setInterval(scan, 2500);
+    };
+    if (document.body) go();
+    else document.addEventListener("DOMContentLoaded", go, { once: true });
+  }
+
+  // src/content/gamequill/composer.js
+  var SS_KEY2 = "gq:carriers";
+  var SS_DRAFT = "gq:composer-draft";
+  var host = null;
+  var ui = null;
+  var frameReady = false;
+  var lastDoc = null;
+  var preview = null;
+  var EXT_ORIGIN = () => {
+    try {
+      return "chrome-extension://" + chrome.runtime.id;
+    } catch {
+      return "";
+    }
+  };
+  var editParams = () => {
+    const q = new URLSearchParams(location.search);
+    const mode = q.get("mode") === "edit" ? "edit" : "new";
+    const id = (q.get("id") || "").replace(/\D/g, "").slice(0, 20) || null;
+    return { mode, id };
+  };
+  var CSS2 = `
+:host{all:initial}
+.btn{position:fixed;right:22px;bottom:22px;z-index:2147482000;display:flex;align-items:center;gap:8px;
+  font:600 14px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;cursor:pointer;border:none;
+  padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#7c5cff,#a26bff);
+  box-shadow:0 10px 30px rgba(124,92,255,.45)}
+.btn:hover{filter:brightness(1.08)}
+.btn small{font-weight:500;opacity:.8;font-size:11px}
+.ov{position:fixed;inset:0;z-index:2147483000;background:rgba(5,6,12,.72);display:none}
+.ov.on{display:block}
+.ov iframe{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px);border:0;border-radius:14px;
+  background:#080a11;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:2147483001;max-width:520px;
+  font:500 13px/1.45 system-ui,sans-serif;color:#fff;background:#1c2231;border:1px solid #2d3648;
+  padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.toast.err{border-color:#ff5f6d}
+`;
+  function toast(msg, err) {
+    if (!ui) return;
+    const t = document.createElement("div");
+    t.className = "toast" + (err ? " err" : "");
+    t.textContent = msg;
+    ui.root.appendChild(t);
+    setTimeout(() => t.remove(), 5200);
+  }
+  function ensureUi() {
+    if (host && host.isConnected) return;
+    host = document.createElement("gq-composer");
+    host.setAttribute("data-panax-ru-skip", "");
+    const root = host.attachShadow({ mode: "closed" });
+    const style = document.createElement("style");
+    style.textContent = CSS2;
+    const btn = document.createElement("button");
+    btn.className = "btn";
+    btn.type = "button";
+    btn.title = "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u043F\u043E\u0441\u0442 \u0438\u043B\u0438 \u043E\u0431\u0437\u043E\u0440 \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435 GameQuill";
+    btn.append("\u2728 GameQuill");
+    const ov = document.createElement("div");
+    ov.className = "ov";
+    root.append(style, btn, ov);
+    btn.addEventListener("click", openEditor);
+    ov.addEventListener("click", (e) => {
+      if (e.target === ov) closeEditor();
+    });
+    document.documentElement.appendChild(host);
+    ui = { root, btn, overlay: ov, frame: null };
+    frameReady = false;
+  }
+  function removeUi() {
+    if (host) host.remove();
+    host = null;
+    ui = null;
+    frameReady = false;
+  }
+  function openEditor() {
+    ensureUi();
+    if (!ui.frame) {
+      const f = document.createElement("iframe");
+      f.src = chrome.runtime.getURL("gamequill/index.html");
+      f.setAttribute("allow", "clipboard-write");
+      f.title = "GameQuill";
+      ui.overlay.appendChild(f);
+      ui.frame = f;
+    } else if (frameReady) {
+      sendInit();
+    }
+    ui.overlay.classList.add("on");
+    ui.btn.style.display = "none";
+    document.documentElement.style.overflow = "hidden";
+  }
+  function closeEditor() {
+    if (!ui) return;
+    ui.overlay.classList.remove("on");
+    ui.btn.style.display = "";
+    document.documentElement.style.overflow = "";
+  }
+  function post(msg) {
+    if (ui && ui.frame && ui.frame.contentWindow) ui.frame.contentWindow.postMessage(msg, EXT_ORIGIN());
+  }
+  function carrierFromStore(id) {
+    try {
+      const m = JSON.parse(sessionStorage.getItem(SS_KEY2) || "{}");
+      return m && m[id] || "";
+    } catch {
+      return "";
+    }
+  }
+  async function decodeCarrierString(s) {
+    if (!s) throw new GQError("not-gq");
+    if (s.startsWith("vs:")) return decodeCarrier({ kind: "vs", bytes: fromB64url(s.slice(3)) });
+    return decodeCarrier(s);
+  }
+  async function docFromCarrier(s) {
+    if (!s) return null;
+    try {
+      const raw = await decodeCarrierString(s);
+      return normalizeReview(raw, { sanitizeHtml: (h2) => sanitizeHtml(h2) });
+    } catch {
+      return null;
+    }
+  }
+  async function findExistingDoc(id) {
+    const tries = [];
+    if (id) {
+      const c = carrierFromStore(id);
+      if (c) tries.push(c);
+    }
+    try {
+      const draft = sessionStorage.getItem(SS_DRAFT) || "";
+      if (draft) tries.push(draft);
+    } catch {
+    }
+    const ed = document.querySelector(".ql-editor");
+    const fromText = ed ? carrierKeyFromText(ed.textContent || "") : "";
+    if (fromText) tries.push(fromText);
+    const seen2 = /* @__PURE__ */ new Set();
+    for (const c of tries) {
+      if (!c || seen2.has(c)) continue;
+      seen2.add(c);
+      const doc = await docFromCarrier(c);
+      if (doc) return doc;
+    }
+    return lastDoc;
+  }
+  function editorPlainText() {
+    const ed = document.querySelector(".ql-editor");
+    if (!ed) return "";
+    const lines = [];
+    for (const p of ed.children) lines.push((p.textContent || "").replace(/[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]/g, ""));
+    return lines.join("\n").trim();
+  }
+  var escHtml = (s) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  async function sendInit() {
+    const { mode, id } = editParams();
+    const s = getSettings();
+    post({ type: "gq:init", steamCountry: s.steamCountry || "KZ", postId: id, mode });
+    const doc = lastDoc || await findExistingDoc(id);
+    if (doc) {
+      post({ type: "gq:load", doc });
+      return;
+    }
+    if (mode !== "edit") return;
+    const text = editorPlainText();
+    if (text) {
+      const html = text.split("\n").map((l) => escHtml(l)).join("<br>");
+      post({ type: "gq:load", soft: true, doc: { title: "", blocks: [{ type: "text", html }] } });
+    }
+  }
+  function editorShell() {
+    const container = document.querySelector(".ql-container");
+    const toolbar = document.querySelector(".ql-toolbar");
+    return { container, toolbar, editor: document.querySelector(".ql-editor") };
+  }
+  function setEditorHidden(on) {
+    const { container, toolbar } = editorShell();
+    const op = on ? "setAttribute" : "removeAttribute";
+    if (container) container[op]("data-gq-composer-hidden", "");
+    if (toolbar) toolbar[op]("data-gq-composer-hidden", "");
+  }
+  function hidePreview() {
+    if (preview && preview.host) preview.host.remove();
+    preview = null;
+    setEditorHidden(false);
+  }
+  function rememberDraft(carrier) {
+    if (!carrier) return;
+    try {
+      sessionStorage.setItem(SS_DRAFT, carrier);
+    } catch {
+    }
+  }
+  function currentTheme() {
+    return normalizeTheme((getSettings() || {}).gqTheme || DEFAULT_THEME);
+  }
+  function showComposerPreview(doc, { carrier, locked } = {}) {
+    if (!doc) return null;
+    lastDoc = doc;
+    if (carrier) rememberDraft(carrier);
+    injectFonts();
+    const { container } = editorShell();
+    if (!container || !container.parentNode) return null;
+    const keepLocked = !!(locked || preview && preview.locked);
+    hidePreview();
+    const wrap = document.createElement("div");
+    wrap.setAttribute("data-gq-preview", "");
+    wrap.setAttribute("data-gq-frames", String(countGalleryFrames(doc)));
+    wrap.setAttribute("data-gq-theme", currentTheme());
+    wrap.setAttribute("data-panax-ru-skip", "");
+    const bar = document.createElement("div");
+    bar.className = "gq-preview-bar";
+    const label = document.createElement("span");
+    label.innerHTML = "";
+    label.append("\u2728 GameQuill \xB7 ");
+    const ro = document.createElement("span");
+    ro.className = "gq-ro";
+    ro.textContent = "\u0442\u043E\u043B\u044C\u043A\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440";
+    label.append(ro);
+    const editBtn = document.createElement("button");
+    editBtn.type = "button";
+    editBtn.setAttribute("data-gq-edit", "");
+    editBtn.textContent = "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0432 GameQuill";
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "ghost";
+    toggle.setAttribute("data-gq-toggle", "");
+    toggle.textContent = "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0442\u0435\u043A\u0441\u0442 \u0441\u0430\u0439\u0442\u0430";
+    bar.append(label, editBtn, toggle);
+    const body = document.createElement("div");
+    body.setAttribute("data-gq-preview-body", "");
+    const root = body.attachShadow({ mode: "closed" });
+    const style = document.createElement("style");
+    style.textContent = render_default;
+    const inner = document.createElement("div");
+    inner.className = "wrap";
+    inner.setAttribute("data-gq-theme", currentTheme());
+    inner.append(renderReview(document, doc));
+    root.append(style, inner);
+    wrap.append(bar, body);
+    container.after(wrap);
+    let showing = true;
+    const apply = () => {
+      setEditorHidden(showing);
+      wrap.classList.toggle("is-plain", !showing);
+      body.style.display = showing ? "" : "none";
+      toggle.textContent = showing ? "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0442\u0435\u043A\u0441\u0442 \u0441\u0430\u0439\u0442\u0430" : "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435 GameQuill";
+    };
+    editBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openEditor();
+    });
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showing = !showing;
+      apply();
+    });
+    apply();
+    preview = { host: wrap, showing: () => showing, locked: keepLocked, fresh: Date.now() };
+    return wrap;
+  }
+  async function syncPreview() {
+    if (!isComposerPage()) {
+      hidePreview();
+      return;
+    }
+    const ed = document.querySelector(".ql-editor");
+    if (!ed) {
+      hidePreview();
+      return;
+    }
+    const txt = ed.textContent || "";
+    const key = carrierKeyFromText(txt);
+    if (key) {
+      if (preview && preview.host.isConnected && lastDoc && preview.key === key) return;
+      const doc = await loadDoc(key);
+      if (doc) {
+        const el = showComposerPreview(doc, { carrier: key });
+        if (el) preview.key = key;
+        return;
+      }
+    }
+    if (lastDoc && looksLikePayloadText(txt)) {
+      if (preview && preview.host.isConnected) return;
+      showComposerPreview(lastDoc);
+      return;
+    }
+    if (!looksLikePayloadText(txt)) {
+      if (lastDoc && preview && (preview.locked || Date.now() - (preview.fresh || 0) < 6e4)) {
+        if (!preview.host || !preview.host.isConnected) showComposerPreview(lastDoc, { locked: true });
+        return;
+      }
+      hidePreview();
+      lastDoc = null;
+    }
+  }
+  function armMain(payload) {
+    return new Promise((resolve) => {
+      let done = false;
+      const onArmed = (e) => {
+        done = true;
+        document.removeEventListener("gq:armed", onArmed);
+        try {
+          resolve(JSON.parse(String(e.detail || "{}")));
+        } catch {
+          resolve({ ok: false });
+        }
+      };
+      document.addEventListener("gq:armed", onArmed);
+      document.dispatchEvent(new CustomEvent("gq:arm", { detail: JSON.stringify(payload) }));
+      setTimeout(() => {
+        if (!done) {
+          document.removeEventListener("gq:armed", onArmed);
+          resolve({ ok: false, timeout: true });
+        }
+      }, 2e3);
+    });
+  }
+  async function onTransfer(m) {
+    if (!Array.isArray(m.ops) || typeof m.plain !== "string") return;
+    const res = await armMain({ ops: m.ops, plain: m.plain, html: String(m.html || "") });
+    const carrier = m.carrier || carrierKeyFromText(m.plain || "") || "";
+    const transferred = m.doc && typeof m.doc === "object" ? normalizeReview(m.doc, { sanitizeHtml: (h2) => sanitizeHtml(h2) }) : null;
+    const doc = transferred || carrier && await docFromCarrier(carrier) || lastDoc;
+    if (res.ok) {
+      if (doc) {
+        const el = showComposerPreview(doc, { carrier, locked: true });
+        if (el && preview) preview.fresh = Date.now();
+      }
+      post({ type: "gq:transfer-result", ok: true, message: "\u0413\u043E\u0442\u043E\u0432\u043E: \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u043E \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435 \u0441\u0430\u0439\u0442\u0430. \u041D\u0430\u0436\u043C\u0438\u0442\u0435 Post / \xAB\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C\xBB \u043D\u0430 \u0441\u0430\u0439\u0442\u0435." });
+      closeEditor();
+      toast("GameQuill: \u043E\u0431\u0437\u043E\u0440 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0451\u043D. \u0412\u044B \u0432\u0438\u0434\u0438\u0442\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435; \u0442\u0435\u043A\u0441\u0442 \u0434\u043B\u044F \u0447\u0438\u0442\u0430\u0442\u0435\u043B\u0435\u0439 \u0431\u0435\u0437 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u044F \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0432 \u043F\u043E\u043B\u0435 \u0441\u0430\u0439\u0442\u0430. \u041D\u0430\u0436\u043C\u0438\u0442\u0435 Post / \xAB\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C\xBB.");
+    } else {
+      post({
+        type: "gq:transfer-result",
+        ok: false,
+        message: res.timeout ? "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043D\u0435 \u043E\u0442\u0432\u0435\u0442\u0438\u043B\u0430 (\u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435 \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043B\u043E\u0441\u044C \u0432 \u043C\u0438\u0440 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B). \u041E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0441\u043D\u043E\u0432\u0430." : "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0442\u0435\u043A\u0441\u0442 \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0430\u0439\u0442\u0430. \u041E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435 \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u0441\u044F \u043F\u0440\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0435, \u043D\u043E \u0442\u0435\u043A\u0441\u0442 \u0432 \u043F\u043E\u043B\u0435 \u0441\u0430\u0439\u0442\u0430 \u043C\u043E\u0436\u0435\u0442 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u0442\u044C."
+      });
+    }
+  }
+  function onMessage(e) {
+    if (!ui || !ui.frame || e.source !== ui.frame.contentWindow) return;
+    if (e.origin !== EXT_ORIGIN()) return;
+    const m = e.data;
+    if (!m || typeof m !== "object") return;
+    if (m.type === "gq:ready") {
+      frameReady = true;
+      sendInit();
+    } else if (m.type === "gq:close") {
+      closeEditor();
+    } else if (m.type === "gq:transfer") {
+      onTransfer(m);
+    } else if (m.type === "gq:upload-image") {
+      onUploadImage(m);
+    }
+  }
+  function onUploadImage(m) {
+    const reqId = m && m.reqId;
+    if (!reqId) return;
+    let done = false;
+    const reply = (res) => {
+      if (done) return;
+      done = true;
+      document.removeEventListener("gq:upload-done", onDone);
+      const out = { ...res, reqId };
+      if (out.ok && out.url) {
+        const href = toPublicPanaxImageUrl(out.url) || safeUserImageUrl(out.url);
+        if (!href || hasSignedQuery(href)) {
+          post({ type: "gq:upload-result", reqId, ok: false, code: "url", error: "\u043D\u0435\u043B\u044C\u0437\u044F \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043D\u043D\u044B\u0439 \u0438\u043B\u0438 \u043D\u0435\u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u044B\u0439 \u0430\u0434\u0440\u0435\u0441" });
+          return;
+        }
+        out.url = href;
+      }
+      post({ type: "gq:upload-result", ...out });
+    };
+    const onDone = (e) => {
+      try {
+        reply(JSON.parse(e.detail || "{}"));
+      } catch {
+        reply({ ok: false, code: "parse", error: "\u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438" });
+      }
+    };
+    document.addEventListener("gq:upload-done", onDone);
+    document.dispatchEvent(new CustomEvent("gq:upload", { detail: JSON.stringify({
+      reqId,
+      name: m.name || "",
+      contentType: m.contentType || "",
+      width: m.width || 0,
+      height: m.height || 0,
+      b64: m.b64 || ""
+    }) }));
+    setTimeout(() => {
+      reply({ ok: false, code: "timeout", error: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043D\u0435 \u043E\u0442\u0432\u0435\u0442\u0438\u043B\u0430 \u043D\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0443 (\u043C\u0438\u0440 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B). \u041E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0432\u043A\u043B\u0430\u0434\u043A\u0443." });
+    }, 65e3);
+  }
+  var lastHref = "";
+  function tick() {
+    const onComposer = isComposerPage();
+    if (location.href === lastHref && (!onComposer || host && host.isConnected)) {
+      if (onComposer) syncPreview().catch(() => {
+      });
+      return;
+    }
+    const pathChanged = location.href !== lastHref;
+    lastHref = location.href;
+    if (!onComposer) {
+      if (host) removeUi();
+      hidePreview();
+      return;
+    }
+    if (pathChanged && host) removeUi();
+    if (document.querySelector(".ql-editor")) {
+      ensureUi();
+      syncPreview().catch(() => {
+      });
+    } else lastHref = "";
+  }
+  function startComposer() {
+    if (globalThis.__GQ_COMPOSER__) return;
+    globalThis.__GQ_COMPOSER__ = true;
+    window.addEventListener("message", onMessage);
+    setInterval(tick, 700);
+    tick();
+  }
+
+  // src/content/gamequill/index.js
+  function isIsolatedWorld() {
+    try {
+      return typeof chrome !== "undefined" && !!(chrome.runtime && chrome.runtime.id);
+    } catch {
+      return false;
+    }
+  }
+  async function startGameQuill() {
+    if (false) {
+      setAllowedImageOrigins(["http://localhost:8765", "http://127.0.0.1:8765"]);
+    }
+    if (!isIsolatedWorld()) {
+      startGameQuillMain();
+      return;
+    }
+    const s = await loadSettings();
+    startComposer();
+    startViewer({ enabled: s.showGameQuill !== false });
+    try {
+      chrome.storage.onChanged.addListener((ch, area) => {
+        if (area === "local" && ch.showGameQuill) setViewerEnabled(ch.showGameQuill.newValue !== false);
+      });
+    } catch {
+    }
+  }
+
+  // src/content/main.js
+  function startHarvest(engine) {
+    if (!/#panax-ru-harvest\b/.test(location.hash)) return;
+    const seen2 = /* @__PURE__ */ new Set();
+    const missing = [];
+    const scan2 = (root) => {
+      const walk = (node) => {
+        if (!node) return;
+        if (node.nodeType === 3) {
+          const parent = node.parentElement;
+          if (!parent || shouldSkipRoot(parent) || parent.isContentEditable) return;
+          if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(parent.tagName)) {
+            return;
+          }
+          const text = String(node.nodeValue || "").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, " ").trim();
+          if (!text || text.length > 120 || text.length < 2) return;
+          if (!/^[A-Za-z]/.test(text)) return;
+          if (seen2.has(text)) return;
+          seen2.add(text);
+          if (engine.translateText(text) == null) missing.push(text);
+          return;
+        }
+        if (node.nodeType !== 1) return;
+        if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(node.tagName)) {
+          return;
+        }
+        if (shouldSkipRoot(node)) return;
+        if (node.shadowRoot) walk(node.shadowRoot);
+        for (const child of node.childNodes) walk(child);
+      };
+      walk(root);
+    };
+    const refresh = () => {
+      scan2(document.body || document.documentElement);
+      globalThis.__PANAX_RU_HARVEST__ = missing.slice().sort((a, b) => a.localeCompare(b));
+      console.info(`[PANAX RU harvest] ${missing.length} missing \u2192 window.__PANAX_RU_HARVEST__`);
+    };
+    setTimeout(refresh, 1500);
+    setInterval(refresh, 4e3);
+  }
+  function boot() {
+    injectStyles();
+    const engine = createEngine(ru_default);
+    const { schedule } = startObserver(engine);
+    startHarvest(engine);
+    try {
+      startWritePatch(ru_default);
+    } catch {
+    }
+    let n = 0;
+    const tick2 = () => {
+      engine.run(document.body || document.documentElement);
+      n += 1;
+      setTimeout(tick2, n < 120 ? 150 : n < 240 ? 600 : 3e3);
+    };
+    setTimeout(tick2, 30);
+    globalThis.__PANAX_RU_ENGINE__ = engine;
+    globalThis.__PANAX_RU_SCHEDULE__ = schedule;
+    try {
+      startMessagesPatch(ru_default);
+    } catch {
+    }
+    try {
+      startRatingIcons();
+      startLogo();
+      startEnrichment();
+      startPostTranslate();
+    } catch {
+    }
+    startGameQuill().catch((e) => console.warn("[PANAX RU] GameQuill", e));
+    console.info(`[PANAX RU] v${true ? "0.3.5" : "0.3.5"} \xB7 ${Object.keys(ru_default).length} strings \xB7 active`);
+  }
+  function start() {
+    if (globalThis.__PANAX_RU__) {
+      if (globalThis.__PANAX_RU_SCHEDULE__) globalThis.__PANAX_RU_SCHEDULE__();
+      return;
+    }
+    globalThis.__PANAX_RU__ = true;
+    if (document.documentElement) boot();
+    else document.addEventListener("DOMContentLoaded", boot, { once: true });
+  }
+  function whenEnabled(on) {
+    if (document.documentElement) document.documentElement.dataset.panaxRu = on ? "on" : "off";
+    if (on) start();
+  }
+  var hasStorage = typeof chrome !== "undefined" && chrome.storage?.local;
+  if (hasStorage) {
+    chrome.storage.local.get({ panaxRuEnabled: true }, (data) => {
+      whenEnabled(data.panaxRuEnabled !== false);
+    });
+  } else {
+    const started = Date.now();
+    const wait = () => {
+      const flag = document.documentElement?.dataset.panaxRu;
+      if (flag === "on") start();
+      else if (flag === "off") return;
+      else if (Date.now() - started > 800) start();
+      else requestAnimationFrame(wait);
+    };
+    wait();
+  }
+})();
