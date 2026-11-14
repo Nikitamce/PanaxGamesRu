@@ -7354,7 +7354,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
       index = (i + items.length) % items.length;
       const it = items[index];
       img2.setAttribute("src", it.url);
-      const text = it.caption || shared || "";
+      const text = it.caption || "";
       cap.textContent = text;
       cap.hidden = !text;
       count.textContent = items.length > 1 ? index + 1 + " / " + items.length : "";
