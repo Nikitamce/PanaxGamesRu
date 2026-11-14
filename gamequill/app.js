@@ -879,7 +879,7 @@ function drawDetail(){
   </div>`;
   $$('#gDet [data-ins]').forEach(btn=>btn.addEventListener('click',()=>{
     const k=btn.dataset.ins;
-    if(k==='chip'){insertChip(g.title,g.links.panax||g.links.backloggd||g.links.igdb,integ('panax')||integ('igdb'));closeModal('insModal');return}
+    if(k==='chip'){insertChip(g.title,g.links&&(g.links.panax||g.links.backloggd||g.links.igdb),integ('panax')||integ('igdb'));closeModal('insModal');return}
     if(k==='workshop'){insCtx.tab='workshop';insCtx.q=g.title;$$('#insTabs .tab').forEach(x=>x.classList.toggle('on',x.dataset.tab==='workshop'));renderInsBody();return}
     if(k==='game'){const v=($('#gCardVar')&&$('#gCardVar').value)||'classic';commit('game',Object.assign(gameData(g),{variant:v}));return}
     const d=k==='steam'?steamData(g):ytData(g);
