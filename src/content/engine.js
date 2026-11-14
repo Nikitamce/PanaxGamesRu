@@ -1057,7 +1057,10 @@ export function createEngine(dict) {
       ".game-follow-round-button",
       // Live DOM: <p class="tab-button-label">Following</p>
       "p.tab-button-label",
+    "span.button-label",
       ".tab-button-label",
+      "span.button-label",
+      ".button-label",
       "button.tab-button p",
       'button[class*="rounded-full"]',
       'a[class*="rounded-full"]',
@@ -1160,6 +1163,7 @@ export function createEngine(dict) {
     "button.tab-button",
     '.tab-button:is(button, a, [role="tab"])',
     "p.tab-button-label",
+    "span.button-label",
     ".game-follow-round-button",
     'button[class*="rounded-full"]',
     'a[class*="rounded-full"]',
