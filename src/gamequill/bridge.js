@@ -6,7 +6,7 @@ import { FOOTER_TEXT, buildFallback, attachCarriers, opsToHtml } from "../shared
 import { VS_MAX_CHARS, encodeDoc, vsEncode } from "../shared/gq-payload.js";
 import { paletteFor } from "../shared/gq-cover.js";
 import { DEFAULT_THEME, normalizeTheme, themeList } from "../shared/gq-theme.js";
-import { plain, toEditorReview, cleanInteg, buildIntegMap, steamCover, ytCover, adaptSteamSearch, adaptSteamDetails, steamWidgetPatch, mergeDetails } from "./bridge-core.js";
+import { plain, toEditorReview, cleanInteg, buildIntegMap, steamCover, ytCover, adaptSteamSearch, adaptSteamDetails, adaptPanaxSearch, steamWidgetPatch, mergeDetails } from "./bridge-core.js";
 
 var ALLOWED_PARENTS = ["https://panaxgames.com", "https://www.panaxgames.com"];
 if (false) {
@@ -95,6 +95,12 @@ async function getJson(url) {
   if (!r.ok) throw new Error("HTTP " + r.status);
   return r.json();
 }
+async function panaxSearch(q) {
+  const url = `https://panaxgames.com/search/autocomplete?q=${encodeURIComponent(q)}&platform_integration=true`;
+  const r = await fetch(url, { credentials: "include", cache: "no-store" });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return adaptPanaxSearch(await r.json());
+}
 async function steamSearch(q, cc = "KZ") {
   const url = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=${encodeURIComponent(cc)}`;
   return adaptSteamSearch(await getJson(url));
@@ -181,6 +187,7 @@ if (typeof window !== "undefined" && window.document) {
     isRasterImageType,
     MAX_DATA_IMAGE,
     MAX_UPLOAD_BYTES,
+    panaxSearch,
     steamSearch,
     steamDetails,
     steamWidgetPatch,

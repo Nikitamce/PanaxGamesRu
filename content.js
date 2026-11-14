@@ -6653,6 +6653,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     "media.rawg.io"
   ];
   var DEFAULT_INTEG = {
+    panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },
     backloggd: { name: "Backloggd", icon: "\u{1F3AE}", color: "#4f8cff" },
     igdb: { name: "IGDB", icon: "\u{1F579}\uFE0F", color: "#9147ff" },
     steam: { name: "Steam Store", icon: "\u2668\uFE0F", color: "#66c0f4" },

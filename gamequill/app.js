@@ -96,7 +96,7 @@ let GAMES=[];
 
 /* ---------- интеграции ---------- */
 const DEF_INTEG=[
- {id:'backloggd',name:'Backloggd',icon:'🎮',color:'#4f8cff',base:'https://www.backloggd.com',enabled:true,ai:false},
+ {id:'panax',name:'PANAX',icon:'🎮',color:'#7c5cff',base:'https://panaxgames.com',enabled:true,ai:false},
  {id:'igdb',name:'IGDB',icon:'🕹️',color:'#9147ff',base:'https://www.igdb.com',enabled:true,ai:false},
  {id:'steam',name:'Steam Store',icon:'♨️',color:'#66c0f4',base:'https://store.steampowered.com',enabled:true,ai:false},
  {id:'workshop',name:'Steam Workshop',icon:'🛠️',color:'#66c0f4',base:'https://steamcommunity.com/workshop',enabled:true,ai:false},
@@ -460,7 +460,7 @@ const BMENU=[
  {t:'spoiler',e:'👁',n:'Спойлер',d:'скрытый текст'},
  {t:'divider',e:'—',n:'Разделитель',d:'горизонтальная линия'},
  {sep:1},
- {t:'ins:game',e:'🎮',n:'Карточка игры',d:'Backloggd / IGDB / RAWG'},
+ {t:'ins:game',e:'🎮',n:'Карточка игры',d:'PANAX / Steam / IGDB'},
  {t:'ins:steam',e:'♨️',n:'Виджет Steam',d:'страница в магазине'},
  {t:'ins:youtube',e:'▶️',n:'Видео YouTube',d:'трейлер или обзор'},
  {t:'ins:workshop',e:'🛠️',n:'Мастерская Steam',d:'пользовательский контент'}
@@ -696,31 +696,40 @@ function renderInsBody(){
     return;
   }
 }
+let panaxResults=[],panaxLastQ='',panaxTimer=0;
 function drawGames(){
   const box=$('#gRes');if(!box)return;
-  let list=searchGames(insCtx.q);
+  const q=insCtx.q.trim();
+  if(q.length>=2&&q!==panaxLastQ&&window.GQ&&typeof GQ.panaxSearch==='function'){
+    panaxLastQ=q;clearTimeout(panaxTimer);
+    panaxTimer=setTimeout(async()=>{
+      try{const res=await GQ.panaxSearch(q);if(insCtx.q.trim()===q&&Array.isArray(res)){panaxResults=res;drawGames();}}catch{}
+    },250);
+  }else if(q.length<2){panaxResults=[];panaxLastQ='';}
+  let list=q.length>=2&&panaxResults.length?panaxResults:searchGames(insCtx.q);
   if(insCtx.src!=='all')list=list.filter(g=>g.links[insCtx.src]);
-  box.innerHTML=list.length?list.map(g=>`<div class="gcard ${insCtx.sel===g.id?'on':''}" data-g="${g.id}">
-      <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" alt=""><div class="n"><b>${esc(g.title)}</b><i>${esc(g.year)} · ${esc(g.dev)}</i></div></div>`).join('')
+  box.innerHTML=list.length?list.map(g=>`<div class="gcard ${insCtx.sel===g.id?'on':''}" data-g="${esc(g.id)}">
+      <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" alt=""><div class="n"><b>${esc(g.title)}</b><i>${esc([g.year,g.dev].filter(Boolean).join(' · ')||'PANAX')}</i></div></div>`).join('')
     :`<div class="empty" style="grid-column:1/-1"><div class="big">🔍</div>Ничего не найдено.<br><small>Добавьте свою ссылку во вкладке «По ссылке»</small></div>`;
   $$('#gRes .gcard').forEach(c=>c.addEventListener('click',()=>{insCtx.sel=c.dataset.g;drawGames();drawDetail()}));
 }
 function drawDetail(){
   const box=$('#gDet');if(!box)return;
-  const g=GAMES.find(x=>x.id===insCtx.sel);
+  const g=GAMES.find(x=>x.id===insCtx.sel)||panaxResults.find(x=>x.id===insCtx.sel);
   if(!g){box.innerHTML=`<div class="gdet"><div class="empty" style="padding:26px 8px"><div class="big">🎮</div>Выберите игру слева —<br>здесь появятся варианты вставки</div></div>`;return}
   const srcs=enabledInteg().filter(s=>g.links[s.id]);
+  const r=g.r||{};
   box.innerHTML=`<div class="gdet">
     <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" style="width:100%;height:130px;object-fit:cover;border-radius:11px;margin-bottom:11px">
     <h4>${esc(g.title)}</h4>
-    <div class="muted">${esc(g.year)} · ${esc(g.dev)} / ${esc(g.pub)}<br>${esc(g.genres.join(', '))}<br>${esc(g.plat.join(' · '))}</div>
-    <div class="w-badges">${srcs.filter(s=>g.r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(g.r[s.id])}</span>`).join('')}</div>
+    <div class="muted">${esc([g.year,[g.dev,g.pub].filter(Boolean).join(' / ')].filter(Boolean).join(' · '))}<br>${esc((g.genres||[]).join(', '))}<br>${esc((g.plat||[]).join(' · '))}</div>
+    <div class="w-badges">${srcs.filter(s=>r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(r[s.id])}</span>`).join('')}</div>
     <div class="pop-h" style="padding:12px 0 6px">Вставить как</div>
     <div class="ins-list">
       <button class="ins-b" data-ins="game"><span class="e">🃏</span><span>Карточка игры<small>обложка, оценки, все источники</small></span></button>
-      <button class="ins-b" data-ins="steam"><span class="e">♨️</span><span>Виджет Steam<small>цена, теги, кнопка магазина</small></span></button>
-      <button class="ins-b" data-ins="youtube"><span class="e">▶️</span><span>Видео-карточка<small>трейлер ${esc(g.trailer.dur)}</small></span></button>
-      <button class="ins-b" data-ins="workshop"><span class="e">🛠️</span><span>Предмет Мастерской<small>${g.ws.length} шт. в базе</small></span></button>
+      ${g.steam?`<button class="ins-b" data-ins="steam"><span class="e">♨️</span><span>Виджет Steam<small>цена, теги, кнопка магазина</small></span></button>`:''}
+      ${g.trailer?`<button class="ins-b" data-ins="youtube"><span class="e">▶️</span><span>Видео-карточка<small>трейлер ${esc(g.trailer.dur)}</small></span></button>`:''}
+      ${g.ws?`<button class="ins-b" data-ins="workshop"><span class="e">🛠️</span><span>Предмет Мастерской<small>${g.ws.length} шт. в базе</small></span></button>`:''}
       <button class="ins-b" data-ins="chip"><span class="e">🎮</span><span>Ссылка в тексте<small>чип на страницу игры</small></span></button>
     </div>
     <div class="pop-h" style="padding:14px 0 6px">Страницы игры</div>
@@ -728,7 +737,7 @@ function drawDetail(){
   </div>`;
   $$('#gDet [data-ins]').forEach(btn=>btn.addEventListener('click',()=>{
     const k=btn.dataset.ins;
-    if(k==='chip'){insertChip(g.title,g.links.backloggd||g.links.igdb,integ('backloggd')||integ('igdb'));closeModal('insModal');return}
+    if(k==='chip'){insertChip(g.title,g.links.panax||g.links.backloggd||g.links.igdb,integ('panax')||integ('igdb'));closeModal('insModal');return}
     if(k==='workshop'){insCtx.tab='workshop';insCtx.q=g.title;$$('#insTabs .tab').forEach(x=>x.classList.toggle('on',x.dataset.tab==='workshop'));renderInsBody();return}
     const d=k==='game'?gameData(g):k==='steam'?steamData(g):ytData(g);
     commit(k,d)}));
@@ -736,7 +745,7 @@ function drawDetail(){
 function gameData(g){
   const srcs=enabledInteg();const links={};srcs.forEach(s=>{if(g.links[s.id])links[s.id]=g.links[s.id]});
   const ratings={};srcs.forEach(s=>{if(g.r[s.id]!=null)ratings[s.id]=g.r[s.id]});
-  return {gameId:g.id,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,source:(integ('backloggd')||srcs[0]||{}).name||''};
+  return {gameId:g.id,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,source:(integ('panax')||srcs[0]||{}).name||''};
 }
 function steamData(g){return {title:g.title,app:String(g.steam.app),price:g.steam.price,old:g.steam.old,disc:g.steam.disc,date:g.steam.date,tags:g.steam.tags,cover:g.cover,url:g.links.steam}}
 function ytData(g){return {title:g.trailer.t,channel:g.trailer.ch,dur:g.trailer.dur,url:g.trailer.url,cover:g.cover}}
@@ -804,7 +813,7 @@ $('#linkOk').addEventListener('click',()=>{
   const url=$('#linkUrl').value.trim();if(!url)return toast('Введите URL','warn');
   const txt=$('#linkTxt').value.trim();const st=$('#linkStyle').value;
   closeModal('linkModal');
-  if(st==='chip'){insertChip(txt||url,url,integ('backloggd'))}else insertLink(txt,url);
+  if(st==='chip'){insertChip(txt||url,url,integ('panax'))}else insertLink(txt,url);
 });
 $('#linkUrl').addEventListener('keydown',e=>{if(e.key==='Enter')$('#linkOk').click()});
 

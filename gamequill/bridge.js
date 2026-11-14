@@ -389,6 +389,7 @@
     "media.rawg.io"
   ];
   var DEFAULT_INTEG = {
+    panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },
     backloggd: { name: "Backloggd", icon: "\u{1F3AE}", color: "#4f8cff" },
     igdb: { name: "IGDB", icon: "\u{1F579}\uFE0F", color: "#9147ff" },
     steam: { name: "Steam Store", icon: "\u2668\uFE0F", color: "#66c0f4" },
@@ -1600,6 +1601,7 @@
   var enc = encodeURIComponent;
   function searchLinks(name, app) {
     return {
+      panax: `https://panaxgames.com/search?q=${enc(name)}`,
       steam: `https://store.steampowered.com/app/${app}/`,
       backloggd: `https://www.backloggd.com/search/games/${enc(name)}/`,
       igdb: `https://www.igdb.com/search?type=1&q=${enc(name)}`,
@@ -1685,6 +1687,30 @@
     if (det.metacritic) g.r.metacritic = det.metacritic;
     Object.assign(g.steam, { price: det.price || g.steam.price, old: det.old, disc: det.disc, date: det.date, tags: det.genres.slice(0, 4) });
     return g;
+  }
+  function adaptPanaxSearch(data) {
+    const list = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : Array.isArray(data?.items) ? data.items : Array.isArray(data?.games) ? data.games : [];
+    return list.slice(0, 12).map((x) => {
+      const id = x?.id ?? x?.game_id ?? "";
+      const title = plain(x?.name || x?.title || x?.game_name || "", 140);
+      const cover = safeImageUrl(x?.cover || x?.cover_url || x?.image || x?.thumbnail || x?.poster || "");
+      const year = x?.release_year || (x?.release_date ? String(x.release_date).slice(0, 4) : "");
+      const pageUrl = id ? `https://panaxgames.com/game-detail/${id}` : `https://panaxgames.com/search?q=${enc(title)}`;
+      return {
+        id: "panax_" + id,
+        panaxId: id,
+        title,
+        year,
+        cover,
+        dev: plain(x?.developer || x?.dev || "", 100),
+        pub: plain(x?.publisher || x?.pub || "", 100),
+        genres: Array.isArray(x?.genres) ? x.genres.slice(0, 4).map((g) => plain(typeof g === "string" ? g : g?.name || "", 40)).filter(Boolean) : [],
+        plat: Array.isArray(x?.platforms) ? x.platforms.slice(0, 5).map((p) => plain(typeof p === "string" ? p : p?.name || "", 30)).filter(Boolean) : [],
+        links: { panax: pageUrl },
+        ratings: {},
+        source: "PANAX"
+      };
+    }).filter((g) => g.title);
   }
 
   // src/gamequill/bridge.js
@@ -1775,6 +1801,12 @@
     if (!r.ok) throw new Error("HTTP " + r.status);
     return r.json();
   }
+  async function panaxSearch(q) {
+    const url = `https://panaxgames.com/search/autocomplete?q=${encodeURIComponent(q)}&platform_integration=true`;
+    const r = await fetch(url, { credentials: "include", cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return adaptPanaxSearch(await r.json());
+  }
   async function steamSearch(q, cc = "KZ") {
     const url = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=${encodeURIComponent(cc)}`;
     return adaptSteamSearch(await getJson(url));
@@ -1861,6 +1893,7 @@
       isRasterImageType,
       MAX_DATA_IMAGE,
       MAX_UPLOAD_BYTES,
+      panaxSearch,
       steamSearch,
       steamDetails,
       steamWidgetPatch,

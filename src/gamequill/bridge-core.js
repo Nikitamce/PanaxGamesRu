@@ -70,6 +70,7 @@ export function ytCover(url) {
 var enc = encodeURIComponent;
 function searchLinks(name, app) {
   return {
+    panax: `https://panaxgames.com/search?q=${enc(name)}`,
     steam: `https://store.steampowered.com/app/${app}/`,
     backloggd: `https://www.backloggd.com/search/games/${enc(name)}/`,
     igdb: `https://www.igdb.com/search?type=1&q=${enc(name)}`,
@@ -155,4 +156,29 @@ export function mergeDetails(g, det) {
   if (det.metacritic) g.r.metacritic = det.metacritic;
   Object.assign(g.steam, { price: det.price || g.steam.price, old: det.old, disc: det.disc, date: det.date, tags: det.genres.slice(0, 4) });
   return g;
+}
+
+export function adaptPanaxSearch(data) {
+  const list = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : Array.isArray(data?.items) ? data.items : Array.isArray(data?.games) ? data.games : [];
+  return list.slice(0, 12).map((x) => {
+    const id = x?.id ?? x?.game_id ?? "";
+    const title = plain(x?.name || x?.title || x?.game_name || "", 140);
+    const cover = safeImageUrl(x?.cover || x?.cover_url || x?.image || x?.thumbnail || x?.poster || "");
+    const year = x?.release_year || (x?.release_date ? String(x.release_date).slice(0, 4) : "");
+    const pageUrl = id ? `https://panaxgames.com/game-detail/${id}` : `https://panaxgames.com/search?q=${enc(title)}`;
+    return {
+      id: "panax_" + id,
+      panaxId: id,
+      title,
+      year,
+      cover,
+      dev: plain(x?.developer || x?.dev || "", 100),
+      pub: plain(x?.publisher || x?.pub || "", 100),
+      genres: Array.isArray(x?.genres) ? x.genres.slice(0, 4).map((g) => plain(typeof g === "string" ? g : g?.name || "", 40)).filter(Boolean) : [],
+      plat: Array.isArray(x?.platforms) ? x.platforms.slice(0, 5).map((p) => plain(typeof p === "string" ? p : p?.name || "", 30)).filter(Boolean) : [],
+      links: { panax: pageUrl },
+      ratings: {},
+      source: "PANAX"
+    };
+  }).filter((g) => g.title);
 }
