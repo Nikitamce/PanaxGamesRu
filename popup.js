@@ -71,7 +71,8 @@ function paint(s) {
     steamCountryRow.style.opacity = widgetsOn ? '1' : '0.4';
   }
 
-  if (selectGqTheme) selectGqTheme.value = s.gqTheme === 'gamequill' ? 'gamequill' : 'panax-dark';
+  const validThemes = ['panax-dark', 'steam-slate', 'emerald-hud', 'amber-noir', 'gamequill'];
+  if (selectGqTheme) selectGqTheme.value = validThemes.includes(s.gqTheme) ? s.gqTheme : 'panax-dark';
 
   mainHint.textContent = s.panaxRuEnabled !== false ? 'Русский язык интерфейса включён' : 'Выключен. Сайт на английском';
 }
@@ -93,7 +94,7 @@ function save() {
     showPlayerStats: togglePlayers.checked,
     steamCountry: selectSteamCountry.value,
     convertCurrency: selectConvertCurrency.value,
-    gqTheme: (selectGqTheme && selectGqTheme.value === 'gamequill') ? 'gamequill' : 'panax-dark',
+    gqTheme: (selectGqTheme && ['panax-dark', 'steam-slate', 'emerald-hud', 'amber-noir', 'gamequill'].includes(selectGqTheme.value)) ? selectGqTheme.value : 'panax-dark',
   };
 
   paint(settings);
