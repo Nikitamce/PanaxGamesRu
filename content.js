@@ -2926,6 +2926,8 @@
         "Following",
         "Followers",
         "Follower",
+        "Community",
+        "Space",
         "Latest",
         "News",
         "Add to Wishlist",
