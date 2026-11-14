@@ -113,19 +113,20 @@ async function panaxDetails(id) {
   const cover = coverEl ? safeImageUrl(coverEl.getAttribute("src") || "") : "";
   const text = (doc.body && doc.body.textContent) || "";
   const keys = [
-    ["legendary", /(?:Legendary|Легенда)\s*(\d+(?:\.\d+)?)\s*%/i],
-    ["awesome", /(?:Awesome|Круто)\s*(\d+(?:\.\d+)?)\s*%/i],
-    ["good", /(?:Good|Хорошо)\s*(\d+(?:\.\d+)?)\s*%/i],
-    ["decent", /(?:Decent|Норм)\s*(\d+(?:\.\d+)?)\s*%/i],
-    ["dislike", /(?:Dislike|Плохо)\s*(\d+(?:\.\d+)?)\s*%/i],
-    ["awful", /(?:Awful|Ужас)\s*(\d+(?:\.\d+)?)\s*%/i]
+    ["legendary", /(?:(?:Legendary|Легенда)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Legendary|Легенда))/i],
+    ["awesome", /(?:(?:Awesome|Круто)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Awesome|Круто))/i],
+    ["good", /(?:(?:Good|Хорошо)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Good|Хорошо))/i],
+    ["decent", /(?:(?:Decent|Норм)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Decent|Норм))/i],
+    ["dislike", /(?:(?:Dislike|Плохо)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Dislike|Плохо))/i],
+    ["awful", /(?:(?:Awful|Ужас)[\s\S]{0,40}?(\d+(?:\.\d+)?)\s*%|(\d+(?:\.\d+)?)\s*%[\s\S]{0,40}?(?:Awful|Ужас))/i]
   ];
   const panaxReactions = {};
   let hasAny = false;
   for (const [k, re] of keys) {
     const m = text.match(re);
-    if (m) {
-      panaxReactions[k] = parseFloat(m[1]);
+    const num = m && (m[1] || m[2]);
+    if (num) {
+      panaxReactions[k] = parseFloat(num);
       hasAny = true;
     } else {
       panaxReactions[k] = 0;
