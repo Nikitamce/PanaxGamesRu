@@ -89,7 +89,7 @@ function gameWidget(doc, r, d) {
   return h(
     doc,
     "div",
-    { class: "w w-game" },
+    { class: "w w-game v-" + (d.variant === "poster" || d.variant === "neon" ? d.variant : "classic") },
     img(doc, d.cover, d.gameId || d.title, d.title, "w-cover"),
     h(
       doc,

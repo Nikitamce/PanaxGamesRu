@@ -133,7 +133,7 @@ function save(silent){
 const saveSoon=debounce(()=>save(true),500);
 function load(){
   try{const raw=localStorage.getItem(STORE);if(raw){const p=JSON.parse(raw);if(p&&p.reviews){state=Object.assign(state,p);
-  if(state.settings&&Array.isArray(state.settings.integrations)){state.settings.integrations=state.settings.integrations.map(x=>x&&x.id==='backloggd'?{id:'panax',name:'PANAX',icon:'🎮',color:'#7c5cff',base:'https://panaxgames.com',enabled:x.enabled!==false,ai:false}:x);}
+  if(state.settings&&Array.isArray(state.settings.integrations)){const seenI=new Set();state.settings.integrations=state.settings.integrations.map(x=>x&&x.id==='backloggd'?{id:'panax',name:'PANAX',icon:'🎮',color:'#7c5cff',base:'https://panaxgames.com',enabled:x.enabled!==false,ai:false}:x).filter(x=>x&&x.id&&!seenI.has(x.id)&&seenI.add(x.id));}
     if(!state.settings.integrations)state.settings.integrations=clone(DEF_INTEG)}}}catch(e){console.warn(e)}
 }
 const cur=()=>state.reviews.find(r=>r.id===state.currentId)||null;
@@ -344,7 +344,7 @@ function widgetHTML(b){
   if(b.type==='game'){
     const srcs=Object.keys(d.links||{}).map(k=>integ(k)).filter(Boolean);
     const badges=srcs.filter(s=>d.ratings&&d.ratings[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(d.ratings[s.id])} · ${esc(s.name)}</span>`).join('');
-    return `<div class="w w-game">${tools}
+    return `<div class="w w-game v-${esc(d.variant==='poster'||d.variant==='neon'?d.variant:'classic')}">${tools}
       <img class="w-cover" src="${esc(d.cover||coverArt(d.gameId||d.title||'g',d.title||'Game',GQ.palette(d.gameId||d.title||'g')))}" alt="">
       <div class="w-info">
         <div class="w-kick">🎮 карточка игры ${d.source?'· '+esc(d.source):''}</div>
@@ -727,7 +727,9 @@ function drawDetail(){
     <div class="w-badges">${srcs.filter(s=>r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(r[s.id])}</span>`).join('')}</div>
     <div class="pop-h" style="padding:12px 0 6px">Вставить как</div>
     <div class="ins-list">
-      <button class="ins-b" data-ins="game"><span class="e">🃏</span><span>Карточка игры<small>обложка, оценки, все источники</small></span></button>
+      <button class="ins-b" data-ins="game"><span class="e">🃏</span><span>Карточка: Классика<small>обложка, оценки, все источники</small></span></button>
+      <button class="ins-b" data-ins="game:poster"><span class="e">🎬</span><span>Карточка: Постер<small>широкий фон-обложка и акцент на деталях</small></span></button>
+      <button class="ins-b" data-ins="game:neon"><span class="e">⚡</span><span>Карточка: Неон<small>кибер-стиль с градиентной рамкой</small></span></button>
       ${g.steam?`<button class="ins-b" data-ins="steam"><span class="e">♨️</span><span>Виджет Steam<small>цена, теги, кнопка магазина</small></span></button>`:''}
       ${g.trailer?`<button class="ins-b" data-ins="youtube"><span class="e">▶️</span><span>Видео-карточка<small>трейлер ${esc(g.trailer.dur)}</small></span></button>`:''}
       ${g.ws?`<button class="ins-b" data-ins="workshop"><span class="e">🛠️</span><span>Предмет Мастерской<small>${g.ws.length} шт. в базе</small></span></button>`:''}
@@ -740,12 +742,13 @@ function drawDetail(){
     const k=btn.dataset.ins;
     if(k==='chip'){insertChip(g.title,g.links.panax||g.links.backloggd||g.links.igdb,integ('panax')||integ('igdb'));closeModal('insModal');return}
     if(k==='workshop'){insCtx.tab='workshop';insCtx.q=g.title;$$('#insTabs .tab').forEach(x=>x.classList.toggle('on',x.dataset.tab==='workshop'));renderInsBody();return}
-    const d=k==='game'?gameData(g):k==='steam'?steamData(g):ytData(g);
+    if(k.startsWith('game')){const v=k.split(':')[1]||'classic';commit('game',Object.assign(gameData(g),{variant:v}));return}
+    const d=k==='steam'?steamData(g):ytData(g);
     commit(k,d)}));
 }
 function gameData(g){
-  const srcs=enabledInteg();const links={};srcs.forEach(s=>{if(g.links[s.id])links[s.id]=g.links[s.id]});
-  const ratings={};srcs.forEach(s=>{if(g.r[s.id]!=null)ratings[s.id]=g.r[s.id]});
+  const srcs=enabledInteg();const links={};srcs.forEach(s=>{if(g.links&&g.links[s.id])links[s.id]=g.links[s.id]});
+  const gr=g.r||g.ratings||{};const ratings={};srcs.forEach(s=>{if(gr[s.id]!=null)ratings[s.id]=gr[s.id]});
   return {gameId:g.id,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,source:(integ('panax')||srcs[0]||{}).name||''};
 }
 function steamData(g){return {title:g.title,app:String(g.steam.app),price:g.steam.price,old:g.steam.old,disc:g.steam.disc,date:g.steam.date,tags:g.steam.tags,cover:g.cover,url:g.links.steam}}

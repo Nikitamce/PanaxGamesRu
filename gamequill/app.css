@@ -536,3 +536,15 @@ button.rb-btn.big[data-a="demo"] em{max-width:9.5em;white-space:normal;line-heig
 :root[data-gq-theme="panax-dark"] .gq-lb .lb-nav{background:rgba(30,30,30,.92);color:#f2f2f2}
 :root[data-gq-theme="panax-dark"] ::-webkit-scrollbar-thumb{background:#303030;background-clip:padding-box}
 :root[data-gq-theme="panax-dark"] ::-webkit-scrollbar-thumb:hover{background:#474747;background-clip:padding-box}
+
+.w-game.v-poster{position:relative;padding:18px;gap:18px;background:radial-gradient(circle at 85% 15%,rgba(124,92,255,.32),transparent 55%),linear-gradient(135deg,#121626 0%,#0b0e18 100%);border:1px solid rgba(124,92,255,.35);box-shadow:0 14px 36px rgba(0,0,0,.45)}
+.w-game.v-poster .w-cover{width:112px;height:164px;flex:0 0 112px;border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.16)}
+.w-game.v-poster .w-title{font-size:21px;letter-spacing:-.2px}
+.w-game.v-poster .w-kick{color:#a896ff}
+.w-game.v-poster .srcbtn{border-radius:999px;padding:6px 14px}
+
+.w-game.v-neon{position:relative;padding:14px 16px;background:linear-gradient(135deg,rgba(124,92,255,.14),rgba(34,211,238,.08) 55%,#0d111d);border:1px solid transparent;background-clip:padding-box;box-shadow:0 0 0 1px rgba(34,211,238,.35),0 10px 28px rgba(124,92,255,.18)}
+.w-game.v-neon .w-cover{border-radius:12px;border:1px solid rgba(34,211,238,.45);box-shadow:0 0 18px rgba(34,211,238,.2)}
+.w-game.v-neon .w-kick{color:#22d3ee}
+.w-game.v-neon .w-tags span{background:rgba(34,211,238,.08);border-color:rgba(34,211,238,.25);color:#bdf3ff}
+.w-game.v-neon .srcbtn{border-radius:8px;box-shadow:0 0 12px color-mix(in srgb,var(--c) 35%,transparent)}
