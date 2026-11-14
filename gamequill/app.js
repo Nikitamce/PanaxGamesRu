@@ -342,18 +342,7 @@ function widgetHTML(b){
       <button class="wt" data-act="edit" title="Изменить">✎</button>
       <button class="wt x" data-act="del" title="Удалить">✕</button></div>`;
   if(b.type==='game'){
-    const srcs=Object.keys(d.links||{}).map(k=>integ(k)).filter(Boolean);
-    const badges=srcs.filter(s=>d.ratings&&d.ratings[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(d.ratings[s.id])} · ${esc(s.name)}</span>`).join('');
-    return `<div class="w w-game v-${esc(d.variant==='poster'||d.variant==='neon'?d.variant:'classic')}">${tools}
-      <img class="w-cover" src="${esc(d.cover||coverArt(d.gameId||d.title||'g',d.title||'Game',GQ.palette(d.gameId||d.title||'g')))}" alt="">
-      <div class="w-info">
-        <div class="w-kick">🎮 карточка игры ${d.source?'· '+esc(d.source):''}</div>
-        <div class="w-title">${esc(d.title||'Игра')}</div>
-        <div class="w-sub">${esc([d.year,d.dev,d.pub].filter(Boolean).join(' · '))}</div>
-        <div class="w-tags">${(d.genres||[]).map(g=>`<span>${esc(g)}</span>`).join('')}</div>
-        <div class="w-badges">${badges}</div>
-        <div class="w-links">${srcs.map(s=>d.links[s.id]?`<a class="srcbtn" style="--c:${esc(GQ.color(s.color))}" href="${esc(d.links[s.id])}" target="_blank" rel="noopener">${esc(s.icon)} ${esc(s.name)}</a>`:'').join('')}</div>
-      </div></div>`;
+    return renderGameCard(d,tools);
   }
   if(b.type==='steam'){
     return `<div class="w w-steam">${tools}
@@ -382,6 +371,138 @@ function widgetHTML(b){
       <a class="ws-sub" href="${esc(d.url||'#')}" target="_blank" rel="noopener">Подписаться</a></div>`;
   }
   return `<div class="w" style="padding:14px">${tools}Неизвестный виджет</div>`;
+}
+function panaxReactionList(d){
+  const rx=d.panaxReactions||{};
+  const defs=[
+    {k:'legendary',name:'Легенда',color:'#f4b93e'},
+    {k:'awesome',name:'Круто',color:'#e0527d'},
+    {k:'good',name:'Хорошо',color:'#4098e8'},
+    {k:'decent',name:'Норм',color:'#33b489'},
+    {k:'dislike',name:'Плохо',color:'#f2834b'},
+    {k:'awful',name:'Ужас',color:'#7b8399'}
+  ];
+  return defs.map(x=>({k:x.k,name:x.name,color:x.color,val:Number.isFinite(Number(rx[x.k]))?Number(rx[x.k]):0}));
+}
+function renderGameCard(d,tools){
+  const valid=['classic','duet','editorial','staircase','type','brutal'];
+  const v=valid.includes(d.variant)?d.variant:'classic';
+  const cover=d.cover||coverArt(d.gameId||d.title||'g',d.title||'Game',GQ.palette(d.gameId||d.title||'g'));
+  const srcs=Object.keys(d.links||{}).map(k=>integ(k)).filter(Boolean);
+  const panaxUrl=(d.links&&(d.links.panax||d.links.backloggd||d.links.igdb))||'#';
+  const rx=panaxReactionList(d);
+  const sorted=[...rx].sort((a,b)=>b.val-a.val);
+  const top1=sorted[0];
+  const top2=sorted[1];
+  const sub=[d.dev,d.year].filter(Boolean).join(' · ');
+
+  if(v==='duet'){
+    return `<div class="w w-game v-duet">${tools}
+      <div class="duet-top">
+        <div>
+          <div class="duet-title">${esc(d.title||'Игра')}</div>
+          <div class="duet-sub">${esc(sub||d.pub||'PANAX')}</div>
+        </div>
+        <img class="duet-cover" src="${esc(cover)}" alt="">
+      </div>
+      <div class="duet-pair">
+        <div class="duet-big">
+          <div class="duet-num" style="color:${top1.color}">${top1.val}%</div>
+          <div class="duet-lbl"><span class="duet-dot" style="background:${top1.color}"></span>${top1.name}</div>
+        </div>
+        <div class="duet-big">
+          <div class="duet-num" style="color:${top2.color}">${top2.val}%</div>
+          <div class="duet-lbl"><span class="duet-dot" style="background:${top2.color}"></span>${top2.name}</div>
+        </div>
+      </div>
+      <div class="duet-foot">
+        <div class="duet-dots">${rx.map(x=>`<span title="${x.name}: ${x.val}%" style="background:${x.color}"></span>`).join('')}</div>
+        <a class="duet-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAX →</a>
+      </div></div>`;
+  }
+  if(v==='editorial'){
+    const rest=sorted.slice(1);
+    return `<div class="w w-game v-editorial">${tools}
+      <div class="ed-ring"></div>
+      <div class="ed-head">
+        <div class="ed-kicker">GAME / ${esc(d.year||'PANAX')} · PLAYER VERDICT</div>
+        <div class="ed-title">${esc(d.title||'Игра')}</div>
+        <div class="ed-sub">${esc([d.dev,d.pub].filter(Boolean).join(' / ')||'Сообщество PANAX')}</div>
+      </div>
+      <div class="ed-feat">
+        <div>
+          <div class="ed-feat-lbl"><span class="ed-dot" style="background:${top1.color}"></span>${top1.name}</div>
+          <div class="ed-feat-cap">Главная оценка игроков</div>
+        </div>
+        <div class="ed-feat-val" style="color:${top1.color}">${top1.val}%</div>
+      </div>
+      <div class="ed-grid">${rest.map(x=>`<div class="ed-cell"><span class="ed-cell-n"><span class="ed-dot" style="background:${x.color}"></span>${x.name}</span><span class="ed-cell-v">${x.val}%</span></div>`).join('')}</div>
+      <div class="ed-foot">
+        <span>${esc((d.genres||[]).slice(0,2).join(' · ')||'PANAX')}</span>
+        <a href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAXGAMES.COM →</a>
+      </div></div>`;
+  }
+  if(v==='staircase'){
+    const maxV=Math.max(1,...rx.map(x=>x.val));
+    return `<div class="w w-game v-staircase">${tools}
+      <div class="st-head">
+        <div>
+          <div class="st-title">${esc(d.title||'Игра')}</div>
+          <div class="st-sub">${esc(sub||'Оценки игроков')}</div>
+        </div>
+        <img class="st-cover" src="${esc(cover)}" alt="">
+      </div>
+      <div class="st-chart">${rx.map(x=>{
+        const h=Math.max(6,Math.round((x.val/maxV)*92));
+        return `<div class="st-col"><div class="st-pct">${x.val}%</div><div class="st-bar" style="height:${h}px;background:${x.color}"></div><div class="st-lbl">${x.name}</div></div>`;
+      }).join('')}</div>
+      <div class="st-foot"><span>PANAX COMMUNITY</span><a href="${esc(panaxUrl)}" target="_blank" rel="noopener">Открыть →</a></div></div>`;
+  }
+  if(v==='type'){
+    const maxV=Math.max(1,...rx.map(x=>x.val));
+    return `<div class="w w-game v-type">${tools}
+      <div class="tp-hero">
+        <div class="tp-title">${esc(d.title||'Игра')}</div>
+        <div class="tp-meta">${esc([d.year,d.dev].filter(Boolean).join(' · ')||'PANAX')}</div>
+      </div>
+      <div class="tp-rows">${rx.map(x=>{
+        const w=Math.max(2,Math.round((x.val/maxV)*100));
+        return `<div class="tp-row"><span class="tp-name">${x.name}</span><div class="tp-track"><div class="tp-fill" style="width:${w}%;background:${x.color}"></div></div><span class="tp-val">${x.val}%</span></div>`;
+      }).join('')}</div>
+      <div class="tp-foot"><a href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAXGAMES →</a></div></div>`;
+  }
+  if(v==='brutal'){
+    return `<div class="w w-game v-brutal">${tools}
+      <div class="br-left">
+        <div class="br-top">
+          <img class="br-cover" src="${esc(cover)}" alt="">
+          <div>
+            <div class="br-meta">${esc(sub||'PANAX')}</div>
+            <div class="br-title">${esc(d.title||'Игра')}</div>
+          </div>
+        </div>
+        <div class="br-dom">
+          <span class="br-dom-k">ДОМИНИРУЕТ</span>
+          <span class="br-dom-v" style="color:${top1.color}">${top1.name} · ${top1.val}%</span>
+        </div>
+        <a class="br-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener">PANAXGAMES →</a>
+      </div>
+      <div class="br-right">
+        ${rx.map(x=>`<div class="br-row"><span class="br-rname"><span class="br-dot" style="background:${x.color}"></span>${x.name}</span><span class="br-rval">${x.val}%</span></div>`).join('')}
+      </div></div>`;
+  }
+
+  const badges=srcs.filter(s=>d.ratings&&d.ratings[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(d.ratings[s.id])} · ${esc(s.name)}</span>`).join('');
+  return `<div class="w w-game v-classic">${tools}
+    <img class="w-cover" src="${esc(cover)}" alt="">
+    <div class="w-info">
+      <div class="w-kick">🎮 карточка игры ${d.source?'· '+esc(d.source):''}</div>
+      <div class="w-title">${esc(d.title||'Игра')}</div>
+      <div class="w-sub">${esc([d.year,d.dev,d.pub].filter(Boolean).join(' · '))}</div>
+      <div class="w-tags">${(d.genres||[]).map(g=>`<span>${esc(g)}</span>`).join('')}</div>
+      <div class="w-badges">${badges}</div>
+      <div class="w-links">${srcs.map(s=>d.links[s.id]?`<a class="srcbtn" style="--c:${esc(GQ.color(s.color))}" href="${esc(d.links[s.id])}" target="_blank" rel="noopener">${esc(s.icon)} ${esc(s.name)}</a>`:'').join('')}</div>
+    </div></div>`;
 }
 function integ(id){return state.settings.integrations.find(i=>i.id===id&&i.enabled)||state.settings.integrations.find(i=>i.id===id)}
 function enabledInteg(){return state.settings.integrations.filter(i=>i.enabled)}
@@ -718,6 +839,17 @@ function drawDetail(){
   const box=$('#gDet');if(!box)return;
   const g=GAMES.find(x=>x.id===insCtx.sel)||panaxResults.find(x=>x.id===insCtx.sel);
   if(!g){box.innerHTML=`<div class="gdet"><div class="empty" style="padding:26px 8px"><div class="big">🎮</div>Выберите игру слева —<br>здесь появятся варианты вставки</div></div>`;return}
+  if(g.panaxId&&!g._panaxLoaded&&!g._panaxLoading){
+    g._panaxLoading=true;
+    GQ.panaxDetails(g.panaxId).then(det=>{
+      g._panaxLoading=false;g._panaxLoaded=true;
+      if(det){
+        if(det.cover&&!g.cover)g.cover=det.cover;
+        if(det.panaxReactions)g.panaxReactions=det.panaxReactions;
+        if(insCtx.sel===g.id)drawDetail();
+      }
+    }).catch(()=>{g._panaxLoading=false;g._panaxLoaded=true});
+  }
   const srcs=enabledInteg().filter(s=>g.links[s.id]);
   const r=g.r||{};
   box.innerHTML=`<div class="gdet">
@@ -728,8 +860,11 @@ function drawDetail(){
     <div class="pop-h" style="padding:12px 0 6px">Дизайн карточки</div>
     <select id="gCardVar" class="inp" style="width:100%;margin-bottom:8px">
       <option value="classic">🃏 Классика</option>
-      <option value="poster">🎬 Постер</option>
-      <option value="neon">⚡ Неон</option>
+      <option value="duet">🎭 Дуэт (топ-2 реакции)</option>
+      <option value="editorial">📰 Вердикт (редакция)</option>
+      <option value="staircase">📊 Лестница (график)</option>
+      <option value="type">🔤 Типографика (шкалы)</option>
+      <option value="brutal">⬛ Брутализм (таблица)</option>
     </select>
     <div class="pop-h" style="padding:4px 0 6px">Вставить как</div>
     <div class="ins-list">
@@ -753,7 +888,7 @@ function drawDetail(){
 function gameData(g){
   const srcs=enabledInteg();const links={};srcs.forEach(s=>{if(g.links&&g.links[s.id])links[s.id]=g.links[s.id]});
   const gr=g.r||g.ratings||{};const ratings={};srcs.forEach(s=>{if(gr[s.id]!=null)ratings[s.id]=gr[s.id]});
-  return {gameId:g.id,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,source:(integ('panax')||srcs[0]||{}).name||''};
+  return {gameId:g.id,title:g.title,year:g.year,dev:g.dev,pub:g.pub,genres:g.genres,plat:g.plat,cover:g.cover,links,ratings,panaxReactions:g.panaxReactions||null,source:(integ('panax')||srcs[0]||{}).name||''};
 }
 function steamData(g){return {title:g.title,app:String(g.steam.app),price:g.steam.price,old:g.steam.old,disc:g.steam.disc,date:g.steam.date,tags:g.steam.tags,cover:g.cover,url:g.links.steam}}
 function ytData(g){return {title:g.trailer.t,channel:g.trailer.ch,dur:g.trailer.dur,url:g.trailer.url,cover:g.cover}}

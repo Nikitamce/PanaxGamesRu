@@ -101,6 +101,38 @@ async function panaxSearch(q) {
   if (!r.ok) throw new Error("HTTP " + r.status);
   return adaptPanaxSearch(await r.json());
 }
+async function panaxDetails(id) {
+  id = String(id || "").replace(/\D/g, "");
+  if (!id) return null;
+  const url = `https://panaxgames.com/game-detail/${id}`;
+  const r = await fetch(url, { credentials: "include", cache: "no-store" });
+  if (!r.ok) return null;
+  const html = await r.text();
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const coverEl = doc.querySelector('img[alt="Game Cover"]');
+  const cover = coverEl ? safeImageUrl(coverEl.getAttribute("src") || "") : "";
+  const text = (doc.body && doc.body.textContent) || "";
+  const keys = [
+    ["legendary", /(?:Legendary|Легенда)\s*(\d+(?:\.\d+)?)\s*%/i],
+    ["awesome", /(?:Awesome|Круто)\s*(\d+(?:\.\d+)?)\s*%/i],
+    ["good", /(?:Good|Хорошо)\s*(\d+(?:\.\d+)?)\s*%/i],
+    ["decent", /(?:Decent|Норм)\s*(\d+(?:\.\d+)?)\s*%/i],
+    ["dislike", /(?:Dislike|Плохо)\s*(\d+(?:\.\d+)?)\s*%/i],
+    ["awful", /(?:Awful|Ужас)\s*(\d+(?:\.\d+)?)\s*%/i]
+  ];
+  const panaxReactions = {};
+  let hasAny = false;
+  for (const [k, re] of keys) {
+    const m = text.match(re);
+    if (m) {
+      panaxReactions[k] = parseFloat(m[1]);
+      hasAny = true;
+    } else {
+      panaxReactions[k] = 0;
+    }
+  }
+  return { cover, panaxReactions: hasAny ? panaxReactions : null };
+}
 async function steamSearch(q, cc = "KZ") {
   const url = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=russian&cc=${encodeURIComponent(cc)}`;
   return adaptSteamSearch(await getJson(url));
@@ -188,6 +220,7 @@ if (typeof window !== "undefined" && window.document) {
     MAX_DATA_IMAGE,
     MAX_UPLOAD_BYTES,
     panaxSearch,
+    panaxDetails,
     steamSearch,
     steamDetails,
     steamWidgetPatch,

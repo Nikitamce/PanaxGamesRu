@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>Staircase — лестница реакций — Panax widget</title><style>
+:root{color-scheme:dark;--bg:#111317;--ink:#f5f5f2;--muted:#92969e;--line:#30343c;--surface:#1b1e24;--accent:#f1a500}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;}
+body{background:#111317;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;padding:24px;}
+a{color:inherit}
+.stage{width:100%;max-width:900px;margin:0 auto}
+.widget{position:relative;overflow:hidden;width:100%;border-radius:22px;}
+.kicker{font-size:10px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:var(--muted)}
+.game-title{font-size:clamp(27px,5vw,45px);font-weight:900;line-height:.98;letter-spacing:-.055em;margin:6px 0 8px}
+.game-meta{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.rating-item{min-width:0}
+.panax-link{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-weight:750;font-size:12px;white-space:nowrap;transition:transform .18s,opacity .18s}
+.panax-link:hover{transform:translateY(-2px);opacity:.82}
+.panax-link span{font-size:17px;line-height:1}
+.r-icon{display:grid;place-items:center}
+.r-name{font-weight:700}
+.r-pct{font-variant-numeric:tabular-nums}
+@media(max-width:540px){body{padding:14px}.widget{border-radius:17px}}
+
+
+.staircase{padding:28px 30px;background:#ece8df;color:#20201e;border-radius:3px}.staircase .kicker{color:#7b786f}.staircase .game-title{font-family:Georgia,serif;letter-spacing:-.06em}.staircase .game-meta{color:#77736a}.stairs-head{display:flex;justify-content:space-between;align-items:flex-start}.stairs-number{font-family:Georgia,serif;font-size:38px;line-height:.8;text-align:right}.stairs-number span{display:block;font-family:Arial,sans-serif;font-size:8px;letter-spacing:.2em;color:#888;margin-top:8px}.stairs-chart{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;height:190px;padding-top:24px;margin-top:18px;border-bottom:1px solid #bcb8ae}.step{height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-width:0}.step-cap{display:flex;flex-direction:column;align-items:center;margin-bottom:7px;gap:3px}.step-cap span{font-size:19px}.step-cap b{font-size:11px}.step-fill{height:var(--v);min-height:4px;background:var(--c);border-radius:4px 4px 0 0;opacity:.93}.step label{font-size:9px;font-weight:800;text-align:center;padding:8px 0 10px;background:color-mix(in srgb,var(--c),white 75%);border-bottom:3px solid var(--c)}.step4 .step-fill,.step6 .step-fill{height:4px}.stairs-foot{display:flex;justify-content:space-between;align-items:center;margin-top:17px;color:#8a857b;font-size:8px;letter-spacing:.16em;font-weight:900}.staircase .panax-link{background:#21211f;color:#fff;padding:10px 13px;border-radius:2px;font-family:Arial,sans-serif;letter-spacing:0;font-size:10px}
+@media(max-width:560px){.staircase{padding:20px}.stairs-chart{height:160px;gap:4px}.step label{font-size:8px}.step-cap span{font-size:15px}.step-cap b{font-size:10px}.stairs-foot{align-items:flex-start;flex-direction:column}}
+</style></head>
+<body><main class="stage"><article class="widget staircase">
+ <div class="stairs-head"><div><div class="kicker">REACTION LEVELS / PANAX</div><div class="game-title">NEON REQUIEM</div><div class="game-meta">От максимального восторга до полного разочарования</div></div><div class="stairs-number">06<span>LEVELS</span></div></div>
+ <div class="stairs-chart"><div class="step step1" style="--c:#f3cb16;--v:19.6%"><div class="step-cap"><span>🏆</span><b>19.6%</b></div><div class="step-fill"></div><label>Легенда</label></div><div class="step step2" style="--c:#f2a000;--v:41.2%"><div class="step-cap"><span>🤘</span><b>41.2%</b></div><div class="step-fill"></div><label>Круто</label></div><div class="step step3" style="--c:#bd55e9;--v:37.3%"><div class="step-cap"><span>😄</span><b>37.3%</b></div><div class="step-fill"></div><label>Хорошо</label></div><div class="step step4" style="--c:#3c9df3;--v:0.0%"><div class="step-cap"><span>✋</span><b>0.0%</b></div><div class="step-fill"></div><label>Норм</label></div><div class="step step5" style="--c:#8ea6af;--v:2.0%"><div class="step-cap"><span>😞</span><b>2.0%</b></div><div class="step-fill"></div><label>Плохо</label></div><div class="step step6" style="--c:#e34d68;--v:0.0%"><div class="step-cap"><span>🤢</span><b>0.0%</b></div><div class="step-fill"></div><label>Ужас</label></div></div>
+ <div class="stairs-foot"><span>ОЦЕНКИ СООБЩЕСТВА</span><a class="panax-link " href="YOUR_PANAX_GAME_URL" target="_blank" rel="noopener noreferrer">Оценки на Panax <span aria-hidden="true">↗</span></a></div>
+</article></main></body></html>

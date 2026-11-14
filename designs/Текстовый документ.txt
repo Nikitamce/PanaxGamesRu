@@ -1,0 +1,49 @@
+<div id="w8" class="bg-white text-black border-4 border-black grid grid-cols-1 md:grid-cols-12">
+          <div class="md:col-span-6 p-5 border-b-2 md:border-b-0 md:border-r-2 border-black flex flex-col justify-between gap-4">
+            <div class="flex gap-4 items-start">
+              <div id="w8-poster" class="w-16 aspect-[3/4] border-2 border-black shrink-0 overflow-hidden"><svg viewBox="0 0 120 160" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#141816"></rect><circle cx="82" cy="44" r="28" fill="#facc15" opacity="0.85"></circle><polygon points="0,160 45,82 95,160" fill="#1e2923"></polygon><polygon points="40,160 88,75 130,160" fill="#0f1512"></polygon><text x="10" y="145" fill="#fff" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11">NEON REQUIEM</text></svg></div>
+              <div>
+                <div id="w8-dev" class="font-mono-tech text-[10px] font-bold uppercase text-neutral-500">2025 · VOIDLINE STUDIO</div>
+                <h3 id="w8-title" class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tighter leading-none mt-1">Neon Requiem</h3>
+              </div>
+            </div>
+            <div class="flex items-end justify-between border-t-2 border-black pt-3">
+              <div>
+                <div class="font-mono-tech text-[10px] font-bold uppercase text-neutral-500">ДОМИНИРУЕТ</div>
+                <div id="w8-leader" class="font-display text-3xl font-extrabold uppercase text-orange-600 leading-none">41.2% КРУТО</div>
+              </div>
+              <a href="#panax-game" onclick="event.preventDefault();" class="font-mono-tech text-xs font-extrabold uppercase underline underline-offset-4 hover:text-orange-600">PANAXGAMES →</a>
+            </div>
+          </div>
+          <div id="w8-table" class="md:col-span-6 p-5 bg-neutral-100 grid grid-cols-2 gap-x-4 gap-y-2.5 font-mono-tech text-xs items-center">
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">ЛЕГЕНДА</span>
+          <span class="font-extrabold text-black">19.6%</span>
+        </div>
+      
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">КРУТО</span>
+          <span class="font-extrabold text-black">41.2%</span>
+        </div>
+      
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">ХОРОШО</span>
+          <span class="font-extrabold text-black">37.3%</span>
+        </div>
+      
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">НОРМ</span>
+          <span class="font-extrabold text-black">0.0%</span>
+        </div>
+      
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">ПЛОХО</span>
+          <span class="font-extrabold text-black">2.0%</span>
+        </div>
+      
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">УЖАС</span>
+          <span class="font-extrabold text-black">0.0%</span>
+        </div>
+      </div>
+        </div>

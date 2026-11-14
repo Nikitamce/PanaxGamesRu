@@ -86,10 +86,266 @@ function gameWidget(doc, r, d) {
     if (c) a.style.setProperty("--c", c);
     return a;
   });
+  const valid = ["classic", "duet", "editorial", "staircase", "type", "brutal"];
+  const v = valid.includes(d.variant) ? d.variant : "classic";
+  const panaxUrl = safeUrl((d.links && (d.links.panax || d.links.backloggd || d.links.igdb)) || "") || "#";
+  const rxDefs = [
+    { k: "legendary", name: "Легенда", color: "#f4b93e" },
+    { k: "awesome", name: "Круто", color: "#e0527d" },
+    { k: "good", name: "Хорошо", color: "#4098e8" },
+    { k: "decent", name: "Норм", color: "#33b489" },
+    { k: "dislike", name: "Плохо", color: "#f2834b" },
+    { k: "awful", name: "Ужас", color: "#7b8399" }
+  ];
+  const rxRaw = d.panaxReactions || {};
+  const rx = rxDefs.map((x) => ({
+    k: x.k,
+    name: x.name,
+    color: x.color,
+    val: Number.isFinite(Number(rxRaw[x.k])) ? Number(rxRaw[x.k]) : 0
+  }));
+  const sorted = [...rx].sort((a, b) => b.val - a.val);
+  const top1 = sorted[0];
+  const top2 = sorted[1];
+  const sub = [d.dev, d.year].filter(Boolean).join(" \xB7 ");
+
+  if (v === "duet") {
+    return h(
+      doc,
+      "div",
+      { class: "w w-game v-duet" },
+      h(
+        doc,
+        "div",
+        { class: "duet-top" },
+        h(
+          doc,
+          "div",
+          {},
+          h(doc, "div", { class: "duet-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
+          h(doc, "div", { class: "duet-sub", text: sub || d.pub || "PANAX" })
+        ),
+        img(doc, d.cover, d.gameId || d.title, d.title, "duet-cover")
+      ),
+      h(
+        doc,
+        "div",
+        { class: "duet-pair" },
+        ...[top1, top2].map((t) =>
+          h(
+            doc,
+            "div",
+            { class: "duet-big" },
+            h(doc, "div", { class: "duet-num", style: `color:${t.color}`, text: `${t.val}%` }),
+            h(
+              doc,
+              "div",
+              { class: "duet-lbl" },
+              h(doc, "span", { class: "duet-dot", style: `background:${t.color}` }),
+              t.name
+            )
+          )
+        )
+      ),
+      h(
+        doc,
+        "div",
+        { class: "duet-foot" },
+        h(
+          doc,
+          "div",
+          { class: "duet-dots" },
+          ...rx.map((x) => h(doc, "span", { title: `${x.name}: ${x.val}%`, style: `background:${x.color}` }))
+        ),
+        h(doc, "a", { class: "duet-link", href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAX \u2192" })
+      )
+    );
+  }
+  if (v === "editorial") {
+    const rest = sorted.slice(1);
+    return h(
+      doc,
+      "div",
+      { class: "w w-game v-editorial" },
+      h(doc, "div", { class: "ed-ring" }),
+      h(
+        doc,
+        "div",
+        { class: "ed-head" },
+        h(doc, "div", { class: "ed-kicker", text: `GAME / ${d.year || "PANAX"} \xB7 PLAYER VERDICT` }),
+        h(doc, "div", { class: "ed-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
+        h(doc, "div", { class: "ed-sub", text: [d.dev, d.pub].filter(Boolean).join(" / ") || "\u0421\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E PANAX" })
+      ),
+      h(
+        doc,
+        "div",
+        { class: "ed-feat" },
+        h(
+          doc,
+          "div",
+          {},
+          h(
+            doc,
+            "div",
+            { class: "ed-feat-lbl" },
+            h(doc, "span", { class: "ed-dot", style: `background:${top1.color}` }),
+            top1.name
+          ),
+          h(doc, "div", { class: "ed-feat-cap", text: "\u0413\u043B\u0430\u0432\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" })
+        ),
+        h(doc, "div", { class: "ed-feat-val", style: `color:${top1.color}`, text: `${top1.val}%` })
+      ),
+      h(
+        doc,
+        "div",
+        { class: "ed-grid" },
+        ...rest.map((x) =>
+          h(
+            doc,
+            "div",
+            { class: "ed-cell" },
+            h(doc, "span", { class: "ed-cell-n" }, h(doc, "span", { class: "ed-dot", style: `background:${x.color}` }), x.name),
+            h(doc, "span", { class: "ed-cell-v", text: `${x.val}%` })
+          )
+        )
+      ),
+      h(
+        doc,
+        "div",
+        { class: "ed-foot" },
+        h(doc, "span", { text: (d.genres || []).slice(0, 2).join(" \xB7 ") || "PANAX" }),
+        h(doc, "a", { href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAXGAMES.COM \u2192" })
+      )
+    );
+  }
+  if (v === "staircase") {
+    const maxV = Math.max(1, ...rx.map((x) => x.val));
+    return h(
+      doc,
+      "div",
+      { class: "w w-game v-staircase" },
+      h(
+        doc,
+        "div",
+        { class: "st-head" },
+        h(
+          doc,
+          "div",
+          {},
+          h(doc, "div", { class: "st-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
+          h(doc, "div", { class: "st-sub", text: sub || "\u041E\u0446\u0435\u043D\u043A\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432" })
+        ),
+        img(doc, d.cover, d.gameId || d.title, d.title, "st-cover")
+      ),
+      h(
+        doc,
+        "div",
+        { class: "st-chart" },
+        ...rx.map((x) => {
+          const ht = Math.max(6, Math.round((x.val / maxV) * 92));
+          return h(
+            doc,
+            "div",
+            { class: "st-col" },
+            h(doc, "div", { class: "st-pct", text: `${x.val}%` }),
+            h(doc, "div", { class: "st-bar", style: `height:${ht}px;background:${x.color}` }),
+            h(doc, "div", { class: "st-lbl", text: x.name })
+          );
+        })
+      ),
+      h(
+        doc,
+        "div",
+        { class: "st-foot" },
+        h(doc, "span", { text: "PANAX COMMUNITY" }),
+        h(doc, "a", { href: panaxUrl, target: "_blank", rel: "noopener", text: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u2192" })
+      )
+    );
+  }
+  if (v === "type") {
+    const maxV = Math.max(1, ...rx.map((x) => x.val));
+    return h(
+      doc,
+      "div",
+      { class: "w w-game v-type" },
+      h(
+        doc,
+        "div",
+        { class: "tp-hero" },
+        h(doc, "div", { class: "tp-title", text: d.title || "\u0418\u0433\u0440\u0430" }),
+        h(doc, "div", { class: "tp-meta", text: [d.year, d.dev].filter(Boolean).join(" \xB7 ") || "PANAX" })
+      ),
+      h(
+        doc,
+        "div",
+        { class: "tp-rows" },
+        ...rx.map((x) => {
+          const w = Math.max(2, Math.round((x.val / maxV) * 100));
+          return h(
+            doc,
+            "div",
+            { class: "tp-row" },
+            h(doc, "span", { class: "tp-name", text: x.name }),
+            h(doc, "div", { class: "tp-track" }, h(doc, "div", { class: "tp-fill", style: `width:${w}%;background:${x.color}` })),
+            h(doc, "span", { class: "tp-val", text: `${x.val}%` })
+          );
+        })
+      ),
+      h(doc, "div", { class: "tp-foot" }, h(doc, "a", { href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAXGAMES \u2192" }))
+    );
+  }
+  if (v === "brutal") {
+    return h(
+      doc,
+      "div",
+      { class: "w w-game v-brutal" },
+      h(
+        doc,
+        "div",
+        { class: "br-left" },
+        h(
+          doc,
+          "div",
+          { class: "br-top" },
+          img(doc, d.cover, d.gameId || d.title, d.title, "br-cover"),
+          h(
+            doc,
+            "div",
+            {},
+            h(doc, "div", { class: "br-meta", text: sub || "PANAX" }),
+            h(doc, "div", { class: "br-title", text: d.title || "\u0418\u0433\u0440\u0430" })
+          )
+        ),
+        h(
+          doc,
+          "div",
+          { class: "br-dom" },
+          h(doc, "span", { class: "br-dom-k", text: "\u0414\u041E\u041C\u0418\u041D\u0418\u0420\u0423\u0415\u0422" }),
+          h(doc, "span", { class: "br-dom-v", style: `color:${top1.color}`, text: `${top1.name} \xB7 ${top1.val}%` })
+        ),
+        h(doc, "a", { class: "br-link", href: panaxUrl, target: "_blank", rel: "noopener", text: "PANAXGAMES \u2192" })
+      ),
+      h(
+        doc,
+        "div",
+        { class: "br-right" },
+        ...rx.map((x) =>
+          h(
+            doc,
+            "div",
+            { class: "br-row" },
+            h(doc, "span", { class: "br-rname" }, h(doc, "span", { class: "br-dot", style: `background:${x.color}` }), x.name),
+            h(doc, "span", { class: "br-rval", text: `${x.val}%` })
+          )
+        )
+      )
+    );
+  }
+
   return h(
     doc,
     "div",
-    { class: "w w-game v-" + (d.variant === "poster" || d.variant === "neon" ? d.variant : "classic") },
+    { class: "w w-game v-classic" },
     img(doc, d.cover, d.gameId || d.title, d.title, "w-cover"),
     h(
       doc,

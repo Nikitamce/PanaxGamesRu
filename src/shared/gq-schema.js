@@ -158,9 +158,18 @@ function normalizeImageData(d) {
 function widgetData(type, d) {
   d = isObj(d) ? d : {};
   if (type === "game") {
+    const validVariants = ["classic", "duet", "editorial", "staircase", "type", "brutal"];
+    let panaxReactions = null;
+    if (isObj(d.panaxReactions)) {
+      panaxReactions = {};
+      for (const k of ["legendary", "awesome", "good", "decent", "dislike", "awful"]) {
+        const v = Number(d.panaxReactions[k]);
+        panaxReactions[k] = Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v * 10) / 10)) : 0;
+      }
+    }
     return {
       gameId: str(d.gameId, 80),
-      variant: d.variant === "poster" || d.variant === "neon" ? d.variant : "classic",
+      variant: validVariants.includes(d.variant) ? d.variant : "classic",
       title: str(d.title, 200),
       year: str(d.year, 12),
       dev: str(d.dev, 120),
@@ -170,6 +179,7 @@ function widgetData(type, d) {
       cover: safeImageUrl(d.cover),
       links: keyMap(d.links, safeUrl),
       ratings: keyMap(d.ratings, (x) => str(x, 16)),
+      panaxReactions,
       source: str(d.source, 40)
     };
   }
