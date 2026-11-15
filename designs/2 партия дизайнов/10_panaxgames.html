@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 дизайнов виджета для Panaxgames — шкала эмоций</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #121316;
+      background-image: radial-gradient(#24262d 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-editorial { font-family: 'Instrument Serif', Georgia, serif; }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Tactile Paper Grid */
+    .te-grid-bg {
+      background-color: #f4f0e6;
+      background-image:
+        linear-gradient(to right, rgba(20, 20, 19, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20, 20, 19, 0.05) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    /* CRT Scanlines */
+    .crt-box {
+      position: relative;
+      background: #060b08;
+      border: 1px solid #1e462d;
+      overflow: hidden;
+    }
+    .crt-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2) 1px, transparent 1px, transparent 3px);
+      pointer-events: none;
+    }
+
+    /* Smooth bar transitions */
+    .bar-anim {
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20">
+
+  <!-- Sticky Header -->
+  <header class="sticky top-0 z-40 border-b border-zinc-800 bg-[#121316]/95 backdrop-blur-md">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 text-black flex items-center justify-center font-mono-tech font-extrabold text-xs shadow">
+          PX
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-display font-bold text-white tracking-tight flex items-center gap-2">
+            10 дизайнов виджета для Panaxgames
+            <span class="font-mono-tech text-[10px] uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">6-шкальная оценка</span>
+          </h1>
+          <p class="text-xs text-zinc-400 hidden sm:block">Легенда · Круто · Хорошо · Норм · Плохо · Ужас + кнопка перехода на Panaxgames</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <select id="select-game" aria-label="Выбор игры" class="bg-zinc-900 text-xs font-mono-tech text-zinc-200 rounded-lg px-3 py-2 border border-zinc-700 focus:outline-none focus:border-amber-400">
+          <option value="neon">Neon Requiem (как на твоём скрине: Круто 41.2%)</option>
+          <option value="rdr2">Red Dead Redemption 2 (Легенда 68.4%)</option>
+          <option value="beholder">Beholder: Conductor (Круто 38.5% / Хорошо 34%)</option>
+        </select>
+
+        <button id="btn-toggle-context" type="button" class="px-3 py-2 rounded-lg text-xs font-mono-tech bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 transition">
+          <span id="context-label">В тексте обзора: Вкл</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Nav -->
+    <div class="border-t border-zinc-800/80 bg-[#0d0e10]">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2 flex items-center gap-1.5 overflow-x-auto">
+        <span class="font-mono-tech text-[10px] uppercase text-zinc-500 mr-1 shrink-0">Концепты:</span>
+        <a href="#p1" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-amber-300 shrink-0">01 Полоса + Медаль</a>
+        <a href="#p2" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-orange-300 shrink-0">02 Эквалайзер</a>
+        <a href="#p3" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-purple-300 shrink-0">03 Кольцо</a>
+        <a href="#p4" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-stone-200 shrink-0">04 Бумажный билет</a>
+        <a href="#p5" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-emerald-300 shrink-0">05 Топ-3 Подиум</a>
+        <a href="#p6" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-sky-300 shrink-0">06 Синематик</a>
+        <a href="#p7" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-green-400 shrink-0">07 Терминал</a>
+        <a href="#p8" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-white shrink-0">08 Швейцарский</a>
+        <a href="#p9" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-rose-300 shrink-0">09 Волна</a>
+        <a href="#p10" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-zinc-800/70 hover:bg-zinc-700 text-cyan-300 shrink-0">10 Компакт-строка</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-7 space-y-11">
+
+    <!-- Live Editor for Panaxgames 6-tier Percentages -->
+    <section class="rounded-2xl bg-[#191b20] border border-zinc-800 p-4 sm:p-5 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="text-sm font-display font-bold text-white">Живой редактор оценок Panaxgames</h2>
+          <p class="text-xs text-zinc-400">Меняй название или проценты любой из 6 реакций — все 10 виджетов пересчитают лидера и перерисуются</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="inp-title" type="text" value="Neon Requiem" aria-label="Название игры" class="rounded-lg bg-[#101114] border border-zinc-700 px-3 py-1.5 text-xs text-white font-semibold focus:outline-none focus:border-amber-400">
+          <input id="inp-dev" type="text" value="2025 · Voidline Studio" aria-label="Год и студия" class="rounded-lg bg-[#101114] border border-zinc-700 px-3 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-amber-400">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
+        <div class="bg-[#101114] border border-yellow-500/30 rounded-xl p-2.5">
+          <label for="inp-p0" class="block font-mono-tech text-[10px] font-bold uppercase text-yellow-400 mb-1">🏆 Легенда %</label>
+          <input id="inp-p0" type="number" step="0.1" min="0" max="100" value="19.6" class="w-full bg-transparent text-sm font-mono-tech font-bold text-white focus:outline-none">
+        </div>
+        <div class="bg-[#101114] border border-orange-500/30 rounded-xl p-2.5">
+          <label for="inp-p1" class="block font-mono-tech text-[10px] font-bold uppercase text-orange-400 mb-1">🤩 Круто %</label>
+          <input id="inp-p1" type="number" step="0.1" min="0" max="100" value="41.2" class="w-full bg-transparent text-sm font-mono-tech font-bold text-white focus:outline-none">
+        </div>
+        <div class="bg-[#101114] border border-purple-500/30 rounded-xl p-2.5">
+          <label for="inp-p2" class="block font-mono-tech text-[10px] font-bold uppercase text-purple-400 mb-1">👍 Хорошо %</label>
+          <input id="inp-p2" type="number" step="0.1" min="0" max="100" value="37.3" class="w-full bg-transparent text-sm font-mono-tech font-bold text-white focus:outline-none">
+        </div>
+        <div class="bg-[#101114] border border-sky-500/30 rounded-xl p-2.5">
+          <label for="inp-p3" class="block font-mono-tech text-[10px] font-bold uppercase text-sky-400 mb-1">👌 Норм %</label>
+          <input id="inp-p3" type="number" step="0.1" min="0" max="100" value="0.0" class="w-full bg-transparent text-sm font-mono-tech font-bold text-white focus:outline-none">
+        </div>
+        <div class="bg-[#101114] border border-slate-500/30 rounded-xl p-2.5">
+          <label for="inp-p4" class="block font-mono-tech text-[10px] font-bold uppercase text-slate-400 mb-1">👎 Плохо %</label>
+          <input id="inp-p4" type="number" step="0.1" min="0" max="100" value="2.0" class="w-full bg-transparent text-sm font-mono-tech font-bold text-white focus:outline-none">
+        </div>
+        <div class="bg-[#101114] border border-rose-500/30 rounded-xl p-2.5">
+          <label for="inp-p5" class="block font-mono-tech text-[10px] font-bold uppercase text-rose-400 mb-1">🤢 Ужас %</label>
+          <input id="inp-p5" type="number" step="0.1" min="0" max="100" value="0.0" class="w-full bg-transparent text-sm font-mono-tech font-bold text-white focus:outline-none">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         01. STACKED SENTIMENT BAR & HERO MEDAL
+         ========================================================== -->
+    <section id="p1" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-amber-400 text-black">01 // Stacked Bar + Medal</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Единая полоса эмоций + медаль главного вердикта</h2>
+        </div>
+        <button data-copy="w1" data-label="01 Полоса + Медаль" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <p class="review-ctx text-sm text-zinc-300 mb-4 leading-relaxed">Судя по реакциям игроков на Panaxgames, релиз приняли очень тепло:</p>
+        <div id="w1" class="rounded-2xl bg-[#101115] border border-zinc-800 p-5 space-y-5 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div id="w1-poster" class="w-16 h-22 aspect-[3/4] rounded-lg overflow-hidden border border-white/10 shrink-0"></div>
+              <div>
+                <div class="font-mono-tech text-[10px] uppercase tracking-widest text-emerald-400 font-bold">PANAXGAMES · ОЦЕНКИ ИГРОКОВ</div>
+                <h3 id="w1-title" class="font-display text-2xl font-bold text-white leading-tight">Neon Requiem</h3>
+                <div id="w1-dev" class="text-xs text-zinc-400">2025 · Voidline Studio</div>
+              </div>
+            </div>
+            <!-- Dominant Verdict Medal + Panax Link -->
+            <div class="flex items-center gap-3 self-start sm:self-center">
+              <div id="w1-leader-box" class="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/10">
+                <div id="w1-leader-icon" class="w-9 h-9 shrink-0"></div>
+                <div>
+                  <div id="w1-leader-name" class="font-mono-tech text-xs font-extrabold uppercase text-orange-400">КРУТО</div>
+                  <div id="w1-leader-pct" class="font-mono-tech text-sm font-bold text-white">41.2% игроков</div>
+                </div>
+              </div>
+              <a href="#panax-game" onclick="event.preventDefault();" class="px-4 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-xs transition shrink-0 flex items-center gap-1.5">
+                <span>На Panaxgames</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+          <!-- Stacked Horizontal Bar -->
+          <div class="space-y-2.5">
+            <div id="w1-bar" class="h-3.5 w-full rounded-full overflow-hidden flex bg-zinc-800 gap-0.5 p-0.5"></div>
+            <div id="w1-legend" class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         02. COMPACT EQUALIZER PILLARS (Улучшенные вертикальные столбики)
+         ========================================================== -->
+    <section id="p2" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-orange-500 text-black">02 // Equalizer</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Прокачанный эквалайзер Panax с обложкой и кнопкой перехода</h2>
+        </div>
+        <button data-copy="w2" data-label="02 Эквалайзер" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w2" class="rounded-2xl bg-[#141519] border border-white/10 p-5 flex flex-col md:flex-row gap-6 items-stretch justify-between">
+          <div class="flex flex-col justify-between gap-4 md:w-64 shrink-0">
+            <div class="flex items-center gap-3.5">
+              <div id="w2-poster" class="w-20 aspect-[3/4] rounded-xl overflow-hidden border border-white/15 shrink-0"></div>
+              <div>
+                <span class="font-mono-tech text-[10px] uppercase tracking-wider text-zinc-400">КАРТОЧКА PANAX</span>
+                <h3 id="w2-title" class="font-display text-xl font-bold text-white leading-tight mt-0.5">Neon Requiem</h3>
+                <div id="w2-dev" class="text-xs text-zinc-400 mt-1">2025 · Voidline Studio</div>
+              </div>
+            </div>
+            <a href="#panax-game" onclick="event.preventDefault();" class="w-full py-2.5 px-4 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-display font-bold text-xs text-center transition flex items-center justify-center gap-2">
+              <span>Открыть игру на Panaxgames</span>
+              <span>→</span>
+            </a>
+          </div>
+          <!-- 6 Vertical Pillars -->
+          <div id="w2-pillars" class="flex-1 grid grid-cols-6 gap-2 sm:gap-3 items-end pt-2 border-t md:border-t-0 md:border-l border-white/10 md:pl-6"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         03. DONUT CHART & BREAKDOWN LIST
+         ========================================================== -->
+    <section id="p3" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-purple-500 text-white">03 // Donut Chart</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Кольцевая диаграмма настроений и сводка</h2>
+        </div>
+        <button data-copy="w3" data-label="03 Кольцо" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w3" class="rounded-2xl bg-[#0e1015] border border-zinc-800 p-5 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-4 w-full md:w-auto">
+            <div id="w3-poster" class="w-20 aspect-[3/4] rounded-xl overflow-hidden border border-white/10 shrink-0"></div>
+            <div class="space-y-2">
+              <div class="font-mono-tech text-[10px] uppercase tracking-widest text-purple-400 font-bold">PANAXGAMES VERDICT</div>
+              <h3 id="w3-title" class="font-display text-2xl font-bold text-white leading-none">Neon Requiem</h3>
+              <div id="w3-dev" class="text-xs text-zinc-400">2025 · Voidline Studio</div>
+              <a href="#panax-game" onclick="event.preventDefault();" class="inline-flex items-center gap-1.5 text-xs font-mono-tech font-bold text-emerald-400 hover:underline pt-1">
+                <span>Страница на Panaxgames</span><span>↗</span>
+              </a>
+            </div>
+          </div>
+          <!-- Donut + 6-item list -->
+          <div class="flex flex-col sm:flex-row items-center gap-5 w-full md:w-auto justify-end">
+            <div class="relative w-32 h-32 shrink-0 flex items-center justify-center">
+              <svg id="w3-donut" viewBox="0 0 120 120" class="w-32 h-32 -rotate-90"></svg>
+              <div class="absolute text-center">
+                <div id="w3-center-pct" class="font-mono-tech text-lg font-extrabold text-white leading-none">41.2%</div>
+                <div id="w3-center-lbl" class="font-mono-tech text-[9px] font-bold uppercase text-orange-400 mt-0.5">КРУТО</div>
+              </div>
+            </div>
+            <div id="w3-list" class="grid grid-cols-2 gap-x-5 gap-y-1.5 text-xs font-mono-tech w-full sm:w-auto"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         04. TACTILE PRINT TICKET (Бумажное досье Panax)
+         ========================================================== -->
+    <section id="p4" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-[#f4f0e6] text-black">04 // Paper Ticket</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Тактильный бумажный билет со шкалой клавиш</h2>
+        </div>
+        <button data-copy="w4" data-label="04 Билет" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w4" class="te-grid-bg text-[#141413] rounded-2xl border-2 border-[#141413] shadow-[6px_6px_0_#000] overflow-hidden">
+          <div class="bg-[#141413] text-[#f4f0e6] px-5 py-2 flex justify-between items-center font-mono-tech text-[11px]">
+            <span class="font-bold tracking-widest">PANAXGAMES // РЕЙТИНГ СООБЩЕСТВА</span>
+            <a href="#panax-game" onclick="event.preventDefault();" class="text-[#c8f904] font-bold hover:underline">ПЕРЕЙТИ НА PANAX ↗</a>
+          </div>
+          <div class="p-5 flex flex-col md:flex-row gap-5 items-center justify-between">
+            <div class="flex items-center gap-4 w-full md:w-auto">
+              <div id="w4-poster" class="w-20 aspect-[3/4] border-2 border-[#141413] shadow-[3px_3px_0_#141413] shrink-0 overflow-hidden"></div>
+              <div>
+                <div id="w4-dev" class="font-mono-tech text-[10px] font-bold uppercase text-stone-600">2025 · VOIDLINE STUDIO</div>
+                <h3 id="w4-title" class="font-display text-2xl sm:text-3xl font-extrabold leading-none mt-0.5">Neon Requiem</h3>
+                <div class="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#141413] text-white font-mono-tech text-xs font-bold">
+                  <span>ЛИДЕР:</span>
+                  <span id="w4-leader" class="text-amber-300">КРУТО (41.2%)</span>
+                </div>
+              </div>
+            </div>
+            <!-- 6 Mechanical Keys -->
+            <div id="w4-keys" class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 w-full md:w-auto"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         05. TOP-3 PODIUM + REST SUMMARY
+         ========================================================== -->
+    <section id="p5" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-emerald-400 text-black">05 // Top-3 Podium</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Подиум Топ-3 главных реакций (без пустых нулей)</h2>
+        </div>
+        <button data-copy="w5" data-label="05 Топ-3 Подиум" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w5" class="rounded-2xl bg-[#111318] border border-zinc-800 p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3.5">
+              <div id="w5-poster" class="w-14 h-18 aspect-[3/4] rounded-lg overflow-hidden border border-white/10 shrink-0"></div>
+              <div>
+                <h3 id="w5-title" class="font-display text-xl font-bold text-white">Neon Requiem</h3>
+                <div id="w5-dev" class="text-xs text-zinc-400">2025 · Voidline Studio</div>
+              </div>
+            </div>
+            <a href="#panax-game" onclick="event.preventDefault();" class="px-3.5 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 font-mono-tech text-xs font-bold transition">
+              Panaxgames ↗
+            </a>
+          </div>
+          <!-- Top 3 Cards -->
+          <div id="w5-podium" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+          <!-- Remaining 3 compact line -->
+          <div id="w5-rest" class="text-[11px] font-mono-tech text-zinc-500 flex flex-wrap gap-x-4 gap-y-1 pt-1 border-t border-white/5"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         06. CINEMATIC WIDESCREEN + BOTTOM SENTIMENT STRIP
+         ========================================================== -->
+    <section id="p6" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-sky-500 text-white">06 // Cinematic Strip</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Широкоформатный кадр с нижней лентой оценок Panax</h2>
+        </div>
+        <button data-copy="w6" data-label="06 Синематик" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w6" class="relative rounded-2xl overflow-hidden border border-white/15 bg-black">
+          <div id="w6-art" class="absolute inset-0 opacity-65"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+          <div class="relative z-10 p-5 sm:p-6 space-y-5">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <span class="font-mono-tech text-[10px] uppercase tracking-widest text-amber-300 font-bold">PANAXGAMES FEATURE</span>
+                <h3 id="w6-title" class="font-display text-3xl font-bold text-white leading-none mt-1">Neon Requiem</h3>
+                <div id="w6-dev" class="text-xs text-zinc-300 mt-1">2025 · Voidline Studio</div>
+              </div>
+              <a href="#panax-game" onclick="event.preventDefault();" class="px-4 py-2 rounded-full bg-white text-black font-display font-bold text-xs hover:bg-amber-300 transition">
+                Смотреть на Panaxgames ↗
+              </a>
+            </div>
+            <!-- 6 Frosted Mini Cells -->
+            <div id="w6-cells" class="grid grid-cols-3 sm:grid-cols-6 gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         07. CRT TERMINAL ASCII HISTOGRAM
+         ========================================================== -->
+    <section id="p7" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-green-950 text-green-400 border border-green-700">07 // Terminal Matrix</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Терминал с ASCII-гистограммой всех 6 оценок</h2>
+        </div>
+        <button data-copy="w7" data-label="07 Терминал" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w7" class="crt-box rounded-xl p-5 font-mono-tech text-emerald-400 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-500/30 pb-2 text-xs">
+            <span>$ panax --ratings "<strong id="w7-title" class="text-white">Neon Requiem</strong>"</span>
+            <a href="#panax-game" onclick="event.preventDefault();" class="bg-emerald-400 text-black font-bold px-2 py-0.5 hover:bg-white">[OPEN: PANAXGAMES]</a>
+          </div>
+          <div id="w7-rows" class="space-y-1.5 text-xs"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         08. SWISS EDITORIAL GRID
+         ========================================================== -->
+    <section id="p8" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-white text-black">08 // Swiss Grid</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Швейцарский модернизм — крупный вердикт и таблица</h2>
+        </div>
+        <button data-copy="w8" data-label="08 Швейцарский" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w8" class="bg-white text-black border-4 border-black grid grid-cols-1 md:grid-cols-12">
+          <div class="md:col-span-6 p-5 border-b-2 md:border-b-0 md:border-r-2 border-black flex flex-col justify-between gap-4">
+            <div class="flex gap-4 items-start">
+              <div id="w8-poster" class="w-16 aspect-[3/4] border-2 border-black shrink-0 overflow-hidden"></div>
+              <div>
+                <div id="w8-dev" class="font-mono-tech text-[10px] font-bold uppercase text-neutral-500">2025 · VOIDLINE STUDIO</div>
+                <h3 id="w8-title" class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tighter leading-none mt-1">Neon Requiem</h3>
+              </div>
+            </div>
+            <div class="flex items-end justify-between border-t-2 border-black pt-3">
+              <div>
+                <div class="font-mono-tech text-[10px] font-bold uppercase text-neutral-500">ДОМИНИРУЕТ</div>
+                <div id="w8-leader" class="font-display text-3xl font-extrabold uppercase text-orange-600 leading-none">41.2% КРУТО</div>
+              </div>
+              <a href="#panax-game" onclick="event.preventDefault();" class="font-mono-tech text-xs font-extrabold uppercase underline underline-offset-4 hover:text-orange-600">PANAXGAMES →</a>
+            </div>
+          </div>
+          <div id="w8-table" class="md:col-span-6 p-5 bg-neutral-100 grid grid-cols-2 gap-x-4 gap-y-2.5 font-mono-tech text-xs items-center"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         09. SENTIMENT WAVE / SVG CURVE
+         ========================================================== -->
+    <section id="p9" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-rose-500 text-white">09 // Sentiment Curve</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Волна мнений — плавный график от «Легенда» до «Ужас»</h2>
+        </div>
+        <button data-copy="w9" data-label="09 Волна" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <div id="w9" class="rounded-2xl bg-[#12131a] border border-white/10 p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div id="w9-poster" class="w-12 h-14 rounded-lg overflow-hidden border border-white/15 shrink-0"></div>
+              <div>
+                <h3 id="w9-title" class="font-display text-xl font-bold text-white leading-tight">Neon Requiem</h3>
+                <div id="w9-dev" class="text-xs text-zinc-400">2025 · Voidline Studio · Panaxgames</div>
+              </div>
+            </div>
+            <a href="#panax-game" onclick="event.preventDefault();" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono-tech text-xs font-bold border border-white/15 transition">
+              Panaxgames ↗
+            </a>
+          </div>
+          <!-- SVG Area Wave -->
+          <div class="bg-black/40 border border-white/5 rounded-xl p-3">
+            <svg id="w9-svg" viewBox="0 0 600 110" class="w-full h-28 overflow-visible"></svg>
+            <div id="w9-labels" class="grid grid-cols-6 gap-1 text-center font-mono-tech text-[10px] mt-1"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         10. ULTRA-COMPACT INLINE STRIP
+         ========================================================== -->
+    <section id="p10" class="space-y-3 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono-tech text-xs font-bold px-2.5 py-1 rounded bg-cyan-500 text-black">10 // Compact Strip</span>
+          <h2 class="text-base sm:text-lg font-display font-bold text-white">Ультра-компактная строка для вставки прямо в текст обзора</h2>
+        </div>
+        <button data-copy="w10" data-label="10 Компакт-строка" type="button" class="copy-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#18191d] border border-zinc-800 p-4 sm:p-6">
+        <p class="review-ctx text-sm text-zinc-300 mb-3 leading-relaxed">Компактная врезка, которая не разрывает повествование:</p>
+        <div id="w10" class="rounded-xl bg-[#111216] border border-zinc-700/80 px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div id="w10-poster" class="w-10 h-12 rounded overflow-hidden shrink-0 border border-white/10"></div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <h3 id="w10-title" class="font-display text-sm sm:text-base font-bold text-white truncate">Neon Requiem</h3>
+                <span id="w10-dev" class="text-xs text-zinc-400 hidden sm:inline truncate">2025 · Voidline Studio</span>
+              </div>
+              <div id="w10-mini-bar" class="h-1.5 w-44 sm:w-56 rounded-full overflow-hidden flex bg-zinc-800 mt-1.5"></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 shrink-0">
+            <div id="w10-badge" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-500/15 border border-orange-500/30 font-mono-tech text-xs font-bold text-orange-300">
+              <span>КРУТО · 41.2%</span>
+            </div>
+            <a href="#panax-game" onclick="event.preventDefault();" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono-tech text-xs font-extrabold transition">
+              Panaxgames ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-2.5 rounded-lg bg-emerald-500 text-black font-mono-tech font-bold text-xs shadow-xl">
+      <span id="toast-msg">HTML скопирован!</span>
+    </div>
+  </div>
+
+  <script>
+    // 6 Panaxgames Tiers matching the screenshot
+    const TIERS = [
+      { key: 'legend', label: 'ЛЕГЕНДА', short: 'ЛЕГ', color: '#facc15', textCls: 'text-yellow-400', bgCls: 'bg-yellow-400', emoji: '👑' },
+      { key: 'cool',   label: 'КРУТО',   short: 'КРТ', color: '#f97316', textCls: 'text-orange-400', bgCls: 'bg-orange-500', emoji: '🤩' },
+      { key: 'good',   label: 'ХОРОШО',  short: 'ХОР', color: '#c084fc', textCls: 'text-purple-400', bgCls: 'bg-purple-400', emoji: '👍' },
+      { key: 'norm',   label: 'НОРМ',    short: 'НРМ', color: '#38bdf8', textCls: 'text-sky-400',    bgCls: 'bg-sky-400',    emoji: '👌' },
+      { key: 'bad',    label: 'ПЛОХО',   short: 'ПЛХ', color: '#94a3b8', textCls: 'text-slate-400',  bgCls: 'bg-slate-400',  emoji: '👎' },
+      { key: 'awful',  label: 'УЖАС',    short: 'УЖС', color: '#ef4444', textCls: 'text-rose-400',   bgCls: 'bg-rose-500',   emoji: '🤢' }
+    ];
+
+    function makeBadgeSvg(tier, size = 36) {
+      return `
+        <svg viewBox="0 0 40 40" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" fill="${tier.color}" fill-opacity="0.2" stroke="${tier.color}" stroke-width="2.5"/>
+          <text x="20" y="25" text-anchor="middle" font-size="18">${tier.emoji}</text>
+        </svg>
+      `;
+    }
+
+    const GAMES = {
+      neon: {
+        title: 'Neon Requiem',
+        dev: '2025 · Voidline Studio',
+        pcts: [19.6, 41.2, 37.3, 0.0, 2.0, 0.0],
+        posterSvg: `<svg viewBox="0 0 120 160" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#141816"/><circle cx="82" cy="44" r="28" fill="#facc15" opacity="0.85"/><polygon points="0,160 45,82 95,160" fill="#1e2923"/><polygon points="40,160 88,75 130,160" fill="#0f1512"/><text x="10" y="145" fill="#fff" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11">NEON REQUIEM</text></svg>`,
+        wideSvg: `<svg viewBox="0 0 900 300" preserveAspectRatio="xMidYMid slice" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="300" fill="#111815"/><circle cx="680" cy="110" r="120" fill="#f97316" opacity="0.55"/><polygon points="300,300 520,80 740,300" fill="#18221d"/><polygon points="520,300 720,60 940,300" fill="#0d1310"/></svg>`
+      },
+      rdr2: {
+        title: 'Red Dead Redemption 2',
+        dev: '2018 · Rockstar Games',
+        pcts: [68.4, 22.1, 6.5, 1.8, 0.7, 0.5],
+        posterSvg: `<svg viewBox="0 0 120 160" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#7f1d1d"/><circle cx="60" cy="65" r="32" fill="#f59e0b"/><polygon points="0,160 40,105 80,120 120,100 120,160" fill="#141413"/><text x="10" y="145" fill="#fef3c7" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11">RED DEAD II</text></svg>`,
+        wideSvg: `<svg viewBox="0 0 900 300" preserveAspectRatio="xMidYMid slice" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="300" fill="#450a0a"/><circle cx="670" cy="130" r="100" fill="#f59e0b" opacity="0.7"/><path d="M250 300 L480 160 L650 190 L900 130 L900 300 Z" fill="#141413"/></svg>`
+      },
+      beholder: {
+        title: 'Beholder: Conductor',
+        dev: '2025 · Alawar',
+        pcts: [14.0, 38.5, 34.0, 9.5, 3.0, 1.0],
+        posterSvg: `<svg viewBox="0 0 120 160" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#1c1917"/><rect x="18" y="30" width="84" height="54" fill="none" stroke="#eab308" stroke-width="2"/><circle cx="60" cy="57" r="14" fill="#eab308"/><text x="10" y="145" fill="#f4f0e6" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11">BEHOLDER</text></svg>`,
+        wideSvg: `<svg viewBox="0 0 900 300" preserveAspectRatio="xMidYMid slice" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="300" fill="#18181b"/><circle cx="670" cy="130" r="110" fill="#eab308" opacity="0.3"/><rect x="520" y="60" width="280" height="150" rx="10" fill="none" stroke="#eab308" stroke-width="3" opacity="0.45"/></svg>`
+      }
+    };
+
+    const state = {
+      gameKey: 'neon',
+      title: 'Neon Requiem',
+      dev: '2025 · Voidline Studio',
+      pcts: [19.6, 41.2, 37.3, 0.0, 2.0, 0.0],
+      showCtx: true
+    };
+
+    function getNormalizedPcts() {
+      const sum = state.pcts.reduce((a, b) => a + b, 0);
+      if (sum <= 0) return [0, 0, 0, 0, 0, 0];
+      return state.pcts.map(v => (v / sum) * 100);
+    }
+
+    function getLeaderIndex() {
+      let maxIdx = 0;
+      state.pcts.forEach((v, i) => {
+        if (v > state.pcts[maxIdx]) maxIdx = i;
+      });
+      return maxIdx;
+    }
+
+    function renderAll() {
+      const g = GAMES[state.gameKey];
+      const norm = getNormalizedPcts();
+      const leadIdx = getLeaderIndex();
+      const leadTier = TIERS[leadIdx];
+      const leadVal = state.pcts[leadIdx].toFixed(1);
+
+      // --- 01. STACKED BAR + MEDAL ---
+      document.getElementById('w1-poster').innerHTML = g.posterSvg;
+      document.getElementById('w1-title').textContent = state.title;
+      document.getElementById('w1-dev').textContent = state.dev;
+      document.getElementById('w1-leader-icon').innerHTML = makeBadgeSvg(leadTier, 36);
+      const w1LeadName = document.getElementById('w1-leader-name');
+      w1LeadName.textContent = leadTier.label;
+      w1LeadName.style.color = leadTier.color;
+      document.getElementById('w1-leader-pct').textContent = `${leadVal}% игроков`;
+
+      document.getElementById('w1-bar').innerHTML = TIERS.map((t, i) => {
+        if (norm[i] <= 0.1) return '';
+        return `<div class="h-full bar-anim first:rounded-l-full last:rounded-r-full" style="width:${norm[i].toFixed(2)}%; background:${t.color};" title="${t.label}: ${state.pcts[i].toFixed(1)}%"></div>`;
+      }).join('');
+
+      document.getElementById('w1-legend').innerHTML = TIERS.map((t, i) => `
+        <div class="rounded-lg p-1.5 ${i === leadIdx ? 'bg-white/[0.06] ring-1 ring-white/15' : 'bg-white/[0.02]'}">
+          <div class="text-sm leading-none mb-1">${t.emoji}</div>
+          <div class="font-mono-tech text-[9px] font-bold" style="color:${t.color}">${t.label}</div>
+          <div class="font-mono-tech text-xs font-bold text-white">${state.pcts[i].toFixed(1)}%</div>
+        </div>
+      `).join('');
+
+      // --- 02. EQUALIZER PILLARS ---
+      document.getElementById('w2-poster').innerHTML = g.posterSvg;
+      document.getElementById('w2-title').textContent = state.title;
+      document.getElementById('w2-dev').textContent = state.dev;
+      const maxP = Math.max(10, ...state.pcts);
+      document.getElementById('w2-pillars').innerHTML = TIERS.map((t, i) => {
+        const hPct = Math.max(4, (state.pcts[i] / maxP) * 100);
+        const isLead = i === leadIdx;
+        return `
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-4 sm:w-5 h-24 rounded-full bg-zinc-800/90 overflow-hidden flex items-end p-0.5 ${isLead ? 'ring-2 ring-white/25' : ''}">
+              <div class="w-full rounded-full bar-anim" style="height:${state.pcts[i] > 0 ? hPct : 3}%; background:${t.color}; opacity:${state.pcts[i] > 0 ? 1 : 0.2}"></div>
+            </div>
+            <div class="text-base leading-none">${t.emoji}</div>
+            <div class="font-mono-tech text-[9px] font-bold uppercase ${isLead ? 'text-white' : 'text-zinc-400'}">${t.short}</div>
+            <div class="font-mono-tech text-[11px] font-bold" style="color:${state.pcts[i] > 0 ? t.color : '#52525b'}">${state.pcts[i].toFixed(1)}%</div>
+          </div>
+        `;
+      }).join('');
+
+      // --- 03. DONUT CHART ---
+      document.getElementById('w3-poster').innerHTML = g.posterSvg;
+      document.getElementById('w3-title').textContent = state.title;
+      document.getElementById('w3-dev').textContent = state.dev;
+      document.getElementById('w3-center-pct').textContent = `${leadVal}%`;
+      const w3Lbl = document.getElementById('w3-center-lbl');
+      w3Lbl.textContent = leadTier.label;
+      w3Lbl.style.color = leadTier.color;
+
+      const r = 46;
+      const circ = 2 * Math.PI * r;
+      let offset = 0;
+      document.getElementById('w3-donut').innerHTML = TIERS.map((t, i) => {
+        const segLen = (norm[i] / 100) * circ;
+        const circle = `<circle cx="60" cy="60" r="${r}" fill="none" stroke="${t.color}" stroke-width="14" stroke-dasharray="${segLen.toFixed(2)} ${(circ - segLen).toFixed(2)}" stroke-dashoffset="${(-offset).toFixed(2)}" />`;
+        offset += segLen;
+        return circle;
+      }).join('');
+
+      document.getElementById('w3-list').innerHTML = TIERS.map((t, i) => `
+        <div class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-1.5 text-zinc-300">
+            <span class="w-2 h-2 rounded-full shrink-0" style="background:${t.color}"></span>
+            <span>${t.label}</span>
+          </span>
+          <strong class="text-white">${state.pcts[i].toFixed(1)}%</strong>
+        </div>
+      `).join('');
+
+      // --- 04. PAPER TICKET ---
+      document.getElementById('w4-poster').innerHTML = g.posterSvg;
+      document.getElementById('w4-title').textContent = state.title;
+      document.getElementById('w4-dev').textContent = state.dev.toUpperCase();
+      document.getElementById('w4-leader').textContent = `${leadTier.label} (${leadVal}%)`;
+      document.getElementById('w4-keys').innerHTML = TIERS.map((t, i) => `
+        <div class="border-2 border-[#141413] rounded-lg p-2 text-center ${i === leadIdx ? 'bg-[#141413] text-white' : 'bg-white text-[#141413]'}">
+          <div class="text-sm leading-none">${t.emoji}</div>
+          <div class="font-mono-tech text-[9px] font-bold mt-1">${t.short}</div>
+          <div class="font-mono-tech text-xs font-extrabold" style="color:${i === leadIdx ? t.color : '#141413'}">${state.pcts[i].toFixed(1)}%</div>
+        </div>
+      `).join('');
+
+      // --- 05. TOP-3 PODIUM ---
+      document.getElementById('w5-poster').innerHTML = g.posterSvg;
+      document.getElementById('w5-title').textContent = state.title;
+      document.getElementById('w5-dev').textContent = state.dev;
+      const sorted = TIERS.map((t, i) => ({ ...t, pct: state.pcts[i] })).sort((a, b) => b.pct - a.pct);
+      const top3 = sorted.slice(0, 3);
+      const rest3 = sorted.slice(3);
+
+      document.getElementById('w5-podium').innerHTML = top3.map((item, rank) => `
+        <div class="rounded-xl p-3.5 bg-white/[0.03] border ${rank === 0 ? 'border-white/20' : 'border-white/5'} flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">${item.emoji}</span>
+            <div>
+              <div class="font-mono-tech text-[10px] text-zinc-500">#${rank + 1} В ТОПЕ</div>
+              <div class="font-mono-tech text-xs font-extrabold" style="color:${item.color}">${item.label}</div>
+            </div>
+          </div>
+          <div class="font-mono-tech text-lg font-extrabold text-white">${item.pct.toFixed(1)}%</div>
+        </div>
+      `).join('');
+      document.getElementById('w5-rest').innerHTML = '<span>Остальные:</span>' + rest3.map(r => `<span>${r.emoji} ${r.label}: <strong class="text-zinc-300">${r.pct.toFixed(1)}%</strong></span>`).join('');
+
+      // --- 06. CINEMATIC STRIP ---
+      document.getElementById('w6-art').innerHTML = g.wideSvg;
+      document.getElementById('w6-title').textContent = state.title;
+      document.getElementById('w6-dev').textContent = state.dev;
+      document.getElementById('w6-cells').innerHTML = TIERS.map((t, i) => `
+        <div class="rounded-xl p-2.5 backdrop-blur-md border ${i === leadIdx ? 'bg-white/15 border-white/40' : 'bg-black/45 border-white/10'} text-center">
+          <div class="font-mono-tech text-[9px] font-bold uppercase" style="color:${t.color}">${t.label}</div>
+          <div class="font-mono-tech text-sm font-extrabold text-white mt-0.5">${state.pcts[i].toFixed(1)}%</div>
+        </div>
+      `).join('');
+
+      // --- 07. TERMINAL ---
+      document.getElementById('w7-title').textContent = state.title;
+      document.getElementById('w7-rows').innerHTML = TIERS.map((t, i) => {
+        const blocks = Math.round((state.pcts[i] / 100) * 20);
+        const bar = '█'.repeat(blocks) + '░'.repeat(20 - blocks);
+        return `
+          <div class="flex items-center justify-between gap-2">
+            <span class="w-20 shrink-0" style="color:${t.color}">${t.label.padEnd(8, ' ')}</span>
+            <span class="tracking-tighter hidden sm:inline" style="color:${t.color}">[${bar}]</span>
+            <span class="text-white font-bold w-14 text-right">${state.pcts[i].toFixed(1)}%</span>
+          </div>
+        `;
+      }).join('');
+
+      // --- 08. SWISS GRID ---
+      document.getElementById('w8-poster').innerHTML = g.posterSvg;
+      document.getElementById('w8-title').textContent = state.title;
+      document.getElementById('w8-dev').textContent = state.dev.toUpperCase();
+      document.getElementById('w8-leader').textContent = `${leadVal}% ${leadTier.label}`;
+      document.getElementById('w8-table').innerHTML = TIERS.map((t, i) => `
+        <div class="flex items-center justify-between border-b border-neutral-300 pb-1">
+          <span class="font-bold text-neutral-700">${t.label}</span>
+          <span class="font-extrabold text-black">${state.pcts[i].toFixed(1)}%</span>
+        </div>
+      `).join('');
+
+      // --- 09. SENTIMENT WAVE ---
+      document.getElementById('w9-poster').innerHTML = g.posterSvg;
+      document.getElementById('w9-title').textContent = state.title;
+      document.getElementById('w9-dev').textContent = `${state.dev} · Panaxgames`;
+      const pts = TIERS.map((t, i) => {
+        const x = 50 + i * 100;
+        const y = 95 - (state.pcts[i] / maxP) * 75;
+        return { x, y, color: t.color, pct: state.pcts[i] };
+      });
+      const lineD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y.toFixed(1)}`).join(' ');
+      const areaD = `${lineD} L 550 100 L 50 100 Z`;
+      document.getElementById('w9-svg').innerHTML = `
+        <defs>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#facc15" stop-opacity="0.35"/>
+            <stop offset="25%" stop-color="#f97316" stop-opacity="0.35"/>
+            <stop offset="50%" stop-color="#c084fc" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ef4444" stop-opacity="0.25"/>
+          </linearGradient>
+        </defs>
+        <path d="${areaD}" fill="url(#waveGrad)"/>
+        <path d="${lineD}" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+        ${pts.map(p => `<circle cx="${p.x}" cy="${p.y.toFixed(1)}" r="5" fill="${p.color}" stroke="#000" stroke-width="1.5"/>`).join('')}
+      `;
+      document.getElementById('w9-labels').innerHTML = TIERS.map((t, i) => `
+        <div>
+          <div class="font-bold" style="color:${t.color}">${t.short}</div>
+          <div class="text-zinc-300">${state.pcts[i].toFixed(1)}%</div>
+        </div>
+      `).join('');
+
+      // --- 10. COMPACT STRIP ---
+      document.getElementById('w10-poster').innerHTML = g.posterSvg;
+      document.getElementById('w10-title').textContent = state.title;
+      document.getElementById('w10-dev').textContent = state.dev;
+      document.getElementById('w10-mini-bar').innerHTML = TIERS.map((t, i) => {
+        if (norm[i] <= 0.1) return '';
+        return `<div style="width:${norm[i].toFixed(2)}%; background:${t.color};" class="h-full"></div>`;
+      }).join('');
+      const w10Badge = document.getElementById('w10-badge');
+      w10Badge.innerHTML = `<span>${leadTier.emoji} ${leadTier.label} · ${leadVal}%</span>`;
+      w10Badge.style.color = leadTier.color;
+      w10Badge.style.borderColor = leadTier.color + '55';
+      w10Badge.style.backgroundColor = leadTier.color + '20';
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 2200);
+    }
+
+    function copyHtml(id, label) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const html = el.outerHTML;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(html).then(() => showToast(`Скопирован HTML: ${label}`)).catch(() => fallbackCopy(html, label));
+      } else {
+        fallbackCopy(html, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(`Скопирован HTML: ${label}`);
+      } catch (e) {
+        showToast('Не удалось скопировать');
+      }
+      document.body.removeChild(ta);
+    }
+
+    // Listeners
+    document.getElementById('select-game').addEventListener('change', (e) => {
+      state.gameKey = e.target.value;
+      const g = GAMES[state.gameKey];
+      state.title = g.title;
+      state.dev = g.dev;
+      state.pcts = [...g.pcts];
+      document.getElementById('inp-title').value = state.title;
+      document.getElementById('inp-dev').value = state.dev;
+      g.pcts.forEach((v, i) => {
+        document.getElementById(`inp-p${i}`).value = v;
+      });
+      renderAll();
+    });
+
+    document.getElementById('inp-title').addEventListener('input', (e) => {
+      state.title = e.target.value || 'Без названия';
+      renderAll();
+    });
+    document.getElementById('inp-dev').addEventListener('input', (e) => {
+      state.dev = e.target.value;
+      renderAll();
+    });
+
+    for (let i = 0; i < 6; i++) {
+      document.getElementById(`inp-p${i}`).addEventListener('input', (e) => {
+        state.pcts[i] = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
+        renderAll();
+      });
+    }
+
+    document.getElementById('btn-toggle-context').addEventListener('click', () => {
+      state.showCtx = !state.showCtx;
+      document.getElementById('context-label').textContent = `В тексте обзора: ${state.showCtx ? 'Вкл' : 'Выкл'}`;
+      document.querySelectorAll('.review-ctx').forEach(el => {
+        el.style.display = state.showCtx ? 'block' : 'none';
+      });
+    });
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => copyHtml(btn.dataset.copy, btn.dataset.label));
+    });
+
+    renderAll();
+  </script>
+  <div id="panax-game" class="sr-only" aria-hidden="true"></div>
+</body>
+</html>

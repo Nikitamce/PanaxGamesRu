@@ -1,4 +1,5 @@
 import { safeUserImageUrl, MAX_GALLERY_ITEMS, CAPTION_MAX } from "./gq-image.js";
+import { EXTRA_VARIANT_IDS } from "./gq-cards.js";
 var LIMITS = {
   str: 300,
   longStr: 600,
@@ -161,7 +162,7 @@ function normalizeImageData(d) {
 function widgetData(type, d) {
   d = isObj(d) ? d : {};
   if (type === "game") {
-    const validVariants = ["classic", "duet", "editorial", "staircase", "type", "brutal"];
+    const validVariants = ["classic", "duet", "editorial", "staircase", "type", "brutal", ...EXTRA_VARIANT_IDS];
     let panaxReactions = null;
     if (isObj(d.panaxReactions)) {
       panaxReactions = {};

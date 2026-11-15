@@ -1,0 +1,44 @@
+<!-- ═══ ВИДЖЕТ 01 · МИНИМАЛ (СВЕТЛЫЙ) ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;800&display=swap');
+.gw01{max-width:660px;width:100%;box-sizing:border-box;display:flex;gap:20px;background:#fbfaf8;border:1px solid #e8e4db;border-radius:18px;padding:20px;font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#24231f}
+.gw01 *{margin:0;padding:0;box-sizing:border-box}
+.gw01-cover{width:176px;height:236px;object-fit:cover;border-radius:12px;flex-shrink:0;display:block}
+.gw01-body{flex:1 1 220px;min-width:200px;display:flex;flex-direction:column}
+.gw01-top{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a19b8d}
+.gw01-top em{font-style:normal;color:#b3873e;font-weight:800}
+.gw01-title{margin:10px 0 5px;font-size:30px;line-height:1.05;font-weight:800;letter-spacing:-.02em;color:#24231f}
+.gw01-meta{font-size:13px;color:#8f8a7c}
+.gw01-genres{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.gw01-genres span{border:1px solid #e5dfd2;background:#fff;border-radius:999px;padding:5px 11px;font-size:12px;color:#6f6a5d;font-weight:500}
+.gw01-stats{display:flex;gap:22px;margin-top:16px;padding-top:14px;border-top:1px solid #ece7dc}
+.gw01-stats b{font-size:22px;font-weight:800;letter-spacing:-.01em;color:#24231f}
+.gw01-stats b i{font-style:normal;font-size:13px;font-weight:700;color:#a19b8d;margin-left:1px}
+.gw01-stats span{display:block;margin-top:3px;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#a19b8d}
+.gw01-btns{display:flex;gap:8px;margin-top:16px}
+.gw01-btns a{flex:1;text-align:center;padding:10px 0;border:1px solid #dcd5c5;background:#fff;border-radius:10px;font-size:13px;font-weight:600;color:#47433a;text-decoration:none;transition:border-color .15s}
+.gw01-btns a:hover{border-color:#b3873e}
+.gw01-btns a i{font-style:normal;color:#b3873e;margin-left:4px}
+@media (max-width:560px){.gw01{flex-direction:column}.gw01-cover{width:100%;height:260px}}
+</style>
+<div class="gw01">
+  <img class="gw01-cover" src="cover.jpg" alt="Обложка: Elden Ring">
+  <div class="gw01-body">
+    <div class="gw01-top">Карточка игры · <em>Backloggd</em></div>
+    <h3 class="gw01-title">Elden Ring</h3>
+    <div class="gw01-meta">2022 · FromSoftware · Bandai Namco Entertainment</div>
+    <div class="gw01-genres"><span>Экшен-RPG</span><span>Открытый мир</span><span>Souls-like</span></div>
+    <div class="gw01-stats">
+      <div><b>4.5<i>/5</i></b><span>Backloggd</span></div>
+      <div><b>97<i>/100</i></b><span>IGDB</span></div>
+      <div><b>93<i>%</i></b><span>Steam</span></div>
+    </div>
+    <div class="gw01-btns">
+      <a href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">Backloggd<i>&#8599;&#xFE0E;</i></a>
+      <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam<i>&#8599;&#xFE0E;</i></a>
+      <a href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB<i>&#8599;&#xFE0E;</i></a>
+    </div>
+  </div>
+</div>

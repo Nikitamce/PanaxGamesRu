@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>32 авторских дизайна виджетов игр — Backloggd & Panaxgames</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --stone-bg: #e8e4dc;
+      --paper-card: #f6f3ec;
+      --ink-black: #141413;
+      --signal-orange: #ff4f00;
+      --acid-lime: #c8f904;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #161615;
+      background-image: radial-gradient(#292826 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #f5f3ef;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-editorial { font-family: 'Instrument Serif', Georgia, serif; }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ==========================================================
+       01. TACTILE ARCHIVE TICKET (Teenage Engineering)
+       ========================================================== */
+    .te-ticket {
+      position: relative;
+      background-color: #f4f0e6;
+      color: #141413;
+      border-radius: 18px;
+      border: 2px solid #141413;
+      box-shadow: 6px 6px 0px #141413;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+    }
+    .te-ticket:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0px #141413;
+    }
+    .te-grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(20, 20, 19, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20, 20, 19, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .te-perforation {
+      position: relative;
+      border-top: 2px dashed #141413;
+    }
+    @media (min-width: 768px) {
+      .te-perforation {
+        border-top: none;
+        border-left: 2px dashed #141413;
+      }
+      .te-perforation::before,
+      .te-perforation::after {
+        content: '';
+        position: absolute;
+        left: -11px;
+        width: 20px;
+        height: 20px;
+        background-color: #1e1e1c;
+        border: 2px solid #141413;
+        border-radius: 9999px;
+        z-index: 20;
+      }
+      .te-perforation::before { top: -12px; }
+      .te-perforation::after { bottom: -12px; }
+    }
+    .te-index-tab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 6px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #141413;
+      background: #e7e2d5;
+      border-right: 1.5px solid #141413;
+      border-top: 1.5px solid #141413;
+      transition: background 0.15s ease, color 0.15s ease;
+      text-decoration: none;
+    }
+    .te-index-tab:first-child {
+      border-left: 1.5px solid #141413;
+      border-top-left-radius: 6px;
+    }
+    .te-index-tab:last-child { border-top-right-radius: 6px; }
+    .te-index-tab:hover { background: #141413; color: #f4f0e6; }
+    .te-index-tab.active-source { background: #ff4f00; color: #ffffff; }
+    .te-index-tab.active-source-panax { background: #00a86b; color: #ffffff; }
+
+    /* ==========================================================
+       02. CINEMATIC WIDESCREEN & RADIAL HUD
+       ========================================================== */
+    .cine-canvas {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 250px;
+      background: #0d0d0c;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .cine-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cine-canvas:hover .cine-backdrop { transform: scale(1.03); }
+    .cine-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(12, 11, 10, 0.95) 0%, rgba(12, 11, 10, 0.78) 48%, rgba(12, 11, 10, 0.35) 100%),
+        linear-gradient(0deg, rgba(12, 11, 10, 0.92) 0%, transparent 65%);
+    }
+    .cine-hud-capsule {
+      background: rgba(20, 19, 18, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+    }
+    .cine-icon-node {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f5f3ef;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      text-decoration: none;
+    }
+    .cine-icon-node:hover {
+      background: #f5f3ef;
+      color: #141413;
+      transform: translateY(-2px) scale(1.06);
+      border-color: #ffffff;
+    }
+    .cine-icon-node .cine-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: #f5f3ef;
+      color: #141413;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.16s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+    .cine-icon-node:hover .cine-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .gauge-ring { transition: stroke-dashoffset 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    /* ==========================================================
+       04. GAME BOY DMG-01 LCD
+       ========================================================== */
+    .dmg-shell {
+      background: #c7c4b8;
+      border-radius: 16px 16px 42px 16px;
+      border: 3px solid #2b2b27;
+      box-shadow: inset -4px -4px 0 #9f9b8c, 6px 6px 0 #0c0c0b;
+      color: #0f380f;
+    }
+    .dmg-bezel {
+      background: #54565b;
+      border-radius: 10px 10px 28px 10px;
+      border: 2px solid #2b2b27;
+    }
+    .dmg-lcd {
+      background-color: #9bbc0f;
+      background-image:
+        linear-gradient(rgba(15, 56, 15, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 56, 15, 0.08) 1px, transparent 1px);
+      background-size: 4px 4px;
+      border: 3px solid #0f380f;
+      box-shadow: inset 3px 3px 8px rgba(15, 56, 15, 0.35);
+      color: #0f380f;
+    }
+
+    /* ==========================================================
+       06. CRT TERMINAL SCANLINES
+       ========================================================== */
+    .crt-box {
+      position: relative;
+      background: #050a06;
+      border: 1px solid #1f4d2b;
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.08), inset 0 0 24px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+    .crt-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.18),
+        rgba(0, 0, 0, 0.18) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+    }
+
+    /* ==========================================================
+       08. BRUSHED METAL PLATE
+       ========================================================== */
+    .metal-plate {
+      background: linear-gradient(145deg, #27292e 0%, #1a1c20 50%, #222429 100%);
+      border: 1px solid #3d414a;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 18px 35px rgba(0,0,0,0.6);
+    }
+
+    /* ==========================================================
+       11. ARCADE MARQUEE STRIPES
+       ========================================================== */
+    .arcade-hazard {
+      background: repeating-linear-gradient(
+        -45deg,
+        #facc15,
+        #facc15 10px,
+        #18181b 10px,
+        #18181b 20px
+      );
+    }
+
+    /* 14. BLUEPRINT GRID */
+    .blueprint-bg {
+      background-color: #0c3559;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    }
+    /* 18. COMIC HALFTONE */
+    .comic-dots {
+      background-color: #fef9c3;
+      background-image: radial-gradient(#eab308 1px, transparent 1px);
+      background-size: 8px 8px;
+    }
+    /* 19. RETRO OS BEVEL */
+    .win95-box {
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #404040;
+      border-bottom: 2px solid #404040;
+      box-shadow: 4px 4px 0 #000000;
+      color: #000000;
+    }
+    .win95-inset {
+      background: #ffffff;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #dfdfdf;
+      border-bottom: 2px solid #dfdfdf;
+    }
+    /* 20. SPLIT-FLAP TILE */
+    .flap-tile {
+      position: relative;
+      background: #18181b;
+      border: 1px solid #3f3f46;
+      border-radius: 4px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .flap-tile::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 50%;
+      height: 1px;
+      background: rgba(0,0,0,0.7);
+    }
+    /* 22. RIBBON TAIL */
+    .ribbon-clip {
+      clip-path: polygon(0 0, 100% 0, 96% 50%, 100% 100%, 0 100%);
+    }
+
+    /* 24. TCG FOIL BORDER */
+    .tcg-foil {
+      background: linear-gradient(135deg, #d4af37 0%, #fef08a 30%, #ca8a04 60%, #fde047 100%);
+    }
+    /* 28. SCI-FI CHAMFER */
+    .scifi-chamfer {
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+    }
+    /* 30. RECEIPT ZIGZAG */
+    .receipt-edge {
+      background-image: linear-gradient(135deg, #fafaf9 50%, transparent 50%), linear-gradient(225deg, #fafaf9 50%, transparent 50%);
+      background-position: bottom left;
+      background-size: 12px 12px;
+      background-repeat: repeat-x;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20">
+
+  <!-- Top Studio Controls -->
+  <header class="sticky top-0 z-40 border-b border-stone-800 bg-[#161615]/95 backdrop-blur-md">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-[#ff4f00] text-white flex items-center justify-center font-mono-tech font-bold text-xs shadow-sm">
+          32
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-display font-bold text-stone-100 tracking-tight flex items-center gap-2">
+            32 авторских дизайна виджетов
+            <span class="font-mono-tech text-[10px] uppercase px-2 py-0.5 rounded bg-stone-800 text-amber-300 border border-stone-700">22 + 10 новых</span>
+          </h1>
+          <p class="text-xs text-stone-400 hidden sm:block">Для вставки в обзоры Backloggd и Panaxgames — каждый со своим характером</p>
+        </div>
+      </div>
+
+      <!-- Interactive Controls -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="inline-flex items-center p-1 rounded-lg bg-stone-900 border border-stone-800" role="group" aria-label="Платформа">
+          <button id="btn-platform-backloggd" type="button" class="px-3 py-1.5 rounded-md text-xs font-mono-tech font-bold transition-all flex items-center gap-1.5 bg-[#ff4f00] text-white">
+            <span>Backloggd</span>
+          </button>
+          <button id="btn-platform-panax" type="button" class="px-3 py-1.5 rounded-md text-xs font-mono-tech font-bold transition-all flex items-center gap-1.5 text-stone-400 hover:text-white">
+            <span>Panaxgames</span>
+          </button>
+        </div>
+
+        <select id="select-game" aria-label="Выбор примера игры" class="bg-stone-900 text-xs font-mono-tech text-stone-200 rounded-lg px-3 py-2 border border-stone-800 focus:outline-none focus:border-[#ff4f00]">
+          <option value="neon">Neon Requiem</option>
+          <option value="rdr2">Red Dead Redemption 2</option>
+          <option value="beholder">Beholder: Conductor</option>
+        </select>
+
+        <button id="btn-toggle-context" type="button" class="px-3 py-2 rounded-lg text-xs font-mono-tech bg-stone-900 hover:bg-stone-800 text-stone-300 border border-stone-800 transition flex items-center gap-1.5">
+          <span id="context-label">В тексте обзора: Вкл</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Jump Navigation Bar (01..12) -->
+    <div class="border-t border-stone-800/80 bg-[#121211]">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <span class="font-mono-tech text-[10px] uppercase text-stone-500 mr-1 shrink-0">Быстрый переход:</span>
+        <a href="#sec-v1" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-stone-300 shrink-0">01 Билет</a>
+        <a href="#sec-v2" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-stone-300 shrink-0">02 Синематик</a>
+        <a href="#sec-v3" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-amber-300 shrink-0">03 Швейцарский</a>
+        <a href="#sec-v4" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-lime-300 shrink-0">04 Game Boy</a>
+        <a href="#sec-v5" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-sky-300 shrink-0">05 CD-кейс</a>
+        <a href="#sec-v6" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-emerald-300 shrink-0">06 Терминал</a>
+        <a href="#sec-v7" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-stone-200 shrink-0">07 Газета</a>
+        <a href="#sec-v8" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-zinc-300 shrink-0">08 Металл</a>
+        <a href="#sec-v9" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-yellow-200 shrink-0">09 Полароид</a>
+        <a href="#sec-v10" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-rose-300 shrink-0">10 Сплит 50/50</a>
+        <a href="#sec-v11" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-yellow-400 shrink-0">11 Аркада</a>
+        <a href="#sec-v12" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-cyan-300 shrink-0">12 Компакт-строка</a>
+        <a href="#sec-v13" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-orange-300 shrink-0">13 VHS</a>
+        <a href="#sec-v14" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-sky-300 shrink-0">14 Чертёж</a>
+        <a href="#sec-v15" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-amber-200 shrink-0">15 RPG Лист</a>
+        <a href="#sec-v16" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-green-300 shrink-0">16 Плеер</a>
+        <a href="#sec-v17" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-stone-100 shrink-0">17 Музей</a>
+        <a href="#sec-v18" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-yellow-300 shrink-0">18 Комикс</a>
+        <a href="#sec-v19" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-slate-300 shrink-0">19 Ретро ОС</a>
+        <a href="#sec-v20" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-amber-400 shrink-0">20 Табло</a>
+        <a href="#sec-v21" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-teal-200 shrink-0">21 Пастель</a>
+        <a href="#sec-v22" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-rose-300 shrink-0">22 Закладка</a>
+        <a href="#sec-v23" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-sky-300 shrink-0">23 Авиабилет</a>
+        <a href="#sec-v24" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-amber-300 shrink-0">24 TCG Карта</a>
+        <a href="#sec-v25" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-slate-200 shrink-0">25 Spotlight</a>
+        <a href="#sec-v26" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-purple-300 shrink-0">26 Винил</a>
+        <a href="#sec-v27" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-yellow-200 shrink-0">27 Экслибрис</a>
+        <a href="#sec-v28" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-cyan-300 shrink-0">28 Sci-Fi HUD</a>
+        <a href="#sec-v29" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-white shrink-0">29 Ксерокс-зин</a>
+        <a href="#sec-v30" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-stone-300 shrink-0">30 Чек</a>
+        <a href="#sec-v31" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-indigo-300 shrink-0">31 Стопка</a>
+        <a href="#sec-v32" class="px-2 py-1 rounded text-[11px] font-mono-tech bg-stone-800/60 hover:bg-stone-700 text-emerald-300 shrink-0">32 Цитата</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-8 space-y-12">
+
+    <!-- Live Customizer Section (Moved to top so it's easy to tweak and watch all 12 update) -->
+    <section class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-5 space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="text-sm font-display font-bold text-white">Живой редактор данных (обновляет все 32 дизайна сразу)</h2>
+          <p class="text-xs text-stone-400">Поменяй игру, студию или оценки, чтобы проверить, как каждый макет держит длинные и короткие названия</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        <div>
+          <label for="inp-title" class="block font-mono-tech text-[10px] uppercase text-stone-400 mb-1">Название игры</label>
+          <input id="inp-title" type="text" value="Neon Requiem" class="w-full rounded-lg bg-[#141413] border border-stone-700 px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4f00]">
+        </div>
+        <div>
+          <label for="inp-dev" class="block font-mono-tech text-[10px] uppercase text-stone-400 mb-1">Год и разработчики</label>
+          <input id="inp-dev" type="text" value="2025 · Voidline Studio · Nova Interactive" class="w-full rounded-lg bg-[#141413] border border-stone-700 px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4f00]">
+        </div>
+        <div>
+          <label for="inp-score-main" class="block font-mono-tech text-[10px] uppercase text-stone-400 mb-1">Оценка (Backloggd / Panax)</label>
+          <input id="inp-score-main" type="number" step="0.1" min="1" max="10" value="8.4" class="w-full rounded-lg bg-[#141413] border border-stone-700 px-3 py-2 text-xs text-white font-mono-tech focus:outline-none focus:border-[#ff4f00]">
+        </div>
+        <div>
+          <label for="inp-score-igdb" class="block font-mono-tech text-[10px] uppercase text-stone-400 mb-1">Оценка IGDB (0–100)</label>
+          <input id="inp-score-igdb" type="number" step="1" min="1" max="100" value="82" class="w-full rounded-lg bg-[#141413] border border-stone-700 px-3 py-2 text-xs text-white font-mono-tech focus:outline-none focus:border-[#ff4f00]">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         01. TACTILE ARCHIVE TICKET (Kept from previous turn)
+         ========================================================== -->
+    <section id="sec-v1" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#f4f0e6] text-[#141413] border border-[#141413]">01 // Print &amp; Tactile</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Коллекционный билет-досье»</h2>
+        </div>
+        <button id="copy-v1-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <p class="review-context-block text-sm text-stone-300 leading-relaxed mb-5">
+          Но уже после первых двух часов стало понятно, что студия провела колоссальную работу над атмосферой и темпом повествования:
+        </p>
+        <div id="widget-v1-root" class="te-ticket te-grid-bg">
+          <div id="v1-glow-1" class="hidden"></div>
+          <div id="v1-glow-2" class="hidden"></div>
+          <div id="v1-top-strip" class="px-4 sm:px-6 py-2 bg-[#141413] text-[#f4f0e6] flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
+            <div class="flex items-center gap-2">
+              <span id="v1-led-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-[#ff4f00]"></span>
+              <span id="v1-platform-badge" class="font-bold tracking-widest uppercase">ARCHIVE DOSSIER // BACKLOGGD</span>
+            </div>
+            <div class="flex items-center gap-4 text-stone-400">
+              <span>REF: <strong id="v1-ref-code" class="text-[#f4f0e6]">NR-2025-X</strong></span>
+              <span id="v1-status-text" class="hidden sm:inline text-[#c8f904]">● ПРОЙДЕНО 100%</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-12">
+            <div class="md:col-span-8 p-5 sm:p-6 flex flex-col justify-between gap-5">
+              <div class="flex flex-col sm:flex-row gap-5 items-start">
+                <div class="relative shrink-0 group">
+                  <div class="w-28 sm:w-32 aspect-[3/4] rounded-lg border-2 border-[#141413] bg-[#141413] overflow-hidden shadow-[4px_4px_0px_#141413] -rotate-1 group-hover:rotate-0 transition-transform">
+                    <div id="v1-poster" class="w-full h-full"></div>
+                  </div>
+                  <span id="v1-year-badge" class="absolute -bottom-2 -right-2 px-2 py-0.5 bg-[#ff4f00] text-white font-mono-tech font-bold text-xs border-2 border-[#141413] shadow-[2px_2px_0px_#141413]">2025</span>
+                </div>
+                <div class="flex-1 min-w-0 space-y-3 w-full">
+                  <div>
+                    <div class="font-mono-tech text-[10px] uppercase tracking-widest text-stone-500 font-bold">ОБЪЕКТ ОБЗОРА / РЕЛИЗ</div>
+                    <h3 id="v1-title" class="font-display text-2xl sm:text-3xl font-bold text-[#141413] tracking-tight leading-none mt-0.5">Neon Requiem</h3>
+                  </div>
+                  <div class="border-t-2 border-b-2 border-[#141413] py-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-mono-tech text-[10px] uppercase text-stone-500 shrink-0">СТУДИЯ:</span>
+                      <span id="v1-dev-text" class="font-semibold text-[#141413] truncate">Voidline Studio · Nova Interactive</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-mono-tech text-[10px] uppercase text-stone-500 shrink-0">STEAM:</span>
+                      <span id="v1-steam-mini" class="font-mono-tech font-bold text-emerald-700">91% ПОЛОЖИТ.</span>
+                    </div>
+                    <div class="sm:col-span-2 flex items-baseline gap-2 pt-1 border-t border-[#141413]/15">
+                      <span class="font-mono-tech text-[10px] uppercase text-stone-500 shrink-0">ЖАНР:</span>
+                      <div id="v1-genres" class="font-mono-tech text-[11px] font-bold text-[#141413] flex flex-wrap gap-1"></div>
+                    </div>
+                  </div>
+                  <p id="v1-verdict-text" class="font-editorial italic text-lg sm:text-xl text-stone-800 leading-snug"></p>
+                </div>
+              </div>
+              <div class="pt-2 -mb-5 sm:-mb-6 flex flex-wrap items-end justify-between gap-2">
+                <div id="v1-links-bar" class="flex flex-wrap items-end"></div>
+              </div>
+            </div>
+            <div id="v1-primary-score-box" class="md:col-span-4 te-perforation bg-[#ebe5d8] p-5 flex flex-col justify-between gap-4">
+              <div class="flex items-center justify-between">
+                <span id="v1-primary-score-label" class="font-mono-tech text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 bg-[#141413] text-[#f4f0e6]">BACKLOGGD SCORE</span>
+                <span id="v1-primary-dot" class="font-mono-tech text-[10px] font-bold text-[#ff4f00]">★ VERIFIED</span>
+              </div>
+              <div class="my-auto py-1 flex items-center justify-between gap-3">
+                <div>
+                  <div class="flex items-baseline">
+                    <span id="v1-primary-score-val" class="font-display text-5xl font-bold text-[#141413] tracking-tighter leading-none">8.4</span>
+                    <span class="font-mono-tech text-xs font-bold text-stone-500 ml-1">/10</span>
+                  </div>
+                  <div class="font-mono-tech text-[10px] text-stone-600 mt-1">ИНДЕКС СООБЩЕСТВА</div>
+                </div>
+                <div class="w-16 h-16 rounded-full border-2 border-dashed border-[#141413] flex flex-col items-center justify-center -rotate-12 bg-[#f4f0e6] shadow-inner shrink-0">
+                  <span class="font-mono-tech text-[8px] uppercase tracking-widest text-stone-500">IGDB</span>
+                  <span id="v1-igdb-score-val" class="font-mono-tech text-xl font-extrabold text-[#141413] leading-none">82</span>
+                  <span class="font-mono-tech text-[8px] font-bold text-[#ff4f00]">PTS</span>
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <div class="w-full h-3 border-2 border-[#141413] bg-[#f4f0e6] p-0.5 flex">
+                  <div id="v1-primary-bar" class="h-full bg-[#ff4f00] transition-all duration-300" style="width: 84%;"></div>
+                </div>
+                <div class="hidden" id="v1-igdb-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="review-context-block text-sm text-stone-300 leading-relaxed mt-5">
+          <strong class="text-white" id="context-game-name-1">Neon Requiem</strong> — редкий случай, когда экшен не пытается завалить игрока сотней однотипных маркеров.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         02. CINEMATIC WIDESCREEN & RADIAL HUD (Kept from previous turn)
+         ========================================================== -->
+    <section id="sec-v2" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">02 // Widescreen HUD</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Широкоформатный кадр с парящей капсулой»</h2>
+        </div>
+        <button id="copy-v2-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v2-root" class="cine-canvas">
+          <div id="v2-accent-bar" class="hidden"></div>
+          <div id="v2-poster" class="hidden"></div>
+          <div id="v2-widescreen-art" class="cine-backdrop"></div>
+          <div class="cine-vignette"></div>
+          <div class="relative z-10 p-6 sm:p-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6 min-h-[250px]">
+            <div class="space-y-3 max-w-xl">
+              <div class="flex flex-wrap items-center gap-3">
+                <span id="v2-source-header" class="font-mono-tech text-[11px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/10 text-amber-300 backdrop-blur-md border border-white/15">BACKLOGGD FEATURE</span>
+                <span id="v2-release-meta" class="font-mono-tech text-xs text-stone-300">2025</span>
+              </div>
+              <div>
+                <h3 id="v2-title" class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight leading-none drop-shadow-md">Neon Requiem</h3>
+                <p id="v2-studio" class="text-xs sm:text-sm text-stone-300 mt-1.5 font-medium">Voidline Studio · Nova Interactive</p>
+              </div>
+              <div id="v2-genres" class="pt-1 flex flex-wrap items-center gap-2 font-mono-tech text-[11px] uppercase tracking-wider text-amber-200/90"></div>
+            </div>
+            <div class="cine-hud-capsule p-4 flex flex-wrap sm:flex-nowrap items-center gap-5 shrink-0">
+              <div class="flex items-center gap-3">
+                <div class="relative w-14 h-14 flex items-center justify-center">
+                  <svg class="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
+                    <circle cx="28" cy="28" r="23" stroke="rgba(255,255,255,0.12)" stroke-width="4" fill="none"/>
+                    <circle id="v2-gauge-main" class="gauge-ring" cx="28" cy="28" r="23" stroke="#ff4f00" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="23" stroke-linecap="round" fill="none"/>
+                  </svg>
+                  <span id="v2-score1-val" class="absolute font-mono-tech text-sm font-bold text-white">8.4</span>
+                </div>
+                <div>
+                  <div id="v2-score1-title" class="font-mono-tech text-xs font-bold text-white uppercase">Backloggd</div>
+                  <div class="text-[11px] text-stone-400">Рейтинг игроков</div>
+                  <div id="v2-score1-icon" class="hidden">BG</div>
+                </div>
+              </div>
+              <div class="hidden sm:block w-px h-10 bg-white/15"></div>
+              <div class="flex items-center gap-3">
+                <div class="relative w-14 h-14 flex items-center justify-center">
+                  <svg class="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
+                    <circle cx="28" cy="28" r="23" stroke="rgba(255,255,255,0.12)" stroke-width="4" fill="none"/>
+                    <circle id="v2-gauge-igdb" class="gauge-ring" cx="28" cy="28" r="23" stroke="#eab308" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="26" stroke-linecap="round" fill="none"/>
+                  </svg>
+                  <span id="v2-score2-val" class="absolute font-mono-tech text-sm font-bold text-white">82</span>
+                </div>
+                <div>
+                  <div class="font-mono-tech text-xs font-bold text-white uppercase">IGDB / Steam</div>
+                  <div class="text-[11px] text-emerald-400 font-mono-tech"><span id="v2-score3-val">91%</span> · <span id="v2-steam-desc" class="text-stone-400">Steam</span></div>
+                </div>
+              </div>
+              <div class="hidden sm:block w-px h-10 bg-white/15"></div>
+              <div id="v2-links" class="flex items-center gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         03. SWISS MODERNIST POSTER (Швейцарская типографика)
+         ========================================================== -->
+    <section id="sec-v3" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-white text-black">03 // Swiss Grid</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Швейцарский модернизм» — жёсткая сетка, гигантские цифры, ноль украшательств</h2>
+        </div>
+        <button data-copy-target="widget-v3-root" data-copy-label="03 Швейцарский" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v3-root" class="bg-white text-black border-4 border-black overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-12">
+            <!-- Left Vertical Accent Column -->
+            <div id="v3-accent-col" class="md:col-span-1 bg-[#ff4f00] text-white p-3 flex md:flex-col justify-between items-center font-mono-tech text-xs font-bold">
+              <span id="v3-plat-short" class="md:-rotate-90 md:my-auto tracking-widest uppercase whitespace-nowrap">BACKLOGGD</span>
+              <span id="v3-year" class="text-[11px]">25</span>
+            </div>
+            <!-- Main Typographic Grid -->
+            <div class="md:col-span-7 p-6 border-b-2 md:border-b-0 md:border-r-2 border-black flex flex-col justify-between gap-6">
+              <div>
+                <div id="v3-genres" class="font-mono-tech text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-2">ACTION RPG — CYBERPUNK</div>
+                <h3 id="v3-title" class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tighter leading-[0.95] text-black">Neon Requiem</h3>
+                <p id="v3-dev" class="text-xs font-semibold text-neutral-600 mt-2">Voidline Studio / Nova Interactive</p>
+              </div>
+              <!-- Hyper-clean underlined text links -->
+              <div id="v3-links" class="flex flex-wrap gap-x-5 gap-y-2 pt-3 border-t border-neutral-200 font-mono-tech text-xs font-bold uppercase"></div>
+            </div>
+            <!-- Right Modular Numbers + Mini Poster -->
+            <div class="md:col-span-4 p-6 bg-neutral-100 flex flex-col justify-between gap-4">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div id="v3-plat-label" class="font-mono-tech text-[10px] font-bold uppercase text-neutral-500">BACKLOGGD</div>
+                  <div id="v3-score-main" class="font-display text-6xl font-extrabold tracking-tighter leading-none text-black mt-1">8.4</div>
+                </div>
+                <div id="v3-poster" class="w-16 h-22 aspect-[3/4] border-2 border-black shrink-0 overflow-hidden"></div>
+              </div>
+              <div class="grid grid-cols-2 border-t-2 border-black pt-3 gap-2 font-mono-tech">
+                <div>
+                  <div class="text-[10px] text-neutral-500 uppercase">IGDB</div>
+                  <div id="v3-score-igdb" class="text-lg font-extrabold text-black">82<span class="text-xs font-normal text-neutral-500">/100</span></div>
+                </div>
+                <div>
+                  <div class="text-[10px] text-neutral-500 uppercase">Steam</div>
+                  <div id="v3-score-steam" class="text-lg font-extrabold text-black">91%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         04. RETRO HANDHELD GAME BOY DMG-01 LCD
+         ========================================================== -->
+    <section id="sec-v4" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#9bbc0f] text-[#0f380f] border border-[#0f380f]">04 // Retro Handheld</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Портативный картридж Game Boy» — пиксельный LCD-экран с матрицей</h2>
+        </div>
+        <button data-copy-target="widget-v4-root" data-copy-label="04 Game Boy" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v4-root" class="dmg-shell p-4 sm:p-5">
+          <div class="dmg-bezel p-3 sm:p-4">
+            <!-- Top Bezel Line -->
+            <div class="flex items-center justify-between text-[9px] font-mono-tech uppercase tracking-widest text-stone-300 mb-2">
+              <div class="flex items-center gap-2">
+                <span id="v4-battery-led" class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_6px_#ef4444]"></span>
+                <span>DOT MATRIX WITH STEREO SOUND</span>
+              </div>
+              <span id="v4-plat-badge" class="font-bold text-amber-300">CART: BACKLOGGD</span>
+            </div>
+            <!-- Green LCD Screen -->
+            <div class="dmg-lcd p-4 rounded flex flex-col sm:flex-row gap-4 items-stretch justify-between">
+              <div class="flex gap-4 items-center">
+                <div id="v4-poster" class="w-20 sm:w-24 aspect-[3/4] border-2 border-[#0f380f] shrink-0 overflow-hidden grayscale contrast-150"></div>
+                <div class="space-y-1.5">
+                  <div id="v4-year-dev" class="font-mono-tech text-[10px] font-bold uppercase opacity-80">2025 // VOIDLINE STUDIO</div>
+                  <h3 id="v4-title" class="font-mono-tech text-xl sm:text-2xl font-extrabold uppercase tracking-tight leading-none">NEON REQUIEM</h3>
+                  <div id="v4-genres" class="font-mono-tech text-[10px] font-bold uppercase">[ACTION RPG] [CYBERPUNK]</div>
+                  <div id="v4-links" class="pt-1.5 flex flex-wrap gap-2 font-mono-tech text-[11px] font-bold uppercase"></div>
+                </div>
+              </div>
+              <!-- Pixel Score Block -->
+              <div class="sm:border-l-2 border-[#0f380f] sm:pl-4 flex sm:flex-col justify-between items-end shrink-0 font-mono-tech">
+                <div class="text-right">
+                  <div id="v4-plat-name" class="text-[10px] font-bold uppercase">BACKLOGGD</div>
+                  <div id="v4-score-main" class="text-3xl sm:text-4xl font-extrabold leading-none">8.4</div>
+                </div>
+                <div class="text-right text-[11px] font-bold">
+                  <div>IGDB: <span id="v4-score-igdb">82</span></div>
+                  <div>STM: <span id="v4-score-steam">91%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom Physical Shell Decor -->
+          <div class="mt-3 flex items-center justify-between px-2 font-mono-tech text-[10px] font-bold text-[#3f3e38]">
+            <span>NINTEN-REVIEW // DMG-01</span>
+            <div class="flex items-center gap-3">
+              <span class="px-2 py-0.5 rounded-full bg-[#8f2950] text-white text-[9px]">A</span>
+              <span class="px-2 py-0.5 rounded-full bg-[#8f2950] text-white text-[9px]">B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         05. JEWEL CASE / PS1 EDITION WITH OBI-STRIP
+         ========================================================== -->
+    <section id="sec-v5" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-sky-500/20 text-sky-300 border border-sky-500/40">05 // Jewel Case</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Диск-издание с японской лентой Obi-Strip»</h2>
+        </div>
+        <button data-copy-target="widget-v5-root" data-copy-label="05 CD-кейс" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v5-root" class="rounded-xl bg-[#14171f] border border-white/15 shadow-2xl overflow-hidden flex flex-col sm:flex-row">
+          <!-- Left Plastic Spine + Obi Strip -->
+          <div id="v5-obi" class="sm:w-14 bg-[#ff4f00] text-white p-2.5 sm:py-4 flex sm:flex-col items-center justify-between shrink-0 font-mono-tech">
+            <span class="text-[10px] font-extrabold tracking-widest uppercase sm:-rotate-90 sm:my-auto whitespace-nowrap" id="v5-obi-text">GAME EDITION // 2025</span>
+            <span class="text-[10px] font-bold bg-black/25 px-1.5 py-0.5 rounded" id="v5-score-mini">8.4</span>
+          </div>
+          <!-- Cover Art Square -->
+          <div class="p-4 sm:p-5 flex items-center justify-center bg-black/40 border-b sm:border-b-0 sm:border-r border-white/10 shrink-0">
+            <div class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-md overflow-hidden border border-white/20 shadow-xl">
+              <div id="v5-poster" class="w-full h-full"></div>
+              <div class="absolute inset-0 bg-gradient-to-tr from-white/5 via-white/20 to-transparent pointer-events-none"></div>
+            </div>
+          </div>
+          <!-- Booklet Info -->
+          <div class="flex-1 p-5 flex flex-col justify-between gap-4">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <div id="v5-plat-tag" class="font-mono-tech text-[10px] uppercase tracking-widest text-sky-400 font-bold">BACKLOGGD CATALOG</div>
+                <h3 id="v5-title" class="font-display text-2xl font-bold text-white mt-0.5">Neon Requiem</h3>
+                <div id="v5-dev" class="text-xs text-slate-400 mt-0.5">Voidline Studio · Nova Interactive</div>
+              </div>
+              <!-- Critic Sticker -->
+              <div class="px-3 py-1.5 rounded-lg bg-white text-black text-center shrink-0 shadow">
+                <div id="v5-plat-short" class="font-mono-tech text-[9px] font-extrabold uppercase tracking-wider text-neutral-500">BACKLOGGD</div>
+                <div id="v5-score-main" class="font-display text-2xl font-extrabold leading-none">8.4</div>
+              </div>
+            </div>
+            <!-- Tracklist-style Specs -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs border-y border-white/10 py-2.5 font-mono-tech">
+              <div><span class="text-slate-500">01. IGDB:</span> <strong id="v5-score-igdb" class="text-white">82/100</strong></div>
+              <div><span class="text-slate-500">02. STEAM:</span> <strong id="v5-score-steam" class="text-emerald-400">91%</strong></div>
+              <div class="col-span-2 sm:col-span-1 truncate"><span class="text-slate-500">03.</span> <span id="v5-genres" class="text-slate-200">Action RPG</span></div>
+            </div>
+            <!-- Links -->
+            <div id="v5-links" class="flex flex-wrap items-center gap-4 text-xs font-medium text-sky-300"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         06. CYBERNETIC TERMINAL / ASCII TELEMETRY
+         ========================================================== -->
+    <section id="sec-v6" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-700">06 // CRT Terminal</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Хакерский терминал с ASCII-шкалой и сканлайнами»</h2>
+        </div>
+        <button data-copy-target="widget-v6-root" data-copy-label="06 Терминал" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v6-root" class="crt-box rounded-xl p-5 font-mono-tech text-emerald-400">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] border-b border-emerald-500/30 pb-2 mb-4">
+            <span id="v6-cmd">root@review:~# inspect --source=backloggd</span>
+            <span class="text-emerald-500/70">[SYS.OK // 60FPS]</span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-5 items-start">
+            <div id="v6-poster" class="w-24 aspect-[3/4] border border-emerald-500/60 p-0.5 bg-emerald-950/30 shrink-0 overflow-hidden"></div>
+            <div class="flex-1 min-w-0 space-y-2.5 w-full">
+              <div>
+                <div id="v6-title" class="text-xl sm:text-2xl font-bold text-emerald-300 tracking-tight">&gt; Neon Requiem_</div>
+                <div id="v6-dev" class="text-xs text-emerald-500/80">DEV: Voidline Studio | PUB: Nova Interactive | 2025</div>
+              </div>
+              <div id="v6-genres" class="text-xs text-emerald-200/90">TAGS: #ACTION_RPG #CYBERPUNK #OPEN_WORLD</div>
+              <!-- ASCII Progress Bars -->
+              <div class="bg-emerald-950/40 border border-emerald-500/25 p-3 rounded text-xs space-y-1.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span id="v6-plat-label">BACKLOGGD:</span>
+                  <span id="v6-ascii-main" class="text-emerald-300 font-bold">[████████░░] 8.4/10</span>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                  <span>IGDB_INDX:</span>
+                  <span id="v6-ascii-igdb" class="text-amber-300 font-bold">[████████░░] 82/100</span>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                  <span>STEAM_POS:</span>
+                  <span id="v6-ascii-steam" class="text-emerald-300 font-bold">91% POSITIVE</span>
+                </div>
+              </div>
+              <div id="v6-links" class="pt-1 flex flex-wrap gap-3 text-xs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         07. LITERARY NEWSPAPER CLIPPING (Газетная рецензия)
+         ========================================================== -->
+    <section id="sec-v7" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#e8dfd1] text-[#292524]">07 // Newspaper</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Литературная газетная вырезка» — антиква, колонки, виньетка</h2>
+        </div>
+        <button data-copy-target="widget-v7-root" data-copy-label="07 Газета" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v7-root" class="bg-[#f3ece0] text-[#1c1917] p-5 sm:p-7 border border-[#d6cbb9] shadow-xl">
+          <!-- Newspaper Masthead -->
+          <div class="border-b-2 border-[#1c1917] pb-2 mb-4 flex flex-wrap items-center justify-between gap-2 text-[11px] uppercase tracking-widest font-semibold">
+            <span id="v7-masthead">ХРОНИКА ВИДЕОИГР · BACKLOGGD EDITION</span>
+            <span id="v7-year">ВЫПУСК 2025 Г.</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+            <div class="md:col-span-3">
+              <div id="v7-poster" class="w-28 md:w-full aspect-[3/4] border border-[#1c1917] p-1 bg-white mx-auto"></div>
+            </div>
+            <div class="md:col-span-6 space-y-2.5 border-b md:border-b-0 md:border-r border-[#1c1917]/20 pb-4 md:pb-0 md:pr-5">
+              <div id="v7-genres" class="text-[11px] uppercase tracking-wider text-stone-600 font-semibold">Action RPG · Киберпанк</div>
+              <h3 id="v7-title" class="font-editorial text-3xl sm:text-4xl font-normal text-[#1c1917] leading-none">Neon Requiem</h3>
+              <p id="v7-dev" class="text-xs italic text-stone-600">Разработка: Voidline Studio; издание: Nova Interactive</p>
+              <p id="v7-verdict" class="text-xs sm:text-sm text-stone-800 leading-relaxed pt-1 border-t border-[#1c1917]/15">
+                «Эталонный киберпанк с вертикальным левел-дизайном и густой атмосферой мегаполиса»
+              </p>
+              <div id="v7-links" class="pt-1 flex flex-wrap gap-3 text-xs font-semibold underline underline-offset-4 decoration-stone-400"></div>
+            </div>
+            <div class="md:col-span-3 text-center space-y-2">
+              <div class="text-[10px] uppercase tracking-widest text-stone-500 font-bold" id="v7-plat-label">Оценка Backloggd</div>
+              <div id="v7-score-main" class="font-editorial text-5xl text-[#1c1917] leading-none">8.4</div>
+              <div class="text-xs font-mono-tech text-stone-700 border-t border-[#1c1917]/20 pt-2">
+                IGDB: <strong id="v7-score-igdb">82</strong> · Steam: <strong id="v7-score-steam">91%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         08. INDUSTRIAL METAL PLATE (Промышленная металлическая шильда)
+         ========================================================== -->
+    <section id="sec-v8" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-zinc-700 text-zinc-100">08 // Industrial Metal</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Металлическая шильда с заклёпками и LED-дисплеем»</h2>
+        </div>
+        <button data-copy-target="widget-v8-root" data-copy-label="08 Металл" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v8-root" class="metal-plate rounded-xl p-5 relative">
+          <!-- 4 Corner Rivets -->
+          <span class="absolute top-2.5 left-2.5 w-2 h-2 rounded-full bg-zinc-500 shadow-inner"></span>
+          <span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-zinc-500 shadow-inner"></span>
+          <span class="absolute bottom-2.5 left-2.5 w-2 h-2 rounded-full bg-zinc-500 shadow-inner"></span>
+          <span class="absolute bottom-2.5 right-2.5 w-2 h-2 rounded-full bg-zinc-500 shadow-inner"></span>
+
+          <div class="px-2 flex flex-col md:flex-row items-center gap-5">
+            <div id="v8-poster" class="w-24 aspect-[3/4] rounded border-2 border-zinc-600 shadow-lg shrink-0 overflow-hidden"></div>
+            <div class="flex-1 min-w-0 space-y-2 text-center md:text-left">
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 font-mono-tech text-[10px] uppercase tracking-widest text-zinc-400">
+                <span id="v8-plat-badge" class="text-amber-400 font-bold">UNIT // BACKLOGGD</span>
+                <span>•</span>
+                <span id="v8-year">2025</span>
+              </div>
+              <h3 id="v8-title" class="font-display text-2xl font-bold text-zinc-100 tracking-tight">Neon Requiem</h3>
+              <div id="v8-dev" class="text-xs text-zinc-400">Voidline Studio · Nova Interactive</div>
+              <div id="v8-genres" class="font-mono-tech text-[11px] text-zinc-300">ACTION RPG / CYBERPUNK / OPEN WORLD</div>
+              <div id="v8-links" class="pt-2 flex flex-wrap justify-center md:justify-start gap-2"></div>
+            </div>
+            <!-- Recessed LED Display -->
+            <div class="w-full md:w-48 bg-[#0b0c0e] border-2 border-zinc-700 rounded-lg p-3.5 shadow-[inset_0_3px_10px_rgba(0,0,0,0.9)] font-mono-tech shrink-0">
+              <div class="flex justify-between items-baseline">
+                <span id="v8-plat-short" class="text-[10px] text-zinc-500 uppercase">BACKLOGGD</span>
+                <span id="v8-score-main" class="text-3xl font-extrabold text-amber-400 tracking-tight">8.4</span>
+              </div>
+              <div class="border-t border-zinc-800 mt-2 pt-2 flex justify-between text-xs">
+                <span class="text-zinc-500">IGDB <strong id="v8-score-igdb" class="text-zinc-200">82</strong></span>
+                <span class="text-zinc-500">STM <strong id="v8-score-steam" class="text-emerald-400">91%</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         09. POLAROID & STICKY NOTE (Полароид и жёлтый стикер)
+         ========================================================== -->
+    <section id="sec-v9" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-yellow-300 text-stone-900">09 // Polaroid &amp; Note</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Снимок на доске + стикер с заметками»</h2>
+        </div>
+        <button data-copy-target="widget-v9-root" data-copy-label="09 Полароид" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v9-root" class="bg-[#2a2520] rounded-2xl p-5 sm:p-6 border border-white/10 flex flex-col md:flex-row items-center gap-6">
+          <!-- Polaroid Frame -->
+          <div class="bg-[#faf8f5] p-3 pb-4 rounded-sm shadow-xl -rotate-2 shrink-0 w-44 text-stone-900">
+            <div id="v9-poster" class="w-full aspect-square bg-stone-900 overflow-hidden"></div>
+            <div id="v9-polaroid-cap" class="font-editorial italic text-lg text-center mt-2 leading-tight text-stone-800">Neon Requiem (2025)</div>
+          </div>
+          <!-- Note Card -->
+          <div class="flex-1 bg-[#fef08a] text-stone-900 p-5 rounded-sm shadow-lg rotate-1 relative w-full">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-900/20 pb-2 mb-3">
+              <span id="v9-plat-tag" class="font-mono-tech text-[11px] font-extrabold uppercase tracking-wider text-stone-700">ЗАМЕТКА // BACKLOGGD</span>
+              <span id="v9-score-main" class="font-mono-tech text-lg font-extrabold bg-stone-900 text-[#fef08a] px-2 py-0.5 rounded">★ 8.4</span>
+            </div>
+            <h3 id="v9-title" class="font-display text-2xl font-bold text-stone-900">Neon Requiem</h3>
+            <p id="v9-dev" class="text-xs font-semibold text-stone-700 mt-0.5">Voidline Studio · Nova Interactive</p>
+            <div id="v9-genres" class="font-mono-tech text-[11px] font-bold text-stone-800 mt-2">Action RPG • Cyberpunk • Open World</div>
+            <div class="mt-3 pt-2 border-t border-stone-900/15 flex flex-wrap items-center justify-between gap-2">
+              <div class="font-mono-tech text-xs font-bold text-stone-800">
+                IGDB: <span id="v9-score-igdb">82</span> | Steam: <span id="v9-score-steam">91%</span>
+              </div>
+              <div id="v9-links" class="flex flex-wrap gap-3 text-xs font-bold underline"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         10. SPLIT 50/50 CONTRAST CARD (Контрастный сплит-блок)
+         ========================================================== -->
+    <section id="sec-v10" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">10 // Split 50/50</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Асимметричный сплит 50/50 со сравнительной шкалой»</h2>
+        </div>
+        <button data-copy-target="widget-v10-root" data-copy-label="10 Сплит 50/50" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v10-root" class="rounded-2xl overflow-hidden border border-white/10 grid grid-cols-1 md:grid-cols-2 shadow-2xl">
+          <!-- Left Visual Half -->
+          <div class="relative min-h-[210px] p-6 flex flex-col justify-between bg-stone-950 overflow-hidden">
+            <div id="v10-bg-art" class="absolute inset-0 opacity-55"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/30"></div>
+            <div class="relative z-10 flex items-center justify-between">
+              <span id="v10-plat-badge" class="font-mono-tech text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-white/15 text-white backdrop-blur">BACKLOGGD</span>
+              <span id="v10-year" class="font-mono-tech text-xs text-white/80 font-bold">2025</span>
+            </div>
+            <div class="relative z-10">
+              <div id="v10-genres" class="text-[11px] font-mono-tech uppercase text-amber-300 mb-1">Action RPG · Cyberpunk</div>
+              <h3 id="v10-title" class="font-display text-3xl font-bold text-white leading-tight">Neon Requiem</h3>
+              <p id="v10-dev" class="text-xs text-stone-300 mt-1">Voidline Studio · Nova Interactive</p>
+            </div>
+          </div>
+          <!-- Right Clean Score Comparison Half -->
+          <div class="bg-[#f8fafc] text-slate-900 p-6 flex flex-col justify-between gap-4">
+            <div class="space-y-3">
+              <div class="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-slate-400">Сравнение рейтингов</div>
+              <!-- Bar 1 -->
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span id="v10-plat-name">Backloggd</span>
+                  <span id="v10-score-main" class="font-mono-tech">8.4 / 10</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="v10-bar-main" class="h-full bg-[#ff4f00] rounded-full" style="width: 84%"></div>
+                </div>
+              </div>
+              <!-- Bar 2 -->
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>IGDB Score</span>
+                  <span id="v10-score-igdb" class="font-mono-tech">82 / 100</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="v10-bar-igdb" class="h-full bg-slate-800 rounded-full" style="width: 82%"></div>
+                </div>
+              </div>
+              <!-- Bar 3 -->
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Steam Reviews</span>
+                  <span id="v10-score-steam" class="font-mono-tech text-emerald-600">91%</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="v10-bar-steam" class="h-full bg-emerald-500 rounded-full" style="width: 91%"></div>
+                </div>
+              </div>
+            </div>
+            <div id="v10-links" class="pt-3 border-t border-slate-200 flex flex-wrap gap-4 text-xs font-bold text-slate-700"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         11. JAPANESE ARCADE MARQUEE (Вывеска игрового автомата)
+         ========================================================== -->
+    <section id="sec-v11" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-yellow-400 text-black">11 // Arcade Marquee</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Аркадный автомат / Neo-Geo» — диагональные полосы и жетоны</h2>
+        </div>
+        <button data-copy-target="widget-v11-root" data-copy-label="11 Аркада" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v11-root" class="bg-[#111113] border-2 border-yellow-400 rounded-xl overflow-hidden shadow-[0_0_25px_rgba(250,204,21,0.12)]">
+          <div class="arcade-hazard h-2.5 w-full"></div>
+          <div class="p-5 flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v11-poster" class="w-20 h-24 aspect-[3/4] border-2 border-yellow-400 shrink-0 overflow-hidden"></div>
+              <div>
+                <div class="inline-block bg-yellow-400 text-black font-mono-tech text-[10px] font-extrabold px-2 py-0.5 uppercase -skew-x-12 mb-1" id="v11-plat-tag">
+                  1P // BACKLOGGD
+                </div>
+                <h3 id="v11-title" class="font-display text-2xl sm:text-3xl font-extrabold italic uppercase text-white tracking-tight leading-none">Neon Requiem</h3>
+                <div id="v11-dev" class="font-mono-tech text-xs text-zinc-400 mt-1">2025 · Voidline Studio</div>
+                <div id="v11-links" class="mt-2.5 flex flex-wrap gap-2"></div>
+              </div>
+            </div>
+            <!-- Arcade High Score Box -->
+            <div class="bg-black border-2 border-zinc-700 px-5 py-3 rounded-lg text-center shrink-0 font-mono-tech">
+              <div class="text-[10px] text-yellow-400 font-bold tracking-widest uppercase">HIGH SCORE</div>
+              <div id="v11-score-main" class="text-4xl font-extrabold text-white leading-none my-1">8.4</div>
+              <div class="text-[10px] text-zinc-400">IGDB <span id="v11-score-igdb" class="text-cyan-400 font-bold">82</span> • STM <span id="v11-score-steam" class="text-emerald-400 font-bold">91%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         12. ULTRA-COMPACT INLINE STRIP (Тонкая строка для лонгридов)
+         ========================================================== -->
+    <section id="sec-v12" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">12 // Ultra-Compact Strip</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Ультра-компактная строка» — не рвёт текст длинного обзора</h2>
+        </div>
+        <button data-copy-target="widget-v12-root" data-copy-label="12 Компакт-строка" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <p class="review-context-block text-sm text-stone-300 leading-relaxed mb-4">
+          Если хочется упомянуть игру прямо внутри абзаца без громоздкого блока, подойдёт вот такая однострочная врезка:
+        </p>
+        <div id="widget-v12-root" class="rounded-xl bg-[#141413] border border-stone-700/80 border-l-4 border-l-[#ff4f00] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div id="v12-poster" class="w-10 h-12 rounded overflow-hidden shrink-0 border border-white/10"></div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <h3 id="v12-title" class="font-display text-sm sm:text-base font-bold text-white truncate">Neon Requiem</h3>
+                <span id="v12-year" class="font-mono-tech text-[11px] text-stone-400">2025</span>
+              </div>
+              <div id="v12-dev-genres" class="text-xs text-stone-400 truncate">Voidline Studio · Action RPG, Киберпанк</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 shrink-0">
+            <div class="flex items-center gap-2 font-mono-tech text-xs">
+              <span id="v12-score-main" class="px-2 py-0.5 rounded bg-[#ff4f00]/15 text-[#ff4f00] font-bold">8.4</span>
+              <span class="text-stone-500">|</span>
+              <span class="text-stone-300">IGDB <strong id="v12-score-igdb">82</strong></span>
+              <span class="text-stone-500 hidden sm:inline">|</span>
+              <span class="text-emerald-400 hidden sm:inline" id="v12-score-steam">91%</span>
+            </div>
+            <div id="v12-links" class="flex items-center gap-2 text-xs font-mono-tech text-stone-300"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         13. VHS CASSETTE SLEEVE
+         ========================================================== -->
+    <section id="sec-v13" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-orange-600 text-white">13 // VHS Sleeve</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Обложка видеокассеты VHS 90-х»</h2>
+        </div>
+        <button data-copy-target="widget-v13-root" data-copy-label="13 VHS" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v13-root" class="bg-[#121212] border border-stone-700 rounded-lg overflow-hidden shadow-2xl">
+          <!-- Classic VHS Rainbow Stripe -->
+          <div class="h-2.5 w-full flex">
+            <div class="flex-1 bg-[#dc2626]"></div>
+            <div class="flex-1 bg-[#ea580c]"></div>
+            <div class="flex-1 bg-[#eab308]"></div>
+            <div class="flex-1 bg-[#2563eb]"></div>
+          </div>
+          <div class="p-5 flex flex-col sm:flex-row gap-5 items-center justify-between">
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+              <div id="v13-poster" class="w-20 aspect-[3/4] border border-white/20 shrink-0 overflow-hidden"></div>
+              <div class="space-y-1">
+                <div class="flex items-center gap-2 font-mono-tech text-[10px] font-bold">
+                  <span class="px-1.5 py-0.5 bg-white text-black rounded-sm">HI-FI STEREO</span>
+                  <span id="v13-plat-tag" class="text-orange-400">BACKLOGGD // SP</span>
+                </div>
+                <h3 id="v13-title" class="font-display text-2xl font-extrabold text-white tracking-tight">Neon Requiem</h3>
+                <div id="v13-dev" class="text-xs text-stone-400">2025 · Voidline Studio · Nova Interactive</div>
+                <div id="v13-genres" class="font-mono-tech text-[10px] text-stone-300 uppercase">ACTION RPG / CYBERPUNK</div>
+              </div>
+            </div>
+            <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 border-stone-800 pt-3 sm:pt-0">
+              <div class="bg-black border border-stone-700 px-3.5 py-2 rounded text-center font-mono-tech">
+                <div class="text-[9px] text-stone-500 uppercase" id="v13-plat-short">BACKLOGGD</div>
+                <div id="v13-score-main" class="text-2xl font-extrabold text-orange-400">8.4</div>
+              </div>
+              <div class="font-mono-tech text-xs space-y-1 text-right">
+                <div class="text-stone-300">IGDB: <strong id="v13-score-igdb" class="text-white">82</strong></div>
+                <div class="text-stone-300">STEAM: <strong id="v13-score-steam" class="text-emerald-400">91%</strong></div>
+                <div id="v13-links" class="flex gap-2 pt-1 text-[11px] text-orange-300"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         14. ENGINEERING BLUEPRINT / CAD
+         ========================================================== -->
+    <section id="sec-v14" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#0c3559] text-sky-200 border border-sky-400/50">14 // CAD Blueprint</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Инженерная синька-чертёж» — миллиметровка и штамп ГОСТ</h2>
+        </div>
+        <button data-copy-target="widget-v14-root" data-copy-label="14 Чертёж" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v14-root" class="blueprint-bg border-2 border-white/80 p-4 sm:p-5 text-white font-mono-tech relative">
+          <div class="border border-white/50 p-4 flex flex-col md:flex-row gap-5 justify-between items-stretch">
+            <div class="flex gap-4 items-center">
+              <div id="v14-poster" class="w-20 aspect-[3/4] border border-white/80 p-0.5 shrink-0 overflow-hidden opacity-90"></div>
+              <div class="space-y-1.5">
+                <div class="text-[10px] text-sky-200 tracking-widest uppercase" id="v14-plat-tag">FIG. 01 // BACKLOGGD SPEC</div>
+                <h3 id="v14-title" class="text-xl sm:text-2xl font-bold uppercase tracking-tight">Neon Requiem</h3>
+                <div id="v14-dev" class="text-xs text-sky-100/80">← 2025 → | Voidline Studio</div>
+                <div id="v14-genres" class="text-[11px] text-sky-200">[ACTION RPG] [CYBERPUNK]</div>
+                <div id="v14-links" class="pt-1 flex flex-wrap gap-3 text-[11px] underline underline-offset-4 text-white"></div>
+              </div>
+            </div>
+            <!-- CAD Title Block Stamp -->
+            <div class="border-2 border-white/80 bg-[#082640]/80 grid grid-cols-3 text-center shrink-0 md:w-64">
+              <div class="col-span-3 border-b border-white/60 py-1 text-[10px] tracking-widest uppercase text-sky-200" id="v14-stamp-head">ЧЕРТЁЖ // BACKLOGGD</div>
+              <div class="border-r border-white/60 p-2">
+                <div class="text-[9px] text-sky-300">SCORE</div>
+                <div id="v14-score-main" class="text-xl font-bold">8.4</div>
+              </div>
+              <div class="border-r border-white/60 p-2">
+                <div class="text-[9px] text-sky-300">IGDB</div>
+                <div id="v14-score-igdb" class="text-xl font-bold">82</div>
+              </div>
+              <div class="p-2">
+                <div class="text-[9px] text-sky-300">STEAM</div>
+                <div id="v14-score-steam" class="text-xl font-bold">91%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         15. RPG CHARACTER SHEET / STAT BLOCK
+         ========================================================== -->
+    <section id="sec-v15" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#2c2219] text-amber-300 border border-amber-700/60">15 // RPG Stat Block</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Лист персонажа RPG» — статы и ромбы атрибутов</h2>
+        </div>
+        <button data-copy-target="widget-v15-root" data-copy-label="15 RPG Лист" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v15-root" class="bg-[#1d1814] border-2 border-[#b48b57] rounded-lg p-5 text-[#f3e6d3] shadow-xl">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v15-poster" class="w-20 aspect-[3/4] border-2 border-[#b48b57] rounded-sm shrink-0 overflow-hidden"></div>
+              <div>
+                <div id="v15-plat-tag" class="font-mono-tech text-[10px] uppercase tracking-widest text-[#d9a76a]">GUILD RECORD // BACKLOGGD</div>
+                <h3 id="v15-title" class="font-editorial text-3xl text-[#fff5e6] leading-none mt-0.5">Neon Requiem</h3>
+                <div id="v15-dev" class="text-xs text-[#cbb89d] mt-1">Voidline Studio · 2025</div>
+                <div id="v15-genres" class="text-[11px] font-mono-tech text-[#d9a76a] mt-1">Класс: Action RPG · Cyberpunk</div>
+                <div id="v15-links" class="mt-2.5 flex flex-wrap gap-3 text-xs font-semibold text-amber-200 underline underline-offset-4"></div>
+              </div>
+            </div>
+            <!-- 3 Diamond Stat Shields -->
+            <div class="flex items-center gap-4 shrink-0">
+              <div class="text-center">
+                <div class="w-14 h-14 border-2 border-[#d9a76a] bg-[#2a2119] rounded-lg flex flex-col items-center justify-center">
+                  <span id="v15-score-main" class="font-display text-xl font-bold text-amber-300">8.4</span>
+                </div>
+                <div id="v15-plat-short" class="font-mono-tech text-[9px] uppercase text-[#cbb89d] mt-1">BACKLOGGD</div>
+              </div>
+              <div class="text-center">
+                <div class="w-14 h-14 border-2 border-[#b48b57]/60 bg-[#2a2119] rounded-lg flex flex-col items-center justify-center">
+                  <span id="v15-score-igdb" class="font-display text-xl font-bold text-[#fff5e6]">82</span>
+                </div>
+                <div class="font-mono-tech text-[9px] uppercase text-[#cbb89d] mt-1">IGDB</div>
+              </div>
+              <div class="text-center">
+                <div class="w-14 h-14 border-2 border-[#b48b57]/60 bg-[#2a2119] rounded-lg flex flex-col items-center justify-center">
+                  <span id="v15-score-steam" class="font-display text-xl font-bold text-emerald-300">91%</span>
+                </div>
+                <div class="font-mono-tech text-[9px] uppercase text-[#cbb89d] mt-1">STEAM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         16. AUDIO PLAYER / STREAMING DECK
+         ========================================================== -->
+    <section id="sec-v16" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-green-500/20 text-green-300 border border-green-500/40">16 // Media Deck</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Виджет аудиоплеера» — полоса рейтинга как таймлайн трека</h2>
+        </div>
+        <button data-copy-target="widget-v16-root" data-copy-label="16 Плеер" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v16-root" class="bg-[#18181b] border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-5 shadow-xl">
+          <div id="v16-poster" class="w-24 h-24 rounded-xl overflow-hidden shrink-0 shadow-lg border border-white/10"></div>
+          <div class="flex-1 min-w-0 w-full space-y-3">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <div id="v16-plat-tag" class="text-[10px] font-mono-tech uppercase tracking-widest text-green-400 font-bold">NOW PLAYING // BACKLOGGD</div>
+                <h3 id="v16-title" class="font-display text-xl sm:text-2xl font-bold text-white truncate">Neon Requiem</h3>
+                <p id="v16-dev" class="text-xs text-zinc-400 truncate">Voidline Studio · 2025</p>
+              </div>
+              <div class="text-right shrink-0 font-mono-tech">
+                <div id="v16-score-main" class="text-2xl font-extrabold text-green-400 leading-none">8.4</div>
+                <div class="text-[10px] text-zinc-500 mt-0.5">IGDB <span id="v16-score-igdb">82</span> · STM <span id="v16-score-steam">91%</span></div>
+              </div>
+            </div>
+            <!-- Player Progress Bar as Score Meter -->
+            <div class="space-y-1">
+              <div class="h-1.5 w-full bg-zinc-700 rounded-full overflow-hidden">
+                <div id="v16-bar" class="h-full bg-green-400 rounded-full" style="width: 84%"></div>
+              </div>
+              <div class="flex items-center justify-between text-[11px] font-mono-tech text-zinc-400">
+                <span id="v16-genres" class="truncate">Action RPG · Cyberpunk</span>
+                <div id="v16-links" class="flex items-center gap-3 text-white font-semibold shrink-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         17. MUSEUM GALLERY PLAQUE (Музейная табличка)
+         ========================================================== -->
+    <section id="sec-v17" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-stone-200 text-stone-900">17 // Museum Plaque</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Музейная табличка экспоната» — галерейный минимализм</h2>
+        </div>
+        <button data-copy-target="widget-v17-root" data-copy-label="17 Музей" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v17-root" class="bg-[#fafafa] text-[#171717] p-6 sm:p-8 shadow-2xl border border-stone-300">
+          <div class="flex flex-col sm:flex-row gap-6 items-start justify-between">
+            <div class="flex gap-5 items-start">
+              <div id="v17-poster" class="w-20 aspect-[3/4] shadow-md shrink-0 overflow-hidden"></div>
+              <div class="space-y-1.5">
+                <div id="v17-dev-year" class="text-xs text-neutral-500 font-medium">Voidline Studio, 2025</div>
+                <h3 id="v17-title" class="font-editorial text-3xl text-neutral-900 leading-none">Neon Requiem</h3>
+                <div id="v17-genres" class="text-xs text-neutral-600 pt-1">Action RPG, Киберпанк, Открытый мир</div>
+                <div id="v17-links" class="pt-3 flex flex-wrap gap-4 text-[11px] font-mono-tech uppercase tracking-wider text-neutral-500"></div>
+              </div>
+            </div>
+            <div class="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto flex sm:block justify-between items-baseline shrink-0">
+              <div>
+                <div id="v17-plat-label" class="font-mono-tech text-[10px] uppercase tracking-widest text-neutral-400">Backloggd</div>
+                <div id="v17-score-main" class="font-display text-4xl font-light text-neutral-900">8.4</div>
+              </div>
+              <div class="font-mono-tech text-[11px] text-neutral-500 sm:mt-2">
+                IGDB <span id="v17-score-igdb" class="text-neutral-900 font-semibold">82</span> · Steam <span id="v17-score-steam" class="text-neutral-900 font-semibold">91%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         18. COMIC BOOK PANEL (Комикс / Pop-Art)
+         ========================================================== -->
+    <section id="sec-v18" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-yellow-300 text-black border-2 border-black">18 // Comic Panel</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Страница комикса» — Ben-Day точки, чёрная обводка, взрывной рейтинг</h2>
+        </div>
+        <button data-copy-target="widget-v18-root" data-copy-label="18 Комикс" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v18-root" class="comic-dots border-4 border-black p-5 text-black shadow-[8px_8px_0px_#000000] relative">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v18-poster" class="w-24 aspect-[3/4] border-3 border-black shadow-[4px_4px_0_#000] bg-white shrink-0 overflow-hidden"></div>
+              <div class="space-y-1.5">
+                <span id="v18-plat-tag" class="inline-block bg-black text-yellow-300 font-mono-tech text-[10px] font-extrabold px-2 py-0.5 uppercase">ISSUE // BACKLOGGD</span>
+                <h3 id="v18-title" class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight leading-none">Neon Requiem</h3>
+                <div id="v18-dev" class="text-xs font-bold text-neutral-800">2025 · Voidline Studio</div>
+                <div id="v18-genres" class="text-[11px] font-mono-tech font-bold uppercase text-neutral-700">ACTION RPG • CYBERPUNK</div>
+                <div id="v18-links" class="pt-1 flex flex-wrap gap-2"></div>
+              </div>
+            </div>
+            <!-- Comic Burst Badge -->
+            <div class="bg-[#ff4f00] text-white border-4 border-black px-5 py-3 -rotate-3 shadow-[4px_4px_0_#000] text-center shrink-0">
+              <div class="font-mono-tech text-[10px] font-extrabold uppercase">SCORE!</div>
+              <div id="v18-score-main" class="font-display text-4xl font-extrabold leading-none">8.4</div>
+              <div class="font-mono-tech text-[10px] font-bold mt-1">IGDB <span id="v18-score-igdb">82</span> | STM <span id="v18-score-steam">91%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         19. RETRO OS WINDOW (Классическое окно Windows 95 / OS 9)
+         ========================================================== -->
+    <section id="sec-v19" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#c0c0c0] text-black">19 // Retro OS 95</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Окно классической ОС» — 3D-фаска, синяя шапка, системные поля</h2>
+        </div>
+        <button data-copy-target="widget-v19-root" data-copy-label="19 Ретро ОС" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v19-root" class="win95-box p-1">
+          <!-- Titlebar -->
+          <div id="v19-titlebar" class="bg-[#000080] text-white px-2.5 py-1 flex items-center justify-between text-xs font-bold">
+            <span id="v19-win-title">GameInfo.exe — Backloggd</span>
+            <div class="flex gap-1">
+              <span class="w-4 h-4 bg-[#c0c0c0] text-black border border-white text-[10px] flex items-center justify-center leading-none">_</span>
+              <span class="w-4 h-4 bg-[#c0c0c0] text-black border border-white text-[10px] flex items-center justify-center leading-none">×</span>
+            </div>
+          </div>
+          <!-- Content -->
+          <div class="p-3 sm:p-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div id="v19-poster" class="w-20 aspect-[3/4] win95-inset p-0.5 shrink-0 overflow-hidden"></div>
+              <div class="space-y-1">
+                <h3 id="v19-title" class="text-xl font-bold text-black">Neon Requiem</h3>
+                <div id="v19-dev" class="text-xs text-neutral-700">2025 · Voidline Studio · Nova Interactive</div>
+                <div id="v19-genres" class="text-[11px] font-mono-tech text-neutral-600">Action RPG; Cyberpunk; Open World</div>
+                <div id="v19-links" class="pt-2 flex flex-wrap gap-1.5"></div>
+              </div>
+            </div>
+            <div class="win95-inset px-4 py-2.5 text-center shrink-0 w-full sm:w-auto font-mono-tech">
+              <div class="text-[10px] text-neutral-600 uppercase" id="v19-plat-label">Backloggd</div>
+              <div id="v19-score-main" class="text-3xl font-bold text-[#000080]">8.4</div>
+              <div class="text-[11px] text-neutral-700">IGDB: <strong id="v19-score-igdb">82</strong> | STM: <strong id="v19-score-steam">91%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         20. SPLIT-FLAP DEPARTURE BOARD (Табло вокзала / аэропорта)
+         ========================================================== -->
+    <section id="sec-v20" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-zinc-900 text-amber-400 border border-amber-500/40">20 // Split-Flap Board</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Перекидное табло» — механические карточки рейса</h2>
+        </div>
+        <button data-copy-target="widget-v20-root" data-copy-label="20 Табло" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v20-root" class="bg-[#09090b] border border-zinc-800 rounded-xl p-5 text-zinc-100 font-mono-tech shadow-2xl">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-zinc-800 text-[11px] text-zinc-400">
+            <span id="v20-plat-tag" class="text-amber-400 font-bold">GATE // BACKLOGGD</span>
+            <span>STATUS: <strong class="text-emerald-400">ON TIME</strong></span>
+          </div>
+          <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v20-poster" class="w-20 aspect-[3/4] rounded overflow-hidden border border-zinc-700 shrink-0"></div>
+              <div class="space-y-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span id="v20-year" class="flap-tile px-2 py-1 text-sm font-bold text-amber-400">2025</span>
+                  <h3 id="v20-title" class="flap-tile px-3 py-1 text-lg sm:text-xl font-bold uppercase text-white tracking-wider">NEON REQUIEM</h3>
+                </div>
+                <div id="v20-dev" class="text-xs text-zinc-400">VOIDLINE STUDIO · NOVA INTERACTIVE</div>
+                <div id="v20-links" class="flex flex-wrap gap-3 text-xs text-amber-300"></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="flap-tile px-3 py-2 text-center">
+                <div class="text-[9px] text-zinc-500" id="v20-plat-short">BG</div>
+                <div id="v20-score-main" class="text-2xl font-extrabold text-amber-400">8.4</div>
+              </div>
+              <div class="flap-tile px-3 py-2 text-center">
+                <div class="text-[9px] text-zinc-500">IGDB</div>
+                <div id="v20-score-igdb" class="text-2xl font-extrabold text-white">82</div>
+              </div>
+              <div class="flap-tile px-3 py-2 text-center">
+                <div class="text-[9px] text-zinc-500">STM</div>
+                <div id="v20-score-steam" class="text-2xl font-extrabold text-emerald-400">91%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         21. SOFT PASTEL AIRY GLASS (Светлый пастельный дизайн)
+         ========================================================== -->
+    <section id="sec-v21" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-teal-200 text-teal-950">21 // Pastel Airy</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Воздушная пастель» — мягкий светлый градиент без тёмных рамок</h2>
+        </div>
+        <button data-copy-target="widget-v21-root" data-copy-label="21 Пастель" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v21-root" class="rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#e0f2fe] via-[#f0fdf4] to-[#fef3c7] text-slate-800 shadow-xl">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v21-poster" class="w-20 aspect-[3/4] rounded-2xl shadow-md shrink-0 overflow-hidden"></div>
+              <div class="space-y-1">
+                <span id="v21-plat-tag" class="inline-block text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-white/70 px-2.5 py-0.5 rounded-full">Backloggd Pick</span>
+                <h3 id="v21-title" class="font-display text-2xl font-bold text-slate-900">Neon Requiem</h3>
+                <div id="v21-dev" class="text-xs text-slate-600">2025 · Voidline Studio</div>
+                <div id="v21-genres" class="text-xs text-slate-500">Action RPG · Киберпанк</div>
+                <div id="v21-links" class="pt-1.5 flex flex-wrap gap-3 text-xs font-semibold text-teal-800"></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="bg-white/80 backdrop-blur px-4 py-3 rounded-2xl text-center shadow-sm">
+                <div id="v21-plat-short" class="text-[10px] font-bold uppercase text-slate-400">Backloggd</div>
+                <div id="v21-score-main" class="font-display text-3xl font-extrabold text-slate-900">8.4</div>
+              </div>
+              <div class="bg-white/60 backdrop-blur px-3.5 py-3 rounded-2xl text-xs font-mono-tech space-y-1">
+                <div>IGDB: <strong id="v21-score-igdb">82</strong></div>
+                <div>Steam: <strong id="v21-score-steam" class="text-emerald-700">91%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         22. BOOKMARK RIBBON (Закладка с вырезом «ласточкин хвост»)
+         ========================================================== -->
+    <section id="sec-v22" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">22 // Ribbon Bookmark</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Закладка-лента» — фигурный вырез и медальон обложки</h2>
+        </div>
+        <button data-copy-target="widget-v22-root" data-copy-label="22 Закладка" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v22-root" class="ribbon-clip bg-[#1a181c] border-l-8 border-[#ff4f00] py-4 pl-5 pr-10 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+          <div class="flex items-center gap-4">
+            <div id="v22-poster" class="w-16 h-16 rounded-full border-2 border-[#ff4f00] shrink-0 overflow-hidden"></div>
+            <div>
+              <div class="flex items-center gap-2 text-[10px] font-mono-tech uppercase text-rose-300">
+                <span id="v22-plat-tag">BACKLOGGD</span>
+                <span>•</span>
+                <span id="v22-year">2025</span>
+              </div>
+              <h3 id="v22-title" class="font-display text-xl sm:text-2xl font-bold text-white">Neon Requiem</h3>
+              <div id="v22-dev-genres" class="text-xs text-stone-400">Voidline Studio · Action RPG, Cyberpunk</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-5 shrink-0">
+            <div class="text-right font-mono-tech">
+              <div id="v22-score-main" class="text-2xl font-extrabold text-white">8.4<span class="text-xs text-stone-400">/10</span></div>
+              <div class="text-[11px] text-stone-400">IGDB <strong id="v22-score-igdb" class="text-white">82</strong> · STM <strong id="v22-score-steam" class="text-emerald-400">91%</strong></div>
+            </div>
+            <div id="v22-links" class="flex flex-col text-[11px] font-mono-tech text-stone-300 gap-0.5"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         23. BOARDING PASS / FLIGHT TICKET
+         ========================================================== -->
+    <section id="sec-v23" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-sky-600 text-white">23 // Boarding Pass</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Посадочный талон» — авиабилет с отрывным корешком</h2>
+        </div>
+        <button data-copy-target="widget-v23-root" data-copy-label="23 Авиабилет" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v23-root" class="bg-white text-slate-900 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 md:grid-cols-12">
+          <div class="md:col-span-8 flex flex-col justify-between">
+            <div id="v23-header" class="bg-sky-700 text-white px-5 py-2.5 flex items-center justify-between font-mono-tech text-xs font-bold">
+              <span id="v23-plat-tag">BOARDING PASS // BACKLOGGD AIR</span>
+              <span>CLASS: CRITIC</span>
+            </div>
+            <div class="p-5 flex items-center gap-4">
+              <div id="v23-poster" class="w-20 aspect-[3/4] rounded-md overflow-hidden border border-slate-200 shrink-0"></div>
+              <div class="space-y-1.5 min-w-0">
+                <div class="font-mono-tech text-[11px] text-slate-400 font-bold" id="v23-route">REV ✈ <span id="v23-year">2025</span></div>
+                <h3 id="v23-title" class="font-display text-2xl font-bold text-slate-900 truncate">Neon Requiem</h3>
+                <div id="v23-dev" class="text-xs text-slate-600">Voidline Studio · Nova Interactive</div>
+                <div id="v23-links" class="pt-1 flex flex-wrap gap-3 text-xs font-mono-tech font-bold text-sky-700"></div>
+              </div>
+            </div>
+          </div>
+          <div class="md:col-span-4 bg-slate-50 border-t-2 md:border-t-0 md:border-l-2 border-dashed border-slate-300 p-5 flex flex-col justify-between font-mono-tech">
+            <div class="flex justify-between text-[10px] text-slate-400 font-bold">
+              <span id="v23-plat-short">BACKLOGGD</span>
+              <span>GATE 01</span>
+            </div>
+            <div class="my-2">
+              <div class="text-[10px] text-slate-500">SEAT / SCORE</div>
+              <div id="v23-score-main" class="text-4xl font-extrabold text-sky-700 leading-none">8.4</div>
+            </div>
+            <div class="text-xs text-slate-600 flex justify-between border-t border-slate-200 pt-2">
+              <span>IGDB: <strong id="v23-score-igdb" class="text-slate-900">82</strong></span>
+              <span>STM: <strong id="v23-score-steam" class="text-emerald-600">91%</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         24. TRADING CARD / TCG FOIL
+         ========================================================== -->
+    <section id="sec-v24" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-amber-400 text-black">24 // TCG Card</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Коллекционная карта TCG» — золотая рамка, мана-рейтинг</h2>
+        </div>
+        <button data-copy-target="widget-v24-root" data-copy-label="24 TCG Карта" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v24-root" class="tcg-foil p-1.5 rounded-2xl shadow-2xl">
+          <div class="bg-[#181512] rounded-xl p-4 sm:p-5 text-amber-50 flex flex-col sm:flex-row gap-5 items-center">
+            <div id="v24-poster" class="w-28 aspect-[3/4] rounded-lg border-2 border-amber-400/70 shrink-0 overflow-hidden shadow-lg"></div>
+            <div class="flex-1 w-full space-y-3">
+              <div class="flex items-center justify-between gap-2 bg-amber-950/50 border border-amber-500/40 px-3 py-1.5 rounded-lg">
+                <h3 id="v24-title" class="font-display text-xl font-bold text-amber-100">Neon Requiem</h3>
+                <span id="v24-score-main" class="w-8 h-8 rounded-full bg-amber-400 text-black font-mono-tech font-extrabold text-sm flex items-center justify-center shrink-0">8.4</span>
+              </div>
+              <div class="bg-[#231e18] border border-amber-500/20 rounded-lg p-3 text-xs space-y-1.5">
+                <div id="v24-genres" class="font-mono-tech text-[11px] text-amber-300 font-bold">Существо — Action RPG / Cyberpunk</div>
+                <p id="v24-verdict" class="italic text-amber-100/80">«Эталонный киберпанк с вертикальным левел-дизайном»</p>
+                <div class="pt-1 flex flex-wrap justify-between items-center gap-2 border-t border-amber-500/20 font-mono-tech text-[11px]">
+                  <span>IGDB <strong id="v24-score-igdb">82</strong> / STM <strong id="v24-score-steam" class="text-emerald-400">91%</strong></span>
+                  <div id="v24-links" class="flex gap-3 text-amber-300 underline"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         25. MACOS SPOTLIGHT GLASS BAR
+         ========================================================== -->
+    <section id="sec-v25" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-slate-700 text-white">25 // Spotlight Glass</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Стеклянная панель Spotlight» — лаконичный поиск-бар</h2>
+        </div>
+        <button data-copy-target="widget-v25-root" data-copy-label="25 Spotlight" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v25-root" class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div id="v25-poster" class="w-12 h-14 rounded-lg overflow-hidden shrink-0 border border-white/20"></div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <h3 id="v25-title" class="font-display text-lg font-bold text-white truncate">Neon Requiem</h3>
+                <span id="v25-plat-tag" class="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-white/15 text-slate-200">Backloggd</span>
+              </div>
+              <div id="v25-dev" class="text-xs text-slate-300 truncate">2025 · Voidline Studio · Action RPG</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 shrink-0">
+            <div class="flex items-center gap-2 font-mono-tech text-sm">
+              <span id="v25-score-main" class="font-extrabold text-white bg-white/15 px-2.5 py-1 rounded-lg">8.4</span>
+              <span class="text-xs text-slate-300">IGDB <strong id="v25-score-igdb">82</strong></span>
+              <span class="text-xs text-emerald-300" id="v25-score-steam">91%</span>
+            </div>
+            <div id="v25-links" class="flex gap-2 text-xs text-slate-200"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         26. VINYL RECORD SLEEVE & DISC
+         ========================================================== -->
+    <section id="sec-v26" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40">26 // Vinyl LP</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Виниловая пластинка» — выглядывающий диск с оценкой на лейбле</h2>
+        </div>
+        <button data-copy-target="widget-v26-root" data-copy-label="26 Винил" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v26-root" class="bg-[#161518] border border-white/10 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-6">
+          <!-- Sleeve + Disc -->
+          <div class="relative flex items-center shrink-0 pr-12">
+            <div id="v26-poster" class="relative z-10 w-28 h-28 rounded shadow-2xl border border-white/20 overflow-hidden"></div>
+            <div class="absolute right-0 w-24 h-24 rounded-full bg-gradient-to-tr from-zinc-950 via-zinc-800 to-zinc-950 border-2 border-zinc-700 flex items-center justify-center shadow-xl">
+              <div id="v26-disc-label" class="w-10 h-10 rounded-full bg-[#ff4f00] flex items-center justify-center text-white font-mono-tech text-xs font-extrabold border-2 border-black">
+                8.4
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 min-w-0 space-y-2 text-center md:text-left">
+            <div id="v26-plat-tag" class="font-mono-tech text-[10px] uppercase tracking-widest text-purple-300">LP RECORD // BACKLOGGD</div>
+            <h3 id="v26-title" class="font-display text-2xl font-bold text-white">Neon Requiem</h3>
+            <div id="v26-dev" class="text-xs text-zinc-400">2025 · Voidline Studio · Action RPG</div>
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-1 text-xs font-mono-tech">
+              <span class="text-zinc-300">IGDB: <strong id="v26-score-igdb" class="text-white">82</strong></span>
+              <span class="text-zinc-300">STEAM: <strong id="v26-score-steam" class="text-emerald-400">91%</strong></span>
+              <div id="v26-links" class="flex gap-3 text-purple-300 underline"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         27. DARK ACADEMIA EX-LIBRIS
+         ========================================================== -->
+    <section id="sec-v27" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-[#233329] text-[#e5c98b] border border-[#e5c98b]/40">27 // Dark Academia</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Книжный экслибрис» — тёмный изумруд и золотое тиснение</h2>
+        </div>
+        <button data-copy-target="widget-v27-root" data-copy-label="27 Экслибрис" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v27-root" class="bg-[#121e17] border border-[#c5a35d] p-2 rounded-sm shadow-2xl">
+          <div class="border border-[#c5a35d]/50 p-5 flex flex-col sm:flex-row items-center justify-between gap-5 text-[#f4ead5]">
+            <div class="flex items-center gap-5">
+              <div id="v27-poster" class="w-20 aspect-[3/4] border border-[#c5a35d] p-0.5 shrink-0 overflow-hidden"></div>
+              <div class="space-y-1">
+                <div id="v27-plat-tag" class="font-mono-tech text-[10px] tracking-[0.2em] uppercase text-[#c5a35d]">EX LIBRIS · BACKLOGGD</div>
+                <h3 id="v27-title" class="font-editorial text-3xl text-[#fff8eb] leading-none">Neon Requiem</h3>
+                <div id="v27-dev" class="text-xs italic text-[#cbbba0]">Voidline Studio, 2025</div>
+                <div id="v27-links" class="pt-2 flex flex-wrap gap-3 text-xs text-[#e5c98b] underline underline-offset-4"></div>
+              </div>
+            </div>
+            <div class="text-center border-t sm:border-t-0 sm:border-l border-[#c5a35d]/30 pt-3 sm:pt-0 sm:pl-6 shrink-0">
+              <div class="font-mono-tech text-[9px] uppercase tracking-widest text-[#c5a35d]">Оценка</div>
+              <div id="v27-score-main" class="font-editorial text-5xl text-[#e5c98b] leading-none my-1">8.4</div>
+              <div class="font-mono-tech text-[10px] text-[#cbbba0]">IGDB <span id="v27-score-igdb">82</span> · STM <span id="v27-score-steam">91%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         28. SCI-FI TACTICAL HUD
+         ========================================================== -->
+    <section id="sec-v28" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/50">28 // Sci-Fi HUD</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Тактический сканер Sci-Fi» — скошенные углы и циановый радар</h2>
+        </div>
+        <button data-copy-target="widget-v28-root" data-copy-label="28 Sci-Fi HUD" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v28-root" class="scifi-chamfer bg-[#06131c] border border-cyan-500/60 p-5 text-cyan-50 font-mono-tech">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v28-poster" class="w-20 aspect-[3/4] border border-cyan-400/70 shrink-0 overflow-hidden"></div>
+              <div class="space-y-1">
+                <div id="v28-plat-tag" class="text-[10px] text-cyan-400 tracking-widest">TARGET_ID // BACKLOGGD</div>
+                <h3 id="v28-title" class="font-display text-2xl font-bold uppercase text-white tracking-wide">Neon Requiem</h3>
+                <div id="v28-dev" class="text-xs text-cyan-200/70">2025 // Voidline Studio</div>
+                <div id="v28-links" class="pt-1.5 flex flex-wrap gap-2 text-[11px]"></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-cyan-950/50 border border-cyan-500/30 px-4 py-3 shrink-0">
+              <div class="text-center">
+                <div class="text-[9px] text-cyan-400">INDEX</div>
+                <div id="v28-score-main" class="text-3xl font-extrabold text-cyan-300 leading-none">8.4</div>
+              </div>
+              <div class="w-px h-8 bg-cyan-500/30"></div>
+              <div class="text-xs space-y-0.5">
+                <div>IGDB: <strong id="v28-score-igdb" class="text-white">82</strong></div>
+                <div>STM: <strong id="v28-score-steam" class="text-emerald-400">91%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         29. MONOCHROME XEROX ZINE / PUNK FLYER
+         ========================================================== -->
+    <section id="sec-v29" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-white text-black border-2 border-black">29 // Xerox Zine</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Чёрно-белый ксерокс-зин» — жёсткий контраст и инверсия</h2>
+        </div>
+        <button data-copy-target="widget-v29-root" data-copy-label="29 Ксерокс-зин" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v29-root" class="bg-white text-black border-4 border-black p-5 flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div class="flex items-center gap-4">
+            <div id="v29-poster" class="w-20 aspect-[3/4] border-2 border-black grayscale contrast-200 shrink-0 overflow-hidden"></div>
+            <div class="space-y-1.5">
+              <span id="v29-plat-tag" class="inline-block bg-black text-white font-mono-tech text-[10px] font-bold px-2 py-0.5 uppercase -rotate-1">ZINE // BACKLOGGD</span>
+              <h3 id="v29-title" class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tighter leading-none">Neon Requiem</h3>
+              <div id="v29-dev" class="font-mono-tech text-xs font-bold">2025 // Voidline Studio</div>
+              <div id="v29-links" class="pt-1 flex flex-wrap gap-3 font-mono-tech text-xs font-extrabold uppercase underline"></div>
+            </div>
+          </div>
+          <div class="bg-black text-white p-4 rotate-2 text-center shrink-0 font-mono-tech">
+            <div class="text-[10px] uppercase tracking-widest text-neutral-400">RATING</div>
+            <div id="v29-score-main" class="text-4xl font-extrabold leading-none my-0.5">8.4</div>
+            <div class="text-[10px]">IGDB <span id="v29-score-igdb">82</span> / STM <span id="v29-score-steam">91%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         30. THERMAL RECEIPT CHECK (Кассовый чек)
+         ========================================================== -->
+    <section id="sec-v30" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-stone-100 text-stone-800">30 // Thermal Receipt</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Кассовый чек» — термобумага с зубчатым краем</h2>
+        </div>
+        <button data-copy-target="widget-v30-root" data-copy-label="30 Чек" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v30-root" class="bg-[#fafaf9] text-stone-800 font-mono-tech p-5 pb-7 shadow-xl relative receipt-edge">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-dashed border-stone-400 pb-3 mb-3">
+            <div class="flex items-center gap-3">
+              <div id="v30-poster" class="w-12 h-14 grayscale contrast-125 border border-stone-400 shrink-0 overflow-hidden"></div>
+              <div>
+                <div id="v30-plat-tag" class="text-[10px] text-stone-500">RECEIPT #2025 // BACKLOGGD</div>
+                <h3 id="v30-title" class="text-lg font-bold uppercase text-stone-900">NEON REQUIEM</h3>
+                <div id="v30-dev" class="text-[11px] text-stone-600">VOIDLINE STUDIO · 2025</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-stone-500">TOTAL SCORE</div>
+              <div id="v30-score-main" class="text-3xl font-extrabold text-stone-900 leading-none">8.4</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div>IGDB_INDEX: <strong id="v30-score-igdb">82/100</strong> | STEAM_REV: <strong id="v30-score-steam">91%</strong></div>
+            <div id="v30-links" class="flex flex-wrap gap-3 font-bold underline"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         31. ISOMETRIC LAYERED STACK (Стопка карточек)
+         ========================================================== -->
+    <section id="sec-v31" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-indigo-500 text-white">31 // Layered Stack</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Объёмная стопка» — смещённые цветные подложки</h2>
+        </div>
+        <button data-copy-target="widget-v31-root" data-copy-label="31 Стопка" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v31-root" class="relative pr-2 pb-2">
+          <div class="absolute inset-0 translate-x-2 translate-y-2 rounded-2xl bg-[#ff4f00]" id="v31-layer-back"></div>
+          <div class="relative bg-[#141418] border border-white/15 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+              <div id="v31-poster" class="w-20 aspect-[3/4] rounded-xl overflow-hidden border border-white/15 shrink-0"></div>
+              <div class="space-y-1">
+                <span id="v31-plat-tag" class="font-mono-tech text-[10px] uppercase text-indigo-300 font-bold">BACKLOGGD</span>
+                <h3 id="v31-title" class="font-display text-2xl font-bold text-white">Neon Requiem</h3>
+                <div id="v31-dev" class="text-xs text-stone-400">2025 · Voidline Studio</div>
+                <div id="v31-links" class="pt-1.5 flex flex-wrap gap-3 text-xs font-medium text-indigo-300"></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 shrink-0 font-mono-tech">
+              <div class="px-4 py-2 rounded-xl bg-white text-black text-center">
+                <div class="text-[9px] font-bold uppercase text-stone-500">SCORE</div>
+                <div id="v31-score-main" class="text-2xl font-extrabold">8.4</div>
+              </div>
+              <div class="text-xs text-stone-300 space-y-1">
+                <div>IGDB: <strong id="v31-score-igdb" class="text-white">82</strong></div>
+                <div>STM: <strong id="v31-score-steam" class="text-emerald-400">91%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         32. EDITORIAL CRITIC QUOTE CARD (Цитатная карточка критика)
+         ========================================================== -->
+    <section id="sec-v32" class="space-y-4 scroll-mt-28">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-3">
+          <span class="font-mono-tech text-xs font-bold uppercase px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">32 // Critic Quote</span>
+          <h2 class="text-base sm:text-xl font-display font-bold text-stone-100">«Цитата критика» — главный акцент на вердикте автора</h2>
+        </div>
+        <button data-copy-target="widget-v32-root" data-copy-label="32 Цитата" type="button" class="copy-widget-btn px-3 py-1.5 rounded-lg text-xs font-mono-tech font-semibold bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition">Скопировать HTML</button>
+      </div>
+      <div class="rounded-2xl bg-[#1e1e1c] border border-stone-800 p-4 sm:p-7">
+        <div id="widget-v32-root" class="bg-[#181a1b] border border-white/10 rounded-2xl p-6 space-y-5">
+          <p id="v32-verdict" class="font-editorial italic text-2xl sm:text-3xl text-stone-100 leading-snug">
+            «Эталонный киберпанк с вертикальным левел-дизайном и густой атмосферой мегаполиса»
+          </p>
+          <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div id="v32-poster" class="w-11 h-14 rounded overflow-hidden border border-white/15 shrink-0"></div>
+              <div>
+                <h3 id="v32-title" class="font-display text-base font-bold text-white">Neon Requiem</h3>
+                <div id="v32-dev" class="text-xs text-stone-400">2025 · Voidline Studio</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 font-mono-tech text-xs">
+              <span id="v32-score-main" class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-sm">8.4 / 10</span>
+              <span class="text-stone-400">IGDB <strong id="v32-score-igdb" class="text-white">82</strong></span>
+              <div id="v32-links" class="flex gap-2.5 text-stone-300 underline"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="copy-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-2.5 rounded-lg bg-[#ff4f00] text-white font-mono-tech font-bold text-xs shadow-xl flex items-center gap-2 border border-white/20">
+      <span id="copy-toast-text">HTML-код скопирован!</span>
+    </div>
+  </div>
+
+  <script>
+    const GAMES = {
+      neon: {
+        refCode: 'NR-2025-X',
+        title: 'Neon Requiem',
+        year: '2025',
+        dev: 'Voidline Studio',
+        pub: 'Nova Interactive',
+        genres: ['ACTION RPG', 'CYBERPUNK', 'OPEN WORLD'],
+        status: '● ПРОЙДЕНО 100% (42 Ч)',
+        verdict: '«Эталонный киберпанк с вертикальным левел-дизайном и густой атмосферой мегаполиса»',
+        scoreMain: 8.4,
+        scoreIgdb: 82,
+        scoreSteam: 91,
+        steamDesc: 'Steam',
+        posterSvg: `
+          <svg viewBox="0 0 200 260" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="neonBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#181816"/>
+                <stop offset="100%" stop-color="#141413"/>
+              </linearGradient>
+              <radialGradient id="neonSun" cx="0.72" cy="0.24" r="0.32">
+                <stop offset="0%" stop-color="#ff4f00"/>
+                <stop offset="100%" stop-color="#ff4f00"/>
+              </radialGradient>
+            </defs>
+            <rect width="200" height="260" fill="url(#neonBg)"/>
+            <circle cx="135" cy="70" r="48" fill="url(#neonSun)"/>
+            <polygon points="0,260 75,130 160,260" fill="#292826"/>
+            <polygon points="65,260 145,120 220,260" fill="#141413"/>
+            <text x="16" y="36" fill="#f4f0e6" font-family="JetBrains Mono, monospace" font-weight="700" font-size="9">VOL.01 // 2025</text>
+            <text x="16" y="232" fill="#f4f0e6" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="18">NEON</text>
+            <text x="16" y="248" fill="#ff4f00" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="14">REQUIEM</text>
+          </svg>
+        `,
+        widescreenSvg: `
+          <svg viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="cineNeonBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1c1917"/>
+                <stop offset="50%" stop-color="#431407"/>
+                <stop offset="100%" stop-color="#0c0a09"/>
+              </linearGradient>
+              <radialGradient id="cineSun" cx="0.72" cy="0.35" r="0.35">
+                <stop offset="0%" stop-color="#fb923c" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="1200" height="400" fill="url(#cineNeonBg)"/>
+            <circle cx="860" cy="140" r="240" fill="url(#cineSun)"/>
+            <polygon points="420,400 690,110 950,400" fill="#1c1917" opacity="0.85"/>
+            <polygon points="680,400 940,80 1220,400" fill="#0c0a09" opacity="0.95"/>
+          </svg>
+        `
+      },
+      rdr2: {
+        refCode: 'RDR-1899-W',
+        title: 'Red Dead Redemption 2',
+        year: '2018',
+        dev: 'Rockstar Games',
+        pub: 'Rockstar Games',
+        genres: ['ACTION', 'WESTERN', 'OPEN WORLD'],
+        status: '● ШЕДЕВР (135 Ч)',
+        verdict: '«Непревзойдённая детализация живого фронтира и взрослая драматургия»',
+        scoreMain: 9.6,
+        scoreIgdb: 93,
+        scoreSteam: 92,
+        steamDesc: 'Steam',
+        posterSvg: `
+          <svg viewBox="0 0 200 260" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="rdrBg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7f1d1d"/>
+                <stop offset="100%" stop-color="#450a0a"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="260" fill="url(#rdrBg)"/>
+            <circle cx="100" cy="105" r="52" fill="#f59e0b"/>
+            <polygon points="0,260 50,170 120,190 200,165 200,260" fill="#141413"/>
+            <text x="16" y="232" fill="#fef3c7" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="16">RED DEAD II</text>
+          </svg>
+        `,
+        widescreenSvg: `
+          <svg viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="cineRdr" x1="0" y1="0" x2="1" y2="0.8"><stop offset="0%" stop-color="#450a0a"/><stop offset="55%" stop-color="#991b1b"/><stop offset="100%" stop-color="#1c1917"/></linearGradient></defs><rect width="1200" height="400" fill="url(#cineRdr)"/>
+            <circle cx="880" cy="190" r="140" fill="#fbbf24" opacity="0.75"/>
+            <path d="M350 400 L580 230 L760 270 L980 200 L1200 260 L1200 400 Z" fill="#141413"/>
+          </svg>
+        `
+      },
+      beholder: {
+        refCode: 'BHC-1984-T',
+        title: 'Beholder: Conductor',
+        year: '2025',
+        dev: 'Alawar',
+        pub: 'Alawar',
+        genres: ['SIMULATION', 'DYSTOPIA', 'STRATEGY'],
+        status: '● ПРОЙДЕНО (18 Ч)',
+        verdict: '«Тоталитарный экспресс, где каждый пассажир — моральная дилемма»',
+        scoreMain: 8.1,
+        scoreIgdb: 79,
+        scoreSteam: 86,
+        steamDesc: 'Steam',
+        posterSvg: `
+          <svg viewBox="0 0 200 260" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="behBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1c1917"/>
+                <stop offset="100%" stop-color="#090a0f"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="260" fill="url(#behBg)"/>
+            <rect x="28" y="52" width="144" height="90" fill="none" stroke="#eab308" stroke-width="3"/>
+            <circle cx="100" cy="97" r="24" fill="#eab308"/>
+            <text x="16" y="232" fill="#f4f0e6" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="16">BEHOLDER</text>
+          </svg>
+        `,
+        widescreenSvg: `
+          <svg viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1200" height="400" fill="#18181b"/>
+            <circle cx="880" cy="180" r="150" fill="#ca8a04" opacity="0.35"/>
+            <rect x="680" y="90" width="380" height="200" rx="12" fill="none" stroke="#eab308" stroke-width="3" opacity="0.45"/>
+          </svg>
+        `
+      }
+    };
+
+    const state = {
+      platform: 'backloggd',
+      gameKey: 'neon',
+      showContext: true,
+      customTitle: 'Neon Requiem',
+      customDevLine: '2025 · Voidline Studio · Nova Interactive',
+      customScoreMain: 8.4,
+      customScoreIgdb: 82
+    };
+
+    function getPlatformMeta() {
+      if (state.platform === 'backloggd') {
+        return {
+          name: 'Backloggd',
+          upper: 'BACKLOGGD',
+          short: 'BG',
+          dossierHeader: 'ARCHIVE DOSSIER // BACKLOGGD',
+          scoreHeader: 'BACKLOGGD SCORE',
+          hex: '#ff4f00',
+          tabClass: 'active-source',
+          cineTag: 'BACKLOGGD // REVIEW CARD'
+        };
+      } else {
+        return {
+          name: 'Panaxgames',
+          upper: 'PANAXGAMES',
+          short: 'PX',
+          dossierHeader: 'ARCHIVE DOSSIER // PANAXGAMES',
+          scoreHeader: 'PANAXGAMES SCORE',
+          hex: '#00a86b',
+          tabClass: 'active-source-panax',
+          cineTag: 'PANAXGAMES // REVIEW CARD'
+        };
+      }
+    }
+
+    function makeAsciiBar(ratio) {
+      const filled = Math.round(Math.min(1, Math.max(0, ratio)) * 10);
+      return '[' + '█'.repeat(filled) + '░'.repeat(10 - filled) + ']';
+    }
+
+    function renderWidgets() {
+      const g = GAMES[state.gameKey];
+      const p = getPlatformMeta();
+
+      const parts = state.customDevLine.split('·').map(s => s.trim());
+      const yearStr = parts[0] || g.year;
+      const devStr = parts[1] || g.dev;
+      const pubStr = parts[2] || g.pub;
+      const devPubCombined = parts.slice(1).join(' · ') || `${g.dev} · ${g.pub}`;
+
+      const scoreMainNum = Math.min(10, Math.max(0, parseFloat(state.customScoreMain) || 0));
+      const scoreMainStr = scoreMainNum.toFixed(1);
+      const scoreIgdbNum = Math.min(100, Math.max(0, parseInt(state.customScoreIgdb, 10) || 0));
+
+      const stdLinks = [p.name, 'Steam', 'IGDB', 'RAWG'];
+
+      // --- 01. TACTILE TICKET ---
+      document.getElementById('v1-led-dot').style.backgroundColor = p.hex;
+      document.getElementById('v1-platform-badge').textContent = p.dossierHeader;
+      document.getElementById('v1-ref-code').textContent = g.refCode;
+      document.getElementById('v1-status-text').textContent = g.status;
+      document.getElementById('v1-poster').innerHTML = g.posterSvg;
+      const v1Year = document.getElementById('v1-year-badge');
+      v1Year.textContent = yearStr;
+      v1Year.style.backgroundColor = p.hex;
+      document.getElementById('v1-title').textContent = state.customTitle;
+      document.getElementById('context-game-name-1').textContent = state.customTitle;
+      document.getElementById('v1-dev-text').textContent = devPubCombined;
+      document.getElementById('v1-steam-mini').textContent = `${g.scoreSteam}% ПОЛОЖИТ.`;
+      document.getElementById('v1-genres').innerHTML = g.genres.map((x, i) => `<span>${x}${i < g.genres.length - 1 ? ' /' : ''}</span>`).join('');
+      document.getElementById('v1-verdict-text').textContent = g.verdict;
+      document.getElementById('v1-primary-score-label').textContent = p.scoreHeader;
+      document.getElementById('v1-primary-dot').style.color = p.hex;
+      document.getElementById('v1-primary-score-val').textContent = scoreMainStr;
+      document.getElementById('v1-igdb-score-val').textContent = scoreIgdbNum;
+      const v1Bar = document.getElementById('v1-primary-bar');
+      v1Bar.style.width = `${scoreMainNum * 10}%`;
+      v1Bar.style.backgroundColor = p.hex;
+      document.getElementById('v1-links-bar').innerHTML = stdLinks.map((name, i) => `
+        <a href="#preview-link" onclick="event.preventDefault();" class="te-index-tab ${i === 0 ? p.tabClass : ''}">
+          <span>${name}</span><span>↗</span>
+        </a>
+      `).join('');
+
+      // --- 02. CINEMATIC WIDESCREEN ---
+      document.getElementById('v2-widescreen-art').innerHTML = g.widescreenSvg;
+      document.getElementById('v2-source-header').textContent = p.cineTag;
+      document.getElementById('v2-release-meta').textContent = `РЕЛИЗ // ${yearStr}`;
+      document.getElementById('v2-title').textContent = state.customTitle;
+      document.getElementById('v2-studio').textContent = devPubCombined;
+      document.getElementById('v2-genres').innerHTML = g.genres.map((x, i) => `<span>${x}</span>${i < g.genres.length - 1 ? '<span class="text-stone-500">/</span>' : ''}`).join('');
+      const circ = 144.5;
+      const gMain = document.getElementById('v2-gauge-main');
+      gMain.style.strokeDashoffset = (circ - (scoreMainNum / 10) * circ).toFixed(1);
+      gMain.setAttribute('stroke', p.hex);
+      document.getElementById('v2-gauge-igdb').style.strokeDashoffset = (circ - (scoreIgdbNum / 100) * circ).toFixed(1);
+      document.getElementById('v2-score1-val').textContent = scoreMainStr;
+      document.getElementById('v2-score1-title').textContent = p.name;
+      document.getElementById('v2-score1-icon').textContent = p.short;
+      document.getElementById('v2-score2-val').textContent = scoreIgdbNum;
+      document.getElementById('v2-score3-val').textContent = `${g.scoreSteam}%`;
+      const iconSvgs = [
+        `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+        `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`,
+        `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>`,
+        `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>`
+      ];
+      document.getElementById('v2-links').innerHTML = stdLinks.map((name, i) => `
+        <a href="#preview-link" onclick="event.preventDefault();" class="cine-icon-node" aria-label="${name}">
+          ${iconSvgs[i]}<span class="cine-tooltip">${name} ↗</span>
+        </a>
+      `).join('');
+
+      // --- 03. SWISS GRID ---
+      document.getElementById('v3-accent-col').style.backgroundColor = p.hex;
+      document.getElementById('v3-plat-short').textContent = p.upper;
+      document.getElementById('v3-year').textContent = yearStr.slice(-2);
+      document.getElementById('v3-genres').textContent = g.genres.join(' — ');
+      document.getElementById('v3-title').textContent = state.customTitle;
+      document.getElementById('v3-dev').textContent = `${devStr} / ${pubStr}`;
+      document.getElementById('v3-plat-label').textContent = p.upper;
+      document.getElementById('v3-score-main').textContent = scoreMainStr;
+      document.getElementById('v3-poster').innerHTML = g.posterSvg;
+      document.getElementById('v3-score-igdb').innerHTML = `${scoreIgdbNum}<span class="text-xs font-normal text-neutral-500">/100</span>`;
+      document.getElementById('v3-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v3-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:underline underline-offset-4">→ ${n}</a>`).join('');
+
+      // --- 04. GAME BOY DMG-01 ---
+      document.getElementById('v4-plat-badge').textContent = `CART: ${p.upper}`;
+      document.getElementById('v4-poster').innerHTML = g.posterSvg;
+      document.getElementById('v4-year-dev').textContent = `${yearStr} // ${devStr.toUpperCase()}`;
+      document.getElementById('v4-title').textContent = state.customTitle;
+      document.getElementById('v4-genres').textContent = g.genres.map(x => `[${x}]`).join(' ');
+      document.getElementById('v4-plat-name').textContent = p.upper;
+      document.getElementById('v4-score-main').textContent = scoreMainStr;
+      document.getElementById('v4-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v4-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v4-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="bg-[#0f380f] text-[#9bbc0f] px-1.5 py-0.5 hover:opacity-80">&gt;${n}</a>`).join('');
+
+      // --- 05. JEWEL CASE ---
+      document.getElementById('v5-obi').style.backgroundColor = p.hex;
+      document.getElementById('v5-obi-text').textContent = `${p.upper} // ${yearStr}`;
+      document.getElementById('v5-score-mini').textContent = scoreMainStr;
+      document.getElementById('v5-poster').innerHTML = g.posterSvg;
+      document.getElementById('v5-plat-tag').textContent = `${p.upper} EDITION`;
+      document.getElementById('v5-title').textContent = state.customTitle;
+      document.getElementById('v5-dev').textContent = devPubCombined;
+      document.getElementById('v5-plat-short').textContent = p.upper;
+      document.getElementById('v5-score-main').textContent = scoreMainStr;
+      document.getElementById('v5-score-igdb').textContent = `${scoreIgdbNum}/100`;
+      document.getElementById('v5-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v5-genres').textContent = g.genres.join(', ');
+      document.getElementById('v5-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white underline underline-offset-4">${n} ↗</a>`).join('');
+
+      // --- 06. CRT TERMINAL ---
+      document.getElementById('v6-cmd').textContent = `root@review:~# inspect --source=${state.platform}`;
+      document.getElementById('v6-poster').innerHTML = g.posterSvg;
+      document.getElementById('v6-title').textContent = `> ${state.customTitle}_`;
+      document.getElementById('v6-dev').textContent = `DEV: ${devStr} | PUB: ${pubStr} | ${yearStr}`;
+      document.getElementById('v6-genres').textContent = 'TAGS: ' + g.genres.map(x => `#${x.replace(/\s+/g, '_')}`).join(' ');
+      document.getElementById('v6-plat-label').textContent = `${p.upper}:`;
+      document.getElementById('v6-ascii-main').textContent = `${makeAsciiBar(scoreMainNum / 10)} ${scoreMainStr}/10`;
+      document.getElementById('v6-ascii-igdb').textContent = `${makeAsciiBar(scoreIgdbNum / 100)} ${scoreIgdbNum}/100`;
+      document.getElementById('v6-ascii-steam').textContent = `${g.scoreSteam}% POSITIVE`;
+      document.getElementById('v6-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:bg-emerald-400 hover:text-black px-1">[OPEN:${n.toUpperCase()}]</a>`).join('');
+
+      // --- 07. NEWSPAPER ---
+      document.getElementById('v7-masthead').textContent = `ХРОНИКА ВИДЕОИГР · ${p.upper} EDITION`;
+      document.getElementById('v7-year').textContent = `ВЫПУСК ${yearStr} Г.`;
+      document.getElementById('v7-poster').innerHTML = g.posterSvg;
+      document.getElementById('v7-genres').textContent = g.genres.join(' · ');
+      document.getElementById('v7-title').textContent = state.customTitle;
+      document.getElementById('v7-dev').textContent = `Разработка: ${devStr}; издание: ${pubStr}`;
+      document.getElementById('v7-verdict').textContent = g.verdict;
+      document.getElementById('v7-plat-label').textContent = `Оценка ${p.name}`;
+      document.getElementById('v7-score-main').textContent = scoreMainStr;
+      document.getElementById('v7-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v7-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v7-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-black">${n}</a>`).join('');
+
+      // --- 08. METAL PLATE ---
+      document.getElementById('v8-poster').innerHTML = g.posterSvg;
+      document.getElementById('v8-plat-badge').textContent = `UNIT // ${p.upper}`;
+      document.getElementById('v8-year').textContent = yearStr;
+      document.getElementById('v8-title').textContent = state.customTitle;
+      document.getElementById('v8-dev').textContent = devPubCombined;
+      document.getElementById('v8-genres').textContent = g.genres.join(' / ');
+      document.getElementById('v8-plat-short').textContent = p.upper;
+      document.getElementById('v8-score-main').textContent = scoreMainStr;
+      document.getElementById('v8-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v8-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v8-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="font-mono-tech text-[11px] uppercase px-2 py-1 bg-zinc-800 border border-zinc-600 text-zinc-200 rounded hover:border-amber-400 hover:text-amber-300">${n}</a>`).join('');
+
+      // --- 09. POLAROID ---
+      document.getElementById('v9-poster').innerHTML = g.posterSvg;
+      document.getElementById('v9-polaroid-cap').textContent = `${state.customTitle} (${yearStr})`;
+      document.getElementById('v9-plat-tag').textContent = `ЗАМЕТКА // ${p.upper}`;
+      document.getElementById('v9-score-main').textContent = `★ ${scoreMainStr}`;
+      document.getElementById('v9-title').textContent = state.customTitle;
+      document.getElementById('v9-dev').textContent = devPubCombined;
+      document.getElementById('v9-genres').textContent = g.genres.join(' • ');
+      document.getElementById('v9-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v9-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v9-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:opacity-70">${n}</a>`).join('');
+
+      // --- 10. SPLIT 50/50 ---
+      document.getElementById('v10-bg-art').innerHTML = g.widescreenSvg;
+      document.getElementById('v10-plat-badge').textContent = p.upper;
+      document.getElementById('v10-year').textContent = yearStr;
+      document.getElementById('v10-genres').textContent = g.genres.join(' · ');
+      document.getElementById('v10-title').textContent = state.customTitle;
+      document.getElementById('v10-dev').textContent = devPubCombined;
+      document.getElementById('v10-plat-name').textContent = p.name;
+      document.getElementById('v10-score-main').textContent = `${scoreMainStr} / 10`;
+      const v10Bar = document.getElementById('v10-bar-main');
+      v10Bar.style.width = `${scoreMainNum * 10}%`;
+      v10Bar.style.backgroundColor = p.hex;
+      document.getElementById('v10-score-igdb').textContent = `${scoreIgdbNum} / 100`;
+      document.getElementById('v10-bar-igdb').style.width = `${scoreIgdbNum}%`;
+      document.getElementById('v10-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v10-bar-steam').style.width = `${g.scoreSteam}%`;
+      document.getElementById('v10-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-black underline underline-offset-4">${n} ↗</a>`).join('');
+
+      // --- 11. ARCADE MARQUEE ---
+      document.getElementById('v11-poster').innerHTML = g.posterSvg;
+      document.getElementById('v11-plat-tag').textContent = `1P // ${p.upper}`;
+      document.getElementById('v11-title').textContent = state.customTitle;
+      document.getElementById('v11-dev').textContent = `${yearStr} · ${devStr}`;
+      document.getElementById('v11-score-main').textContent = scoreMainStr;
+      document.getElementById('v11-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v11-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v11-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="font-mono-tech text-[11px] font-bold uppercase px-2 py-0.5 border border-yellow-400/50 text-yellow-300 hover:bg-yellow-400 hover:text-black transition">${n}</a>`).join('');
+
+      // --- 12. ULTRA-COMPACT STRIP ---
+      const v12Root = document.getElementById('widget-v12-root');
+      v12Root.style.borderLeftColor = p.hex;
+      document.getElementById('v12-poster').innerHTML = g.posterSvg;
+      document.getElementById('v12-title').textContent = state.customTitle;
+      document.getElementById('v12-year').textContent = yearStr;
+      document.getElementById('v12-dev-genres').textContent = `${devStr} · ${g.genres.slice(0, 2).join(', ')}`;
+      const v12Score = document.getElementById('v12-score-main');
+      v12Score.textContent = scoreMainStr;
+      v12Score.style.color = p.hex;
+      v12Score.style.backgroundColor = p.hex + '26';
+      document.getElementById('v12-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v12-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v12-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white underline underline-offset-2">${n}</a>`).join('<span class="text-stone-600">/</span>');
+
+      // --- 13. VHS ---
+      document.getElementById('v13-poster').innerHTML = g.posterSvg;
+      document.getElementById('v13-plat-tag').textContent = `${p.upper} // SP`;
+      document.getElementById('v13-title').textContent = state.customTitle;
+      document.getElementById('v13-dev').textContent = `${yearStr} · ${devPubCombined}`;
+      document.getElementById('v13-genres').textContent = g.genres.join(' / ');
+      document.getElementById('v13-plat-short').textContent = p.upper;
+      document.getElementById('v13-score-main').textContent = scoreMainStr;
+      document.getElementById('v13-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v13-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v13-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:underline">${n}</a>`).join('');
+
+      // --- 14. BLUEPRINT ---
+      document.getElementById('v14-poster').innerHTML = g.posterSvg;
+      document.getElementById('v14-plat-tag').textContent = `FIG. 01 // ${p.upper} SPEC`;
+      document.getElementById('v14-title').textContent = state.customTitle;
+      document.getElementById('v14-dev').textContent = `← ${yearStr} → | ${devStr}`;
+      document.getElementById('v14-genres').textContent = g.genres.map(x => `[${x}]`).join(' ');
+      document.getElementById('v14-stamp-head').textContent = `ЧЕРТЁЖ // ${p.upper}`;
+      document.getElementById('v14-score-main').textContent = scoreMainStr;
+      document.getElementById('v14-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v14-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v14-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-sky-200">${n} ↗</a>`).join('');
+
+      // --- 15. RPG STAT BLOCK ---
+      document.getElementById('v15-poster').innerHTML = g.posterSvg;
+      document.getElementById('v15-plat-tag').textContent = `GUILD RECORD // ${p.upper}`;
+      document.getElementById('v15-title').textContent = state.customTitle;
+      document.getElementById('v15-dev').textContent = `${devStr} · ${yearStr}`;
+      document.getElementById('v15-genres').textContent = `Класс: ${g.genres.join(' · ')}`;
+      document.getElementById('v15-plat-short').textContent = p.upper;
+      document.getElementById('v15-score-main').textContent = scoreMainStr;
+      document.getElementById('v15-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v15-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v15-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white">${n}</a>`).join('');
+
+      // --- 16. AUDIO PLAYER ---
+      document.getElementById('v16-poster').innerHTML = g.posterSvg;
+      document.getElementById('v16-plat-tag').textContent = `NOW PLAYING // ${p.upper}`;
+      document.getElementById('v16-title').textContent = state.customTitle;
+      document.getElementById('v16-dev').textContent = `${devStr} · ${yearStr}`;
+      document.getElementById('v16-score-main').textContent = scoreMainStr;
+      document.getElementById('v16-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v16-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v16-bar').style.width = `${scoreMainNum * 10}%`;
+      document.getElementById('v16-genres').textContent = g.genres.join(' · ');
+      document.getElementById('v16-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-green-400">${n}</a>`).join('');
+
+      // --- 17. MUSEUM PLAQUE ---
+      document.getElementById('v17-poster').innerHTML = g.posterSvg;
+      document.getElementById('v17-dev-year').textContent = `${devStr}, ${yearStr}`;
+      document.getElementById('v17-title').textContent = state.customTitle;
+      document.getElementById('v17-genres').textContent = g.genres.join(', ');
+      document.getElementById('v17-plat-label').textContent = p.name;
+      document.getElementById('v17-score-main').textContent = scoreMainStr;
+      document.getElementById('v17-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v17-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v17-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-black underline underline-offset-4">${n}</a>`).join('');
+
+      // --- 18. COMIC PANEL ---
+      document.getElementById('v18-poster').innerHTML = g.posterSvg;
+      document.getElementById('v18-plat-tag').textContent = `ISSUE // ${p.upper}`;
+      document.getElementById('v18-title').textContent = state.customTitle;
+      document.getElementById('v18-dev').textContent = `${yearStr} · ${devStr}`;
+      document.getElementById('v18-genres').textContent = g.genres.join(' • ');
+      document.getElementById('v18-score-main').textContent = scoreMainStr;
+      document.getElementById('v18-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v18-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v18-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="bg-white border-2 border-black px-2 py-0.5 text-[11px] font-bold hover:bg-black hover:text-white">${n}</a>`).join('');
+
+      // --- 19. RETRO OS 95 ---
+      document.getElementById('v19-win-title').textContent = `GameInfo.exe — ${p.name}`;
+      document.getElementById('v19-poster').innerHTML = g.posterSvg;
+      document.getElementById('v19-title').textContent = state.customTitle;
+      document.getElementById('v19-dev').textContent = `${yearStr} · ${devPubCombined}`;
+      document.getElementById('v19-genres').textContent = g.genres.join('; ');
+      document.getElementById('v19-plat-label').textContent = p.name;
+      document.getElementById('v19-score-main').textContent = scoreMainStr;
+      document.getElementById('v19-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v19-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v19-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="win95-box px-2.5 py-1 text-[11px] font-bold active:translate-y-px">${n}</a>`).join('');
+
+      // --- 20. SPLIT-FLAP BOARD ---
+      document.getElementById('v20-plat-tag').textContent = `GATE // ${p.upper}`;
+      document.getElementById('v20-poster').innerHTML = g.posterSvg;
+      document.getElementById('v20-year').textContent = yearStr;
+      document.getElementById('v20-title').textContent = state.customTitle.toUpperCase();
+      document.getElementById('v20-dev').textContent = devPubCombined.toUpperCase();
+      document.getElementById('v20-plat-short').textContent = p.short;
+      document.getElementById('v20-score-main').textContent = scoreMainStr;
+      document.getElementById('v20-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v20-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v20-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:underline">[${n.toUpperCase()}]</a>`).join('');
+
+      // --- 21. PASTEL AIRY ---
+      document.getElementById('v21-poster').innerHTML = g.posterSvg;
+      document.getElementById('v21-plat-tag').textContent = `${p.name} Pick`;
+      document.getElementById('v21-title').textContent = state.customTitle;
+      document.getElementById('v21-dev').textContent = `${yearStr} · ${devStr}`;
+      document.getElementById('v21-genres').textContent = g.genres.slice(0, 2).join(' · ');
+      document.getElementById('v21-plat-short').textContent = p.name;
+      document.getElementById('v21-score-main').textContent = scoreMainStr;
+      document.getElementById('v21-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v21-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v21-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:underline">${n} →</a>`).join('');
+
+      // --- 22. BOOKMARK RIBBON ---
+      const v22Root = document.getElementById('widget-v22-root');
+      v22Root.style.borderLeftColor = p.hex;
+      const v22Poster = document.getElementById('v22-poster');
+      v22Poster.innerHTML = g.posterSvg;
+      v22Poster.style.borderColor = p.hex;
+      document.getElementById('v22-plat-tag').textContent = p.upper;
+      document.getElementById('v22-year').textContent = yearStr;
+      document.getElementById('v22-title').textContent = state.customTitle;
+      document.getElementById('v22-dev-genres').textContent = `${devStr} · ${g.genres.slice(0, 2).join(', ')}`;
+      document.getElementById('v22-score-main').innerHTML = `${scoreMainStr}<span class="text-xs text-stone-400">/10</span>`;
+      document.getElementById('v22-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v22-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v22-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white underline">${n} ↗</a>`).join('');
+
+      // --- 23. BOARDING PASS ---
+      document.getElementById('v23-plat-tag').textContent = `BOARDING PASS // ${p.upper} AIR`;
+      document.getElementById('v23-poster').innerHTML = g.posterSvg;
+      document.getElementById('v23-year').textContent = yearStr;
+      document.getElementById('v23-title').textContent = state.customTitle;
+      document.getElementById('v23-dev').textContent = devPubCombined;
+      document.getElementById('v23-plat-short').textContent = p.upper;
+      document.getElementById('v23-score-main').textContent = scoreMainStr;
+      document.getElementById('v23-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v23-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v23-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:underline">${n}</a>`).join('');
+
+      // --- 24. TCG CARD ---
+      document.getElementById('v24-poster').innerHTML = g.posterSvg;
+      document.getElementById('v24-title').textContent = state.customTitle;
+      document.getElementById('v24-score-main').textContent = scoreMainStr;
+      document.getElementById('v24-genres').textContent = `Релиз ${yearStr} — ${g.genres.join(' / ')}`;
+      document.getElementById('v24-verdict').textContent = g.verdict;
+      document.getElementById('v24-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v24-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v24-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();">${n}</a>`).join('');
+
+      // --- 25. SPOTLIGHT GLASS ---
+      document.getElementById('v25-poster').innerHTML = g.posterSvg;
+      document.getElementById('v25-title').textContent = state.customTitle;
+      document.getElementById('v25-plat-tag').textContent = p.name;
+      document.getElementById('v25-dev').textContent = `${yearStr} · ${devStr} · ${g.genres[0]}`;
+      document.getElementById('v25-score-main').textContent = scoreMainStr;
+      document.getElementById('v25-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v25-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v25-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white underline">${n}</a>`).join('');
+
+      // --- 26. VINYL LP ---
+      document.getElementById('v26-poster').innerHTML = g.posterSvg;
+      const v26Disc = document.getElementById('v26-disc-label');
+      v26Disc.textContent = scoreMainStr;
+      v26Disc.style.backgroundColor = p.hex;
+      document.getElementById('v26-plat-tag').textContent = `LP RECORD // ${p.upper}`;
+      document.getElementById('v26-title').textContent = state.customTitle;
+      document.getElementById('v26-dev').textContent = `${yearStr} · ${devStr} · ${g.genres[0]}`;
+      document.getElementById('v26-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v26-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v26-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();">${n}</a>`).join('');
+
+      // --- 27. DARK ACADEMIA ---
+      document.getElementById('v27-poster').innerHTML = g.posterSvg;
+      document.getElementById('v27-plat-tag').textContent = `EX LIBRIS · ${p.upper}`;
+      document.getElementById('v27-title').textContent = state.customTitle;
+      document.getElementById('v27-dev').textContent = `${devStr}, ${yearStr}`;
+      document.getElementById('v27-score-main').textContent = scoreMainStr;
+      document.getElementById('v27-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v27-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v27-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();">${n}</a>`).join('');
+
+      // --- 28. SCI-FI HUD ---
+      document.getElementById('v28-poster').innerHTML = g.posterSvg;
+      document.getElementById('v28-plat-tag').textContent = `TARGET_ID // ${p.upper}`;
+      document.getElementById('v28-title').textContent = state.customTitle;
+      document.getElementById('v28-dev').textContent = `${yearStr} // ${devStr}`;
+      document.getElementById('v28-score-main').textContent = scoreMainStr;
+      document.getElementById('v28-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v28-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v28-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="border border-cyan-500/40 px-2 py-0.5 hover:bg-cyan-400 hover:text-black">${n}</a>`).join('');
+
+      // --- 29. XEROX ZINE ---
+      document.getElementById('v29-poster').innerHTML = g.posterSvg;
+      document.getElementById('v29-plat-tag').textContent = `ZINE // ${p.upper}`;
+      document.getElementById('v29-title').textContent = state.customTitle;
+      document.getElementById('v29-dev').textContent = `${yearStr} // ${devStr}`;
+      document.getElementById('v29-score-main').textContent = scoreMainStr;
+      document.getElementById('v29-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v29-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v29-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();">${n}</a>`).join('');
+
+      // --- 30. THERMAL RECEIPT ---
+      document.getElementById('v30-poster').innerHTML = g.posterSvg;
+      document.getElementById('v30-plat-tag').textContent = `RECEIPT #${yearStr} // ${p.upper}`;
+      document.getElementById('v30-title').textContent = state.customTitle.toUpperCase();
+      document.getElementById('v30-dev').textContent = `${devStr.toUpperCase()} · ${yearStr}`;
+      document.getElementById('v30-score-main').textContent = scoreMainStr;
+      document.getElementById('v30-score-igdb').textContent = `${scoreIgdbNum}/100`;
+      document.getElementById('v30-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v30-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();">${n}</a>`).join('');
+
+      // --- 31. LAYERED STACK ---
+      document.getElementById('v31-layer-back').style.backgroundColor = p.hex;
+      document.getElementById('v31-poster').innerHTML = g.posterSvg;
+      document.getElementById('v31-plat-tag').textContent = p.upper;
+      document.getElementById('v31-title').textContent = state.customTitle;
+      document.getElementById('v31-dev').textContent = `${yearStr} · ${devStr}`;
+      document.getElementById('v31-score-main').textContent = scoreMainStr;
+      document.getElementById('v31-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v31-score-steam').textContent = `${g.scoreSteam}%`;
+      document.getElementById('v31-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white underline">${n}</a>`).join('');
+
+      // --- 32. CRITIC QUOTE ---
+      document.getElementById('v32-verdict').textContent = g.verdict;
+      document.getElementById('v32-poster').innerHTML = g.posterSvg;
+      document.getElementById('v32-title').textContent = state.customTitle;
+      document.getElementById('v32-dev').textContent = `${yearStr} · ${devStr}`;
+      document.getElementById('v32-score-main').textContent = `${scoreMainStr} / 10`;
+      document.getElementById('v32-score-igdb').textContent = scoreIgdbNum;
+      document.getElementById('v32-links').innerHTML = stdLinks.map(n => `<a href="#preview-link" onclick="event.preventDefault();" class="hover:text-white">${n}</a>`).join('');
+
+
+    }
+
+    function setPlatform(plat) {
+      state.platform = plat;
+      const btnBg = document.getElementById('btn-platform-backloggd');
+      const btnPx = document.getElementById('btn-platform-panax');
+
+      if (plat === 'backloggd') {
+        btnBg.className = 'px-3 py-1.5 rounded-md text-xs font-mono-tech font-bold transition-all flex items-center gap-1.5 bg-[#ff4f00] text-white';
+        btnPx.className = 'px-3 py-1.5 rounded-md text-xs font-mono-tech font-bold transition-all flex items-center gap-1.5 text-stone-400 hover:text-white';
+      } else {
+        btnPx.className = 'px-3 py-1.5 rounded-md text-xs font-mono-tech font-bold transition-all flex items-center gap-1.5 bg-[#00a86b] text-white';
+        btnBg.className = 'px-3 py-1.5 rounded-md text-xs font-mono-tech font-bold transition-all flex items-center gap-1.5 text-stone-400 hover:text-white';
+      }
+      renderWidgets();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copy-toast');
+      document.getElementById('copy-toast-text').textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2400);
+    }
+
+    function copyWidgetHtml(elementId, label) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const htmlSnippet = el.outerHTML;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(htmlSnippet).then(() => {
+            showToast(`HTML-код (${label}) скопирован!`);
+          }).catch(() => fallbackCopy(htmlSnippet, label));
+        } else {
+          fallbackCopy(htmlSnippet, label);
+        }
+      } catch (e) {
+        fallbackCopy(htmlSnippet, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(`HTML-код (${label}) скопирован!`);
+      } catch (err) {
+        showToast('Не удалось скопировать автоматически');
+      }
+      document.body.removeChild(ta);
+    }
+
+    document.getElementById('btn-platform-backloggd').addEventListener('click', () => setPlatform('backloggd'));
+    document.getElementById('btn-platform-panax').addEventListener('click', () => setPlatform('panax'));
+
+    document.getElementById('select-game').addEventListener('change', (e) => {
+      state.gameKey = e.target.value;
+      const g = GAMES[state.gameKey];
+      state.customTitle = g.title;
+      state.customDevLine = `${g.year} · ${g.dev} · ${g.pub}`;
+      state.customScoreMain = g.scoreMain;
+      state.customScoreIgdb = g.scoreIgdb;
+
+      document.getElementById('inp-title').value = state.customTitle;
+      document.getElementById('inp-dev').value = state.customDevLine;
+      document.getElementById('inp-score-main').value = state.customScoreMain;
+      document.getElementById('inp-score-igdb').value = state.customScoreIgdb;
+
+      renderWidgets();
+    });
+
+    document.getElementById('btn-toggle-context').addEventListener('click', () => {
+      state.showContext = !state.showContext;
+      document.getElementById('context-label').textContent = `В тексте обзора: ${state.showContext ? 'Вкл' : 'Выкл'}`;
+      document.querySelectorAll('.review-context-block').forEach(el => {
+        el.style.display = state.showContext ? 'block' : 'none';
+      });
+    });
+
+    document.getElementById('inp-title').addEventListener('input', (e) => {
+      state.customTitle = e.target.value || 'Без названия';
+      renderWidgets();
+    });
+    document.getElementById('inp-dev').addEventListener('input', (e) => {
+      state.customDevLine = e.target.value;
+      renderWidgets();
+    });
+    document.getElementById('inp-score-main').addEventListener('input', (e) => {
+      state.customScoreMain = e.target.value;
+      renderWidgets();
+    });
+    document.getElementById('inp-score-igdb').addEventListener('input', (e) => {
+      state.customScoreIgdb = e.target.value;
+      renderWidgets();
+    });
+
+    document.getElementById('copy-v1-btn').addEventListener('click', () => copyWidgetHtml('widget-v1-root', '01 Билет'));
+    document.getElementById('copy-v2-btn').addEventListener('click', () => copyWidgetHtml('widget-v2-root', '02 Синематик'));
+    document.querySelectorAll('.copy-widget-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        copyWidgetHtml(btn.dataset.copyTarget, btn.dataset.copyLabel);
+      });
+    });
+
+    renderWidgets();
+  </script>
+</body>
+</html>

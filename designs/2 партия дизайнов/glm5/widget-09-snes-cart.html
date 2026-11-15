@@ -1,0 +1,52 @@
+<!-- ═══ ВИДЖЕТ 09 · КАРТРИДЖ SNES ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+.gw09{width:420px;max-width:100%;box-sizing:border-box;background:#d8d4c6;border:1px solid #b7b3a5;border-radius:10px 10px 14px 14px;padding:12px;font-family:'Oswald',Arial,sans-serif;color:#22201b;box-shadow:inset 0 2px 0 #eceade, inset 0 -3px 0 #b4b0a2, 8px 10px 0 rgba(0,0,0,.13)}
+.gw09 *{margin:0;padding:0;box-sizing:border-box}
+.gw09-ridges{height:10px;background:repeating-linear-gradient(90deg,#c5c1b3 0 6px,#d8d4c6 6px 12px);border:1px solid #b7b3a5;border-radius:2px;margin-bottom:10px}
+.gw09-label{background:#f2ecdb;border:2px solid #22201b;border-radius:4px;overflow:hidden}
+.gw09-band{display:flex;justify-content:space-between;align-items:center;background:#2c3868;color:#f2ecdb;padding:7px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.gw09-band em{font-style:normal;background:#c7331f;padding:2px 7px;color:#fff;letter-spacing:.1em}
+.gw09-stripe{height:6px;background:#c7331f;border-top:1px solid #22201b;border-bottom:1px solid #22201b}
+.gw09-body{display:flex;gap:12px;padding:12px}
+.gw09-cov{width:132px;height:172px;flex-shrink:0;border:2px solid #22201b;overflow:hidden;background:#22201b}
+.gw09-cov img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.03) saturate(1.05)}
+.gw09-info{min-width:0;flex:1}
+.gw09-name{font-size:26px;font-weight:700;text-transform:uppercase;line-height:.98}
+.gw09-meta{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#55503f;margin-top:7px;letter-spacing:.02em}
+.gw09-genres{font-size:13px;font-weight:500;color:#3d3a30;line-height:1.5;margin-top:8px}
+.gw09-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.gw09-tags span{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;padding:4px 8px;border:1.5px solid #22201b;color:#22201b}
+.gw09-tags .t1{background:#f7d774}
+.gw09-tags .t2{background:#a8c6f0}
+.gw09-tags .t3{background:#f2a49c}
+.gw09-btns{display:flex;gap:8px;margin-top:12px;padding:0 12px 12px}
+.gw09-btns a{flex:1;text-align:center;padding:9px 0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:2px solid #22201b;background:#f2ecdb;color:#22201b;box-shadow:3px 3px 0 #22201b}
+.gw09-btns a:hover{transform:translate(1px,1px);box-shadow:2px 2px 0 #22201b}
+.gw09-btns .f1{background:#c7331f;color:#fff}
+.gw09-serial{font-family:'IBM Plex Mono',monospace;font-size:8px;color:#8a8577;text-align:center;letter-spacing:.22em;text-transform:uppercase;margin-top:9px}
+</style>
+<div class="gw09">
+  <div class="gw09-ridges"></div>
+  <div class="gw09-label">
+    <div class="gw09-band"><span>16-BIT · Карточка игры</span><em>SN-2022</em></div>
+    <div class="gw09-stripe"></div>
+    <div class="gw09-body">
+      <div class="gw09-cov"><img src="cover.jpg" alt="Обложка: Elden Ring"></div>
+      <div class="gw09-info">
+        <h3 class="gw09-name">Elden Ring</h3>
+        <div class="gw09-meta">2022 · FromSoftware · Bandai Namco</div>
+        <div class="gw09-genres">Экшен-RPG · Открытый мир · Souls-like</div>
+        <div class="gw09-tags"><span class="t1">BL 4.5/5</span><span class="t2">IGDB 97</span><span class="t3">STM 93%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="gw09-btns">
+    <a class="f1" href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">Backloggd</a>
+    <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam</a>
+    <a href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+  </div>
+  <div class="gw09-serial">SLG · 2022 · Made for review blogs</div>
+</div>

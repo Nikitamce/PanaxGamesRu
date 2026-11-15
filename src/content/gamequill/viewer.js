@@ -6,6 +6,7 @@ import { DEFAULT_THEME, normalizeTheme } from "../../shared/gq-theme.js";
 import { sanitizeHtml } from "../../shared/gq-html.js";
 import { renderReview } from "./render.js";
 import render_default from "./render.css";
+import cards_css from "../../shared/gq-cards.css";
 import { nativeText } from "./native-text.js";
 import { isPostPage, carrierKeyFromText, findViewRoots } from "./detect.js";
 
@@ -64,7 +65,7 @@ function buildView(el, doc, mismatch) {
   host2.setAttribute("data-panax-ru-skip", "");
   const root = host2.attachShadow({ mode: "closed" });
   const style = document.createElement("style");
-  style.textContent = render_default;
+  style.textContent = render_default + "\n" + cards_css;
   const wrap = document.createElement("div");
   wrap.className = "wrap";
   wrap.setAttribute("data-gq-theme", theme);

@@ -1,0 +1,55 @@
+<!-- ═══ ВИДЖЕТ 06 · ВЕРТИКАЛЬНЫЙ ПОСТЕР · PANAX ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;800&display=swap');
+.pa06{position:relative;width:340px;max-width:100%;box-sizing:border-box;border-radius:18px;overflow:hidden;background:#0b0b0f;color:#f2f1f4;font-family:'Golos Text',system-ui,sans-serif;border:1px solid #23222b}
+.pa06 *{margin:0;padding:0;box-sizing:border-box}
+.pa06-cover{width:100%;height:360px;object-fit:cover;display:block;object-position:center 25%}
+.pa06-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,15,.14) 0%,rgba(11,11,15,0) 30%,rgba(11,11,15,.8) 62%,rgba(11,11,15,.98) 100%)}
+.pa06-chip{position:absolute;top:14px;left:14px;background:rgba(11,11,15,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:6px 11px;border-radius:999px;color:#ecebee}
+.pa06-badge{position:absolute;top:14px;right:14px;width:62px;height:62px;background:#e3b357;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#191712;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.pa06-badge b{font-size:14px;font-weight:800;line-height:1}
+.pa06-badge span{font-size:7px;font-weight:700;letter-spacing:.06em;margin-top:2px}
+.pa06-body{position:absolute;left:0;right:0;bottom:0;padding:18px}
+.pa06-title{font-size:26px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.pa06-meta{font-size:12px;color:#b9b7c4;margin-top:4px}
+.pa06-stack{display:flex;gap:2px;height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.14);margin-top:12px}
+.pa06-stack i{border-radius:999px}
+.pa06-leg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px 10px;margin-top:9px}
+.pa06-leg div{display:flex;align-items:center;gap:5px;font-size:9px;color:#cfcdd8;min-width:0}
+.pa06-leg .e{font-size:12px;line-height:1;font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.pa06-leg b{color:#fff;font-weight:600;margin-left:auto;font-size:9px}
+.pa06-genres{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.pa06-genres span{padding:5px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.09);backdrop-filter:blur(6px);font-size:11px;font-weight:500;color:#ecebee}
+.pa06-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.pa06-btns a{display:block;text-align:center;padding:10px 0;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none}
+.pa06-btns .p{background:#e3b357;color:#17161c}
+.pa06-btns .s{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#f2f1f4;backdrop-filter:blur(6px)}
+.pa06 .f-gold{background:#f4cf3a}.pa06 .f-orange{background:#f5a41f}.pa06 .f-purple{background:#bd63f2}.pa06 .f-grey{background:#a8adb8}
+</style>
+<div class="pa06">
+  <img class="pa06-cover" src="cover.jpg" alt="Обложка: Elden Ring">
+  <div class="pa06-shade"></div>
+  <div class="pa06-chip">PANAX · карточка</div>
+  <div class="pa06-badge"><b>98.1%</b><span>👍 PANAX</span></div>
+  <div class="pa06-body">
+    <h3 class="pa06-title">Elden Ring</h3>
+    <div class="pa06-meta">2022 · FromSoftware</div>
+    <div class="pa06-stack"><i class="f-gold" style="flex-grow:19.6"></i><i class="f-orange" style="flex-grow:41.2"></i><i class="f-purple" style="flex-grow:37.3"></i><i class="f-grey" style="flex-grow:2"></i></div>
+    <div class="pa06-leg">
+      <div><span class="e">🥇</span>Легенда<b>19.6%</b></div>
+      <div><span class="e">🤩</span>Круто<b>41.2%</b></div>
+      <div><span class="e">👍</span>Хорошо<b>37.3%</b></div>
+      <div><span class="e">👍</span>Норм<b>0.0%</b></div>
+      <div><span class="e">🙁</span>Плохо<b>2.0%</b></div>
+      <div><span class="e">🤮</span>Ужас<b>0.0%</b></div>
+    </div>
+    <div class="pa06-genres"><span>Экшен-RPG</span><span>Открытый мир</span><span>Souls-like</span></div>
+    <div class="pa06-btns">
+      <a class="p" href="https://panaxgames.com" target="_blank" rel="noopener">PANAX</a>
+      <a class="s" href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam</a>
+      <a class="s" href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+    </div>
+  </div>
+</div>

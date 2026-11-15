@@ -1,0 +1,61 @@
+<!-- ═══ ВИДЖЕТ 05 · ЖУРНАЛЬНЫЙ РАЗВОРОТ · PANAX ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,500;1,700&family=Golos+Text:wght@400;500;600&display=swap');
+.pa05{position:relative;max-width:660px;width:100%;min-height:470px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;background:#0d0c0a;color:#f3efe6;font-family:'Golos Text',system-ui,sans-serif;overflow:hidden;padding:22px}
+.pa05 *{margin:0;padding:0;box-sizing:border-box}
+.pa05-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:grayscale(.25) contrast(1.05) brightness(.9)}
+.pa05-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,10,.52) 0%,rgba(13,12,10,.18) 40%,rgba(13,12,10,.95) 100%)}
+.pa05-top,.pa05-bottom{position:relative;z-index:1}
+.pa05-top{display:flex;justify-content:space-between;align-items:flex-start}
+.pa05-lbl{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#e8e2d2;border-left:3px solid #e0b154;padding-left:10px}
+.pa05-score{width:66px;height:66px;border:1.5px solid #e0b154;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(13,12,10,.55);backdrop-filter:blur(4px)}
+.pa05-score b{font-size:17px;font-weight:800;color:#e0b154;line-height:1;letter-spacing:.02em}
+.pa05-score span{font-size:7px;letter-spacing:.14em;color:#cfc8b8;margin-top:3px}
+.pa05-title{font-family:'Playfair Display',Georgia,serif;font-size:46px;font-weight:800;line-height:1.02;letter-spacing:.01em}
+.pa05-meta{margin-top:8px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#cfc8b8}
+.pa05-genres{margin-top:6px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:#e8e2d2}
+.pa05-verdict{margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.06em;color:#e0b154}
+.pa05-verdict .e{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.pa05-hist{display:flex;gap:12px;margin-top:12px}
+.pa05-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.pa05-track{width:100%;max-width:44px;height:46px;border-radius:999px;background:rgba(243,239,230,.16);position:relative;overflow:hidden}
+.pa05-track i{position:absolute;bottom:0;left:0;right:0;border-radius:0 0 999px 999px}
+.pa05-badge{width:20px;height:20px;border-radius:50%;background:rgba(13,12,10,.55);border:1px solid rgba(243,239,230,.3);display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.pa05-lbl{font-size:7.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:999px;color:#fff;white-space:nowrap}
+.pa05-val{font-size:9px;font-weight:600;color:#cfc8b8}
+.pa05 .f-gold{background:#f4cf3a}.pa05 .f-orange{background:#f5a41f}.pa05 .f-purple{background:#bd63f2}.pa05 .f-blue{background:#3f83f8}.pa05 .f-grey{background:#8a8f99}.pa05 .f-green{background:#33c455}
+.pa05 .t-gold{background:#d9a514}.pa05 .t-orange{background:#e08a10}.pa05 .t-purple{background:#9d4fd1}.pa05 .t-blue{background:#3672e8}.pa05 .t-grey{background:#6f7480}.pa05 .t-green{background:#2aa04a}
+.pa05-btns{display:flex;flex-wrap:wrap;gap:20px;margin-top:14px;padding-top:13px;border-top:1px solid rgba(243,239,230,.28)}
+.pa05-btns a{color:#f3efe6;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.pa05-btns a:hover{text-decoration:underline;text-underline-offset:4px}
+.pa05-btns a i{font-style:normal;color:#e0b154}
+</style>
+<div class="pa05">
+  <img class="pa05-bg" src="cover.jpg" alt="Обложка: Elden Ring">
+  <div class="pa05-shade"></div>
+  <div class="pa05-top">
+    <div class="pa05-lbl">Карточка игры · PANAX</div>
+    <div class="pa05-score"><b>98.1%</b><span>👍 PANAX</span></div>
+  </div>
+  <div class="pa05-bottom">
+    <h3 class="pa05-title">Elden Ring</h3>
+    <div class="pa05-meta">2022 · FromSoftware · Bandai Namco Entertainment</div>
+    <div class="pa05-genres">Экшен-RPG · Открытый мир · Souls-like</div>
+    <div class="pa05-verdict">Вердикт сообщества: «Круто» <span class="e">🤩</span> — 98.1% положительных</div>
+    <div class="pa05-hist">
+      <div class="pa05-col"><div class="pa05-track"><i class="f-gold" style="height:48%"></i></div><span class="pa05-badge">🥇</span><span class="pa05-lbl t-gold">Легенда</span><span class="pa05-val">19.6%</span></div>
+      <div class="pa05-col"><div class="pa05-track"><i class="f-orange" style="height:100%"></i></div><span class="pa05-badge">🤩</span><span class="pa05-lbl t-orange">Круто</span><span class="pa05-val">41.2%</span></div>
+      <div class="pa05-col"><div class="pa05-track"><i class="f-purple" style="height:91%"></i></div><span class="pa05-badge">👍</span><span class="pa05-lbl t-purple">Хорошо</span><span class="pa05-val">37.3%</span></div>
+      <div class="pa05-col"><div class="pa05-track"></div><span class="pa05-badge">👍</span><span class="pa05-lbl t-blue">Норм</span><span class="pa05-val">0.0%</span></div>
+      <div class="pa05-col"><div class="pa05-track"><i class="f-grey" style="height:5%"></i></div><span class="pa05-badge">🙁</span><span class="pa05-lbl t-grey">Плохо</span><span class="pa05-val">2.0%</span></div>
+      <div class="pa05-col"><div class="pa05-track"></div><span class="pa05-badge">🤮</span><span class="pa05-lbl t-green">Ужас</span><span class="pa05-val">0.0%</span></div>
+    </div>
+    <div class="pa05-btns">
+      <a href="https://panaxgames.com" target="_blank" rel="noopener">PANAX<i>&#8599;&#xFE0E;</i></a>
+      <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam<i>&#8599;&#xFE0E;</i></a>
+      <a href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB<i>&#8599;&#xFE0E;</i></a>
+    </div>
+  </div>
+</div>

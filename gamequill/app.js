@@ -443,12 +443,18 @@ function splitTypeTitle(title){
   return `${esc(words.slice(0,mid).join(' '))}<br><i>${esc(words.slice(mid).join(' '))}</i>`;
 }
 function renderGameCard(d,tools){
-  const valid=['classic','duet','editorial','staircase','type','brutal'];
+  const extraList=(typeof GQ!=='undefined'&&GQ.extraCardVariants)?GQ.extraCardVariants():[];
+  const extraIds=extraList.map(x=>x.id);
+  const valid=['classic','duet','editorial','staircase','type','brutal',...extraIds];
   const v=valid.includes(d.variant)?d.variant:'classic';
   const cover=d.cover||coverArt(d.gameId||d.title||'g',d.title||'Game',GQ.palette(d.gameId||d.title||'g'));
   const srcs=Object.keys(d.links||{}).map(k=>integ(k)).filter(Boolean);
   const panaxUrl=(d.links&&(d.links.panax||d.links.backloggd||d.links.igdb))||'#';
   const rx=panaxReactionList(d);
+  if(extraIds.includes(v)&&typeof GQ!=='undefined'&&GQ.renderExtraGameCard){
+    const html=GQ.renderExtraGameCard(v,Object.assign({},d,{cover}),tools||'',rx);
+    if(html)return html;
+  }
   const rxTotal=rx.reduce((s,x)=>s+x.val,0);
   const sorted=[...rx].sort((a,b)=>b.val-a.val);
   const top1=sorted[0];
@@ -1015,28 +1021,50 @@ function drawDetail(){
   const topRx=[...rx].sort((a,b)=>b.val-a.val)[0];
   const hasRx=rxSum(g.panaxReactions)>0;
   const curVar=insCtx.variant||'classic';
-  const CARD_VARIANTS=[
-    {id:'classic',label:'🃏 Классика'},
-    {id:'duet',label:'🎭 Дуэт (топ-2 реакции)'},
-    {id:'editorial',label:'📰 Вердикт (редакция)'},
-    {id:'staircase',label:'📊 Лестница (график)'},
-    {id:'type',label:'🔤 Типографика (шкалы)'},
-    {id:'brutal',label:'⬛ Брутализм (таблица)'}
+  const BASE_VARIANTS=[
+    {id:'classic',cat:'numeric',group:'Базовые',name:'🃏 Классика'},
+    {id:'duet',cat:'panax',group:'Базовые PANAX',name:'🎭 Дуэт (топ-2 реакции)'},
+    {id:'editorial',cat:'panax',group:'Базовые PANAX',name:'📰 Вердикт (редакция)'},
+    {id:'staircase',cat:'panax',group:'Базовые PANAX',name:'📊 Лестница (график)'},
+    {id:'type',cat:'panax',group:'Базовые PANAX',name:'🔤 Типографика (шкалы)'},
+    {id:'brutal',cat:'panax',group:'Базовые PANAX',name:'⬛ Брутализм (таблица)'}
   ];
+  const EXTRA_V=(typeof GQ!=='undefined'&&GQ.extraCardVariants)?GQ.extraCardVariants():[];
+  const CARD_VARIANTS=[...BASE_VARIANTS,...EXTRA_V];
+  const numVars=CARD_VARIANTS.filter(x=>x.cat==='numeric');
+  const panaxVars=CARD_VARIANTS.filter(x=>x.cat==='panax');
+  const renderVarGroup=(cat,title,list)=>{
+    let out=`<div class="var-dd-cat" data-cat="${cat}">${title} <small>(${list.length})</small></div>`;
+    let lastGrp='';
+    for(const v of list){
+      if(v.group&&v.group!==lastGrp){lastGrp=v.group;out+=`<div class="var-dd-grp" data-cat="${cat}">${esc(v.group)}</div>`}
+      out+=`<button type="button" class="var-dd-opt${v.id===curVar?' on':''}" data-cat="${cat}" data-var="${esc(v.id)}">${esc(v.name||v.label)}</button>`;
+    }
+    return out;
+  };
+  const curVarObj=CARD_VARIANTS.find(x=>x.id===curVar)||CARD_VARIANTS[0];
   box.innerHTML=`<div class="gdet">
     <img src="${esc(g.cover||coverArt(g.id,g.title,GQ.palette(g.id)))}" style="width:100%;height:130px;object-fit:cover;border-radius:11px;margin-bottom:11px">
     <h4>${esc(g.title)}</h4>
     <div class="muted">${esc([g.year,[g.dev,g.pub].filter(Boolean).join(' / ')].filter(Boolean).join(' · '))}<br>${esc((g.genres||[]).join(', '))}<br>${esc((g.plat||[]).join(' · '))}</div>
     <div class="w-badges">${srcs.filter(s=>r[s.id]!=null).map(s=>`<span class="badge">${esc(s.icon)} ${esc(r[s.id])}</span>`).join('')}${hasRx?`<span class="badge">${topRx.icon} ${esc(topRx.name)} · ${topRx.val.toFixed(1)}%</span>`:(g._panaxLoading?`<span class="badge">⏳ PANAX…</span>`:'')}</div>
-    <div class="pop-h" style="padding:12px 0 6px">Дизайн карточки</div>
+    <div class="pop-h" style="padding:12px 0 6px">Дизайн карточки (${CARD_VARIANTS.length})</div>
     <div class="var-dd" id="gCardVarDd">
       <input type="hidden" id="gCardVar" value="${esc(curVar)}">
       <button type="button" class="inp var-dd-btn" id="gCardVarBtn" aria-expanded="false">
-        <span class="var-dd-lbl">${esc((CARD_VARIANTS.find(x=>x.id===curVar)||CARD_VARIANTS[0]).label)}</span>
+        <span class="var-dd-lbl">${esc(curVarObj.name||curVarObj.label)}</span>
         <span class="var-dd-arr">▾</span>
       </button>
       <div class="var-dd-menu" id="gCardVarMenu">
-        ${CARD_VARIANTS.map(v=>`<button type="button" class="var-dd-opt${v.id===curVar?' on':''}" data-var="${esc(v.id)}">${esc(v.label)}</button>`).join('')}
+        <div class="var-dd-tabs">
+          <button type="button" class="var-dd-tab on" data-filter="all">Все (${CARD_VARIANTS.length})</button>
+          <button type="button" class="var-dd-tab" data-filter="numeric">📊 Числовые (${numVars.length})</button>
+          <button type="button" class="var-dd-tab" data-filter="panax">🎭 PANAX (${panaxVars.length})</button>
+        </div>
+        <div class="var-dd-list" id="gCardVarList">
+          ${renderVarGroup('numeric','📊 Числовая оценка (Backloggd / 8.4 / 87%)',numVars)}
+          ${renderVarGroup('panax','🎭 Оценки PANAX (Легенда / Круто / ...)',panaxVars)}
+        </div>
         <div class="var-dd-preview" id="gCardVarPreview"><div class="var-dd-preview-inner" id="gCardVarPreviewInner"></div></div>
       </div>
     </div>
@@ -1068,6 +1096,14 @@ function drawDetail(){
       if(willOpen){varDd.classList.add('open');varBtn.setAttribute('aria-expanded','true');showPreview(varSel.value||'classic')}
       else closeDd();
     });
+    $$('.var-dd-tab',varMenu).forEach(tab=>tab.addEventListener('click',e=>{
+      e.stopPropagation();
+      const f=tab.dataset.filter;
+      $$('.var-dd-tab',varMenu).forEach(x=>x.classList.toggle('on',x===tab));
+      $$('[data-cat]',varMenu).forEach(el=>{
+        el.style.display=(f==='all'||el.dataset.cat===f)?'':'none';
+      });
+    }));
     $$('.var-dd-opt',varMenu).forEach(opt=>{
       opt.addEventListener('mouseenter',()=>showPreview(opt.dataset.var));
       opt.addEventListener('focus',()=>showPreview(opt.dataset.var));
@@ -1082,7 +1118,7 @@ function drawDetail(){
       });
     });
     varMenu.addEventListener('mouseleave',()=>varPrev.classList.remove('show'));
-    document.addEventListener('click',e=>{if(!varDd.contains(e.target))closeDd()},{capture:true});
+    document.addEventListener('click',e=>{if(!document.body.contains(varDd))return;if(!varDd.contains(e.target))closeDd()},{capture:true});
   }
   const insList=$('#gInsList'),insPrev=$('#gInsPreview'),insPrevIn=$('#gInsPreviewInner');
   if(insList&&insPrev&&insPrevIn){

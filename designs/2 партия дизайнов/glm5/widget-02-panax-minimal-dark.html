@@ -1,0 +1,58 @@
+<!-- ═══ ВИДЖЕТ 02 · МИНИМАЛ (ТЁМНЫЙ) · PANAX ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;800&display=swap');
+.pa02{max-width:660px;width:100%;box-sizing:border-box;display:flex;gap:22px;background:#15151b;border:1px solid #262633;border-radius:20px;padding:22px;font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#eceae2}
+.pa02 *{margin:0;padding:0;box-sizing:border-box}
+.pa02-cover{width:188px;height:252px;object-fit:cover;border-radius:14px;flex-shrink:0;display:block;border:1px solid #262633}
+.pa02-body{flex:1 1 220px;min-width:200px;display:flex;flex-direction:column}
+.pa02-top{display:flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#83818f}
+.pa02-top i{width:8px;height:8px;background:#e0b154;border-radius:2px;display:inline-block;margin-right:10px;flex-shrink:0}
+.pa02-top em{font-style:normal;color:#e0b154;margin-left:6px}
+.pa02-title{margin:12px 0 4px;font-size:30px;font-weight:800;letter-spacing:-.01em;color:#f7f5ee}
+.pa02-meta{font-size:13px;color:#95939f}
+.pa02-genres{margin-top:10px;font-size:13px;color:#b9b7c1}
+.pa02-hist{display:flex;gap:10px;margin-top:16px}
+.pa02-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.pa02-track{width:100%;max-width:44px;height:52px;border-radius:999px;background:#23232d;position:relative;overflow:hidden}
+.pa02-track i{position:absolute;bottom:0;left:0;right:0;border-radius:0 0 999px 999px}
+.pa02-badge{width:22px;height:22px;border-radius:50%;background:#1d1d25;border:1.5px solid #2e2e39;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.pa02-lbl{font-size:8px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;color:#fff;white-space:nowrap}
+.pa02-val{font-size:10px;font-weight:600;color:#95939f}
+.pa02 .f-gold{background:#f4cf3a}.pa02 .f-orange{background:#f5a41f}.pa02 .f-purple{background:#bd63f2}.pa02 .f-blue{background:#3f83f8}.pa02 .f-grey{background:#8a8f99}.pa02 .f-green{background:#33c455}
+.pa02 .t-gold{background:#d9a514}.pa02 .t-orange{background:#e08a10}.pa02 .t-purple{background:#9d4fd1}.pa02 .t-blue{background:#3672e8}.pa02 .t-grey{background:#6f7480}.pa02 .t-green{background:#2aa04a}
+.pa02-verdict{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:15px;padding-top:12px;border-top:1px solid #23232c;font-size:12px;color:#d4d2da}
+.pa02-verdict b{font-weight:800;color:#f7f5ee}
+.pa02-verdict .e{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.pa02-verdict span{font-size:11px;color:#7f7f8c;white-space:nowrap}
+.pa02-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.pa02-btns a{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none}
+.pa02-btns .p{background:#e0b154;color:#171610}
+.pa02-btns .s{border:1px solid #34343f;color:#d4d2da;transition:border-color .15s}
+.pa02-btns .s:hover{border-color:#e0b154}
+@media (max-width:560px){.pa02{flex-direction:column}.pa02-cover{width:100%;height:260px}}
+</style>
+<div class="pa02">
+  <img class="pa02-cover" src="cover.jpg" alt="Обложка: Elden Ring">
+  <div class="pa02-body">
+    <div class="pa02-top"><i></i>Карточка игры · <em>PANAX</em></div>
+    <h3 class="pa02-title">Elden Ring</h3>
+    <div class="pa02-meta">2022 · FromSoftware · Bandai Namco Entertainment</div>
+    <div class="pa02-genres">Экшен-RPG · Открытый мир · Souls-like</div>
+    <div class="pa02-hist">
+      <div class="pa02-col"><div class="pa02-track"><i class="f-gold" style="height:48%"></i></div><span class="pa02-badge">🥇</span><span class="pa02-lbl t-gold">Легенда</span><span class="pa02-val">19.6%</span></div>
+      <div class="pa02-col"><div class="pa02-track"><i class="f-orange" style="height:100%"></i></div><span class="pa02-badge">🤩</span><span class="pa02-lbl t-orange">Круто</span><span class="pa02-val">41.2%</span></div>
+      <div class="pa02-col"><div class="pa02-track"><i class="f-purple" style="height:91%"></i></div><span class="pa02-badge">👍</span><span class="pa02-lbl t-purple">Хорошо</span><span class="pa02-val">37.3%</span></div>
+      <div class="pa02-col"><div class="pa02-track"></div><span class="pa02-badge">👍</span><span class="pa02-lbl t-blue">Норм</span><span class="pa02-val">0.0%</span></div>
+      <div class="pa02-col"><div class="pa02-track"><i class="f-grey" style="height:5%"></i></div><span class="pa02-badge">🙁</span><span class="pa02-lbl t-grey">Плохо</span><span class="pa02-val">2.0%</span></div>
+      <div class="pa02-col"><div class="pa02-track"></div><span class="pa02-badge">🤮</span><span class="pa02-lbl t-green">Ужас</span><span class="pa02-val">0.0%</span></div>
+    </div>
+    <div class="pa02-verdict"><div>Сообщество PANAX: <b>Круто</b> — 98.1% <span class="e">👍</span></div><span>IGDB 97 · Steam 93%</span></div>
+    <div class="pa02-btns">
+      <a class="p" href="https://panaxgames.com" target="_blank" rel="noopener">PANAX &#8599;&#xFE0E;</a>
+      <a class="s" href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam</a>
+      <a class="s" href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+    </div>
+  </div>
+</div>

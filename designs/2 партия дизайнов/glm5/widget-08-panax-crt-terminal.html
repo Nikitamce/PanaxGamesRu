@@ -1,0 +1,60 @@
+<!-- ═══ ВИДЖЕТ 08 · CRT-ТЕРМИНАЛ · PANAX ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+.pa08{max-width:640px;width:100%;box-sizing:border-box;background:#050906;border:1px solid #1d4b23;border-radius:10px;padding:18px 20px;color:#6fe37a;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;position:relative;overflow:hidden;box-shadow:inset 0 0 40px rgba(30,120,50,.14), 0 0 24px rgba(46,160,70,.1);text-shadow:0 0 8px rgba(90,240,110,.3)}
+.pa08 *{margin:0;padding:0;box-sizing:border-box}
+.pa08::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.24) 0 1px,transparent 1px 3px);pointer-events:none}
+.pa08-top{display:flex;justify-content:space-between;color:#3f9e4d;font-size:10px;letter-spacing:.1em;margin-bottom:10px}
+.pa08-prompt{color:#b9ffbd}
+.pa08-prompt b{color:#3f9e4d;font-weight:400}
+.pa08-div{border:none;border-top:1px dashed #1d4b23;margin:10px 0}
+.pa08-title{font-size:26px;font-weight:700;color:#c8ffc9;letter-spacing:.08em;text-shadow:0 0 14px rgba(120,255,130,.45);display:flex;align-items:center}
+.pa08-cursor{display:inline-block;width:9px;height:18px;background:#6fe37a;margin-left:10px;animation:pa08blink 1.2s steps(1) infinite}
+@keyframes pa08blink{50%{opacity:0}}
+.pa08-rows{margin-top:12px}
+.pa08-row{display:flex;gap:10px;align-items:baseline}
+.pa08-row span{color:#3f9e4d;letter-spacing:.08em;font-size:11px}
+.pa08-row i{flex:1;border-bottom:1px dotted #1d4b23;transform:translateY(-3px)}
+.pa08-row b{font-weight:400;color:#a5e9ab}
+.pa08-bars{margin-top:14px}
+.pa08-bar-row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.pa08-bar-row span{width:110px;color:#3f9e4d;font-size:11px;letter-spacing:.06em}
+.pa08-bar-row .bar{flex:1;height:9px;border:1px solid #2e6b37;position:relative;background:rgba(20,60,30,.25)}
+.pa08-bar-row .bar i{position:absolute;top:0;bottom:0;left:0}
+.pa08-bar-row em{font-style:normal;width:64px;text-align:right;color:#c8ffc9;font-size:11px}
+.pa08 .f-gold{background:#f4cf3a;box-shadow:0 0 10px rgba(244,207,58,.5)}.pa08 .f-orange{background:#f5a41f;box-shadow:0 0 10px rgba(245,164,31,.5)}.pa08 .f-purple{background:#bd63f2;box-shadow:0 0 10px rgba(189,99,242,.5)}.pa08 .f-blue{background:#3f83f8}.pa08 .f-grey{background:#8a8f99}.pa08 .f-green{background:#33c455}
+.pa08-verdict{margin-top:12px;color:#c8ffc9;font-size:12px}
+.pa08-verdict .e{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;text-shadow:none}
+.pa08-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.pa08-btns a{color:#6fe37a;border:1px solid #2e6b37;padding:7px 12px;text-decoration:none;font-size:11px;letter-spacing:.08em;position:relative;z-index:1}
+.pa08-btns a:hover{background:#39b34c;color:#050906;text-shadow:none}
+</style>
+<div class="pa08">
+  <div class="pa08-top"><span>/// КАРТОЧКА ИГРЫ</span><span>PANAX.DAT</span></div>
+  <div class="pa08-prompt"><b>&gt;</b> panax.stats --id elden-ring</div>
+  <hr class="pa08-div">
+  <div class="pa08-title">ELDEN RING<span class="pa08-cursor"></span></div>
+  <div class="pa08-rows">
+    <div class="pa08-row"><span>ГОД</span><i></i><b>2022</b></div>
+    <div class="pa08-row"><span>СТУДИЯ</span><i></i><b>FromSoftware</b></div>
+    <div class="pa08-row"><span>ИЗДАТЕЛЬ</span><i></i><b>Bandai Namco Entertainment</b></div>
+    <div class="pa08-row"><span>ЖАНРЫ</span><i></i><b>экшен-rpg / открытый мир / souls-like</b></div>
+    <div class="pa08-row"><span>ПЛАТФОРМЫ</span><i></i><b>PC · PS4/PS5 · Xbox One/Series</b></div>
+  </div>
+  <div class="pa08-bars">
+    <div class="pa08-bar-row"><span>ЛЕГЕНДА</span><div class="bar"><i class="f-gold" style="width:48%"></i></div><em>19.6%</em></div>
+    <div class="pa08-bar-row"><span>КРУТО</span><div class="bar"><i class="f-orange" style="width:100%"></i></div><em>41.2%</em></div>
+    <div class="pa08-bar-row"><span>ХОРОШО</span><div class="bar"><i class="f-purple" style="width:91%"></i></div><em>37.3%</em></div>
+    <div class="pa08-bar-row"><span>НОРМ</span><div class="bar"></div><em>0.0%</em></div>
+    <div class="pa08-bar-row"><span>ПЛОХО</span><div class="bar"><i class="f-grey" style="width:5%"></i></div><em>2.0%</em></div>
+    <div class="pa08-bar-row"><span>УЖАС</span><div class="bar"></div><em>0.0%</em></div>
+  </div>
+  <div class="pa08-verdict">ВЕРДИКТ СООБЩЕСТВА: КРУТО · 98.1% ПОЛОЖИТЕЛЬНЫХ <span class="e">👍</span></div>
+  <div class="pa08-btns">
+    <a href="https://panaxgames.com" target="_blank" rel="noopener">[ PANAX ]</a>
+    <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">[ STEAM ]</a>
+    <a href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">[ IGDB ]</a>
+  </div>
+</div>

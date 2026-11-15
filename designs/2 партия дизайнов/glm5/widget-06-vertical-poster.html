@@ -1,0 +1,39 @@
+<!-- ═══ ВИДЖЕТ 06 · ВЕРТИКАЛЬНЫЙ ПОСТЕР ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;800&display=swap');
+.gw06{position:relative;width:340px;max-width:100%;box-sizing:border-box;border-radius:18px;overflow:hidden;background:#0b0b0f;color:#f2f1f4;font-family:'Golos Text',system-ui,sans-serif;border:1px solid #23222b}
+.gw06 *{margin:0;padding:0;box-sizing:border-box}
+.gw06-cover{width:100%;height:360px;object-fit:cover;display:block;object-position:center 25%}
+.gw06-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,15,.14) 0%,rgba(11,11,15,0) 34%,rgba(11,11,15,.78) 66%,rgba(11,11,15,.98) 100%)}
+.gw06-chip{position:absolute;top:14px;left:14px;background:rgba(11,11,15,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:6px 11px;border-radius:999px;color:#ecebee}
+.gw06-badge{position:absolute;top:14px;right:14px;width:58px;height:58px;background:#e3b357;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#191712;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.gw06-badge b{font-size:19px;font-weight:800;line-height:1}
+.gw06-badge span{font-size:7px;font-weight:700;letter-spacing:.08em;margin-top:2px}
+.gw06-body{position:absolute;left:0;right:0;bottom:0;padding:18px}
+.gw06-title{font-size:26px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.gw06-meta{font-size:12px;color:#b9b7c4;margin-top:4px}
+.gw06-genres{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.gw06-genres span{padding:5px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.09);backdrop-filter:blur(6px);font-size:11px;font-weight:500;color:#ecebee}
+.gw06-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:15px}
+.gw06-btns a{display:block;text-align:center;padding:10px 0;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none}
+.gw06-btns .p{background:#e3b357;color:#17161c}
+.gw06-btns .s{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#f2f1f4;backdrop-filter:blur(6px)}
+</style>
+<div class="gw06">
+  <img class="gw06-cover" src="cover.jpg" alt="Обложка: Elden Ring">
+  <div class="gw06-shade"></div>
+  <div class="gw06-chip">Backloggd · карточка</div>
+  <div class="gw06-badge"><b>4.5</b><span>из 5</span></div>
+  <div class="gw06-body">
+    <h3 class="gw06-title">Elden Ring</h3>
+    <div class="gw06-meta">2022 · FromSoftware</div>
+    <div class="gw06-genres"><span>Экшен-RPG</span><span>Открытый мир</span><span>Souls-like</span></div>
+    <div class="gw06-btns">
+      <a class="p" href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">Backloggd</a>
+      <a class="s" href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam</a>
+      <a class="s" href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+    </div>
+  </div>
+</div>

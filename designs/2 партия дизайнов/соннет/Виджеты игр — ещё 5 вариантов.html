@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Виджеты игр — ещё 5 вариантов</title>
+<style>
+:root{box-sizing:border-box;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top,0px));padding-bottom:max(24px,env(safe-area-inset-bottom,0px));--bg:#f3f1ec;--fg:#1c1b1a;--mut:#6d6a64}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--fg:#eceae6;--mut:#8f8c86}}
+:root[data-theme="dark"]{--bg:#121214;--fg:#eceae6;--mut:#8f8c86}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto}
+h1{font-size:20px;margin:0 0 4px}
+p.lead{color:var(--mut);margin:0 0 16px;font-size:14px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:38px 0 14px}
+.tog{display:inline-flex;border:1px solid var(--mut);border-radius:99px;padding:3px;position:sticky;top:max(8px,env(safe-area-inset-top,0px));background:var(--bg);z-index:5}
+.tog button{border:0;background:none;color:var(--fg);font:600 13px inherit;font-family:inherit;padding:7px 16px;border-radius:99px;cursor:pointer}
+.tog button.on{background:var(--fg);color:var(--bg)}
+[data-src="backloggd"]{--accent:#34d3b4;--ink:#04231d}
+[data-src="panaax"]{--accent:#ff8a3d;--ink:#2b1200}
+.cover{background:radial-gradient(circle at 70% 25%,#ffe9a8 0 7%,transparent 8%),linear-gradient(160deg,#7ee08a 0%,#2c6b52 45%,#0e1f2b 100%);position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-5%;height:55%;background:#0b1620;clip-path:polygon(0 70%,30% 25%,52% 55%,75% 15%,100% 60%,100% 100%,0 100%);opacity:.85}
+
+/* C — терминал */
+.wc{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:#06100a;color:#b9f5c8;border:1px solid var(--accent);border-radius:8px;padding:18px 20px;position:relative;overflow:hidden;box-shadow:0 0 24px color-mix(in srgb,var(--accent) 30%,transparent)}
+.wc::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 1px,transparent 1px 3px)}
+.wc .h{color:var(--accent);font-size:13px;margin-bottom:10px}
+.wc h3{margin:0 0 8px;font-size:22px;color:#fff;text-shadow:0 0 10px var(--accent);text-transform:uppercase;letter-spacing:.04em}
+.wc .l{font-size:13px;line-height:1.7;color:#8fcba0}
+.wc .l b{color:#d8ffe2;font-weight:500}
+.wc .bar{color:var(--accent);letter-spacing:1px}
+.wc a{display:inline-block;margin-top:12px;color:var(--accent);font-size:13px;text-decoration:none;border-bottom:1px dashed var(--accent)}
+.wc a::after{content:"_";animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+
+/* D — коллекционная карточка */
+.wd{width:250px;margin:0 auto;padding:6px;border-radius:16px;background:linear-gradient(125deg,var(--accent),#c58cff,#ffe27a,var(--accent));background-size:300% 300%;animation:holo 6s ease infinite;box-shadow:0 14px 30px rgba(0,0,0,.3)}
+@keyframes holo{50%{background-position:100% 100%}}
+.wd .in{background:#14161c;color:#f1efe9;border-radius:11px;padding:10px}
+.wd .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.wd h3{margin:0;font-size:17px}
+.wd .hp{font-size:12px;color:var(--accent);font-weight:700;white-space:nowrap}
+.wd .cover{height:150px;border-radius:7px;margin:8px 0;border:2px solid rgba(255,255,255,.18)}
+.wd .ty{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#a5a29a;border-top:1px solid #2a2d36;border-bottom:1px solid #2a2d36;padding:4px 0;text-align:center}
+.wd .st{display:flex;justify-content:space-around;margin:10px 0 6px;text-align:center;font-size:11px;color:#a5a29a}
+.wd .st b{display:block;font-size:20px;color:#fff}
+.wd a{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:13px;padding:9px;border-radius:8px;background:var(--accent);color:var(--ink)}
+
+/* E — строка в тексте */
+.we{display:inline-flex;align-items:center;gap:10px;vertical-align:middle;padding:5px 12px 5px 5px;border-radius:12px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);background:color-mix(in srgb,var(--accent) 12%,transparent);color:inherit;text-decoration:none;line-height:1.2;transition:background .15s}
+.we:hover{background:color-mix(in srgb,var(--accent) 24%,transparent)}
+.we .cover{width:34px;height:46px;border-radius:6px;flex:none}
+.we strong{display:block;font-size:14px}
+.we small{font-size:11.5px;color:var(--mut)}
+.we .sc{margin-left:4px;font-weight:800;font-size:13px;padding:3px 8px;border-radius:8px;background:var(--accent);color:var(--ink)}
+p.demo{line-height:2.2;font-size:15px;max-width:60ch}
+
+/* F — нео-брутализм */
+.wf{background:var(--accent);color:#111;border:3px solid #111;border-radius:14px;box-shadow:7px 7px 0 #111;padding:16px;display:flex;gap:16px;position:relative}
+.wf .cover{flex:0 0 100px;height:140px;border:3px solid #111;border-radius:8px}
+.wf h3{margin:0 0 4px;font-size:27px;line-height:1;text-transform:uppercase;font-weight:900;letter-spacing:-.02em}
+.wf .m{font-weight:600;font-size:13px}
+.wf .c{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.wf .c span{background:#fff;border:2px solid #111;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700}
+.wf a{display:inline-block;background:#111;color:#fff;text-decoration:none;font-weight:800;padding:8px 14px;border-radius:8px;font-size:13px;transition:transform .12s}
+.wf a:hover{transform:translate(-2px,-2px)}
+.wf .sticker{position:absolute;top:-16px;right:-10px;background:#fff;border:3px solid #111;border-radius:50%;width:66px;height:66px;display:grid;place-items:center;font-weight:900;font-size:22px;transform:rotate(10deg);box-shadow:3px 3px 0 #111}
+
+/* G — кинематографичный баннер */
+.wg{border-radius:18px;overflow:hidden;background:#0c0e13;color:#f4f2ee;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.wg .hero{height:190px;position:relative;display:flex;align-items:flex-end;padding:18px 20px}
+.wg .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 28%,#ffe9a8 0 5%,transparent 6%),linear-gradient(120deg,#7ee08a,#2c6b52 40%,#0e1f2b)}
+.wg .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,#0c0e13 100%)}
+.wg .hero>*{position:relative;z-index:1}
+.wg .tag{position:absolute;top:14px;left:20px;z-index:1;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--accent);color:var(--ink);padding:4px 10px;border-radius:99px}
+.wg h3{margin:0;font-size:32px;letter-spacing:-.02em;line-height:1}
+.wg .by{font-size:13px;opacity:.75;margin-top:4px}
+.wg .strip{display:grid;grid-template-columns:repeat(3,1fr) auto;align-items:center;gap:1px;background:#1d2029}
+.wg .strip div{background:#0c0e13;padding:12px 16px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8d8a84}
+.wg .strip b{display:block;font-size:17px;letter-spacing:0;text-transform:none;color:var(--accent);margin-top:2px}
+.wg .strip a{background:var(--accent);color:var(--ink);align-self:stretch;display:grid;place-items:center;padding:0 20px;font-weight:700;text-decoration:none;font-size:14px}
+
+@media (max-width:560px){.wf{flex-direction:column}.wf .cover{flex-basis:auto;width:100px}.wg .strip{grid-template-columns:1fr 1fr}.wg .strip a{grid-column:1/-1;padding:14px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Виджеты игр — ещё 5 вариантов</h1>
+<p class="lead">Переключатель меняет источник сразу у всех карточек.</p>
+<div class="tog" role="group"><button class="on" data-s="backloggd">Backloggd</button><button data-s="panaax">panaaxgames</button></div>
+
+<h2>C — «Терминал»</h2>
+<article class="wc" data-src="backloggd">
+ <div class="h">&gt; fetch --source=<span class="sn">Backloggd</span></div>
+ <h3>Neon Requiem</h3>
+ <div class="l">РАЗРАБОТЧИК: <b>Voidline Studio</b><br>ГОД: <b>2025</b> · ЖАНР: <b>Action RPG, киберпанк</b><br>ОЦЕНКА: <span class="bar">█████████░</span> <b>8.4/10</b></div>
+ <a href="#">открыть на <span class="sn">Backloggd</span></a>
+</article>
+
+<h2>D — «Коллекционная карточка»</h2>
+<article class="wd" data-src="backloggd">
+ <div class="in">
+  <div class="t"><h3>Neon Requiem</h3><span class="hp">8.4 ★</span></div>
+  <div class="cover"></div>
+  <div class="ty">Action RPG · 2025</div>
+  <div class="st"><div><b>12,4k</b>оценок</div><div><b>38 ч</b>прохождение</div><div><b>PC</b>платформа</div></div>
+  <a href="#">На <span class="sn">Backloggd</span> →</a>
+ </div>
+</article>
+
+<h2>E — «Строка в тексте»</h2>
+<p class="demo">Именно поэтому
+ <a class="we" data-src="backloggd" href="#"><span class="cover"></span><span><strong>Neon Requiem</strong><small>2025 · <span class="sn">Backloggd</span></small></span><span class="sc">8.4</span></a>
+ так легко рекомендовать, а вот
+ <a class="we" data-src="backloggd" href="#"><span class="cover"></span><span><strong>Neon Requiem</strong><small>2025 · <span class="sn">Backloggd</span></small></span><span class="sc">8.4</span></a>
+ уже требует оговорок.</p>
+
+<h2>F — «Нео-брутализм»</h2>
+<article class="wf" data-src="backloggd">
+ <div class="sticker">8.4</div>
+ <div class="cover"></div>
+ <div>
+  <h3>Neon Requiem</h3>
+  <div class="m">2025 · Voidline Studio</div>
+  <div class="c"><span>Action RPG</span><span>Киберпанк</span><span>Open world</span></div>
+  <a href="#">Смотреть на <span class="sn">Backloggd</span> ↗</a>
+ </div>
+</article>
+
+<h2>G — «Кинобаннер»</h2>
+<article class="wg" data-src="backloggd">
+ <div class="hero">
+  <span class="tag sn">Backloggd</span>
+  <div><h3>Neon Requiem</h3><div class="by">Voidline Studio · Nova Interactive · 2025</div></div>
+ </div>
+ <div class="strip">
+  <div>Оценка<b>8.4 / 10</b></div><div>Жанр<b>Action RPG</b></div><div>Время<b>38 ч</b></div>
+  <a href="#">Открыть →</a>
+ </div>
+</article>
+</main>
+<script>
+var names={backloggd:"Backloggd",panax:"panaaxgames"};
+document.querySelectorAll(".tog button").forEach(function(b){b.addEventListener("click",function(){
+ document.querySelectorAll(".tog button").forEach(function(x){x.classList.toggle("on",x===b)});
+ document.querySelectorAll("[data-src]").forEach(function(e){e.setAttribute("data-src",b.dataset.s)});
+ document.querySelectorAll(".sn").forEach(function(e){e.textContent=names[b.dataset.s]});
+});});
+</script>
+</body>
+</html>

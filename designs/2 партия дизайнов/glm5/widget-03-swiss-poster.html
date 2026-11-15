@@ -1,0 +1,63 @@
+<!-- ═══ ВИДЖЕТ 03 · ШВЕЙЦАРСКИЙ ПЛАКАТ ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+.gw03{max-width:660px;width:100%;box-sizing:border-box;background:#fff;border:2px solid #111;box-shadow:10px 10px 0 #111;font-family:'Oswald',Arial,sans-serif;color:#111}
+.gw03 *{margin:0;padding:0;box-sizing:border-box}
+.gw03-bar{display:flex;justify-content:space-between;align-items:center;background:#111;color:#fff;padding:9px 14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.gw03-bar .no{display:flex;align-items:center;gap:8px}
+.gw03-bar .no i{width:8px;height:8px;background:#c7331f;display:inline-block}
+.gw03-main{display:flex;border-bottom:2px solid #111}
+.gw03-covwrap{width:208px;flex-shrink:0;border-right:2px solid #111;padding:16px}
+.gw03-covwrap img{width:100%;height:242px;object-fit:cover;display:block;border:2px solid #111;filter:grayscale(1) contrast(1.08)}
+.gw03-covcap{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#777;margin-top:8px}
+.gw03-info{flex:1;padding:18px 20px;min-width:0}
+.gw03-kicker{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#b3873e;margin-bottom:8px}
+.gw03-title{font-size:44px;font-weight:700;line-height:.95;text-transform:uppercase}
+.gw03-meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;margin-top:10px}
+.gw03-genres{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.gw03-genres span{border:1.5px solid #111;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.gw03-plat{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#777;text-transform:uppercase;letter-spacing:.08em;margin-top:14px}
+.gw03-scores{display:flex;border-bottom:2px solid #111}
+.gw03-scores div{flex:1;padding:12px 16px;border-right:2px solid #111}
+.gw03-scores div:last-child{border-right:none}
+.gw03-scores b{font-size:28px;font-weight:700}
+.gw03-scores b i{font-style:normal;font-size:14px;color:#777}
+.gw03-scores span{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#777;margin-top:2px}
+.gw03-foot{display:flex}
+.gw03-foot a{flex:1;text-align:center;padding:13px 0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.gw03-foot .f1{background:#c7331f;color:#fff}
+.gw03-foot .f1:hover{background:#a8271a}
+.gw03-foot .f2,.gw03-foot .f3{color:#111}
+.gw03-foot .f2{border-left:2px solid #111}
+.gw03-foot .f3{border-left:2px solid #111}
+.gw03-foot .f2:hover,.gw03-foot .f3:hover{background:#f0ede6}
+@media (max-width:600px){.gw03-main{flex-direction:column}.gw03-covwrap{width:100%;border-right:none;border-bottom:2px solid #111}}
+</style>
+<div class="gw03">
+  <div class="gw03-bar"><span>Карточка игры — Backloggd</span><span class="no">№ 2022-ER<i></i></span></div>
+  <div class="gw03-main">
+    <div class="gw03-covwrap">
+      <img src="cover.jpg" alt="Обложка: Elden Ring">
+      <div class="gw03-covcap">Обложка · издание 2022</div>
+    </div>
+    <div class="gw03-info">
+      <div class="gw03-kicker">Игра года · TGA 2022</div>
+      <h3 class="gw03-title">Elden<br>Ring</h3>
+      <div class="gw03-meta">2022 · FromSoftware / Bandai Namco Entertainment</div>
+      <div class="gw03-genres"><span>Экшен-RPG</span><span>Открытый мир</span><span>Souls-like</span></div>
+      <div class="gw03-plat">Платформы: PC · PS4/PS5 · Xbox One/Series</div>
+    </div>
+  </div>
+  <div class="gw03-scores">
+    <div><b>4.5<i>/5</i></b><span>Backloggd</span></div>
+    <div><b>97<i>/100</i></b><span>IGDB</span></div>
+    <div><b>93<i>%</i></b><span>Steam</span></div>
+  </div>
+  <div class="gw03-foot">
+    <a class="f1" href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">Backloggd &#8599;</a>
+    <a class="f2" href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam &#8599;</a>
+    <a class="f3" href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB &#8599;</a>
+  </div>
+</div>

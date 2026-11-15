@@ -1,0 +1,64 @@
+<!-- ═══ ВИДЖЕТ 09 · КАРТРИДЖ SNES · PANAX ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+.pa09{width:420px;max-width:100%;box-sizing:border-box;background:#d8d4c6;border:1px solid #b7b3a5;border-radius:10px 10px 14px 14px;padding:12px;font-family:'Oswald',Arial,sans-serif;color:#22201b;box-shadow:inset 0 2px 0 #eceade, inset 0 -3px 0 #b4b0a2, 8px 10px 0 rgba(0,0,0,.13)}
+.pa09 *{margin:0;padding:0;box-sizing:border-box}
+.pa09-ridges{height:10px;background:repeating-linear-gradient(90deg,#c5c1b3 0 6px,#d8d4c6 6px 12px);border:1px solid #b7b3a5;border-radius:2px;margin-bottom:10px}
+.pa09-label{background:#f2ecdb;border:2px solid #22201b;border-radius:4px;overflow:hidden}
+.pa09-band{display:flex;justify-content:space-between;align-items:center;background:#2c3868;color:#f2ecdb;padding:7px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.pa09-band em{font-style:normal;background:#c7331f;padding:2px 7px;color:#fff;letter-spacing:.1em}
+.pa09-stripe{height:6px;background:#c7331f;border-top:1px solid #22201b;border-bottom:1px solid #22201b}
+.pa09-body{display:flex;gap:12px;padding:12px}
+.pa09-cov{width:132px;height:172px;flex-shrink:0;border:2px solid #22201b;overflow:hidden;background:#22201b}
+.pa09-cov img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.03) saturate(1.05)}
+.pa09-info{min-width:0;flex:1;display:flex;flex-direction:column}
+.pa09-name{font-size:26px;font-weight:700;text-transform:uppercase;line-height:.98}
+.pa09-meta{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#55503f;margin-top:7px;letter-spacing:.02em}
+.pa09-genres{font-size:13px;font-weight:500;color:#3d3a30;line-height:1.5;margin-top:8px}
+.pa09-stack{display:flex;gap:2px;height:9px;border-radius:999px;overflow:hidden;background:#dcd6c4;border:1px solid #22201b;margin-top:11px}
+.pa09-stack i{border-radius:999px}
+.pa09-leg{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:8px}
+.pa09-leg div{display:flex;align-items:center;gap:4px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#3d3a30;min-width:0}
+.pa09-leg .e{font-size:11px;line-height:1;font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.pa09-leg b{margin-left:auto;font-weight:600;font-size:8px;color:#22201b}
+.pa09-verdict{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;margin-top:9px;padding-top:8px;border-top:1px dashed #a89f88;color:#55503f}
+.pa09 .f-gold{background:#f4cf3a}.pa09 .f-orange{background:#f5a41f}.pa09 .f-purple{background:#bd63f2}.pa09 .f-grey{background:#a8adb8}
+.pa09-btns{display:flex;gap:8px;margin-top:12px;padding:0 12px 12px}
+.pa09-btns a{flex:1;text-align:center;padding:9px 0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:2px solid #22201b;background:#f2ecdb;color:#22201b;box-shadow:3px 3px 0 #22201b}
+.pa09-btns a:hover{transform:translate(1px,1px);box-shadow:2px 2px 0 #22201b}
+.pa09-btns .f1{background:#c7331f;color:#fff}
+.pa09-serial{font-family:'IBM Plex Mono',monospace;font-size:8px;color:#8a8577;text-align:center;letter-spacing:.22em;text-transform:uppercase;margin-top:9px}
+</style>
+<div class="pa09">
+  <div class="pa09-ridges"></div>
+  <div class="pa09-label">
+    <div class="pa09-band"><span>16-BIT · Карточка игры</span><em>SN-2022</em></div>
+    <div class="pa09-stripe"></div>
+    <div class="pa09-body">
+      <div class="pa09-cov"><img src="cover.jpg" alt="Обложка: Elden Ring"></div>
+      <div class="pa09-info">
+        <h3 class="pa09-name">Elden Ring</h3>
+        <div class="pa09-meta">2022 · FromSoftware · Bandai Namco</div>
+        <div class="pa09-genres">Экшен-RPG · Открытый мир · Souls-like</div>
+        <div class="pa09-stack"><i class="f-gold" style="flex-grow:19.6"></i><i class="f-orange" style="flex-grow:41.2"></i><i class="f-purple" style="flex-grow:37.3"></i><i class="f-grey" style="flex-grow:2"></i></div>
+        <div class="pa09-leg">
+          <div><span class="e">🥇</span>Легенда<b>19.6%</b></div>
+          <div><span class="e">🤩</span>Круто<b>41.2%</b></div>
+          <div><span class="e">👍</span>Хорошо<b>37.3%</b></div>
+          <div><span class="e">👍</span>Норм<b>0.0%</b></div>
+          <div><span class="e">🙁</span>Плохо<b>2.0%</b></div>
+          <div><span class="e">🤮</span>Ужас<b>0.0%</b></div>
+        </div>
+        <div class="pa09-verdict">Опрос PANAX · Вердикт: Круто · 98.1%</div>
+      </div>
+    </div>
+  </div>
+  <div class="pa09-btns">
+    <a class="f1" href="https://panaxgames.com" target="_blank" rel="noopener">PANAX</a>
+    <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam</a>
+    <a href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+  </div>
+  <div class="pa09-serial">SLG · 2022 · Made for review blogs</div>
+</div>

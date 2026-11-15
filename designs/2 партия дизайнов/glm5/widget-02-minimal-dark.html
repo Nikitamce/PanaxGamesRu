@@ -1,0 +1,45 @@
+<!-- ═══ ВИДЖЕТ 02 · МИНИМАЛ (ТЁМНЫЙ) ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;800&display=swap');
+.gw02{max-width:660px;width:100%;box-sizing:border-box;display:flex;gap:22px;background:#15151b;border:1px solid #262633;border-radius:20px;padding:22px;font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#eceae2}
+.gw02 *{margin:0;padding:0;box-sizing:border-box}
+.gw02-cover{width:188px;height:252px;object-fit:cover;border-radius:14px;flex-shrink:0;display:block;border:1px solid #262633}
+.gw02-body{flex:1 1 220px;min-width:200px;display:flex;flex-direction:column}
+.gw02-top{display:flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#83818f}
+.gw02-top i{width:8px;height:8px;background:#e0b154;border-radius:2px;display:inline-block;margin-right:10px;flex-shrink:0}
+.gw02-top em{font-style:normal;color:#e0b154;margin-left:6px}
+.gw02-title{margin:12px 0 4px;font-size:30px;font-weight:800;letter-spacing:-.01em;color:#f7f5ee}
+.gw02-meta{font-size:13px;color:#95939f}
+.gw02-genres{margin-top:10px;font-size:13px;color:#b9b7c1}
+.gw02-stats{display:flex;gap:22px;margin-top:18px;padding-top:16px;border-top:1px solid #23232c}
+.gw02-stats b{font-size:24px;font-weight:800;color:#f7f5ee}
+.gw02-stats b i{font-style:normal;font-size:13px;font-weight:600;color:#83818f;margin-left:1px}
+.gw02-stats span{display:block;margin-top:4px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#83818f}
+.gw02-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.gw02-btns a{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none}
+.gw02-btns .p{background:#e0b154;color:#171610}
+.gw02-btns .s{border:1px solid #34343f;color:#d4d2da;transition:border-color .15s}
+.gw02-btns .s:hover{border-color:#e0b154}
+@media (max-width:560px){.gw02{flex-direction:column}.gw02-cover{width:100%;height:260px}}
+</style>
+<div class="gw02">
+  <img class="gw02-cover" src="cover.jpg" alt="Обложка: Elden Ring">
+  <div class="gw02-body">
+    <div class="gw02-top"><i></i>Карточка игры · <em>Backloggd</em></div>
+    <h3 class="gw02-title">Elden Ring</h3>
+    <div class="gw02-meta">2022 · FromSoftware · Bandai Namco Entertainment</div>
+    <div class="gw02-genres">Экшен-RPG · Открытый мир · Souls-like</div>
+    <div class="gw02-stats">
+      <div><b>4.5<i>/5</i></b><span>Backloggd</span></div>
+      <div><b>97<i>/100</i></b><span>IGDB</span></div>
+      <div><b>93<i>%</i></b><span>Steam</span></div>
+    </div>
+    <div class="gw02-btns">
+      <a class="p" href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">Backloggd &#8599;&#xFE0E;</a>
+      <a class="s" href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">Steam</a>
+      <a class="s" href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+    </div>
+  </div>
+</div>

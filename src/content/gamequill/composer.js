@@ -1,5 +1,6 @@
 import { injectFonts, loadDoc } from "./viewer.js";
 import render_default from "./render.css";
+import cards_css from "../../shared/gq-cards.css";
 import { renderReview } from "./render.js";
 import { DEFAULT_THEME, normalizeTheme } from "../../shared/gq-theme.js";
 import { hasSignedQuery, toPublicPanaxImageUrl, safeUserImageUrl } from "../../shared/gq-image.js";
@@ -241,7 +242,7 @@ function showComposerPreview(doc, { carrier, locked } = {}) {
   body.setAttribute("data-gq-preview-body", "");
   const root = body.attachShadow({ mode: "closed" });
   const style = document.createElement("style");
-  style.textContent = render_default;
+  style.textContent = render_default + "\n" + cards_css;
   const inner = document.createElement("div");
   inner.className = "wrap";
   inner.setAttribute("data-gq-theme", currentTheme());

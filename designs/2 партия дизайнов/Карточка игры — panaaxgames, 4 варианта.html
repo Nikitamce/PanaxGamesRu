@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Карточка игры — panaaxgames, 4 варианта блока оценки</title>
+<style>
+:root{box-sizing:border-box;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top,0px));padding-bottom:max(24px,env(safe-area-inset-bottom,0px));--bg:#f3f1ec;--fg:#1c1b1a;--mut:#6d6a64}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--fg:#eceae6;--mut:#8f8c86}}
+:root[data-theme="dark"]{--bg:#121214;--fg:#eceae6;--mut:#8f8c86}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto}
+h1{font-size:20px;margin:0 0 4px}
+p.lead{color:var(--mut);margin:0 0 8px;font-size:14px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:38px 0 14px}
+.stack{display:grid;gap:18px}
+
+/* общая карточка (как в исходном дизайне) */
+.card{position:relative;border-radius:18px;padding:18px;display:flex;gap:18px;color:#f1eef8;background:linear-gradient(135deg,#1a1430,#141a26);border:1px solid rgba(255,138,61,.25);box-shadow:0 12px 30px rgba(0,0,0,.35);overflow:hidden}
+.cover{flex:0 0 118px;height:168px;border-radius:12px;background:radial-gradient(circle at 70% 25%,#ffe9a8 0 7%,transparent 8%),linear-gradient(160deg,#7ee08a 0%,#2c6b52 45%,#0e1f2b 100%);position:relative;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.5)}
+.cover::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-5%;height:55%;background:#0b1620;clip-path:polygon(0 70%,30% 25%,52% 55%,75% 15%,100% 60%,100% 100%,0 100%);opacity:.85}
+.body{flex:1;min-width:0;display:flex;flex-direction:column}
+.kick{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.title{font-size:24px;font-weight:800;line-height:1.1;margin:6px 0 4px;letter-spacing:-.02em}
+.meta{font-size:13px;color:rgba(241,238,248,.65)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tags span{font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.btn{margin-top:auto;align-self:flex-start;text-decoration:none;font-weight:700;font-size:13px;padding:10px 16px;border-radius:12px;background:var(--ac);color:#2b1200}
+
+/* Вариант 1: доминирующий уровень + мини-столбики */
+.v1{--ac:#ff8a3d}
+.v1 .pill{display:inline-flex;align-items:center;gap:8px;border-radius:99px;padding:6px 12px;background:color-mix(in srgb,var(--c) 22%,transparent);border:1px solid var(--c);color:var(--c);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em;align-self:flex-start}
+.v1 .pill b{color:#fff;font-size:14px}
+.v1 .mini{display:flex;align-items:flex-end;gap:5px;height:34px;margin-top:12px}
+.v1 .mini i{flex:1;background:var(--c);border-radius:3px 3px 0 0;height:var(--h);opacity:.9}
+.v1 .mini i.z{background:#3a3550;height:4px}
+.v1 .row{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:12px}
+
+/* Вариант 2: медаль + топ-3 строкой */
+.v2{--ac:#f5c800}
+.v2 .row{display:flex;align-items:center;gap:14px;margin-top:10px}
+.v2 .medal{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b8,var(--c) 55%,#3a2a00);display:grid;place-items:center;flex:none;box-shadow:0 0 0 3px #1a1430,0 0 0 5px var(--c)}
+.v2 .medal b{font-size:20px;font-weight:900;color:#2b1d00}
+.v2 .medal small{display:block;font-size:8px;font-weight:800;color:#2b1d00;text-transform:uppercase;text-align:center;letter-spacing:.04em}
+.v2 .top3{font-size:12px;line-height:1.7;color:rgba(241,238,248,.75)}
+.v2 .top3 b{color:#fff}
+.v2 .foot{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+
+/* Вариант 3: одна градиентная полоса */
+.v3{--ac:#ff8a3d}
+.v3 .lbl{display:flex;justify-content:space-between;font-size:12px;color:rgba(241,238,248,.7);margin-top:12px}
+.v3 .lbl b{color:var(--ac)}
+.v3 .strip{display:flex;height:12px;border-radius:99px;overflow:hidden;margin-top:6px;background:#2a2540}
+.v3 .strip i{height:100%;width:var(--w);background:var(--c)}
+.v3 .strip i:first-child{border-radius:99px 0 0 99px}
+.v3 .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:12px}
+
+/* Вариант 4: шкала-слайдер с маркером */
+.v4{--ac:#b565f5}
+.v4 .track{position:relative;height:10px;border-radius:99px;margin:22px 4px 8px;background:linear-gradient(90deg,#e0475b,#8fa3b8 22%,#3b9cff 40%,#b565f5 60%,#f59e0b 80%,#f5c800)}
+.v4 .knob{position:absolute;top:50%;left:var(--x);transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.2),0 0 14px var(--c)}
+.v4 .knob::after{content:attr(data-l);position:absolute;bottom:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:800;color:var(--c);text-transform:uppercase}
+.v4 .ends{display:flex;justify-content:space-between;font-size:10px;font-weight:800;letter-spacing:.06em;color:rgba(241,238,248,.5);text-transform:uppercase}
+.v4 .pct{font-size:13px;margin-top:8px;color:rgba(241,238,248,.8)}
+.v4 .pct b{color:var(--c)}
+.v4 .foot{margin-top:auto;padding-top:10px}
+</style>
+</head>
+<body>
+<main>
+<h1>Карточка игры — panaaxgames</h1>
+<p class="lead">Та же карточка, что в первом варианте, но блок оценки показывает распределение по уровням. Кнопка ведёт на panaaxgames.</p>
+
+<h2>1 — Доминирующий уровень + мини-столбики</h2>
+<article class="card v1">
+ <div class="cover"></div>
+ <div class="body">
+  <div class="kick">Карточка игры · panaaxgames</div>
+  <div class="title">Neon Requiem</div>
+  <div class="meta">2025 · Voidline Studio · Nova Interactive</div>
+  <div class="tags"><span>Action RPG</span><span>Киберпанк</span><span>Открытый мир</span></div>
+  <div class="row" style="flex-direction:column;align-items:flex-start;gap:0">
+   <span class="pill" style="--c:#f59e0b">Круто <b>41%</b></span>
+   <div class="mini" title="Легенда · Круто · Хорошо · Норм · Плохо · Ужас">
+    <i style="--h:60%;--c:#f5c800"></i><i style="--h:100%;--c:#f59e0b"></i><i style="--h:90%;--c:#b565f5"></i><i class="z"></i><i style="--h:12%;--c:#8fa3b8"></i><i class="z"></i>
+   </div>
+  </div>
+  <div class="row"><a class="btn" href="#">Открыть на panaaxgames →</a></div>
+ </div>
+</article>
+
+<h2>2 — Медаль + топ-3 строкой</h2>
+<article class="card v2">
+ <div class="cover"></div>
+ <div class="body">
+  <div class="kick">Карточка игры · panaaxgames</div>
+  <div class="title">Neon Requiem</div>
+  <div class="meta">2025 · Voidline Studio · Nova Interactive</div>
+  <div class="tags"><span>Action RPG</span><span>Киберпанк</span><span>Открытый мир</span></div>
+  <div class="row">
+   <div class="medal" style="--c:#f59e0b"><div><b>41</b><small>Круто</small></div></div>
+   <div class="top3"><b>41.2%</b> круто · <b>37.3%</b> хорошо<br>19.6% легенда</div>
+  </div>
+  <div class="foot"><a class="btn" href="#">Открыть →</a></div>
+ </div>
+</article>
+
+<h2>3 — Одна градиентная полоса</h2>
+<article class="card v3">
+ <div class="cover"></div>
+ <div class="body">
+  <div class="kick">Карточка игры · panaaxgames</div>
+  <div class="title">Neon Requiem</div>
+  <div class="meta">2025 · Voidline Studio · Nova Interactive</div>
+  <div class="tags"><span>Action RPG</span><span>Киберпанк</span><span>Открытый мир</span></div>
+  <div class="lbl"><span>Оценки игроков</span><span>Доминирует <b>Круто</b></span></div>
+  <div class="strip">
+   <i style="--w:19.6%;--c:#f5c800"></i><i style="--w:41.2%;--c:#f59e0b"></i><i style="--w:37.3%;--c:#b565f5"></i><i style="--w:2%;--c:#8fa3b8"></i>
+  </div>
+  <div class="foot"><a class="btn" href="#">Открыть на panaaxgames →</a></div>
+ </div>
+</article>
+
+<h2>4 — Шкала с маркером</h2>
+<article class="card v4">
+ <div class="cover"></div>
+ <div class="body">
+  <div class="kick">Карточка игры · panaaxgames</div>
+  <div class="title">Neon Requiem</div>
+  <div class="meta">2025 · Voidline Studio · Nova Interactive</div>
+  <div class="tags"><span>Action RPG</span><span>Киберпанк</span><span>Открытый мир</span></div>
+  <div class="track" style="--c:#f59e0b"><span class="knob" data-l="Круто" style="--x:60%;--c:#f59e0b"></span></div>
+  <div class="ends"><span>Ужас</span><span>Норм</span><span>Легенда</span></div>
+  <div class="pct">Больше всего голосов: <b>Круто 41%</b></div>
+  <div class="foot"><a class="btn" href="#">Открыть →</a></div>
+ </div>
+</article>
+</main>
+</body>
+</html>

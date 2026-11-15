@@ -1,0 +1,53 @@
+<!-- ═══ ВИДЖЕТ 08 · CRT-ТЕРМИНАЛ ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+.gw08{max-width:640px;width:100%;box-sizing:border-box;background:#050906;border:1px solid #1d4b23;border-radius:10px;padding:18px 20px;color:#6fe37a;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;position:relative;overflow:hidden;box-shadow:inset 0 0 40px rgba(30,120,50,.14), 0 0 24px rgba(46,160,70,.1);text-shadow:0 0 8px rgba(90,240,110,.3)}
+.gw08 *{margin:0;padding:0;box-sizing:border-box}
+.gw08::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.24) 0 1px,transparent 1px 3px);pointer-events:none}
+.gw08-top{display:flex;justify-content:space-between;color:#3f9e4d;font-size:10px;letter-spacing:.1em;margin-bottom:10px}
+.gw08-prompt{color:#b9ffbd}
+.gw08-prompt b{color:#3f9e4d;font-weight:400}
+.gw08-div{border:none;border-top:1px dashed #1d4b23;margin:10px 0}
+.gw08-title{font-size:26px;font-weight:700;color:#c8ffc9;letter-spacing:.08em;text-shadow:0 0 14px rgba(120,255,130,.45);display:flex;align-items:center}
+.gw08-cursor{display:inline-block;width:9px;height:18px;background:#6fe37a;margin-left:10px;animation:gw08blink 1.2s steps(1) infinite}
+@keyframes gw08blink{50%{opacity:0}}
+.gw08-rows{margin-top:12px}
+.gw08-row{display:flex;gap:10px;align-items:baseline}
+.gw08-row span{color:#3f9e4d;letter-spacing:.08em;font-size:11px}
+.gw08-row i{flex:1;border-bottom:1px dotted #1d4b23;transform:translateY(-3px)}
+.gw08-row b{font-weight:400;color:#a5e9ab}
+.gw08-bars{margin-top:14px}
+.gw08-bar-row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.gw08-bar-row span{width:110px;color:#3f9e4d;font-size:11px;letter-spacing:.06em}
+.gw08-bar-row .bar{flex:1;height:9px;border:1px solid #2e6b37;position:relative;background:rgba(20,60,30,.25)}
+.gw08-bar-row .bar b{position:absolute;top:0;left:0;bottom:0;background:#39b34c;box-shadow:0 0 10px rgba(80,220,110,.5)}
+.gw08-bar-row em{font-style:normal;width:64px;text-align:right;color:#c8ffc9;font-size:11px}
+.gw08-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.gw08-btns a{color:#6fe37a;border:1px solid #2e6b37;padding:7px 12px;text-decoration:none;font-size:11px;letter-spacing:.08em;position:relative;z-index:1}
+.gw08-btns a:hover{background:#39b34c;color:#050906;text-shadow:none}
+</style>
+<div class="gw08">
+  <div class="gw08-top"><span>/// КАРТОЧКА ИГРЫ</span><span>BACKLOGGD.DAT</span></div>
+  <div class="gw08-prompt"><b>&gt;</b> game.lookup --id elden-ring</div>
+  <hr class="gw08-div">
+  <div class="gw08-title">ELDEN RING<span class="gw08-cursor"></span></div>
+  <div class="gw08-rows">
+    <div class="gw08-row"><span>ГОД</span><i></i><b>2022</b></div>
+    <div class="gw08-row"><span>СТУДИЯ</span><i></i><b>FromSoftware</b></div>
+    <div class="gw08-row"><span>ИЗДАТЕЛЬ</span><i></i><b>Bandai Namco Entertainment</b></div>
+    <div class="gw08-row"><span>ЖАНРЫ</span><i></i><b>экшен-rpg / открытый мир / souls-like</b></div>
+    <div class="gw08-row"><span>ПЛАТФОРМЫ</span><i></i><b>PC · PS4/PS5 · Xbox One/Series</b></div>
+  </div>
+  <div class="gw08-bars">
+    <div class="gw08-bar-row"><span>BACKLOGGD</span><div class="bar"><b style="width:90%"></b></div><em>4.5/5</em></div>
+    <div class="gw08-bar-row"><span>IGDB</span><div class="bar"><b style="width:97%"></b></div><em>97/100</em></div>
+    <div class="gw08-bar-row"><span>STEAM</span><div class="bar"><b style="width:93%"></b></div><em>93%</em></div>
+  </div>
+  <div class="gw08-btns">
+    <a href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">[ BACKLOGGD ]</a>
+    <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">[ STEAM ]</a>
+    <a href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">[ IGDB ]</a>
+  </div>
+</div>

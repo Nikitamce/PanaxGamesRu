@@ -1,0 +1,56 @@
+<!-- ═══ ВИДЖЕТ 10 · ПИКСЕЛЬНАЯ ВИТРИНА ═══
+     Вставьте блок целиком в HTML обзора.
+     Замените src="cover.jpg" на прямую ссылку на вашу обложку. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.gw10{width:600px;max-width:100%;box-sizing:border-box;position:relative;background:#0f132b;color:#e8eaf6;font-family:'Press Start 2P','Courier New',monospace;border:4px solid #3a4170;box-shadow:0 0 0 4px #090b1c, 10px 10px 0 rgba(0,0,0,.4);padding:18px}
+.gw10 *{margin:0;padding:0;box-sizing:border-box}
+.gw10::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1px 1px at 12% 20%,rgba(255,255,255,.55) 50%,transparent 51%),radial-gradient(1px 1px at 78% 10%,rgba(255,255,255,.4) 50%,transparent 51%),radial-gradient(2px 2px at 62% 82%,rgba(255,210,63,.3) 50%,transparent 51%),radial-gradient(1px 1px at 30% 72%,rgba(255,255,255,.35) 50%,transparent 51%),radial-gradient(1.5px 1.5px at 90% 52%,rgba(255,255,255,.45) 50%,transparent 51%),radial-gradient(1px 1px at 45% 38%,rgba(255,255,255,.3) 50%,transparent 51%)}
+.gw10-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;position:relative}
+.gw10-lbl{font-size:8px;color:#ffd23f;letter-spacing:.12em;display:flex;align-items:center;gap:8px}
+.gw10-lbl i{width:8px;height:8px;background:#ffd23f;display:inline-block}
+.gw10-hi{background:#ffd23f;color:#12152e;font-size:7px;padding:5px 7px;box-shadow:2px 2px 0 #000}
+.gw10-body{display:flex;gap:16px;position:relative}
+.gw10-cov{width:150px;height:198px;flex-shrink:0;border:3px solid #ffd23f;box-shadow:4px 4px 0 #000;overflow:hidden}
+.gw10-cov img{width:100%;height:100%;object-fit:cover}
+.gw10-info{min-width:0;flex:1}
+.gw10-name{font-size:13px;color:#ffd23f;line-height:1.5;text-shadow:2px 2px 0 #000}
+.gw10-meta{font-size:7px;color:#9aa0c8;line-height:1.9;margin-top:8px}
+.gw10-gen{font-size:7px;color:#c7cbef;line-height:1.9;margin-top:4px}
+.gw10-stats{margin-top:10px}
+.gw10-stats div{display:flex;justify-content:space-between;align-items:center;background:#181d3f;border:2px solid #3a4170;padding:6px 9px;margin-top:5px;font-size:7px}
+.gw10-stats span{color:#9aa0c8}
+.gw10-stats b{color:#fff;font-weight:400}
+.gw10-btns{display:flex;gap:10px;margin-top:16px;position:relative}
+.gw10-btns a{flex:1;text-align:center;font-size:8px;padding:10px 2px;text-decoration:none;box-shadow:3px 3px 0 #000}
+.gw10-btns .p{background:#ffd23f;color:#12152e}
+.gw10-btns .s{background:#181d3f;color:#e8eaf6;border:2px solid #3a4170}
+.gw10-hint{margin-top:14px;text-align:center;font-size:7px;color:#5a6090;letter-spacing:.14em;position:relative;animation:gw10blink 1.4s steps(1) infinite}
+@keyframes gw10blink{50%{opacity:.3}}
+@media (max-width:520px){.gw10-body{flex-direction:column}.gw10-cov{width:100%;height:240px}}
+</style>
+<div class="gw10">
+  <div class="gw10-top">
+    <span class="gw10-lbl"><i></i>КАРТОЧКА ИГРЫ</span>
+    <span class="gw10-hi">HI-SCORE 97</span>
+  </div>
+  <div class="gw10-body">
+    <div class="gw10-cov"><img src="cover.jpg" alt="Обложка: Elden Ring"></div>
+    <div class="gw10-info">
+      <h3 class="gw10-name">ELDEN RING</h3>
+      <div class="gw10-meta">2022 · FromSoftware</div>
+      <div class="gw10-gen">ЭКШЕН-RPG / ОТКРЫТЫЙ МИР / SOULS-LIKE</div>
+      <div class="gw10-stats">
+        <div><span>BACKLOGGD</span><b>4.5/5</b></div>
+        <div><span>IGDB</span><b>97/100</b></div>
+        <div><span>STEAM</span><b>93%</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="gw10-btns">
+    <a class="p" href="https://www.backloggd.com/games/elden-ring/" target="_blank" rel="noopener">BACKLOGGD</a>
+    <a class="s" href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener">STEAM</a>
+    <a class="s" href="https://www.igdb.com/games/elden-ring" target="_blank" rel="noopener">IGDB</a>
+  </div>
+  <div class="gw10-hint">НАЖМИ START — ЧИТАЙ ОБЗОР</div>
+</div>

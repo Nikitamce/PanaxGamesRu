@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>panaaxgames — распределение как герой виджета (10)</title>
+<style>
+:root{box-sizing:border-box;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top,0px));padding-bottom:max(24px,env(safe-area-inset-bottom,0px));--bg:#f3f1ec;--fg:#1c1b1a;--mut:#6d6a64}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--fg:#eceae6;--mut:#8f8c86}}
+:root[data-theme="dark"]{--bg:#121214;--fg:#eceae6;--mut:#8f8c86}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto}
+h1{font-size:20px;margin:0 0 4px}
+p.lead{color:var(--mut);margin:0 0 8px;font-size:14px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:38px 0 14px}
+.g{--c1:#f5c800;--c2:#f59e0b;--c3:#b565f5;--c4:#3b9cff;--c5:#8fa3b8;--c6:#e0475b;--ac:#ff8a3d}
+.src{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);font-weight:700}
+.ttl{font-size:18px;font-weight:800;margin:0}
+.mt{font-size:12px;opacity:.65}
+.btn{display:inline-block;text-decoration:none;background:var(--ac);color:#2b1200;font-weight:700;font-size:13px;padding:9px 16px;border-radius:10px}
+.big{font-size:44px;font-weight:900;line-height:1;letter-spacing:-.03em}
+.lvl{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+
+/* 1 — Спектр: одна полоса, сегменты = проценты */
+.h1{background:#14161c;color:#eef0f5;border-radius:16px;padding:20px;max-width:520px;margin:0 auto}
+.h1 .sp{display:flex;height:64px;border-radius:12px;overflow:hidden;margin:16px 0 10px}
+.h1 .sp i{height:100%;width:var(--w);background:var(--c)}
+.h1 .lg{display:flex;justify-content:space-between;font-size:11px;color:#9aa1ad}
+
+/* 2 — Вафля 10×10 */
+.h2{background:#fff;color:#111;border-radius:16px;padding:18px;max-width:440px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.h2 .wf{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;width:200px}
+.h2 .wf i{aspect-ratio:1;border-radius:3px;background:var(--c)}
+.h2 .wf i.e{background:#eceef2}
+.h2 .info .lvl{color:var(--c)}
+
+/* 3 — Волна (сглаженная кривая) */
+.h3{background:linear-gradient(180deg,#1b1530,#0c0a14);color:#fff;border-radius:18px;padding:18px;max-width:520px;margin:0 auto;overflow:hidden}
+.h3 svg{width:100%;height:120px;display:block;margin-top:14px}
+
+/* 4 — Гигантское число уровня */
+.h4{background:var(--c);color:#2a1700;border-radius:18px;padding:22px;max-width:420px;margin:0 auto;position:relative;overflow:hidden;min-height:200px}
+.h4 .n{font-size:110px;font-weight:900;line-height:.85;letter-spacing:-.05em}
+.h4 .sub{font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.08em;margin-top:10px}
+.h4 .mini{position:absolute;right:16px;bottom:16px;display:flex;gap:4px}
+.h4 .mini i{display:block;width:8px;border-radius:4px;background:rgba(0,0,0,.35)}
+
+/* 5 — Шкала настроения от УЖАС до ЛЕГЕНДА */
+.h5{background:#fff;color:#111;border-radius:16px;padding:20px;max-width:500px;margin:0 auto;border:1px solid #e6e6ea}
+.h5 .scale{position:relative;height:14px;border-radius:99px;background:linear-gradient(90deg,var(--c6),var(--c5) 30%,var(--c4) 45%,var(--c3) 60%,var(--c2) 80%,var(--c1))}
+.h5 .mk{position:absolute;top:-8px;left:var(--x);width:24px;height:30px;margin-left:-12px;background:#111;border-radius:6px;color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center}
+.h5 .ends{display:flex;justify-content:space-between;font-size:10px;font-weight:800;text-transform:uppercase;color:#777;margin-top:14px}
+
+/* 6 — Поп-арт пузырь речи */
+.h6{background:#ffe600;color:#111;border:3px solid #111;border-radius:18px;padding:18px;max-width:440px;margin:0 auto;position:relative;box-shadow:6px 6px 0 #111}
+.h6 .bub{background:#fff;border:3px solid #111;border-radius:16px;padding:14px 16px;position:relative;display:inline-block}
+.h6 .bub::after{content:"";position:absolute;bottom:-16px;left:30px;border:10px solid transparent;border-top:16px solid #111;border-left-width:12px;border-right-width:0}
+.h6 .big{font-size:52px;font-weight:900;text-transform:uppercase;color:var(--c);-webkit-text-stroke:2px #111;letter-spacing:-.02em}
+.h6 .meta{margin-top:24px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px}
+
+/* 7 — Орбита: точки по кругу, радиус = процент */
+.h7{background:#0b0d14;color:#e8ecf4;border-radius:18px;padding:16px;max-width:460px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center}
+.h7 svg{width:200px;height:200px}
+.h7 .lg div{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #1d2230}
+.h7 .lg b{color:var(--c)}
+
+/* 8 — Шкала-таблица «до и после» (как прогресс) */
+.h8{background:#1c1f26;color:#f4f5f7;border-radius:14px;padding:18px;max-width:480px;margin:0 auto}
+.h8 .row{display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px}
+.h8 .seg{height:10px;display:flex;border-radius:99px;overflow:hidden;background:#2c313b}
+.h8 .seg i{height:100%;width:var(--w);background:var(--c)}
+.h8 .cap{display:flex;justify-content:space-between;font-size:11px;color:#9aa1ad}
+
+/* 9 — Медальный стол (подиум из 3 лучших) */
+.h9{background:radial-gradient(circle at 50% 0,#2a2445,#0d0b16 70%);color:#fff;border-radius:18px;padding:20px 16px 0;max-width:460px;margin:0 auto;text-align:center}
+.h9 .pod{display:flex;align-items:flex-end;justify-content:center;gap:10px;height:170px}
+.h9 .pod div{flex:1;border-radius:10px 10px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10px;background:var(--c);color:#1a1200;font-weight:800;text-transform:uppercase;font-size:11px}
+.h9 .pod div b{font-size:22px;letter-spacing:-.02em;text-transform:none}
+.h9 .foot{display:flex;justify-content:space-between;align-items:center;padding:12px 4px 16px;font-size:12px;color:#aaa}
+
+/* 10 — Сетка-карточка «настроение игроков» */
+.h10{background:#fff;color:#111;border-radius:20px;padding:18px;max-width:480px;margin:0 auto;box-shadow:0 14px 28px rgba(0,0,0,.12)}
+.h10 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.h10 .t{border-radius:12px;padding:12px 10px;background:color-mix(in srgb,var(--c) 18%,#fff);text-align:left}
+.h10 .t b{display:block;font-size:20px;color:var(--c);filter:brightness(.7)}
+.h10 .t span{font-size:11px;font-weight:800;text-transform:uppercase;color:#333;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<main>
+<h1>panaaxgames — распределение как герой</h1>
+<p class="lead">Оценки игроков по шкале ЛЕГЕНДА–УЖАС. Единой цифры нет, поэтому главное — доминирующий уровень и распределение.</p>
+
+<h2>1 — «Спектр»</h2>
+<article class="h1 g">
+ <div class="src">panaaxgames · Neon Requiem</div>
+ <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px"><span class="lvl" style="color:var(--c2)">Круто</span><span class="mt">41.2% игроков</span></div>
+ <div class="sp">
+  <i style="--w:19.6%;--c:var(--c1)"></i><i style="--w:41.2%;--c:var(--c2)"></i><i style="--w:37.3%;--c:var(--c3)"></i><i style="--w:2%;--c:var(--c5)"></i>
+ </div>
+ <div class="lg"><span>Легенда 19.6</span><span>Круто 41.2</span><span>Хорошо 37.3</span><span>Плохо 2</span></div>
+ <a class="btn" href="#" style="margin-top:14px">Открыть на panaaxgames →</a>
+</article>
+
+<h2>2 — «Вафля»</h2>
+<article class="h2 g">
+ <div class="wf" id="w2"></div>
+ <div class="info">
+  <div class="src">panaaxgames</div>
+  <div class="ttl" style="margin:4px 0">Neon Requiem</div>
+  <div class="lvl" style="--c:var(--c2)">Круто · 41%</div>
+  <div class="mt" style="color:#555;margin-top:6px">Каждый квадрат — 1% игроков</div>
+  <a class="btn" href="#" style="margin-top:12px">Открыть →</a>
+ </div>
+</article>
+
+<h2>3 — «Волна»</h2>
+<article class="h3 g">
+ <div class="src">panaaxgames · распределение оценок</div>
+ <div class="ttl" style="margin-top:4px">Neon Requiem</div>
+ <svg viewBox="0 0 400 120" preserveAspectRatio="none">
+  <defs><linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#f5c800"/><stop offset=".35" stop-color="#f59e0b"/><stop offset=".6" stop-color="#b565f5"/><stop offset="1" stop-color="#8fa3b8"/></linearGradient></defs>
+  <path d="M0 110 C40 100 60 30 100 40 S150 105 190 60 S260 20 300 70 S360 95 400 100 L400 120 L0 120Z" fill="url(#gw)" opacity=".25"/>
+  <path d="M0 110 C40 100 60 30 100 40 S150 105 190 60 S260 20 300 70 S360 95 400 100" fill="none" stroke="url(#gw)" stroke-width="3"/>
+ </svg>
+ <div style="display:flex;justify-content:space-between;font-size:10px;color:#8f86b0;text-transform:uppercase;margin-top:4px"><span>Ужас</span><span>Норм</span><span>Хорошо</span><span>Легенда</span></div>
+</article>
+
+<h2>4 — «Гигантская цифра»</h2>
+<article class="h4 g" style="--c:var(--c2)">
+ <div class="src" style="color:#2b1200">panaaxgames · Neon Requiem</div>
+ <div class="n" style="margin-top:14px">41%</div>
+ <div class="sub">Круто</div>
+ <div class="mini"><i style="height:20px"></i><i style="height:34px"></i><i style="height:30px"></i><i style="height:4px"></i></div>
+</article>
+
+<h2>5 — «Шкала настроения»</h2>
+<article class="h5 g">
+ <div class="src" style="color:#c2410c">panaaxgames · Neon Requiem</div>
+ <div style="margin-top:14px" class="scale"><span class="mk" style="--x:70%">41</span></div>
+ <div class="ends"><span>Ужас</span><span>Норм</span><span>Легенда</span></div>
+ <div class="mt" style="color:#555;margin-top:12px">Маркер — где сосредоточено большинство голосов.</div>
+ <a class="btn" href="#" style="margin-top:12px">Открыть →</a>
+</article>
+
+<h2>6 — «Поп-арт»</h2>
+<article class="h6 g">
+ <div class="bub"><div class="big" style="--c:var(--c2)">Круто!</div></div>
+ <div class="meta"><span>41.2% игроков</span><span class="src" style="color:#111">panaaxgames</span></div>
+ <div class="ttl" style="margin-top:6px">Neon Requiem</div>
+</article>
+
+<h2>7 — «Орбита»</h2>
+<article class="h7 g">
+ <svg viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#1d2230"/>
+  <circle cx="100" cy="100" r="22" fill="var(--c2)" opacity=".9"/>
+  <text x="100" y="105" text-anchor="middle" font-size="13" font-weight="800" fill="#111">41%</text>
+  <circle cx="100" cy="18" r="10" fill="var(--c1)"/>
+  <circle cx="176" cy="78" r="16" fill="var(--c3)"/>
+  <circle cx="142" cy="170" r="14" fill="var(--c2)" opacity="0"/>
+  <circle cx="36" cy="132" r="8" fill="var(--c5)"/>
+ </svg>
+ <div class="lg">
+  <div><span>Легенда</span><b style="--c:var(--c1)">19.6%</b></div>
+  <div><span>Круто</span><b style="--c:var(--c2)">41.2%</b></div>
+  <div><span>Хорошо</span><b style="--c:var(--c3)">37.3%</b></div>
+  <div><span>Плохо</span><b style="--c:var(--c5)">2.0%</b></div>
+  <a class="btn" href="#" style="margin-top:10px;display:inline-block">Открыть →</a>
+ </div>
+</article>
+
+<h2>8 — «Прогресс-сегменты»</h2>
+<article class="h8 g">
+ <div class="src">panaaxgames · Neon Requiem</div>
+ <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:6px"><span class="lvl" style="color:var(--c2)">Круто</span><span class="big" style="font-size:26px">41.2%</span></div>
+ <div class="row">
+  <div class="seg"><i style="--w:19.6%;--c:var(--c1)"></i><i style="--w:41.2%;--c:var(--c2)"></i><i style="--w:37.3%;--c:var(--c3)"></i><i style="--w:2%;--c:var(--c5)"></i></div>
+  <div class="cap"><span>Легенда</span><span>Круто</span><span>Хорошо</span><span>Плохо</span></div>
+ </div>
+</article>
+
+<h2>9 — «Подиум»</h2>
+<article class="h9 g">
+ <div class="src" style="margin-bottom:10px">panaaxgames · лучшие уровни</div>
+ <div class="pod">
+  <div style="--c:var(--c3);height:95px"><span>Хорошо</span><b>37%</b></div>
+  <div style="--c:var(--c2);height:140px"><span>Круто</span><b>41%</b></div>
+  <div style="--c:var(--c1);height:70px"><span>Легенда</span><b>20%</b></div>
+ </div>
+ <div class="foot"><span>Neon Requiem</span><a class="btn" href="#" style="padding:7px 12px">Открыть →</a></div>
+</article>
+
+<h2>10 — «Плитки»</h2>
+<article class="h10 g">
+ <div class="src" style="color:#c2410c">panaaxgames · Neon Requiem</div>
+ <div class="ttl" style="margin-top:4px">Как играют и оценивают</div>
+ <div class="tiles">
+  <div class="t" style="--c:var(--c1)"><b>19.6%</b><span>Легенда</span></div>
+  <div class="t" style="--c:var(--c2)"><b>41.2%</b><span>Круто</span></div>
+  <div class="t" style="--c:var(--c3)"><b>37.3%</b><span>Хорошо</span></div>
+  <div class="t" style="--c:var(--c4)"><b>0%</b><span>Норм</span></div>
+  <div class="t" style="--c:var(--c5)"><b>2%</b><span>Плохо</span></div>
+  <div class="t" style="--c:var(--c6)"><b>0%</b><span>Ужас</span></div>
+ </div>
+ <a class="btn" href="#" style="margin-top:14px">Открыть на panaaxgames →</a>
+</article>
+</main>
+<script>
+(function(){
+ var cols=["var(--c1)","var(--c2)","var(--c3)","var(--c5)"];
+ var counts=[20,41,37,2];
+ var cells=[];
+ counts.forEach(function(n,i){for(var k=0;k<n;k++)cells.push(cols[i]);});
+ while(cells.length<100)cells.push("");
+ var w=document.getElementById("w2");
+ cells.forEach(function(c){var i=document.createElement("i");if(c){i.style.background=c}else{i.className="e"}w.appendChild(i);});
+})();
+</script>
+</body>
+</html>

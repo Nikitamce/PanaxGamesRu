@@ -1,6 +1,7 @@
 import { safeUserImageUrl } from "../../shared/gq-image.js";
 import { safeUrl, safeImageUrl, safeColor, integMeta } from "../../shared/gq-schema.js";
 import { sanitizeToFragment } from "../../shared/gq-html.js";
+import { EXTRA_VARIANT_IDS, renderExtraGameCard } from "../../shared/gq-cards.js";
 import { paletteFor, coverArt } from "../../shared/gq-cover.js";
 import { SCORES, VERDICT, UNRATED } from "../../shared/gq-fallback.js";
 
@@ -86,7 +87,7 @@ function gameWidget(doc, r, d) {
     if (c) a.style.setProperty("--c", c);
     return a;
   });
-  const valid = ["classic", "duet", "editorial", "staircase", "type", "brutal"];
+  const valid = ["classic", "duet", "editorial", "staircase", "type", "brutal", ...EXTRA_VARIANT_IDS];
   const v = valid.includes(d.variant) ? d.variant : "classic";
   const panaxUrl = safeUrl((d.links && (d.links.panax || d.links.backloggd || d.links.igdb)) || "") || "#";
   const badgeSrc = (rel) => {
@@ -119,6 +120,24 @@ function gameWidget(doc, r, d) {
   const top2 = sorted[1];
   const yearNum = String(d.year || "").replace(/\D/g, "");
   const codeNum = yearNum ? "0" + yearNum.slice(-2) : "PANAX";
+
+  if (EXTRA_VARIANT_IDS.includes(v)) {
+    const html = renderExtraGameCard(v, { ...d, cover }, "", rx);
+    if (html) {
+      const tpl = doc.createElement("template");
+      tpl.innerHTML = html;
+      tpl.content.querySelectorAll("script,iframe,object,embed").forEach((n) => n.remove());
+      tpl.content.querySelectorAll("*").forEach((el) => {
+        for (const attr of [...el.attributes]) {
+          if (/^on/i.test(attr.name) || (/^(href|src)$/i.test(attr.name) && /^\s*javascript:/i.test(attr.value))) {
+            el.removeAttribute(attr.name);
+          }
+        }
+      });
+      const node = tpl.content.firstElementChild;
+      if (node) return node;
+    }
+  }
 
   if (v === "duet") {
     const metaNodes = [];

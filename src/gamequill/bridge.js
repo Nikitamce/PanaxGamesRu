@@ -6,6 +6,7 @@ import { FOOTER_TEXT, buildFallback, attachCarriers, opsToHtml } from "../shared
 import { VS_MAX_CHARS, encodeDoc, vsEncode } from "../shared/gq-payload.js";
 import { paletteFor } from "../shared/gq-cover.js";
 import { DEFAULT_THEME, normalizeTheme, themeList } from "../shared/gq-theme.js";
+import { EXTRA_VARIANTS, renderExtraGameCard } from "../shared/gq-cards.js";
 import { plain, toEditorReview, cleanInteg, buildIntegMap, steamCover, ytCover, panaxCoverUrl, adaptSteamSearch, adaptSteamDetails, adaptPanaxSearch, steamWidgetPatch, mergeDetails } from "./bridge-core.js";
 
 var ALLOWED_PARENTS = ["https://panaxgames.com", "https://www.panaxgames.com"];
@@ -443,6 +444,8 @@ if (typeof window !== "undefined" && window.document) {
     panaxDetails,
     panaxResolveGame,
     panaxCoverUrl,
+    extraCardVariants: () => EXTRA_VARIANTS,
+    renderExtraGameCard,
     steamSearch,
     steamDetails,
     steamWidgetPatch,
