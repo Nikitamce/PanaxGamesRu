@@ -568,11 +568,11 @@ for fn, scope_cls, items in SON_NUM_FILES:
 # ===========================================================================
 q1_raw = read_file(os.path.join(DESIGN_DIR, '10 от квена.txt'))
 q1_css = re.search(r'<style[^>]*>(.*?)</style>', q1_raw, re.S).group(1)
-css_parts.append('.w.w-game.qwen1-scope{--accent:#7c5cff;--line:rgba(255,255,255,.1)}\n' + scope_css(q1_css, '.w.w-game.qwen1-scope'))
+css_parts.append('.w.w-game.qwen1-scope{--accent:#7c5cff;--line:rgba(255,255,255,.1);color:var(--ink);font-family:var(--fb)}\n' + scope_css(q1_css, '.w.w-game.qwen1-scope'))
 
 q2_raw = read_file(os.path.join(DESIGN_DIR, 'еще 10 от квена.txt'))
 q2_css = re.search(r'<style[^>]*>(.*?)</style>', q2_raw, re.S).group(1)
-css_parts.append('.w.w-game.qwen2-scope{--accent:#7c5cff}\n' + scope_css(q2_css, '.w.w-game.qwen2-scope'))
+css_parts.append('.w.w-game.qwen2-scope{--accent:#7c5cff;color:var(--ink);font-family:var(--fb)}\n' + scope_css(q2_css, '.w.w-game.qwen2-scope'))
 
 # ===========================================================================
 # 8 & 9. Tailwind Cards: tw10 (10 PANAX) + tw32 (32 Numeric)
