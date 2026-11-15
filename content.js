@@ -10777,6 +10777,7 @@ background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
 .w.w-game.v-panax4-scale .v4 .pct {font-size:13px;margin-top:8px;color:rgba(241,238,248,.8)}\r
 .w.w-game.v-panax4-scale .v4 .pct b {color:var(--c)}\r
 .w.w-game.v-panax4-scale .v4 .foot {margin-top:auto;padding-top:10px}\r
+.w.w-game.kimi-scope{color:var(--text);font-family:var(--sans)}\r
 .w.w-game.kimi-scope button, .w.w-game.kimi-scope a, .w.w-game.kimi-scope select {-webkit-tap-highlight-color:transparent}\r
 .w.w-game.kimi-scope button, .w.w-game.kimi-scope select {font:inherit}\r
 .w.w-game.kimi-scope button, .w.w-game.kimi-scope a {cursor:pointer}\r

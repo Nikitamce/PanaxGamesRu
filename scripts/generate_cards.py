@@ -391,7 +391,7 @@ with zipfile.ZipFile(os.path.join(DESIGN_DIR, 'Kimi_Agent_Game Review Widget Des
     kimi_css = z.read('app/src/styles.css').decode('utf-8', 'replace')
     kimi_js = z.read('app/src/main.js').decode('utf-8', 'replace')
 
-kimi_css_scoped = scope_css(kimi_css, '.w.w-game.kimi-scope')
+kimi_css_scoped = '.w.w-game.kimi-scope{color:var(--text);font-family:var(--sans)}\n' + scope_css(kimi_css, '.w.w-game.kimi-scope')
 css_parts.append(kimi_css_scoped)
 
 KIMI_IDS = [
