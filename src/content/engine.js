@@ -238,7 +238,7 @@ export function createEngine(dict) {
     }
     const followsYou = text.match(/^(?:[·•.\-]\s*)?Follows you$/i);
     if (followsYou) return preserveEdges2(raw, "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D \u043D\u0430 \u0432\u0430\u0441");
-    const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/i);
+    const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/);
     if (profileTab) {
       const labels = {
         posts: "\u041F\u043E\u0441\u0442\u044B",
@@ -910,6 +910,11 @@ export function createEngine(dict) {
   }
   function walkTimestamps(node) {
     if (!node) return;
+    if (node.nodeType === 1 && node.querySelectorAll) {
+      node.querySelectorAll(".more-button-inline").forEach((el) => {
+        if (/^more$/i.test(normalizeKey(el.textContent || ""))) el.textContent = "\u0415\u0449\u0451";
+      });
+    }
     if (node.nodeType === 3) {
       const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
       if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {

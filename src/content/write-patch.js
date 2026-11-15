@@ -221,7 +221,7 @@ export function startWritePatch(dict) {
     const level = key.match(/^Lv\.?\s*(\d+)$/i);
     if (level) return preserveEdges(raw, `\u041B\u0432\u043B ${level[1]}`);
     if (/^Lv$/i.test(key)) return preserveEdges(raw, "\u041B\u0432\u043B");
-    const profileTab = key.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/i);
+    const profileTab = key.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/);
     if (profileTab) {
       const labels = {
         posts: "\u041F\u043E\u0441\u0442\u044B",
