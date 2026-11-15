@@ -412,6 +412,10 @@ for kid, vid, name in KIMI_IDS:
     if not m:
         raise RuntimeError(f'Missing kimi {kid}')
     html = m.group(1)
+    html = html.replace('${cover}', '__COVER__')
+    html = html.replace('${score}', '__SCORE10__')
+    html = html.replace('${sourceLink}', '__SCORE_SRC__')
+    html = html.replace('${gameMeta}', '__META_LINE__')
     html = html.replace('./cover.svg', '__COVER__').replace('./scene.svg', '__COVER__')
     html = html.replace('NEON_REQUIEM', '__TITLE_UPPER__').replace('NEON REQUIEM', '__TITLE_UPPER__')
     html = html.replace('NEONREQUIEM', '__TITLE_UPPER__').replace('NeonRequiem', '__TITLE__').replace('Neon Requiem', '__TITLE__')
@@ -836,7 +840,11 @@ for vid, name in q2_meta:
 
 # Map template dictionary id -> { extra_cls, tw, raw_html }
 tpl_map = {
-    v['id']: {'tw': v['tw'], 'extra': v.get('extra_cls', ''), 'html': v['raw_html']}
+    v['id']: {
+        'tw': v['tw'],
+        'extra': v.get('extra_cls', ''),
+        'html': re.sub(r'\s+on[a-zA-Z]+\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+)', '', v['raw_html']),
+    }
     for v in variants
 }
 

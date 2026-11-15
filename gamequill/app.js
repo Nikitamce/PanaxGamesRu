@@ -980,7 +980,7 @@ function drawGames(){
     panaxLastQ=q;clearTimeout(panaxTimer);
     panaxTimer=setTimeout(async()=>{
       try{const res=await GQ.panaxSearch(q);if(insCtx.q.trim()===q&&Array.isArray(res)){panaxResults=res;drawGames();if(insCtx.sel)drawDetail()}}catch{}
-    },220);
+    },90);
   }else if(q.length<2){panaxResults=[];panaxLastQ='';}
   let list=combinedGamesList();
   if(insCtx.src!=='all')list=list.filter(g=>g.links&&g.links[insCtx.src]);
@@ -1616,7 +1616,7 @@ const gqSearch=debounce(async q=>{
   if(q.length<2){GAMES=[];redrawIns();return}
   try{const res=await GQ.steamSearch(q,gqEnv.steamCountry);if(seq!==gqSearchSeq)return;GAMES=res;redrawIns()}
   catch(e){if(seq===gqSearchSeq)toast('Поиск Steam недоступен: '+(e&&e.message||e),'err')}
-},350);
+},150);
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='insQ')gqSearch(e.target.value)});
 
 const _gqDrawGames=drawGames;
