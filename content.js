@@ -2068,6 +2068,7 @@
       }
       const followsYou = text.match(/^(?:[·•.\-]\s*)?Follows you$/i);
       if (followsYou) return preserveEdges2(raw, "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D \u043D\u0430 \u0432\u0430\u0441");
+      if (text === "post") return null;
       const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/);
       if (profileTab) {
         const labels = {
