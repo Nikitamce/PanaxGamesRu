@@ -479,7 +479,7 @@ export function translateTimestamp(raw) {
   return lead ? `${lead} ${out}` : out;
 }
 function stampBody(body) {
-  if (/^just now$/i.test(body)) return "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E";
+  if (/^(?:just\s+)?now$/i.test(body)) return "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E";
   if (/^yesterday$/i.test(body)) return "\u0432\u0447\u0435\u0440\u0430";
   if (/^today$/i.test(body)) return "\u0441\u0435\u0433\u043E\u0434\u043D\u044F";
   if (/^tomorrow$/i.test(body)) return "\u0437\u0430\u0432\u0442\u0440\u0430";

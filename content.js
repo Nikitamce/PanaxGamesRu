@@ -1789,7 +1789,7 @@
     return lead ? `${lead} ${out}` : out;
   }
   function stampBody(body) {
-    if (/^just now$/i.test(body)) return "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E";
+    if (/^(?:just\s+)?now$/i.test(body)) return "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E";
     if (/^yesterday$/i.test(body)) return "\u0432\u0447\u0435\u0440\u0430";
     if (/^today$/i.test(body)) return "\u0441\u0435\u0433\u043E\u0434\u043D\u044F";
     if (/^tomorrow$/i.test(body)) return "\u0437\u0430\u0432\u0442\u0440\u0430";
@@ -2001,7 +2001,7 @@
       const text = normalizeKey(raw);
       if (!text || text.length > 420) return null;
       if (el && shouldSkipProse(el, text)) {
-        const timeLike = /(?:^|[·•.\-\s])\d+\s*[dhms]\s*ago$/i.test(text) || /^\d+\s+[a-z]+\s+ago$/i.test(text) || /^(?:just now|yesterday|today|tomorrow)$/i.test(text) || /^(?:[·•.\-\s]*)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+\d{1,2}(?:,?\s*\d{4})?$/i.test(text) || /^(?:[·•.\-\s]*)?\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?(?:,?\s*\d{4})?$/i.test(text);
+        const timeLike = /(?:^|[·•.\-\s])\d+\s*[dhms]\s*ago$/i.test(text) || /^\d+\s+[a-z]+\s+ago$/i.test(text) || /^(?:just now|now|yesterday|today|tomorrow)$/i.test(text) || /^(?:[·•.\-\s]*)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+\d{1,2}(?:,?\s*\d{4})?$/i.test(text) || /^(?:[·•.\-\s]*)?\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?(?:,?\s*\d{4})?$/i.test(text);
         const multiWord = text.includes(" ") && text.length >= 8;
         const sectionTitle = /^(Preferences|Service|Settings|Account|Language|FAQ|English|Korean|Japanese|Portuguese|Spanish|French|Lv|LV|Ratings|Collections|Collection|Reviews|Review|Posts|Impressions|Playing|Public|Private|Followers only)$/i.test(text);
         const levelLine = /\bLv\.?\s*\d+\b/i.test(text) && text.length < 80;
@@ -2147,7 +2147,7 @@
         const ruMon = MONTHS2[mon];
         if (ruMon) return preserveEdges2(raw, `${day} ${ruMon}${year ? ` ${year}` : ""}`);
       }
-      if (/^just now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
+      if (/^(?:just\s+)?now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
       if (/^yesterday$/i.test(text)) return preserveEdges2(raw, "\u0432\u0447\u0435\u0440\u0430");
       if (/^today$/i.test(text)) return preserveEdges2(raw, "\u0441\u0435\u0433\u043E\u0434\u043D\u044F");
       if (/^tomorrow$/i.test(text)) return preserveEdges2(raw, "\u0437\u0430\u0432\u0442\u0440\u0430");
@@ -2196,7 +2196,7 @@
         const name = oneAgo[1].toLowerCase();
         return preserveEdges2(raw, `1 ${plural2(1, UNIT2[name] || UNIT2[`${name}s`])} \u043D\u0430\u0437\u0430\u0434`);
       }
-      if (/^just now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
+      if (/^(?:just\s+)?now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
       const month = text.match(
         /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})(?:,)?(?:\s+(\d{4}))?$/
       );
