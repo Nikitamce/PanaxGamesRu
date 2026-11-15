@@ -13804,7 +13804,7 @@ to{opacity:0;transform:translateX(20px)}\r
     wrap.append(bar, body, more);
     root.append(style, wrap);
     ["click", "mousedown", "mouseup", "pointerdown", "pointerup", "touchstart", "touchend"].forEach((t) => wrap.addEventListener(t, stopInteractive));
-    let showing = !mismatch;
+    let showing = true;
     const compactable = !isPostPage();
     const apply = () => {
       if (showing) {
