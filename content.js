@@ -3759,6 +3759,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
       if (typeof raw !== "string") return null;
       const key = normalizeKey2(raw);
       if (!key || key.length > 240) return null;
+      if (key === "post" && !parent?.closest?.('button, [role="button"]')) return null;
       if (!(parent && parent.isContentEditable)) {
         const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, parent) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
         if (stamped != null && normalizeKey2(stamped) !== key) return preserveEdges(raw, stamped);
