@@ -415,7 +415,7 @@ for kid, vid, name in KIMI_IDS:
     html = html.replace('${cover}', '__COVER__')
     html = html.replace('${score}', '__SCORE10__')
     html = html.replace('${sourceLink}', '__SCORE_SRC__')
-    html = html.replace('${gameMeta}', '__META_LINE__')
+    html = html.replace('${gameMeta}', '__YEAR__ · __GENRE_0__ · __DEV__')
     html = html.replace('./cover.svg', '__COVER__').replace('./scene.svg', '__COVER__')
     html = html.replace('NEON_REQUIEM', '__TITLE_UPPER__').replace('NEON REQUIEM', '__TITLE_UPPER__')
     html = html.replace('NEONREQUIEM', '__TITLE_UPPER__').replace('NeonRequiem', '__TITLE__').replace('Neon Requiem', '__TITLE__')
