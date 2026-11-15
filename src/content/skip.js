@@ -28,9 +28,12 @@ var SKIP_ROOT_SELECTORS = [
   '[class*="editor-content"]',
   '[class*="deltaContent"]',
   '[class*="post-text"]',
-  '[class*="PostText"]'
+  '[class*="PostText"]',
+  ".text-content",
+  '[style*="color-text-common-user-contents"]',
+  '[class*="color-text-common-user-contents"]'
 ];
-var AMBIGUOUS_SHORT = new Set(
+export var AMBIGUOUS_SHORT = new Set(
   [
     "Hot",
     "New",
@@ -145,4 +148,13 @@ export function shouldSkipProse(el, text) {
   if (!el || !text) return false;
   if (!isChromeContext(el)) return true;
   return false;
+}
+export function isUserProseText(el) {
+  if (!el || el.nodeType !== 1) return false;
+  if (el.closest?.('.more-button-inline, .panax-translate-btn, button, [role="button"], [role="tab"], [role="menuitem"], [role="option"]')) {
+    return false;
+  }
+  return !!el.closest?.(
+    '[contenteditable="true"], [data-panax-ru-skip], .text-content, [style*="color-text-common-user-contents"], [class*="color-text-common-user-contents"], [class*="comment-content"], [class*="CommentContent"], [class*="comment-body"], [class*="CommentBody"], [class*="post-body"], [class*="PostBody"], [class*="review-body"], [class*="ReviewBody"], .delta-content-renderer, [class*="deltaContent"], [class*="rich-text"], [class*="RichText"], [class*="prose"], [class*="markdown"]'
+  );
 }

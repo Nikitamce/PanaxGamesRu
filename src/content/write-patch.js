@@ -1,4 +1,4 @@
-import { isChromeContext, shouldSkipRoot } from "./skip.js";
+import { isChromeContext, shouldSkipRoot, isUserProseText, AMBIGUOUS_SHORT } from "./skip.js";
 import { translateTimeFragment, translateCount, translateNotice, translateActivity, translateTimestamp } from "./time.js";
 
 function normalizeKey2(s) {
@@ -214,7 +214,14 @@ export function startWritePatch(dict) {
     if (typeof raw !== "string") return null;
     const key = normalizeKey2(raw);
     if (!key || key.length > 240) return null;
-    if (key === "post" && !parent?.closest?.('button, [role="button"]')) return null;
+    if ((key === "post" || key === "posts") && !parent?.closest?.('button, [role="button"], [role="tab"]')) return null;
+    if (!parent && AMBIGUOUS_SHORT.has(key.toLowerCase())) return null;
+    if (parent && isUserProseText(parent)) {
+      if (/^more$/i.test(key) && (parent.classList?.contains("more-button-inline") || parent.closest?.(".more-button-inline"))) {
+        return preserveEdges(raw, "\u0415\u0449\u0451");
+      }
+      return null;
+    }
     if (!(parent && parent.isContentEditable)) {
       const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, parent) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
       if (stamped != null && normalizeKey2(stamped) !== key) return preserveEdges(raw, stamped);

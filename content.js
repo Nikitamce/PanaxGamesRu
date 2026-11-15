@@ -1190,7 +1190,10 @@
     '[class*="editor-content"]',
     '[class*="deltaContent"]',
     '[class*="post-text"]',
-    '[class*="PostText"]'
+    '[class*="PostText"]',
+    ".text-content",
+    '[style*="color-text-common-user-contents"]',
+    '[class*="color-text-common-user-contents"]'
   ];
   var AMBIGUOUS_SHORT = new Set(
     [
@@ -1307,6 +1310,15 @@
     if (!el || !text) return false;
     if (!isChromeContext(el)) return true;
     return false;
+  }
+  function isUserProseText(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (el.closest?.('.more-button-inline, .panax-translate-btn, button, [role="button"], [role="tab"], [role="menuitem"], [role="option"]')) {
+      return false;
+    }
+    return !!el.closest?.(
+      '[contenteditable="true"], [data-panax-ru-skip], .text-content, [style*="color-text-common-user-contents"], [class*="color-text-common-user-contents"], [class*="comment-content"], [class*="CommentContent"], [class*="comment-body"], [class*="CommentBody"], [class*="post-body"], [class*="PostBody"], [class*="review-body"], [class*="ReviewBody"], .delta-content-renderer, [class*="deltaContent"], [class*="rich-text"], [class*="RichText"], [class*="prose"], [class*="markdown"]'
+    );
   }
 
   // src/content/time.js
@@ -1601,7 +1613,7 @@
     if (/^tell us your thoughts on a game$/i.test(text)) return "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E\u0431 \u0438\u0433\u0440\u0435";
     if (/^follow this user$/i.test(text)) return "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
     if (/^unfollow this user$/i.test(text)) return "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
-    if (/^post$/i.test(text)) return "\u041F\u043E\u0441\u0442";
+    if (text === "Post") return "\u041F\u043E\u0441\u0442";
     if (/^(?:commented on|прокомментировал)\s+(?:your|ваш)\s+(?:post|пост)$/i.test(text)) return "\u043F\u0440\u043E\u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043B \u0432\u0430\u0448 \u043F\u043E\u0441\u0442";
     if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)\s+(?:comment|комментарий)$/i.test(text)) return "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439";
     if (/^(?:replied (?:on|to)|ответил на)\s+(?:your|ваш)$/i.test(text)) return "\u043E\u0442\u0432\u0435\u0442\u0438\u043B \u043D\u0430 \u0432\u0430\u0448";
@@ -1725,7 +1737,7 @@
     if (/^tell us your thoughts on a game$/i.test(text)) return "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E\u0431 \u0438\u0433\u0440\u0435";
     if (/^follow this user$/i.test(text)) return "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
     if (/^unfollow this user$/i.test(text)) return "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F";
-    if (/^post$/i.test(text)) return "\u041F\u043E\u0441\u0442";
+    if (text === "Post") return "\u041F\u043E\u0441\u0442";
     if (/^log in daily to (?:level up|новый уровень!?)\s*(?:&|and)?\s*unlock avatar items!\s*streak resets daily at 3 am\.?$/i.test(text)) {
       return "\u0417\u0430\u0445\u043E\u0434\u0438\u0442\u0435 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0432\u044B\u0448\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0438 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0430\u0432\u0430\u0442\u0430\u0440\u0430! \u0421\u0435\u0440\u0438\u044F \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C \u0432 3:00.";
     }
@@ -1965,7 +1977,7 @@
   function createEngine(dict) {
     const exact = /* @__PURE__ */ new Map();
     const fold = /* @__PURE__ */ new Map();
-    const NO_FOLD = /* @__PURE__ */ new Set(["on", "to", "by", "or", "in", "at", "for", "from", "with"]);
+    const NO_FOLD = /* @__PURE__ */ new Set(["on", "to", "by", "or", "in", "at", "for", "from", "with", "post", "posts", "more"]);
     for (const [key, value] of Object.entries(dict)) {
       const norm = normalizeKey(key);
       if (!norm) continue;
@@ -2068,7 +2080,6 @@
       }
       const followsYou = text.match(/^(?:[·•.\-]\s*)?Follows you$/i);
       if (followsYou) return preserveEdges2(raw, "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D \u043D\u0430 \u0432\u0430\u0441");
-      if (text === "post") return null;
       const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/);
       if (profileTab) {
         const labels = {
@@ -2747,7 +2758,8 @@
         });
       }
       if (node.nodeType === 3) {
-        const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
+        const parent = node.parentElement;
+        const stamped = isUserProseText(parent) ? editCostume(node.nodeValue, parent) ?? moreButton(node) : translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, parent?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, parent) ?? moreButton(node);
         if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {
           node.nodeValue = preserveEdges2(node.nodeValue, stamped);
         }
@@ -2772,7 +2784,7 @@
       paintNotice(node);
       const graphic = node.querySelector?.("svg, img, input, textarea, video, canvas");
       const text = normalizeKey(node.textContent || "");
-      if (!graphic && text.length >= 2 && text.length <= 32 && node.childElementCount <= 6) {
+      if (!graphic && !isUserProseText(node) && text.length >= 2 && text.length <= 32 && node.childElementCount <= 6) {
         const stamped = translateTimestamp(text);
         if (stamped != null && normalizeKey(stamped) !== text) {
           const texts = [...node.childNodes].filter((n) => n.nodeType === 3);
@@ -2800,7 +2812,7 @@
           const parent = node.parentElement;
           if (parent && parent.isContentEditable) return;
           if (parent && (shouldSkipRoot(parent) || ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(parent.tagName))) {
-            const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
+            const stamped = isUserProseText(parent) ? editCostume(node.nodeValue, parent) ?? moreButton(node) : translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, parent?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, parent) ?? moreButton(node);
             if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {
               node.nodeValue = preserveEdges2(node.nodeValue, stamped);
             }
@@ -3760,7 +3772,14 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
       if (typeof raw !== "string") return null;
       const key = normalizeKey2(raw);
       if (!key || key.length > 240) return null;
-      if (key === "post" && !parent?.closest?.('button, [role="button"]')) return null;
+      if ((key === "post" || key === "posts") && !parent?.closest?.('button, [role="button"], [role="tab"]')) return null;
+      if (!parent && AMBIGUOUS_SHORT.has(key.toLowerCase())) return null;
+      if (parent && isUserProseText(parent)) {
+        if (/^more$/i.test(key) && (parent.classList?.contains("more-button-inline") || parent.closest?.(".more-button-inline"))) {
+          return preserveEdges(raw, "\u0415\u0449\u0451");
+        }
+        return null;
+      }
       if (!(parent && parent.isContentEditable)) {
         const stamped = translateTimestamp(raw) ?? translateTimeFragment(raw, parent) ?? translateNotice(raw) ?? translateActivity(raw) ?? translateCount(raw);
         if (stamped != null && normalizeKey2(stamped) !== key) return preserveEdges(raw, stamped);
@@ -5302,6 +5321,61 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     }
     return (h2 >>> 0).toString(36);
   }
+  function splitMyMemoryChunks(text, maxLen = 450) {
+    const parts = String(text || "").split(/(\n\n===PANAX_SPLIT===\n\n)/);
+    const chunks = [];
+    for (const part of parts) {
+      if (!part) continue;
+      if (part.includes("===PANAX_SPLIT===") && part.length <= maxLen) {
+        chunks.push(part);
+        continue;
+      }
+      let rest = part;
+      while (rest.length > maxLen) {
+        let cut = rest.lastIndexOf("\n", maxLen);
+        if (cut < maxLen * 0.4) cut = rest.lastIndexOf(". ", maxLen);
+        if (cut < maxLen * 0.4) cut = rest.lastIndexOf(" ", maxLen);
+        if (cut <= 0) cut = maxLen;
+        else cut += 1;
+        chunks.push(rest.slice(0, cut));
+        rest = rest.slice(cut);
+      }
+      if (rest) chunks.push(rest);
+    }
+    return chunks;
+  }
+  function isValidMyMemoryText(data) {
+    const status = Number(data?.responseStatus);
+    const translated = String(data?.responseData?.translatedText || "").trim();
+    if (!translated || status && status !== 200) return false;
+    if (translated.startsWith("MYMEMORY WARNING:")) return false;
+    if (/INVALID SOURCE LANGUAGE|PLEASE SELECT TWO DISTINCT LANGUAGES|NO QUERY SPECIFIED/i.test(translated)) return false;
+    return true;
+  }
+  async function translateWithMyMemory(plain, tl) {
+    const chunks = splitMyMemoryChunks(plain, 450);
+    const out = [];
+    let detected = "";
+    for (const chunk of chunks) {
+      if (!chunk.trim() || /^===PANAX_SPLIT===$/.test(chunk.trim())) {
+        out.push(chunk);
+        continue;
+      }
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=Autodetect|${encodeURIComponent(tl)}`;
+      const data = await bgRequest({
+        url,
+        responseType: "json",
+        headers: { Accept: "application/json" }
+      });
+      if (!isValidMyMemoryText(data)) return null;
+      if (!detected && data?.responseData?.detectedLanguage) {
+        detected = String(data.responseData.detectedLanguage).toLowerCase().slice(0, 2);
+      }
+      out.push(String(data.responseData.translatedText).trim());
+    }
+    const joined = out.join(" ").replace(/\s*===\s*PANAX_SPLIT\s*===\s*/g, "\n\n===PANAX_SPLIT===\n\n").trim();
+    return joined ? { text: joined, detectedSourceLang: detected } : null;
+  }
   async function translateText(text, targetLang = "ru") {
     const plain = String(text || "").trim();
     const tl = String(targetLang || "ru").trim().toLowerCase().slice(0, 2);
@@ -5330,18 +5404,8 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
       console.debug("[PANAX RU] Google translate failed, trying MyMemory fallback...", err);
     }
     try {
-      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(plain.slice(0, 500))}&langpair=auto|${encodeURIComponent(tl)}`;
-      const data = await bgRequest({
-        url,
-        responseType: "json",
-        headers: { Accept: "application/json" }
-      });
-      const translated = data?.responseData?.translatedText;
-      if (translated && !translated.startsWith("MYMEMORY WARNING:")) {
-        const result = {
-          text: translated.trim(),
-          detectedSourceLang: ""
-        };
+      const result = await translateWithMyMemory(plain, tl);
+      if (result) {
         cache2.set(key, result);
         return result;
       }

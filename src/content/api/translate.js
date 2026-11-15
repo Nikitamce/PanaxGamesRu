@@ -9,6 +9,61 @@ function hashText(s) {
   }
   return (h2 >>> 0).toString(36);
 }
+function splitMyMemoryChunks(text, maxLen = 450) {
+  const parts = String(text || "").split(/(\n\n===PANAX_SPLIT===\n\n)/);
+  const chunks = [];
+  for (const part of parts) {
+    if (!part) continue;
+    if (part.includes("===PANAX_SPLIT===") && part.length <= maxLen) {
+      chunks.push(part);
+      continue;
+    }
+    let rest = part;
+    while (rest.length > maxLen) {
+      let cut = rest.lastIndexOf("\n", maxLen);
+      if (cut < maxLen * 0.4) cut = rest.lastIndexOf(". ", maxLen);
+      if (cut < maxLen * 0.4) cut = rest.lastIndexOf(" ", maxLen);
+      if (cut <= 0) cut = maxLen;
+      else cut += 1;
+      chunks.push(rest.slice(0, cut));
+      rest = rest.slice(cut);
+    }
+    if (rest) chunks.push(rest);
+  }
+  return chunks;
+}
+function isValidMyMemoryText(data) {
+  const status = Number(data?.responseStatus);
+  const translated = String(data?.responseData?.translatedText || "").trim();
+  if (!translated || (status && status !== 200)) return false;
+  if (translated.startsWith("MYMEMORY WARNING:")) return false;
+  if (/INVALID SOURCE LANGUAGE|PLEASE SELECT TWO DISTINCT LANGUAGES|NO QUERY SPECIFIED/i.test(translated)) return false;
+  return true;
+}
+async function translateWithMyMemory(plain, tl) {
+  const chunks = splitMyMemoryChunks(plain, 450);
+  const out = [];
+  let detected = "";
+  for (const chunk of chunks) {
+    if (!chunk.trim() || /^===PANAX_SPLIT===$/.test(chunk.trim())) {
+      out.push(chunk);
+      continue;
+    }
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=Autodetect|${encodeURIComponent(tl)}`;
+    const data = await bgRequest({
+      url,
+      responseType: "json",
+      headers: { Accept: "application/json" }
+    });
+    if (!isValidMyMemoryText(data)) return null;
+    if (!detected && data?.responseData?.detectedLanguage) {
+      detected = String(data.responseData.detectedLanguage).toLowerCase().slice(0, 2);
+    }
+    out.push(String(data.responseData.translatedText).trim());
+  }
+  const joined = out.join(" ").replace(/\s*===\s*PANAX_SPLIT\s*===\s*/g, "\n\n===PANAX_SPLIT===\n\n").trim();
+  return joined ? { text: joined, detectedSourceLang: detected } : null;
+}
 export async function translateText(text, targetLang = "ru") {
   const plain = String(text || "").trim();
   const tl = String(targetLang || "ru").trim().toLowerCase().slice(0, 2);
@@ -37,18 +92,8 @@ export async function translateText(text, targetLang = "ru") {
     console.debug("[PANAX RU] Google translate failed, trying MyMemory fallback...", err);
   }
   try {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(plain.slice(0, 500))}&langpair=auto|${encodeURIComponent(tl)}`;
-    const data = await bgRequest({
-      url,
-      responseType: "json",
-      headers: { Accept: "application/json" }
-    });
-    const translated = data?.responseData?.translatedText;
-    if (translated && !translated.startsWith("MYMEMORY WARNING:")) {
-      const result = {
-        text: translated.trim(),
-        detectedSourceLang: ""
-      };
+    const result = await translateWithMyMemory(plain, tl);
+    if (result) {
       cache2.set(key, result);
       return result;
     }

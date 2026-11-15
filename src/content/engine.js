@@ -1,4 +1,4 @@
-import { shouldSkipRoot, shouldSkipProse, isChromeContext } from "./skip.js";
+import { shouldSkipRoot, shouldSkipProse, isChromeContext, isUserProseText } from "./skip.js";
 import { translateTimeFragment, translateCount, translateNotice, translateActivity, translateTimestamp, splitNotice } from "./time.js";
 
 var ATTR_OK = /* @__PURE__ */ new Set([
@@ -135,7 +135,7 @@ function normalizeKey(s) {
 export function createEngine(dict) {
   const exact = /* @__PURE__ */ new Map();
   const fold = /* @__PURE__ */ new Map();
-  const NO_FOLD = /* @__PURE__ */ new Set(["on", "to", "by", "or", "in", "at", "for", "from", "with"]);
+  const NO_FOLD = /* @__PURE__ */ new Set(["on", "to", "by", "or", "in", "at", "for", "from", "with", "post", "posts", "more"]);
   for (const [key, value] of Object.entries(dict)) {
     const norm = normalizeKey(key);
     if (!norm) continue;
@@ -238,7 +238,6 @@ export function createEngine(dict) {
     }
     const followsYou = text.match(/^(?:[·•.\-]\s*)?Follows you$/i);
     if (followsYou) return preserveEdges2(raw, "\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D \u043D\u0430 \u0432\u0430\u0441");
-    if (text === "post") return null;
     const profileTab = text.match(/^(Posts|Reviews|Collections|Following games|Top)(?:\s+([\d.,]+\s*[KMBkmb]?))?(?:\s*[▾▼˅])?$/);
     if (profileTab) {
       const labels = {
@@ -917,7 +916,10 @@ export function createEngine(dict) {
       });
     }
     if (node.nodeType === 3) {
-      const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
+      const parent = node.parentElement;
+      const stamped = isUserProseText(parent)
+        ? editCostume(node.nodeValue, parent) ?? moreButton(node)
+        : translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, parent?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, parent) ?? moreButton(node);
       if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {
         node.nodeValue = preserveEdges2(node.nodeValue, stamped);
       }
@@ -942,7 +944,7 @@ export function createEngine(dict) {
     paintNotice(node);
     const graphic = node.querySelector?.("svg, img, input, textarea, video, canvas");
     const text = normalizeKey(node.textContent || "");
-    if (!graphic && text.length >= 2 && text.length <= 32 && node.childElementCount <= 6) {
+    if (!graphic && !isUserProseText(node) && text.length >= 2 && text.length <= 32 && node.childElementCount <= 6) {
       const stamped = translateTimestamp(text);
       if (stamped != null && normalizeKey(stamped) !== text) {
         const texts = [...node.childNodes].filter((n) => n.nodeType === 3);
@@ -970,7 +972,9 @@ export function createEngine(dict) {
         const parent = node.parentElement;
         if (parent && parent.isContentEditable) return;
         if (parent && (shouldSkipRoot(parent) || ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(parent.tagName))) {
-          const stamped = translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, node.parentElement?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, node.parentElement) ?? moreButton(node);
+          const stamped = isUserProseText(parent)
+            ? editCostume(node.nodeValue, parent) ?? moreButton(node)
+            : translateTimestamp(node.nodeValue) ?? translateNotice(node.nodeValue, parent?.textContent || "") ?? translateActivity(node.nodeValue) ?? translateCount(node.nodeValue) ?? editCostume(node.nodeValue, parent) ?? moreButton(node);
           if (stamped != null && normalizeKey(stamped) !== normalizeKey(node.nodeValue)) {
             node.nodeValue = preserveEdges2(node.nodeValue, stamped);
           }
