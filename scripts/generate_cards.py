@@ -16,11 +16,8 @@ OUT_JS = os.path.join(ROOT, 'src', 'shared', 'gq-cards.js')
 OUT_CSS = os.path.join(ROOT, 'src', 'shared', 'gq-cards.css')
 
 SKIP_SELECTORS = {
-    'html', 'body', '*', ':root', 'main', 'header', 'nav', 'aside', 'footer',
-    'h1', 'p.lead', '.lead', '.stage', '.wrap', '.page', '.shell', '.topbar',
-    '.controls', '.toolbar', '.grid', '.hero', '.side', '.sidebar', '.filters',
-    '.toast', '.copy-btn', '.section-head', '.code-box', '.tabs', '.tab',
-    '*,*::before,*::after', '*, ::before, ::after'
+    'html', 'body', 'main', '.stage', '.wrap', '.page', '.shell', '.topbar',
+    '.side', '.sidebar', '.filters', '.toast', '.copy-btn', '.section-head', '.code-box'
 }
 
 def strip_comments(css: str) -> str:
@@ -97,10 +94,12 @@ def prefix_selector_list(sel_str: str, scope: str, extra_skip=()):
         if not p:
             continue
         pl = p.lower()
-        if pl in skip_set or pl.startswith('body ') or pl.startswith('html ') or pl.startswith('.stage ') or pl.startswith('.wrap ') or pl.startswith('main ') or pl.startswith('.grid ') or pl.startswith('.hero '):
+        if pl in skip_set or pl.startswith('body ') or pl.startswith('html ') or pl.startswith('.stage ') or pl.startswith('.wrap ') or pl.startswith('main '):
             continue
         if pl == ':root' or pl.startswith(':root['):
             out.append(scope)
+        elif pl in ('*', '*::before', '*::after', '*:before', '*:after'):
+            out.append(f':where({scope}) {p}')
         elif p.startswith(scope):
             out.append(p)
         else:
@@ -141,6 +140,7 @@ variants = []  # list of dicts: { id, cat ('numeric'|'panax'), group, name, tpl_
 css_parts.append("""/* Base safe reset for extra GameQuill cards */
 .w.w-game[class*="v-"] img{max-width:100%}
 .w.w-game[class*="v-"] a{text-decoration:none}
+.w.w-game.kimi-scope,.w.w-game.qwen1-scope,.w.w-game.qwen2-scope{border:0;border-radius:0;overflow:visible;background:transparent}
 .w.w-game.tw-card,.w.w-game.tw-card *,.w.w-game.tw-card ::before,.w.w-game.tw-card ::after{
   box-sizing:border-box;
   border-width:0;
@@ -413,17 +413,31 @@ for kid, vid, name in KIMI_IDS:
         raise RuntimeError(f'Missing kimi {kid}')
     html = m.group(1)
     html = html.replace('${cover}', '__COVER__')
-    html = html.replace('${score}', '__SCORE10__')
-    html = html.replace('${sourceLink}', '__SCORE_SRC__')
-    html = html.replace('${gameMeta}', '__YEAR__ · __GENRE_0__ · __DEV__')
+    html = html.replace('${score}', '<strong class="score-value">__SCORE10__</strong>')
+    html = html.replace('${sourceLink}', '<a class="widget-link source-link" href="__PANAX_URL__" target="_blank" rel="noopener noreferrer"><span class="source-name">__SCORE_SRC__</span><span aria-hidden="true">↗</span></a>')
+    html = html.replace('${gameMeta}', '<span>__YEAR__</span><span>__DEV__</span><span>__GENRE_0__</span>')
+    html = html.replace('<div class="score-track"><i></i></div>', '<div class="score-track"><i style="width:__SCORE_PCT_NUM__%"></i></div>')
+    html = html.replace('<circle class="dock-progress"', '<circle class="dock-progress" style="stroke-dasharray:__DOCK_DASH__"')
     html = html.replace('./cover.svg', '__COVER__').replace('./scene.svg', '__COVER__')
+    html = html.replace('NEON<br>REQUIEM', '__TITLE_UPPER__').replace('Neon<br>Requiem', '__TITLE__')
     html = html.replace('NEON_REQUIEM', '__TITLE_UPPER__').replace('NEON REQUIEM', '__TITLE_UPPER__')
     html = html.replace('NEONREQUIEM', '__TITLE_UPPER__').replace('NeonRequiem', '__TITLE__').replace('Neon Requiem', '__TITLE__')
-    html = html.replace('Voidline Studio', '__DEV__')
+    html = html.replace('A GAME BY VOIDLINE', '__DEV__')
+    html = html.replace('VOIDLINE STUDIO PRESENTS', '__DEV__')
+    html = html.replace('VOIDLINE STUDIO', '__DEV__').replace('Voidline Studio', '__DEV__').replace('VOIDLINE', '__DEV__')
+    html = html.replace('NOVA INTERACTIVE', '__PUB__').replace('Nova Interactive', '__PUB__')
+    html = html.replace('Неоновый реквием по последнему городу', '__GENRES_DOT__ · __YEAR__')
+    html = html.replace('~/database/rpg/2025', '~/database/__YEAR__')
+    html = html.replace('cyberpunk, open-world', '__GENRES_DOT__')
     html = html.replace('2025', '__YEAR__')
     html = html.replace('Action RPG · Cyberpunk · Open world', '__GENRES_DOT__')
     html = html.replace('Action RPG / Cyberpunk / Open world', '__GENRES_SLASH__')
+    html = html.replace('ACTION RPG', '__GENRE_0__').replace('OPEN WORLD', '__GENRE_2__').replace('CYBERPUNK', '__GENRE_1__')
     html = html.replace('Action RPG', '__GENRE_0__').replace('Cyberpunk', '__GENRE_1__').replace('Open world', '__GENRE_2__')
+    html = html.replace('<span>RPG</span>', '<span>__GENRE_0__</span>')
+    html = html.replace('GAME / 025', 'GAME / __YEAR__')
+    html = html.replace('№ 025', '№ __YEAR__')
+    html = html.replace('NR-__YEAR__', '__YEAR__')
     html = html.replace('<span class="source-name">Backloggd</span>', '<span class="source-name">__SCORE_SRC__</span>')
     html = html.replace('Backloggd', '__SCORE_SRC__')
     html = html.replace('8.4', '__SCORE10__')
@@ -568,7 +582,7 @@ for fn, scope_cls, items in SON_NUM_FILES:
 # ===========================================================================
 q1_raw = read_file(os.path.join(DESIGN_DIR, '10 от квена.txt'))
 q1_css = re.search(r'<style[^>]*>(.*?)</style>', q1_raw, re.S).group(1)
-css_parts.append('.w.w-game.qwen1-scope{--accent:#7c5cff;--line:rgba(255,255,255,.1);color:var(--ink);font-family:var(--fb)}\n' + scope_css(q1_css, '.w.w-game.qwen1-scope'))
+css_parts.append('.w.w-game.qwen1-scope{--accent:#7c5cff;--line:rgba(255,255,255,.1);color:var(--ink);font-family:var(--fb)}\n.w.w-game.qwen1-scope .pxr-track i{height:var(--h)}\n' + scope_css(q1_css, '.w.w-game.qwen1-scope'))
 
 q2_raw = read_file(os.path.join(DESIGN_DIR, 'еще 10 от квена.txt'))
 q2_css = re.search(r'<style[^>]*>(.*?)</style>', q2_raw, re.S).group(1)
@@ -800,8 +814,8 @@ def extract_qwen_variants_js(raw, marker='const VARIANTS=['):
                 return raw[k:pos+1]
     raise RuntimeError('Could not find closing bracket for VARIANTS')
 
-q1_variants_js = extract_qwen_variants_js(q1_raw)
-q2_variants_js = extract_qwen_variants_js(q2_raw)
+q1_variants_js = re.sub(r'<p class="w7-p">.*?</p>', '', extract_qwen_variants_js(q1_raw), flags=re.S)
+q2_variants_js = re.sub(r'<p class="w9-p">.*?</p>', '', extract_qwen_variants_js(q2_raw), flags=re.S)
 # Read metadata arrays to emit clean JS catalog
 q1_meta = [
     ('qwen-pulse', 'Pulse (полная шкала)'),
@@ -975,6 +989,7 @@ function fillTemplate(raw, M) {{
     .replaceAll("__META_ITALIC__", esc(M.meta).replace(/ · /g, " <i>·</i> "))
     .replaceAll("__META__", esc(M.meta))
     .replaceAll("__DEV_PUB__", esc(M.devPub))
+    .replaceAll("__PUB__", esc(M.pub || M.dev))
     .replaceAll("__DEV__", esc(M.dev))
     .replaceAll("__YEAR__", esc(M.year))
     .replaceAll("__GENRE_SPANS__", genreSpans)
@@ -1119,41 +1134,36 @@ function fillTemplate(raw, M) {{
 // Qwen 1 (PANAX) runtime
 const Q1_TIERS = [
   {{ name: "ЛЕГЕНДА", color: "#ffd60a", ribbon: "#b8860b", icon: '<path d="M4 9.2 7.6 11.7 12 5.2l4.4 6.5L20 9.2l-1.5 8.6H5.5Z" fill="currentColor"/><rect x="5" y="18.6" width="14" height="2.6" rx="1.3" fill="currentColor" opacity=".8"/><circle cx="4" cy="8.6" r="1.5" fill="currentColor"/><circle cx="12" cy="4.6" r="1.5" fill="currentColor"/><circle cx="20" cy="8.6" r="1.5" fill="currentColor"/>' }},
-  {{ name: "КРУТО", color: "#ff9500", ribbon: "#1fb6d4", icon: '<circle cx="12" cy="12" r="9.6" fill="currentColor"/><path d="M7.3 6.6l.85 1.75 1.75.85-1.75.85-.85 1.75-.85-1.75-1.75-.85 1.75-.85Z" fill="#fff"/><path d="M16.7 6.6l.85 1.75 1.75.85-1.75.85-.85 1.75-.85-1.75-1.75-.85 1.75-.85Z" fill="#fff"/>' }},
+  {{ name: "КРУТО", color: "#ff9500", ribbon: "#1fb6d4", icon: '<circle cx="12" cy="12" r="9.6" fill="currentColor"/><path d="M7.3 6.6l.85 1.75 1.75.85-1.75.85-.85 1.75-.85-1.75-1.75-.85 1.75-.85Z" fill="#fff"/><path d="M16.7 6.6l.85 1.75 1.75.85-1.75.85-.85 1.75-.85-1.75-1.75-.85 1.75-.85Z" fill="#fff"/><path d="M7.4 14.6q4.6 3.8 9.2 0" stroke="rgba(0,0,0,.55)" stroke-width="1.7" fill="none" stroke-linecap="round"/>' }},
   {{ name: "ХОРОШО", color: "#c05cff", ribbon: "#43b649", icon: '<path d="M6.8 10.2v10.6H4.2a1.6 1.6 0 0 1-1.6-1.6v-7.4a1.6 1.6 0 0 1 1.6-1.6Z" fill="currentColor" opacity=".75"/><path d="M6.8 10.2 11 3.1c.6-1.1 2.4-.7 2.4.6v4.9h5.5a2 2 0 0 1 2 2.3l-1.1 6.9a2 2 0 0 1-2 1.7H6.8Z" fill="currentColor"/>' }},
-  {{ name: "НОРМ", color: "#3d9bff", ribbon: "#ff9800", icon: '<circle cx="12" cy="12" r="8" fill="currentColor"/>' }},
-  {{ name: "ПЛОХО", color: "#9aa5b1", ribbon: "#cf9b4e", icon: '<circle cx="12" cy="12" r="8" fill="currentColor"/>' }},
-  {{ name: "УЖАС", color: "#ff3b5c", ribbon: "#d32f2f", icon: '<circle cx="12" cy="12" r="9.6" fill="#8bc34a"/>' }}
+  {{ name: "НОРМ", color: "#3d9bff", ribbon: "#ff9800", icon: '<g fill="currentColor"><rect x="11" y="2.6" width="2.9" height="8.6" rx="1.45" transform="rotate(6 12.4 6.9)"/><rect x="14.4" y="3.3" width="2.9" height="8" rx="1.45" transform="rotate(16 15.8 7.3)"/><rect x="17.4" y="5.1" width="2.9" height="6.9" rx="1.45" transform="rotate(26 18.8 8.5)"/><path d="M5 12.6C5 10.6 6.6 9 8.6 9c1.4 0 2.7.8 3.3 2.1l3.5 1.5c1.6.7 1.3 3-.4 3.4l-4.5 1.2C7.6 18 5 15.8 5 12.6Z"/></g><circle cx="8.7" cy="13.3" r="2.2" fill="none" stroke="rgba(0,0,0,.5)" stroke-width="1.5"/>' }},
+  {{ name: "ПЛОХО", color: "#9aa5b1", ribbon: "#cf9b4e", icon: '<g transform="rotate(180 12 12)"><path d="M6.8 10.2v10.6H4.2a1.6 1.6 0 0 1-1.6-1.6v-7.4a1.6 1.6 0 0 1 1.6-1.6Z" fill="currentColor" opacity=".75"/><path d="M6.8 10.2 11 3.1c.6-1.1 2.4-.7 2.4.6v4.9h5.5a2 2 0 0 1 2 2.3l-1.1 6.9a2 2 0 0 1-2 1.7H6.8Z" fill="currentColor"/></g>' }},
+  {{ name: "УЖАС", color: "#ff3b5c", ribbon: "#d32f2f", icon: '<circle cx="12" cy="12" r="9.6" fill="#8bc34a"/><path d="M6.6 8.2l3 3M9.6 8.2l-3 3M14.4 8.2l3 3M17.4 8.2l-3 3" stroke="rgba(0,0,0,.6)" stroke-width="1.6" stroke-linecap="round"/><path d="M7 16.2q1.6-1.8 3.2 0t3.2 0 3.2 0" stroke="rgba(0,0,0,.6)" stroke-width="1.6" fill="none" stroke-linecap="round"/>' }}
 ];
 
 function buildQwen1Vars() {{
   const I = {{
-    pad: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="4"/></svg>',
-    chart: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
-    flame: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>',
-    globe: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>',
-    ext: "↗", code: "<>", star: "★"
+    ext: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>',
+    code: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>',
+    copy: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+    check: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>'
   }};
-  const pxLogo = () => `<span class="pxlogo"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 18V6h7a4 4 0 0 1 0 8H9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><b>PANAX</b></span>`;
+  const pxLogo = (cls = "") => `<span class="px-logo ${{cls}}"><i>P</i><b>PANAX</b></span>`;
   const posPct = (g) => g.votes.slice(0, 3).reduce((a, b) => a + b, 0).toFixed(1);
-  const tagSpans = (g) => g.tags.map((t) => `<span>${{esc(t)}}</span>`).join("");
-  const go = (g, cls, ic = "→") => `<a class="${{cls}}" href="${{esc(g.url)}}" target="_blank" rel="noopener">Открыть на PANAX ${{ic}}</a>`;
-  const Araw = (g) => `<a class="w10-link" href="${{esc(g.url)}}" target="_blank" rel="noopener">PANAX</a>`;
+  const tagSpans = (g, cls = "") => g.tags.map((t) => `<span class="${{cls}}">${{esc(t)}}</span>`).join("");
+  const go = (g, cls, label = "Открыть на Panax") => `<a class="${{cls}}" href="${{esc(g.url)}}" target="_blank" rel="noopener">${{label === I.ext ? I.ext : `${{label}} ${{I.ext}}`}}</a>`;
+  const Araw = (g) => `<a class="w10-link" href="${{esc(g.url)}}#votes" target="_blank" rel="noopener">view votes</a><a class="w10-link" href="${{esc(g.url)}}#reviews" target="_blank" rel="noopener">reviews</a>`;
   const rating = (g, size = "", light = false) => {{
-    const maxV = Math.max(1, ...g.votes);
     const items = Q1_TIERS.map((t, i) => {{
       const v = g.votes[i] || 0;
-      const pctH = Math.round((v / maxV) * 100);
-      return `<div class="pxr-col" style="--c:${{t.color}};--rib:${{t.ribbon}}">
-        <div class="pxr-bar"><i style="height:${{pctH}}%"></i></div>
-        <div class="pxr-ico"><svg viewBox="0 0 24 24">${{t.icon}}</svg></div>
-        <span class="pxr-lbl">${{t.name}}</span>
-        <b class="pxr-pct">${{v.toFixed(1)}}%</b>
+      return `<div class="pxr-col" style="--tc:${{t.color}};--rb:${{t.ribbon}}">
+        <div class="pxr-track"><i style="--h:${{v}}%"></i></div>
+        <div class="pxr-badge"><svg class="pxr-ico" viewBox="0 0 24 24" style="color:${{t.color}}" aria-hidden="true">${{t.icon}}</svg><span class="pxr-ribbon">${{t.name}}</span></div>
+        <div class="pxr-pct">${{v.toFixed(1)}}%</div>
       </div>`;
     }}).join("");
-    return `<div class="pxr ${{size}} ${{light ? "pxr-light" : ""}}">${{items}}</div>`;
+    return `<div class="pxr in ${{size}} ${{light ? "on-light" : ""}}">${{items}}</div>`;
   }};
-  const ratingInline = (g) => `<div class="pxi">${{Q1_TIERS.map((t, i) => `<span style="--c:${{t.color}}"><i></i>${{t.name}} ${{(g.votes[i]||0).toFixed(0)}}%</span>`).join("")}}</div>`;
   const VARIANTS = {q1_variants_js};
   return VARIANTS;
 }}
@@ -1169,6 +1179,7 @@ function renderQwen1(slug, M, tools) {{
     year: esc(M.year),
     dev: esc(M.dev),
     pub: esc(M.pub),
+    release: esc(M.year),
     tags: M.genres.map(esc),
     platforms: M.plat.map(esc),
     desc: esc(M.genres.join(" · ") + " · " + M.year),
@@ -1179,18 +1190,18 @@ function renderQwen1(slug, M, tools) {{
     a: "#7c5cff",
     b: "#22d3ee"
   }};
-  return `<div class="w w-game v-${{esc(slug)}} qwen1-scope">${{tools}}${{v.r(g, esc(M.cover), "01")}}</div>`;
+  return `<div class="w w-game v-${{esc(slug)}} qwen1-scope in">${{tools}}${{v.r(g, esc(M.cover), "01")}}</div>`;
 }}
 
 function buildQwen2Vars() {{
   const I = {{
-    pad: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="4"/></svg>',
-    chart: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
-    flame: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>',
-    globe: '<svg class="i" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>',
-    ext: "↗",
-    code: "<>",
-    star: "★"
+    pad: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6h10a5 5 0 0 1 5 5.2l-.7 4.6a3 3 0 0 1-5.2 1.6L14.5 16h-5l-1.6 1.4a3 3 0 0 1-5.2-1.6L2 11.2A5 5 0 0 1 7 6Z"/><path d="M7 10v4M5 12h4M15.5 10.5h.01M18 12.5h.01"/></svg>',
+    chart: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
+    flame: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.4 0 7-2.8 7-6.5 0-3-2-5-3.5-6.5C14 7.5 13 5.5 13 2c-3 2-5 5-5 8-1-.8-1.7-1.8-2-3-1.5 1.7-2 3.7-2 5.5C4 19.2 7.6 22 12 22Z"/></svg>',
+    globe: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.6 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.6-4-9s1.3-6.4 4-9Z"/></svg>',
+    ext: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>',
+    code: '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>',
+    star: '<svg class="i" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.2.9-4.5 4.3 1.1 6.2L12 17.1 6.5 20l1.1-6.2-4.5-4.3 6.2-.9Z"/></svg>'
   }};
   const fmt1 = (n) => Number(n || 0).toFixed(1);
   const sc = (g) => g.score10;
@@ -1221,6 +1232,8 @@ function renderQwen2(slug, M, tools) {{
     year: esc(M.year),
     dev: esc(M.dev),
     pub: esc(M.pub),
+    release: esc(M.year),
+    peak: "—",
     tags: M.genres.map(esc),
     platforms: M.plat.map(esc),
     desc: esc(M.genres.join(" · ")),
@@ -1248,7 +1261,7 @@ function renderQwen2(slug, M, tools) {{
     color: "#8f6bff",
     url: (x) => x.panaxUrl
   }};
-  return `<div class="w w-game v-${{esc(slug)}} qwen2-scope">${{tools}}${{v.r(g, s, esc(M.cover), "01")}}</div>`;
+  return `<div class="w w-game v-${{esc(slug)}} qwen2-scope in">${{tools}}${{v.r(g, s, esc(M.cover), "01")}}</div>`;
 }}
 
 export function renderExtraGameCard(variantId, d, tools, rxList) {{
