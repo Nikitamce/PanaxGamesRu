@@ -1,128 +1,176 @@
 {
-  "title": "Like a Dragon: Pirate Yakuza in Hawaii — Full Editor Showcase",
-  "subtitle": "A swashbuckling spin-off tested across every GameQuill block, widget, and formatting tool.",
+  "app": "GameQuill",
+  "format": "gq-native",
+  "version": 2,
+  "exportedAt": "2026-11-15T12:20:00.000Z",
   "author": "GameQuill Reviewer",
-  "score": 9,
-  "recommend": "yes",
-  "aspects": [
-    { "name": "Gameplay & Combat", "score": 9 },
-    { "name": "Story & Writing", "score": 8 },
-    { "name": "Visuals & Art Direction", "score": 9 },
-    { "name": "Soundtrack & Audio", "score": 9 },
-    { "name": "Multiplayer", "score": 0, "unrated": "na" }
-  ],
-  "pros": [
-    "Fast, expressive dual-style combat (Mad Dog & Sea Dog)",
-    "Hilarious side stories and naval ship-to-ship battles",
-    "Vibrant Hawaiian setting packed with mini-games"
-  ],
-  "cons": [
-    "Early-game pacing takes a couple of chapters to open up",
-    "Some recycled substructures from previous RGG titles"
-  ],
-  "blocks": [
+  "reviews": [
     {
-      "type": "h2",
-      "html": "1. Overview &amp; Game Card Widget"
-    },
-    {
-      "type": "p",
-      "html": "This sample review demonstrates <b>bold</b>, <i>italic</i>, <u>underline</u>, <s>strikethrough</s>, <mark>highlighted text</mark>, inline <code>code snippets</code>, an <a class=\"lnk\" href=\"https://panaxgames.com\" target=\"_blank\" rel=\"noopener noreferrer\">external link</a>, and an inline game chip: <a class=\"game-chip\" href=\"https://panaxgames.com/game-detail/1526\" target=\"_blank\" rel=\"noopener noreferrer\"><i>🎮</i> Like a Dragon: Pirate Yakuza in Hawaii</a>."
-    },
-    {
-      "type": "game",
-      "data": {
-        "title": "Like a Dragon: Pirate Yakuza in Hawaii",
-        "year": 2025,
-        "dev": "Ryu Ga Gotoku Studio",
-        "pub": "SEGA",
-        "genres": ["Action", "Adventure", "RPG"],
-        "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3061810/library_600x900.jpg",
-        "variant": "qwen-pulse",
-        "ratings": { "panax": "96.5%", "igdb": "82", "steam": "91%", "backloggd": "8.4" },
-        "panaxReactions": { "legendary": 24, "awesome": 48, "good": 20, "decent": 6, "dislike": 1, "awful": 1 },
-        "links": {
-          "panax": "https://panaxgames.com/game-detail/1526",
-          "steam": "https://store.steampowered.com/app/3061810/",
-          "igdb": "https://www.igdb.com/games/like-a-dragon-pirate-yakuza-in-hawaii"
+      "title": "Like a Dragon: Pirate Yakuza in Hawaii — Full Editor Showcase",
+      "subtitle": "A swashbuckling spin-off tested across every GameQuill block, widget, and formatting tool.",
+      "author": "GameQuill Reviewer",
+      "score": 9,
+      "recommend": "yes",
+      "aspects": [
+        {
+          "name": "Gameplay & Combat",
+          "score": 9
+        },
+        {
+          "name": "Story & Writing",
+          "score": 8
+        },
+        {
+          "name": "Visuals & Art Direction",
+          "score": 9
+        },
+        {
+          "name": "Soundtrack & Audio",
+          "score": 9
+        },
+        {
+          "name": "Multiplayer",
+          "score": 0,
+          "unrated": "na"
         }
-      }
-    },
-    {
-      "type": "divider",
-      "style": "d1"
-    },
-    {
-      "type": "h3",
-      "html": "2. Quote, Spoiler &amp; Dividers"
-    },
-    {
-      "type": "quote",
-      "html": "“Goro Majima waking up with amnesia on a Hawaiian beach and immediately becoming a pirate captain is peak Ryu Ga Gotoku energy.”"
-    },
-    {
-      "type": "spoiler",
-      "html": "Spoiler example: Later in the campaign, Majima's former Tojo Clan allies unexpectedly cross paths with the Goromaru crew during a naval blockade."
-    },
-    {
-      "type": "divider",
-      "style": "d2"
-    },
-    {
-      "type": "h2",
-      "html": "3. Store, Video, Workshop &amp; Image Widgets"
-    },
-    {
-      "type": "steam",
-      "data": {
-        "appId": 3061810,
-        "title": "Like a Dragon: Pirate Yakuza in Hawaii",
-        "capsule": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3061810/header.jpg",
-        "price": "$59.99",
-        "oldPrice": "",
-        "discount": 0,
-        "tags": ["Action", "Adventure", "RPG", "Pirates"],
-        "url": "https://store.steampowered.com/app/3061810/"
-      }
-    },
-    {
-      "type": "yt",
-      "data": {
-        "id": "dQw4w9WgXcQ",
-        "title": "Official Reveal Trailer — Pirate Yakuza in Hawaii",
-        "channel": "SEGA",
-        "dur": "02:34",
-        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      }
-    },
-    {
-      "type": "ws",
-      "data": {
-        "id": "299411220",
-        "title": "Community UI &amp; Texture Pack",
-        "game": "Like a Dragon: Pirate Yakuza in Hawaii",
-        "author": "Modder",
-        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=299411220"
-      }
-    },
-    {
-      "type": "img",
-      "data": {
-        "items": [
-          {
-            "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3061810/header.jpg",
-            "cap": "Naval combat and island exploration in Hawaii"
+      ],
+      "pros": [
+        "Fast, expressive dual-style combat (Mad Dog & Sea Dog)",
+        "Hilarious side stories and naval ship-to-ship battles",
+        "Vibrant Hawaiian setting packed with mini-games"
+      ],
+      "cons": [
+        "Early-game pacing takes a couple of chapters to open up",
+        "Some recycled substructures from previous RGG titles"
+      ],
+      "blocks": [
+        {
+          "type": "h2",
+          "html": "1. Overview &amp; Game Card Widget"
+        },
+        {
+          "type": "p",
+          "html": "This sample review demonstrates <b>bold</b>, <i>italic</i>, <u>underline</u>, <s>strikethrough</s>, <mark>highlighted text</mark>, inline <code>code snippets</code>, an <a class=\"lnk\" href=\"https://panaxgames.com\" target=\"_blank\" rel=\"noopener noreferrer\">external link</a>, and an inline game chip: <a class=\"game-chip\" href=\"https://panaxgames.com/game-detail/1526\" target=\"_blank\" rel=\"noopener noreferrer\"><i>🎮</i> Like a Dragon: Pirate Yakuza in Hawaii</a>."
+        },
+        {
+          "type": "game",
+          "data": {
+            "title": "Like a Dragon: Pirate Yakuza in Hawaii",
+            "year": 2025,
+            "dev": "Ryu Ga Gotoku Studio",
+            "pub": "SEGA",
+            "genres": [
+              "Action",
+              "Adventure",
+              "RPG"
+            ],
+            "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3061810/library_600x900.jpg",
+            "variant": "qwen-pulse",
+            "ratings": {
+              "panax": "96.5%",
+              "igdb": "82",
+              "steam": "91%",
+              "backloggd": "8.4"
+            },
+            "panaxReactions": {
+              "legendary": 24,
+              "awesome": 48,
+              "good": 20,
+              "decent": 6,
+              "dislike": 1,
+              "awful": 1
+            },
+            "links": {
+              "panax": "https://panaxgames.com/game-detail/1526",
+              "steam": "https://store.steampowered.com/app/3061810/",
+              "igdb": "https://www.igdb.com/games/like-a-dragon-pirate-yakuza-in-hawaii"
+            }
           }
-        ]
-      }
-    },
-    {
-      "type": "divider",
-      "style": "d3"
-    },
-    {
-      "type": "p",
-      "html": "End of the full-feature showcase. You can switch the Game Card widget above to any of the <b>142 designs</b> in the editor."
+        },
+        {
+          "type": "divider",
+          "style": "d1"
+        },
+        {
+          "type": "h3",
+          "html": "2. Quote, Spoiler &amp; Dividers"
+        },
+        {
+          "type": "quote",
+          "html": "“Goro Majima waking up with amnesia on a Hawaiian beach and immediately becoming a pirate captain is peak Ryu Ga Gotoku energy.”"
+        },
+        {
+          "type": "spoiler",
+          "html": "Spoiler example: Later in the campaign, Majima's former Tojo Clan allies unexpectedly cross paths with the Goromaru crew during a naval blockade."
+        },
+        {
+          "type": "divider",
+          "style": "d2"
+        },
+        {
+          "type": "h2",
+          "html": "3. Store, Video, Workshop &amp; Image Widgets"
+        },
+        {
+          "type": "steam",
+          "data": {
+            "appId": 3061810,
+            "title": "Like a Dragon: Pirate Yakuza in Hawaii",
+            "capsule": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3061810/header.jpg",
+            "price": "$59.99",
+            "oldPrice": "",
+            "discount": 0,
+            "tags": [
+              "Action",
+              "Adventure",
+              "RPG",
+              "Pirates"
+            ],
+            "url": "https://store.steampowered.com/app/3061810/"
+          }
+        },
+        {
+          "type": "yt",
+          "data": {
+            "id": "dQw4w9WgXcQ",
+            "title": "Official Reveal Trailer — Pirate Yakuza in Hawaii",
+            "channel": "SEGA",
+            "dur": "02:34",
+            "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          }
+        },
+        {
+          "type": "ws",
+          "data": {
+            "id": "299411220",
+            "title": "Community UI &amp; Texture Pack",
+            "game": "Like a Dragon: Pirate Yakuza in Hawaii",
+            "author": "Modder",
+            "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=299411220"
+          }
+        },
+        {
+          "type": "img",
+          "data": {
+            "items": [
+              {
+                "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3061810/header.jpg",
+                "cap": "Naval combat and island exploration in Hawaii"
+              }
+            ]
+          }
+        },
+        {
+          "type": "divider",
+          "style": "d3"
+        },
+        {
+          "type": "p",
+          "html": "End of the full-feature showcase. You can switch the Game Card widget above to any of the <b>142 designs</b> in the editor."
+        }
+      ],
+      "id": "sample-all-features-1",
+      "updatedAt": "2026-11-15T12:20:00.000Z"
     }
   ]
 }

@@ -1529,7 +1529,7 @@ $$('.rb-tab').forEach(t=>t.addEventListener('click',()=>{
   $$('.rb-pane').forEach(p=>p.classList.toggle('on',p.dataset.pane===t.dataset.pane));
 }));
 /* кнопка "Экспорт" в сайдбаре */
-$('#btnExportAll').addEventListener('click',e=>openExpMenu(e.currentTarget));
+$('#btnExportAll').addEventListener('click',e=>{e.stopPropagation();openExpMenu(e.currentTarget)});
 $('#btnImport').addEventListener('click',()=>$('#fileIn').click());
 $('#btnSettings').addEventListener('click',()=>openSettings());
 $('#btnNew').addEventListener('click',()=>newReview());
