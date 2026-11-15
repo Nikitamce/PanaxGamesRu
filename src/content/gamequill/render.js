@@ -122,6 +122,7 @@ function gameWidget(doc, r, d) {
   const codeNum = yearNum ? "0" + yearNum.slice(-2) : "PANAX";
 
   if (EXTRA_VARIANT_IDS.includes(v)) {
+    const cover = safeImageUrl(d.cover) || coverArt(d.gameId || d.title || "gq", d.title || "Game", paletteFor(d.gameId || d.title || "gq"));
     const html = renderExtraGameCard(v, { ...d, cover }, "", rx);
     if (html) {
       const tpl = doc.createElement("template");

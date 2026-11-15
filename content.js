@@ -8894,6 +8894,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     const yearNum = String(d.year || "").replace(/\D/g, "");
     const codeNum = yearNum ? "0" + yearNum.slice(-2) : "PANAX";
     if (EXTRA_VARIANT_IDS.includes(v)) {
+      const cover = safeImageUrl(d.cover) || coverArt(d.gameId || d.title || "gq", d.title || "Game", paletteFor(d.gameId || d.title || "gq"));
       const html = renderExtraGameCard(v, { ...d, cover }, "", rx);
       if (html) {
         const tpl = doc.createElement("template");
