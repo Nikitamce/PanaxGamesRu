@@ -34,10 +34,15 @@ export function carrierKeyFromText(text) {
   const bytes = vsExtract(text);
   return bytes ? "vs:" + toB64url(bytes) : "";
 }
-var SKIP = "[data-gq-view],[data-gq-preview],[data-panax-ru-skip],gq-composer,gq-composer-preview";
+var SKIP = '[data-gq-view],[data-gq-preview],[data-panax-ru-skip],gq-composer,gq-composer-preview,header,nav,[role="menu"],[class*="notification"],[class*="Notification"]';
+function isBlockedPage(loc = globalThis.location) {
+  const p = (loc && loc.pathname || "").replace(/\/+$/, "") || "/";
+  return /^\/(?:[a-z]{2}\/)?(?:notifications?|settings|search)(?:\/|$)/i.test(p);
+}
 function contentRootFromMarker(node, loc = globalThis.location, root = document) {
   let el = node && node.nodeType === 3 ? node.parentElement : node;
   if (!el || !el.closest) return null;
+  if (el.closest(SKIP)) return null;
   if (isComposerPage(loc, root) && el.closest(".ql-editor, .ql-container, .ql-toolbar")) return null;
   const rendered = el.closest(".delta-content-renderer");
   if (rendered) return rendered;
@@ -45,6 +50,7 @@ function contentRootFromMarker(node, loc = globalThis.location, root = document)
   if (attributed) return attributed;
   while (el.parentElement && el.parentElement !== root.body && el.parentElement !== root.documentElement) {
     const p = el.parentElement;
+    if (p.tagName === "MAIN" || p.id === "__next" || p.classList?.contains("main") || p.classList?.contains("main-contents") || p.classList?.contains("app")) break;
     if (p.closest && p.closest(SKIP)) break;
     if (isComposerPage(loc, root) && p.closest(".ql-editor, .ql-container, .ql-toolbar")) return null;
     if (p.classList && p.classList.contains("delta-content-renderer")) return p;
@@ -58,6 +64,7 @@ function contentRootFromMarker(node, loc = globalThis.location, root = document)
 }
 export function findViewRoots(root = document, loc = globalThis.location) {
   const out = [];
+  if (isBlockedPage(loc)) return out;
   const seen2 = /* @__PURE__ */ new Set();
   const add = (el) => {
     if (!el || seen2.has(el) || el.closest && el.closest(SKIP)) return;
