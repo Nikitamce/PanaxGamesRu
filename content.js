@@ -1294,7 +1294,7 @@
     if (!el || el.nodeType !== 1) return false;
     if (el.getAttribute?.("contenteditable") === "true" || el.isContentEditable) return true;
     if (el.closest?.("[data-panax-ru-skip]")) return true;
-    if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
+    if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"], .navbar-title')) {
       return false;
     }
     for (const sel of SKIP_ROOT_SELECTORS) {
@@ -3059,6 +3059,21 @@
       if (!root) return;
       const base = root.nodeType === 1 || root.nodeType === 11 ? root : document.body;
       if (!base || !base.querySelectorAll) return;
+      try {
+        const navTitles = base.matches?.(".navbar-title") ? [base] : [...base.querySelectorAll(".navbar-title")];
+        for (const el of navTitles) {
+          if (el.isContentEditable || el.closest?.('[data-panax-ru-skip], [contenteditable="true"]')) continue;
+          if (el.childElementCount > 0) continue;
+          const key = normalizeKey(el.textContent || "");
+          if (!key) continue;
+          const tr = exact.get(key) ?? (NO_FOLD.has(key.toLowerCase()) ? null : fold.get(key.toLowerCase()));
+          if (tr && tr !== key) {
+            el.textContent = tr;
+            markPill(el);
+          }
+        }
+      } catch {
+      }
       let scopes;
       try {
         scopes = [...base.querySelectorAll(CHROME_SCOPE_SELS)];

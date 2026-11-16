@@ -130,7 +130,7 @@ export function shouldSkipRoot(el) {
   if (!el || el.nodeType !== 1) return false;
   if (el.getAttribute?.("contenteditable") === "true" || el.isContentEditable) return true;
   if (el.closest?.("[data-panax-ru-skip]")) return true;
-  if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"]')) {
+  if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"], .navbar-title')) {
     return false;
   }
   for (const sel of SKIP_ROOT_SELECTORS) {
