@@ -16,12 +16,18 @@ function getParser(win) {
   return new P();
 }
 
+function stripInlineHandlers(html) {
+  return String(html || "")
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+}
+
 function parseDoc(html, win) {
-  return getParser(win).parseFromString(String(html || ""), "text/html");
+  return getParser(win).parseFromString(stripInlineHandlers(html), "text/html");
 }
 
 function parseFrag(html, win) {
-  return getParser(win).parseFromString("<!doctype html><html><body>" + String(html || "") + "</body></html>", "text/html").body;
+  return getParser(win).parseFromString("<!doctype html><html><body>" + stripInlineHandlers(html) + "</body></html>", "text/html").body;
 }
 
 export function extractYoutubeId(url) {
