@@ -2,7 +2,7 @@ import { MAX_DATA_IMAGE, MAX_UPLOAD_BYTES, toPublicPanaxImageUrl, safeUserImageU
 import { str, safeUrl, safeImageUrl, safeColor, normalizeReview, hasContent } from "../shared/gq-schema.js";
 import { DEMO_CONFIRM, DEMO_GAME, makeDemoReview, applyDemoReview } from "../shared/gq-demo.js";
 import { sanitizeHtml } from "../shared/gq-html.js";
-import { FOOTER_TEXT, buildFallback, attachCarriers, opsToHtml } from "../shared/gq-fallback.js";
+import { FOOTER_TEXT, FOOTER_TEXT_EN, buildFallback, attachCarriers, opsToHtml } from "../shared/gq-fallback.js";
 import { VS_MAX_CHARS, encodeDoc, vsEncode } from "../shared/gq-payload.js";
 import { paletteFor } from "../shared/gq-cover.js";
 import { DEFAULT_THEME, normalizeTheme, themeList } from "../shared/gq-theme.js";
@@ -55,13 +55,71 @@ function detectParent() {
 }
 var parentOrigin = detectParent();
 var clean = (h) => sanitizeHtml(h, window);
+async function fetchExternalImageB64(url) {
+  if (typeof chrome !== "undefined" && chrome.runtime && typeof chrome.runtime.sendMessage === "function") {
+    const res = await new Promise((resolve) => {
+      try {
+        chrome.runtime.sendMessage({ type: "panax_xhr_blob", url }, (r) => {
+          if (chrome.runtime.lastError) resolve(null);
+          else resolve(r || null);
+        });
+      } catch {
+        resolve(null);
+      }
+    });
+    if (res && res.success && res.b64) {
+      return { b64: res.b64, contentType: res.contentType || "image/jpeg" };
+    }
+  }
+  return null;
+}
+function isPanaxHostedImage(url) {
+  try {
+    const h = new URL(url).hostname.toLowerCase();
+    return h === "panaxgames.com" || h.endsWith(".panaxgames.com") || h.includes("gamedb-oz.s3");
+  } catch {
+    return false;
+  }
+}
+async function uploadExternalAttachments(doc, maxCount = 10) {
+  const urls = [];
+  const seen = new Set();
+  for (const b of doc.blocks || []) {
+    if (b.type !== "image" || !b.data) continue;
+    const d = b.data;
+    const items = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
+    for (const it of items) {
+      const u = safeUserImageUrl(it && it.url);
+      if (!u || !/^https?:/i.test(u) || isPanaxHostedImage(u) || seen.has(u)) continue;
+      seen.add(u);
+      urls.push(u);
+      if (urls.length >= maxCount) break;
+    }
+    if (urls.length >= maxCount) break;
+  }
+  const map = {};
+  for (const u of urls) {
+    try {
+      const dl = await fetchExternalImageB64(u);
+      if (!dl || !dl.b64) continue;
+      const ct = /^image\/(png|jpeg|jpg|webp|gif)/i.test(dl.contentType) ? dl.contentType.split(";")[0].trim() : "image/jpeg";
+      const up = await uploadImage({ name: "attachment", contentType: ct, b64: dl.b64, width: 0, height: 0 });
+      if (up && up.ok && up.url) map[u] = up.url;
+    } catch {
+    }
+  }
+  return map;
+}
 async function exportForPost(review, settings, win = window) {
   const s = settings || {};
   const author = s.author && s.author !== "\u0412\u0430\u0448\u0435 \u0438\u043C\u044F" ? s.author : "";
   const integ = buildIntegMap(review, s.integrations);
   const doc = normalizeReview({ ...review, author, integ, updatedAt: Date.now() }, { sanitizeHtml: (h) => sanitizeHtml(h, win) });
   if (!doc || !hasContent(doc)) throw Object.assign(new Error("\u041E\u0431\u0437\u043E\u0440 \u043F\u0443\u0441\u0442\u043E\u0439"), { code: "empty" });
-  const fb0 = buildFallback(doc, { win });
+  const attachExternalImages = !!s.attachExternalImages;
+  const attachedMap = attachExternalImages ? await uploadExternalAttachments(doc, 10) : null;
+  const fbOpts = { win, attachExternalImages, attachedMap };
+  const fb0 = buildFallback(doc, fbOpts);
   doc.fp = fb0.fp;
   let enc2;
   try {
@@ -70,17 +128,22 @@ async function exportForPost(review, settings, win = window) {
     if (!(e && e.code === "too-large")) throw e;
     const stripped = stripLocalImageBlocks(doc);
     if (!stripped) throw e;
-    const fb1 = buildFallback(doc, { win });
+    const fb1 = buildFallback(doc, fbOpts);
     doc.fp = fb1.fp;
     enc2 = await encodeDoc(doc);
   }
-  const fb = buildFallback(doc, { win });
+  const fb = buildFallback(doc, fbOpts);
   const vs = enc2.bytes.length <= VS_MAX_CHARS ? vsEncode(enc2.bytes) : "";
   const ops = attachCarriers(fb.ops, { text: enc2.text, vs });
   let plain2 = fb.plain;
   if (vs) {
-    const i = plain2.lastIndexOf(FOOTER_TEXT);
-    plain2 = i >= 0 ? plain2.slice(0, i + FOOTER_TEXT.length) + vs + plain2.slice(i + FOOTER_TEXT.length) : plain2 + vs;
+    let i = plain2.lastIndexOf(FOOTER_TEXT);
+    let flen = FOOTER_TEXT.length;
+    if (i < 0) {
+      i = plain2.lastIndexOf(FOOTER_TEXT_EN);
+      flen = FOOTER_TEXT_EN.length;
+    }
+    plain2 = i >= 0 ? plain2.slice(0, i + flen) + vs + plain2.slice(i + flen) : plain2 + vs;
   }
   return {
     ops,

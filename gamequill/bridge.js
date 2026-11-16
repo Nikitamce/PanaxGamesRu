@@ -2920,6 +2920,9 @@
   function buildFallback(r, opts = {}) {
     const win = opts.win;
     const en = isEnglishReview(r);
+    const attachExt = !!opts.attachExternalImages;
+    const attachedMap = opts.attachedMap && typeof opts.attachedMap === "object" ? opts.attachedMap : null;
+    let photoIdx = 0;
     const b = new OpsBuilder();
     if (r.title) b.heading(r.title, 1);
     if (r.game) {
@@ -3072,11 +3075,19 @@
           b.gap();
           const items = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
           for (const it of items) {
-            const url = safeUserImageUrl(it.url);
+            const origUrl = safeUserImageUrl(it.url);
+            const panaxUrl = attachedMap && origUrl ? attachedMap[origUrl] : "";
+            const url = panaxUrl || origUrl;
             if (url && /^https?:/i.test(url)) {
               b.embed({ "custom-image": { url, width: it.width || 0, height: it.height || 0 } });
               const cap = String(it.caption || it.alt || "").trim();
-              linkLines(b, [[cap ? "\u{1F5BC} " + cap : "\u{1F5BC} \u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435", url]]);
+              if (attachExt) {
+                photoIdx += 1;
+                const label = en ? `\u{1F5BC} [Photo #${photoIdx}]${cap ? " \u2014 " + cap : ""}` : `\u{1F5BC} [\u0424\u043E\u0442\u043E #${photoIdx}]${cap ? " \u2014 " + cap : ""}`;
+                linkLines(b, [[label, url]]);
+              } else {
+                linkLines(b, [[cap ? "\u{1F5BC} " + cap : en ? "\u{1F5BC} Image" : "\u{1F5BC} \u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435", url]]);
+              }
             } else if (url && url.startsWith("data:")) {
               b.text("\u{1F5BC} \u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 (\u043B\u043E\u043A\u0430\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u043F\u0438\u044F, \u0432\u0438\u0434\u043D\u0430 \u0442\u043E\u043B\u044C\u043A\u043E \u0441 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435\u043C GameQuill)", { italic: true, color: C.dim });
               b.newline();
@@ -4437,13 +4448,71 @@
   }
   var parentOrigin = detectParent();
   var clean = (h) => sanitizeHtml(h, window);
+  async function fetchExternalImageB64(url) {
+    if (typeof chrome !== "undefined" && chrome.runtime && typeof chrome.runtime.sendMessage === "function") {
+      const res = await new Promise((resolve) => {
+        try {
+          chrome.runtime.sendMessage({ type: "panax_xhr_blob", url }, (r) => {
+            if (chrome.runtime.lastError) resolve(null);
+            else resolve(r || null);
+          });
+        } catch {
+          resolve(null);
+        }
+      });
+      if (res && res.success && res.b64) {
+        return { b64: res.b64, contentType: res.contentType || "image/jpeg" };
+      }
+    }
+    return null;
+  }
+  function isPanaxHostedImage(url) {
+    try {
+      const h = new URL(url).hostname.toLowerCase();
+      return h === "panaxgames.com" || h.endsWith(".panaxgames.com") || h.includes("gamedb-oz.s3");
+    } catch {
+      return false;
+    }
+  }
+  async function uploadExternalAttachments(doc, maxCount = 10) {
+    const urls = [];
+    const seen = /* @__PURE__ */ new Set();
+    for (const b of doc.blocks || []) {
+      if (b.type !== "image" || !b.data) continue;
+      const d = b.data;
+      const items = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
+      for (const it of items) {
+        const u = safeUserImageUrl(it && it.url);
+        if (!u || !/^https?:/i.test(u) || isPanaxHostedImage(u) || seen.has(u)) continue;
+        seen.add(u);
+        urls.push(u);
+        if (urls.length >= maxCount) break;
+      }
+      if (urls.length >= maxCount) break;
+    }
+    const map = {};
+    for (const u of urls) {
+      try {
+        const dl = await fetchExternalImageB64(u);
+        if (!dl || !dl.b64) continue;
+        const ct = /^image\/(png|jpeg|jpg|webp|gif)/i.test(dl.contentType) ? dl.contentType.split(";")[0].trim() : "image/jpeg";
+        const up = await uploadImage({ name: "attachment", contentType: ct, b64: dl.b64, width: 0, height: 0 });
+        if (up && up.ok && up.url) map[u] = up.url;
+      } catch {
+      }
+    }
+    return map;
+  }
   async function exportForPost(review, settings, win = window) {
     const s = settings || {};
     const author = s.author && s.author !== "\u0412\u0430\u0448\u0435 \u0438\u043C\u044F" ? s.author : "";
     const integ = buildIntegMap(review, s.integrations);
     const doc = normalizeReview({ ...review, author, integ, updatedAt: Date.now() }, { sanitizeHtml: (h) => sanitizeHtml(h, win) });
     if (!doc || !hasContent(doc)) throw Object.assign(new Error("\u041E\u0431\u0437\u043E\u0440 \u043F\u0443\u0441\u0442\u043E\u0439"), { code: "empty" });
-    const fb0 = buildFallback(doc, { win });
+    const attachExternalImages = !!s.attachExternalImages;
+    const attachedMap = attachExternalImages ? await uploadExternalAttachments(doc, 10) : null;
+    const fbOpts = { win, attachExternalImages, attachedMap };
+    const fb0 = buildFallback(doc, fbOpts);
     doc.fp = fb0.fp;
     let enc2;
     try {
@@ -4452,17 +4521,22 @@
       if (!(e && e.code === "too-large")) throw e;
       const stripped = stripLocalImageBlocks(doc);
       if (!stripped) throw e;
-      const fb1 = buildFallback(doc, { win });
+      const fb1 = buildFallback(doc, fbOpts);
       doc.fp = fb1.fp;
       enc2 = await encodeDoc(doc);
     }
-    const fb = buildFallback(doc, { win });
+    const fb = buildFallback(doc, fbOpts);
     const vs = enc2.bytes.length <= VS_MAX_CHARS ? vsEncode(enc2.bytes) : "";
     const ops = attachCarriers(fb.ops, { text: enc2.text, vs });
     let plain2 = fb.plain;
     if (vs) {
-      const i = plain2.lastIndexOf(FOOTER_TEXT);
-      plain2 = i >= 0 ? plain2.slice(0, i + FOOTER_TEXT.length) + vs + plain2.slice(i + FOOTER_TEXT.length) : plain2 + vs;
+      let i = plain2.lastIndexOf(FOOTER_TEXT);
+      let flen = FOOTER_TEXT.length;
+      if (i < 0) {
+        i = plain2.lastIndexOf(FOOTER_TEXT_EN);
+        flen = FOOTER_TEXT_EN.length;
+      }
+      plain2 = i >= 0 ? plain2.slice(0, i + flen) + vs + plain2.slice(i + flen) : plain2 + vs;
     }
     return {
       ops,

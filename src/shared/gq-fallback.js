@@ -297,6 +297,9 @@ function linkLines(b, pairs) {
 export function buildFallback(r, opts = {}) {
   const win = opts.win;
   const en = isEnglishReview(r);
+  const attachExt = !!opts.attachExternalImages;
+  const attachedMap = opts.attachedMap && typeof opts.attachedMap === "object" ? opts.attachedMap : null;
+  let photoIdx = 0;
   const b = new OpsBuilder();
   if (r.title) b.heading(r.title, 1);
   if (r.game) {
@@ -449,11 +452,21 @@ export function buildFallback(r, opts = {}) {
         b.gap();
         const items = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
         for (const it of items) {
-          const url = safeUserImageUrl(it.url);
+          const origUrl = safeUserImageUrl(it.url);
+          const panaxUrl = attachedMap && origUrl ? attachedMap[origUrl] : "";
+          const url = panaxUrl || origUrl;
           if (url && /^https?:/i.test(url)) {
             b.embed({ "custom-image": { url, width: it.width || 0, height: it.height || 0 } });
             const cap = String(it.caption || it.alt || "").trim();
-            linkLines(b, [[cap ? "\u{1F5BC} " + cap : "\u{1F5BC} \u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435", url]]);
+            if (attachExt) {
+              photoIdx += 1;
+              const label = en
+                ? `\u{1F5BC} [Photo #${photoIdx}]${cap ? " \u2014 " + cap : ""}`
+                : `\u{1F5BC} [\u0424\u043E\u0442\u043E #${photoIdx}]${cap ? " \u2014 " + cap : ""}`;
+              linkLines(b, [[label, url]]);
+            } else {
+              linkLines(b, [[cap ? "\u{1F5BC} " + cap : (en ? "\u{1F5BC} Image" : "\u{1F5BC} \u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435"), url]]);
+            }
           } else if (url && url.startsWith("data:")) {
             b.text("\u{1F5BC} \u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 (\u043B\u043E\u043A\u0430\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u043F\u0438\u044F, \u0432\u0438\u0434\u043D\u0430 \u0442\u043E\u043B\u044C\u043A\u043E \u0441 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435\u043C GameQuill)", { italic: true, color: C.dim });
             b.newline();

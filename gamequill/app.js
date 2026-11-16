@@ -1277,6 +1277,7 @@ function renderSettings(){
       <div class="field"><label>Поведение редактора</label>
         <div class="intg"><div class="ei">💾</div><div class="nm"><b>Автосохранение</b><span>обзоры хранятся локально в браузере</span></div><div class="tg on"></div></div>
         <div class="intg" data-t="ai"><div class="ei">✨</div><div class="nm"><b>ИИ-поиск игр</b><span>подбирать обложки и описания автоматически (заглушка — новые интеграции добавит ИИ)</span></div><div class="tg ${state.settings.aiSearch?'on':''}"></div></div>
+        <div class="intg" data-t="attachExt"><div class="ei">🖼</div><div class="nm"><b>Внешние фото как вложения поста</b><span>при переносе скачивает до 10 фото (StopGame / Steam) на PANAX и нумерует их в тексте («Фото #1», «Фото #2»…)</span></div><div class="tg ${state.settings.attachExternalImages?'on':''}"></div></div>
       </div>
       <div class="field"><label>Горячие клавиши</label>
         <div style="font-size:12px;color:var(--mut);line-height:2">
@@ -1296,6 +1297,8 @@ function renderSettings(){
     });
     b.querySelector('[data-t="ai"]').addEventListener('click',()=>{state.settings.aiSearch=!state.settings.aiSearch;save(true);renderSettings();
       toast(state.settings.aiSearch?'ИИ-поиск включён (демо)':'ИИ-поиск выключен',state.settings.aiSearch?'ok':'warn')});
+    b.querySelector('[data-t="attachExt"]').addEventListener('click',()=>{state.settings.attachExternalImages=!state.settings.attachExternalImages;save(true);renderSettings();
+      toast(state.settings.attachExternalImages?'Внешние фото будут загружаться как вложения поста (до 10 шт.)':'Загрузка внешних фото как вложений выключена',state.settings.attachExternalImages?'ok':'warn')});
     return;
   }
   if(setTab==='int'){
@@ -1883,6 +1886,7 @@ async function gqTransfer(){
   const r=cur();if(!r)return toast('Нет открытого обзора','warn');
   if(!GQ.hasContent(r))return toast('Обзор пустой — нечего переносить','warn');
   const btn=$('#gqSend');btn.disabled=true;
+  if(state.settings&&state.settings.attachExternalImages&&(r.blocks||[]).some(b=>b.type==='image'))toast('Загружаю фото во вложения поста…','ok');
   try{
     const res=await GQ.exportForPost(r,state.settings);
     if(gqEnv.postId)r.panaxPostId=gqEnv.postId;
