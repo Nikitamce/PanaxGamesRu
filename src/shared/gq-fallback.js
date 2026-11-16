@@ -25,7 +25,7 @@ export var VERDICT = {
 export var UNRATED = { unsure: "\u0430\u0432\u0442\u043E\u0440 \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D \u0432 \u043E\u0446\u0435\u043D\u043A\u0435", na: "\u043D\u0435 \u043F\u0440\u0438\u043C\u0435\u043D\u0438\u043C\u043E \u043A \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u0435" };
 export var FOOTER_TEXT = "\u2726 \u041E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u043E \u0432 GameQuill";
 export var FOOTER_TEXT_EN = "\u2726 Formatted with GameQuill";
-var SCORES_EN = {
+export var SCORES_EN = {
   1: { t: "Unplayable", d: "Broken or completely unenjoyable", i: "\u{1F480}" },
   2: { t: "Awful", d: "Almost nothing works here", i: "\u{1F922}" },
   3: { t: "Bad", d: "Serious issues outweigh the good", i: "\u{1F44E}" },
@@ -37,16 +37,16 @@ var SCORES_EN = {
   9: { t: "Amazing", d: "Outstanding in almost every way", i: "\u{1F31F}" },
   10: { t: "Masterpiece", d: "A benchmark, must-play", i: "\u{1F451}" }
 };
-var VERDICT_EN = {
+export var VERDICT_EN = {
   yes: { e: "\u{1F44D}", t: "Recommended", c: "#4ade80" },
   no: { e: "\u{1F44E}", t: "Not Recommended", c: "#fb7185" },
   mixed: { e: "\u{1F914}", t: "Mixed", c: "#fbbf24" }
 };
-var UNRATED_EN = {
+export var UNRATED_EN = {
   na: "N/A",
   unsure: "Not rated"
 };
-function isEnglishReview(r) {
+export function isEnglishReview(r) {
   if (r.lang === "en") return true;
   if (r.lang === "ru") return false;
   const sample = [r.title || "", ...(r.blocks || []).slice(0, 4).map((b) => b.html || "")].join(" ");

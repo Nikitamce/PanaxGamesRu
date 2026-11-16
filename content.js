@@ -8928,6 +8928,29 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
   };
   var UNRATED = { unsure: "\u0430\u0432\u0442\u043E\u0440 \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D \u0432 \u043E\u0446\u0435\u043D\u043A\u0435", na: "\u043D\u0435 \u043F\u0440\u0438\u043C\u0435\u043D\u0438\u043C\u043E \u043A \u044D\u0442\u043E\u0439 \u0438\u0433\u0440\u0435" };
   var FOOTER_TEXT = "\u2726 \u041E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u043E \u0432 GameQuill";
+  var SCORES_EN = {
+    1: { t: "Unplayable", d: "Broken or completely unenjoyable", i: "\u{1F480}" },
+    2: { t: "Awful", d: "Almost nothing works here", i: "\u{1F922}" },
+    3: { t: "Bad", d: "Serious issues outweigh the good", i: "\u{1F44E}" },
+    4: { t: "Weak", d: "Below average, hard to recommend", i: "\u{1F615}" },
+    5: { t: "Mediocre", d: "Passable, but nothing special", i: "\u{1F610}" },
+    6: { t: "Decent", d: "Solid enough if you like the genre", i: "\u{1F642}" },
+    7: { t: "Good", d: "Enjoyable with a few rough edges", i: "\u{1F44D}" },
+    8: { t: "Great", d: "Memorable and well worth playing", i: "\u{1F525}" },
+    9: { t: "Amazing", d: "Outstanding in almost every way", i: "\u{1F31F}" },
+    10: { t: "Masterpiece", d: "A benchmark, must-play", i: "\u{1F451}" }
+  };
+  var VERDICT_EN = {
+    yes: { e: "\u{1F44D}", t: "Recommended", c: "#4ade80" },
+    no: { e: "\u{1F44E}", t: "Not Recommended", c: "#fb7185" },
+    mixed: { e: "\u{1F914}", t: "Mixed", c: "#fbbf24" }
+  };
+  function isEnglishReview(r) {
+    if (r.lang === "en") return true;
+    if (r.lang === "ru") return false;
+    const sample = [r.title || "", ...(r.blocks || []).slice(0, 4).map((b) => b.html || "")].join(" ");
+    return /[a-zA-Z]{3,}/.test(sample) && !/[\u0400-\u04FF]/.test(sample);
+  }
 
   // src/content/gamequill/render.js
   function h(doc, tag, attrs, ...kids) {
@@ -8968,24 +8991,26 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     return d;
   }
   function scoreBlock(doc, r) {
-    const sc = SCORES[r.score];
-    const stars = h(doc, "div", { class: "stars", "aria-label": r.score ? `\u041E\u0446\u0435\u043D\u043A\u0430 ${r.score} \u0438\u0437 10` : "\u0411\u0435\u0437 \u043E\u0446\u0435\u043D\u043A\u0438" });
+    const en = isEnglishReview(r);
+    const sc = (en ? SCORES_EN : SCORES)[r.score];
+    const stars = h(doc, "div", { class: "stars", "aria-label": r.score ? en ? `Score ${r.score} of 10` : `\u041E\u0446\u0435\u043D\u043A\u0430 ${r.score} \u0438\u0437 10` : en ? "No score" : "\u0411\u0435\u0437 \u043E\u0446\u0435\u043D\u043A\u0438" });
     for (let i = 1; i <= 10; i++) stars.append(h(doc, "span", { class: "star" + (i <= r.score ? " lit" : "") }, "\u2605"));
     const left = h(
       doc,
       "div",
       { class: "sc-left" },
       stars,
-      h(doc, "div", { class: "sc-num" }, h(doc, "b", { text: r.score ? String(r.score) : "\u2014" }), h(doc, "i", { text: "\u0438\u0437 10" })),
+      h(doc, "div", { class: "sc-num" }, h(doc, "b", { text: r.score ? String(r.score) : "\u2014" }), h(doc, "i", { text: en ? "of 10" : "\u0438\u0437 10" })),
       sc ? h(doc, "div", { class: "sc-cap" }, h(doc, "span", { class: "ico", text: sc.i }), h(doc, "span", null, h(doc, "b", { text: sc.t }), " \xB7 " + r.score + "/10", h(doc, "span", { class: "d", text: sc.d }))) : null
     );
-    const v = VERDICT[r.recommend];
+    const v = (en ? VERDICT_EN : VERDICT)[r.recommend];
     const verdict = r.recommend !== "none" && v ? h(doc, "div", { class: "verdict v-" + r.recommend }, h(doc, "span", { class: "e", text: v.e }), v.t) : null;
     return h(doc, "div", { class: "scorecard" }, left, verdict);
   }
   function aspectsBlock(doc, r) {
     if (!r.aspects.length || !r.aspects.some((a) => a.score > 0 || a.unrated === "na")) return null;
-    const box = h(doc, "div", { class: "aspects" }, h(doc, "div", { class: "sec-h", text: "\u{1F4CA} \u041E\u0446\u0435\u043D\u043A\u0438 \u0430\u0441\u043F\u0435\u043A\u0442\u043E\u0432" }));
+    const en = isEnglishReview(r);
+    const box = h(doc, "div", { class: "aspects" }, h(doc, "div", { class: "sec-h", text: en ? "\u{1F4CA} Aspect Ratings" : "\u{1F4CA} \u041E\u0446\u0435\u043D\u043A\u0438 \u0430\u0441\u043F\u0435\u043A\u0442\u043E\u0432" }));
     for (const a of r.aspects) {
       const row = h(doc, "div", { class: "asp" + (a.score ? "" : " off") }, h(doc, "div", { class: "asp-n", text: a.name }));
       if (a.score) {
@@ -9621,8 +9646,9 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
   }
   function prosCons(doc, r) {
     if (!r.pros.length && !r.cons.length) return null;
+    const en = isEnglishReview(r);
     const col = (cls, title, items, sign) => h(doc, "div", { class: "pc " + cls }, h(doc, "h4", { text: title }), ...items.map((it) => h(doc, "div", { class: "pc-i" }, h(doc, "span", { class: "pc-ic", text: sign }), h(doc, "span", { text: it.text }))));
-    return h(doc, "div", { class: "proscons" }, r.pros.length ? col("p", "\u2705 \u041F\u043B\u044E\u0441\u044B", r.pros, "+") : null, r.cons.length ? col("c", "\u274C \u041C\u0438\u043D\u0443\u0441\u044B", r.cons, "\u2212") : null);
+    return h(doc, "div", { class: "proscons" }, r.pros.length ? col("p", en ? "\u2705 Pros" : "\u2705 \u041F\u043B\u044E\u0441\u044B", r.pros, "+") : null, r.cons.length ? col("c", en ? "\u274C Cons" : "\u274C \u041C\u0438\u043D\u0443\u0441\u044B", r.cons, "\u2212") : null);
   }
   function renderReview(doc, r) {
     const root = h(doc, "article", { class: "gq" });
