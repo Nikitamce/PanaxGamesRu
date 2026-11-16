@@ -184,6 +184,7 @@ function widgetData(type, d) {
       links: keyMap(d.links, safeUrl),
       ratings: keyMap(d.ratings, (x) => str(x, 16)),
       panaxReactions,
+      showRatingIcons: !!d.showRatingIcons,
       source: str(d.source, 40)
     };
   }

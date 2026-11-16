@@ -368,8 +368,16 @@ function blockNode(b){
       </div></div><div class="b-body">${body}</div>`;
   return w;
 }
+function isPanaxCardVar(v){
+  if(!v||v==='duet'||v==='classic')return false;
+  if(['editorial','staircase','type','brutal'].includes(v))return true;
+  return typeof GQ!=='undefined'&&typeof GQ.isPanaxCardVariant==='function'&&GQ.isPanaxCardVariant(v);
+}
 function widgetHTML(b){
-  const d=b.data||{};const tools=`<div class="w-tools">
+  const d=b.data||{};
+  const rxToggle=b.type==='game'&&isPanaxCardVar(d.variant)
+    ?`<button type="button" class="wt wt-rx${d.showRatingIcons?' on':''}" data-act="rx-icons" title="Показывать иконки оценок PANAX: ${d.showRatingIcons?'вкл':'выкл'}"><span class="wt-sw"></span>Иконки</button>`:'';
+  const tools=`<div class="w-tools">${rxToggle}
       <button class="wt" data-act="edit" title="Изменить">✎</button>
       <button class="wt x" data-act="del" title="Удалить">✕</button></div>`;
   if(b.type==='game'){
@@ -456,6 +464,8 @@ function renderGameCard(d,tools){
     if(html)return html;
   }
   const rxTotal=rx.reduce((s,x)=>s+x.val,0);
+  const showRxIcons=!!d.showRatingIcons;
+  const rxIconHtml=(x,cls='gq-rx-ico')=>showRxIcons&&x.badge?`<img class="${cls}" src="${esc(x.badge)}" alt="${esc(x.name)}" loading="eager">`:x.icon;
   const sorted=[...rx].sort((a,b)=>b.val-a.val);
   const top1=sorted[0];
   const top2=sorted[1];
@@ -515,13 +525,13 @@ function renderGameCard(d,tools){
       <div class="ed-feature">
         <div class="ed-feature-label">САМАЯ ЧАСТАЯ РЕАКЦИЯ</div>
         <div class="ed-feature-main">
-          <span>${top1.icon}</span>
+          <span>${rxIconHtml(top1,'gq-rx-ico lg')}</span>
           <b>${esc(top1.name.toUpperCase())}</b>
           <strong style="color:${top1.k==='awesome'?'#d78a00':top1.color}">${top1.val.toFixed(1)}<small>%</small></strong>
         </div>
         <div class="ed-feature-note">${edNote}</div>
       </div>
-      <div class="ed-rest">${rest.map(x=>`<div class="ed-row" style="--c:${x.color};--v:${x.val.toFixed(1)}%"><span>${x.icon}</span><b>${esc(x.name)}</b><i><em style="width:${x.val.toFixed(1)}%;background:${x.color}"></em></i><strong>${x.val.toFixed(1)}%</strong></div>`).join('')}</div>
+      <div class="ed-rest">${rest.map(x=>`<div class="ed-row" style="--c:${x.color};--v:${x.val.toFixed(1)}%"><span>${rxIconHtml(x,'gq-rx-ico')}</span><b>${esc(x.name)}</b><i><em style="width:${x.val.toFixed(1)}%;background:${x.color}"></em></i><strong>${x.val.toFixed(1)}%</strong></div>`).join('')}</div>
       <div class="ed-foot">
         <span>ЦИФРЫ СООБЩЕСТВА PANAX</span>
         <a class="panax-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">Оценки на Panax <span aria-hidden="true">↗</span></a>
@@ -538,7 +548,7 @@ function renderGameCard(d,tools){
         <div class="stairs-number">06<span>LEVELS</span></div>
       </div>
       <div class="stairs-chart">${rx.map((x,i)=>`<div class="step step${i+1}" style="--c:${x.color};--v:${x.val.toFixed(1)}%">
-        <div class="step-cap"><span>${x.icon}</span><b>${x.val.toFixed(1)}%</b></div>
+        <div class="step-cap"><span>${rxIconHtml(x,'gq-rx-ico')}</span><b>${x.val.toFixed(1)}%</b></div>
         <div class="step-fill" style="height:${x.val.toFixed(1)}%;background:${x.color}"></div>
         <label>${esc(x.name)}</label>
       </div>`).join('')}</div>
@@ -565,7 +575,7 @@ function renderGameCard(d,tools){
         <span>${rxTotal>0?'100% ОТВЕТОВ':'НЕТ ОЦЕНОК'}</span>
       </div>
       <div class="type-list">${rx.map(x=>`<div class="type-row" style="--c:${x.color};--v:${x.val.toFixed(1)}%">
-        <span class="type-symbol">${x.icon}</span>
+        <span class="type-symbol">${rxIconHtml(x,'gq-rx-ico')}</span>
         <b>${esc(x.name)}</b>
         <div class="type-track"><i style="width:${x.val.toFixed(1)}%;background:${x.color}"></i></div>
         <strong>${x.val.toFixed(1)}<small>%</small></strong>
@@ -589,13 +599,13 @@ function renderGameCard(d,tools){
         <div class="br-bottom">
           <div>
             <div class="br-dom-lbl">ДОМИНИРУЕТ</div>
-            <div class="br-leader">${top1.val.toFixed(1)}% ${esc(top1.name.toUpperCase())}</div>
+            <div class="br-leader">${showRxIcons&&top1.badge?rxIconHtml(top1,'gq-rx-ico lg'):''}${top1.val.toFixed(1)}% ${esc(top1.name.toUpperCase())}</div>
           </div>
           <a class="br-link" href="${esc(panaxUrl)}" target="_blank" rel="noopener noreferrer">PANAXGAMES →</a>
         </div>
       </div>
       <div class="br-table">${rx.map(x=>`<div class="br-cell">
-        <span class="br-cname">${esc(x.name.toUpperCase())}</span>
+        <span class="br-cname">${showRxIcons&&x.badge?rxIconHtml(x,'gq-rx-ico sm'):''}${esc(x.name.toUpperCase())}</span>
         <span class="br-cval">${x.val.toFixed(1)}%</span>
       </div>`).join('')}</div></div>`;
   }
@@ -678,6 +688,7 @@ $('#blocksList').addEventListener('click',e=>{
     if(a==='add')return openBlockMenu(act,id);
     if(a==='edit')return openInsert(b.type,{replace:id});
     if(a==='spoil'){b.hidden=!b.hidden;node.classList.toggle('hid',b.hidden);touch();return}
+    if(a==='rx-icons'){b.data=b.data||{};b.data.showRatingIcons=!b.data.showRatingIcons;renderBlocks();touch();return}
     if(a==='dst'){b.data=b.data||{};b.data.style=((+b.data.style||1)%3)+1;renderBlocks();touch();return}
   }
 });
@@ -834,6 +845,7 @@ function openInsert(tab,ctx={}){
     src:'all',
     sel:null,
     variant:(existing&&existing.data&&existing.data.variant)||'classic',
+    showRatingIcons:!!(existing&&existing.data&&existing.data.showRatingIcons),
     after:ctx.after||null,
     replace:ctx.replace||null,
     mode:ctx.replace?'edit':'new'
@@ -1068,6 +1080,11 @@ function drawDetail(){
         <div class="var-dd-preview" id="gCardVarPreview"><div class="var-dd-preview-inner" id="gCardVarPreviewInner"></div></div>
       </div>
     </div>
+    <label class="gq-rx-toggle" id="gRxIconsRow" style="display:${isPanaxCardVar(curVar)?'flex':'none'}">
+      <span class="gq-rx-toggle-txt">🎭 Иконки оценок PANAX<small>логотипы Легенда / Круто / …</small></span>
+      <input type="checkbox" id="gRxIcons" ${insCtx.showRatingIcons?'checked':''}>
+      <span class="gq-rx-switch"></span>
+    </label>
     <div class="pop-h" style="padding:4px 0 6px">Вставить как</div>
     <div class="ins-list" id="gInsList">
       <button class="ins-b" data-ins="game"><span class="e">🃏</span><span>Карточка игры<small>обложка, оценки, все источники</small></span></button>
@@ -1081,9 +1098,19 @@ function drawDetail(){
     <div class="w-links">${srcs.map(s=>`<a class="srcbtn" style="--c:${esc(GQ.color(s.color))}" href="${esc(g.links[s.id])}" target="_blank" rel="noopener">${esc(s.icon)} ${esc(s.name)}</a>`).join('')}</div>
   </div>`;
   const varDd=$('#gCardVarDd'),varSel=$('#gCardVar'),varBtn=$('#gCardVarBtn'),varMenu=$('#gCardVarMenu'),varPrev=$('#gCardVarPreview'),varPrevIn=$('#gCardVarPreviewInner');
+  const rxIconsRow=$('#gRxIconsRow'),rxIconsInp=$('#gRxIcons');
+  const syncRxToggle=(v)=>{if(rxIconsRow)rxIconsRow.style.display=isPanaxCardVar(v)?'flex':'none'};
+  if(rxIconsInp){
+    rxIconsInp.addEventListener('change',()=>{
+      insCtx.showRatingIcons=!!rxIconsInp.checked;
+      if(varDd&&varDd.classList.contains('open')&&varPrevIn){
+        varPrevIn.innerHTML=renderGameCard(Object.assign(gameData(g),{variant:varSel.value||'classic',showRatingIcons:!!insCtx.showRatingIcons}),'');
+      }
+    });
+  }
   if(varDd&&varSel&&varBtn&&varMenu&&varPrev&&varPrevIn){
     const showPreview=v=>{
-      varPrevIn.innerHTML=renderGameCard(Object.assign(gameData(g),{variant:v}),'');
+      varPrevIn.innerHTML=renderGameCard(Object.assign(gameData(g),{variant:v,showRatingIcons:!!insCtx.showRatingIcons}),'');
       varPrev.classList.add('show');
       varPrev.classList.remove('flip-left');
       const rect=varPrev.getBoundingClientRect();
@@ -1114,6 +1141,7 @@ function drawDetail(){
         const lbl=varBtn.querySelector('.var-dd-lbl');
         if(lbl)lbl.textContent=opt.textContent;
         $$('.var-dd-opt',varMenu).forEach(x=>x.classList.toggle('on',x.dataset.var===v));
+        syncRxToggle(v);
         closeDd();
       });
     });
@@ -1124,7 +1152,7 @@ function drawDetail(){
   if(insList&&insPrev&&insPrevIn){
     const showInsPreview=(k,btn)=>{
       let html='';
-      if(k==='game')html=widgetHTML({type:'game',data:Object.assign(gameData(g),{variant:(varSel&&varSel.value)||insCtx.variant||'classic'})});
+      if(k==='game')html=widgetHTML({type:'game',data:Object.assign(gameData(g),{variant:(varSel&&varSel.value)||insCtx.variant||'classic',showRatingIcons:!!insCtx.showRatingIcons})});
       else if(k==='steam')html=widgetHTML({type:'steam',data:steamData(g)});
       else if(k==='youtube')html=widgetHTML({type:'youtube',data:ytData(g)});
       else if(k==='workshop'&&g.ws&&g.ws[0])html=widgetHTML({type:'workshop',data:g.ws[0]});
@@ -1146,7 +1174,7 @@ function drawDetail(){
     const k=btn.dataset.ins;
     if(k==='chip'){insertChip(g.title,(g.links&&(g.links.panax||g.links.backloggd||g.links.igdb))||'#',integ('panax')||integ('igdb'));closeModal('insModal');return}
     if(k==='workshop'){insCtx.tab='workshop';insCtx.q=g.title;$$('#insTabs .tab').forEach(x=>x.classList.toggle('on',x.dataset.tab==='workshop'));renderInsBody();return}
-    if(k==='game'){const v=($('#gCardVar')&&$('#gCardVar').value)||insCtx.variant||'classic';insCtx.variant=v;commit('game',Object.assign(gameData(g),{variant:v}));return}
+    if(k==='game'){const v=($('#gCardVar')&&$('#gCardVar').value)||insCtx.variant||'classic';insCtx.variant=v;commit('game',Object.assign(gameData(g),{variant:v,showRatingIcons:!!insCtx.showRatingIcons}));return}
     const d=k==='steam'?steamData(g):ytData(g);
     commit(k,d)}));
 }

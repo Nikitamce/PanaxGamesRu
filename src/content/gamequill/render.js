@@ -115,6 +115,10 @@ function gameWidget(doc, r, d) {
     val: Number.isFinite(Number(rxRaw[x.k])) ? Number(rxRaw[x.k]) : 0
   }));
   const rxTotal = rx.reduce((s, x) => s + x.val, 0);
+  const showRxIcons = !!d.showRatingIcons;
+  const rxIconEl = (x, cls = "gq-rx-ico") => (showRxIcons && x.badge
+    ? h(doc, "img", { class: cls, src: x.badge, alt: x.name, loading: "eager" })
+    : x.icon);
   const sorted = [...rx].sort((a, b) => b.val - a.val);
   const top1 = sorted[0];
   const top2 = sorted[1];
@@ -258,7 +262,7 @@ function gameWidget(doc, r, d) {
           doc,
           "div",
           { class: "ed-feature-main" },
-          h(doc, "span", { text: top1.icon }),
+          h(doc, "span", {}, rxIconEl(top1, "gq-rx-ico lg")),
           h(doc, "b", { text: top1.name.toUpperCase() }),
           h(doc, "strong", { style: `color:${top1.k === "awesome" ? "#d78a00" : top1.color}` }, top1.val.toFixed(1), h(doc, "small", { text: "%" }))
         ),
@@ -273,7 +277,7 @@ function gameWidget(doc, r, d) {
             doc,
             "div",
             { class: "ed-row", style: `--c:${x.color};--v:${x.val.toFixed(1)}%` },
-            h(doc, "span", { text: x.icon }),
+            h(doc, "span", {}, rxIconEl(x, "gq-rx-ico")),
             h(doc, "b", { text: x.name }),
             h(doc, "i", {}, h(doc, "em", { style: `width:${x.val.toFixed(1)}%;background:${x.color}` })),
             h(doc, "strong", { text: `${x.val.toFixed(1)}%` })
@@ -317,7 +321,7 @@ function gameWidget(doc, r, d) {
             doc,
             "div",
             { class: `step step${idx + 1}`, style: `--c:${x.color};--v:${x.val.toFixed(1)}%` },
-            h(doc, "div", { class: "step-cap" }, h(doc, "span", { text: x.icon }), h(doc, "b", { text: `${x.val.toFixed(1)}%` })),
+            h(doc, "div", { class: "step-cap" }, h(doc, "span", {}, rxIconEl(x, "gq-rx-ico")), h(doc, "b", { text: `${x.val.toFixed(1)}%` })),
             h(doc, "div", { class: "step-fill", style: `height:${x.val.toFixed(1)}%;background:${x.color}` }),
             h(doc, "label", { text: x.name })
           )
@@ -376,7 +380,7 @@ function gameWidget(doc, r, d) {
             doc,
             "div",
             { class: "type-row", style: `--c:${x.color};--v:${x.val.toFixed(1)}%` },
-            h(doc, "span", { class: "type-symbol", text: x.icon }),
+            h(doc, "span", { class: "type-symbol" }, rxIconEl(x, "gq-rx-ico")),
             h(doc, "b", { text: x.name }),
             h(doc, "div", { class: "type-track" }, h(doc, "i", { style: `width:${x.val.toFixed(1)}%;background:${x.color}` })),
             h(doc, "strong", {}, x.val.toFixed(1), h(doc, "small", { text: "%" }))
@@ -424,7 +428,13 @@ function gameWidget(doc, r, d) {
             "div",
             {},
             h(doc, "div", { class: "br-dom-lbl", text: "\u0414\u041E\u041C\u0418\u041D\u0418\u0420\u0423\u0415\u0422" }),
-            h(doc, "div", { class: "br-leader", text: `${top1.val.toFixed(1)}% ${top1.name.toUpperCase()}` })
+            h(
+              doc,
+              "div",
+              { class: "br-leader" },
+              showRxIcons && top1.badge ? h(doc, "img", { class: "gq-rx-ico lg", src: top1.badge, alt: top1.name, loading: "eager" }) : null,
+              `${top1.val.toFixed(1)}% ${top1.name.toUpperCase()}`
+            )
           ),
           link(doc, panaxUrl, "br-link", "PANAXGAMES \u2192")
         )
@@ -438,7 +448,13 @@ function gameWidget(doc, r, d) {
             doc,
             "div",
             { class: "br-cell" },
-            h(doc, "span", { class: "br-cname", text: x.name.toUpperCase() }),
+            h(
+              doc,
+              "span",
+              { class: "br-cname" },
+              showRxIcons && x.badge ? h(doc, "img", { class: "gq-rx-ico sm", src: x.badge, alt: x.name, loading: "eager" }) : null,
+              x.name.toUpperCase()
+            ),
             h(doc, "span", { class: "br-cval", text: `${x.val.toFixed(1)}%` })
           )
         )

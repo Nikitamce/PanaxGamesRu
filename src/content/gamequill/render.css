@@ -391,3 +391,8 @@ background:linear-gradient(120deg,#3a1f6e 0%,#1e1e1e 48%,#152028 100%);
   .wrap .w.w-game.v-brutal{grid-template-columns:1fr}
   .wrap .w.w-game.v-brutal .br-left{border-right:none;border-bottom:2px solid #000}
 }
+.wrap .w.w-game img.gq-rx-ico{display:inline-block!important;width:18px!important;height:18px!important;min-width:18px!important;object-fit:contain!important;vertical-align:-3px!important;border-radius:0!important;border:0!important;background:none!important;box-shadow:none!important;padding:0!important;margin:0!important;flex-shrink:0!important}
+.wrap .w.w-game img.gq-rx-ico.lg{width:28px!important;height:28px!important;min-width:28px!important;vertical-align:-6px!important;margin-right:6px!important}
+.wrap .w.w-game img.gq-rx-ico.sm{width:15px!important;height:15px!important;min-width:15px!important;vertical-align:-3px!important;margin-right:5px!important}
+.wrap .w.w-game.v-brutal .br-cname{display:inline-flex;align-items:center}
+.wrap .w.w-game.v-brutal .br-leader{display:flex;align-items:center;flex-wrap:wrap;gap:4px}

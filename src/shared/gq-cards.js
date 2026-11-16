@@ -910,7 +910,8 @@ export function extractCardMetrics(d, rxList) {
     top2,
     top3,
     posPct: posPct.toFixed(1),
-    posInt: Math.round(posPct)
+    posInt: Math.round(posPct),
+    showRatingIcons: !!d.showRatingIcons
   };
 }
 
@@ -934,6 +935,7 @@ function fillTemplate(raw, M) {
   const genreSpans = M.genres.map((g) => `<span>${esc(g)}</span>`).join("");
   const norm = rx.map((x) => (rxTotal > 0 ? (x.val / rxTotal) * 100 : 0));
 
+  const rxIconTag = (x, cls = "gq-rx-ico") => (x && x.badge ? `<img class="${cls}" src="${esc(x.badge)}" alt="${esc(x.name || "")}" loading="eager">` : esc((x && x.icon) || ""));
   let s = raw
     .replaceAll("__COVER_URL__", esc(M.cover))
     .replaceAll("__COVER__", esc(M.cover))
@@ -971,7 +973,7 @@ function fillTemplate(raw, M) {
     .replaceAll("__TOP1_NAME__", esc(top1.name))
     .replaceAll("__TOP1_LABEL__", esc(top1.name.toUpperCase()))
     .replaceAll("__TOP1_COLOR__", esc(top1.color))
-    .replaceAll("__TOP1_ICON__", esc(top1.icon))
+    .replaceAll("__TOP1_ICON__", M.showRatingIcons && top1.badge ? rxIconTag(top1) : esc(top1.icon))
     .replaceAll("__TOP1_PCT__", top1.val.toFixed(1))
     .replaceAll("__TOP1_INT__", String(Math.round(top1.val)))
     .replaceAll("__TOP2_NAME__", esc(top2.name))
@@ -988,7 +990,7 @@ function fillTemplate(raw, M) {
       .replaceAll(`__RX_PCT_RAW_${i}__`, x.val.toFixed(1))
       .replaceAll(`__RX_VAL_${i}__`, x.val.toFixed(1))
       .replaceAll(`__RX_REL_${i}__`, String(rel))
-      .replaceAll(`__RX_ICON_${i}__`, esc(x.icon))
+      .replaceAll(`__RX_ICON_${i}__`, M.showRatingIcons && x.badge ? rxIconTag(x) : esc(x.icon))
       .replaceAll(`__RX_BADGE_${i}__`, esc(x.badge || ""));
   }
 
@@ -1567,14 +1569,69 @@ function renderQwen2(slug, M, tools) {
   return `<div class="w w-game v-${esc(slug)} qwen2-scope in">${tools}${v.r(g, s, esc(M.cover), "01")}</div>`;
 }
 
+const BASE_PANAX_IDS = new Set(["duet", "editorial", "staircase", "type", "brutal"]);
+const EXTRA_PANAX_IDS = new Set(EXTRA_VARIANTS.filter((v) => v.cat === "panax").map((v) => v.id));
+export function isPanaxCardVariant(id) {
+  return BASE_PANAX_IDS.has(id) || EXTRA_PANAX_IDS.has(id);
+}
+
+function injectPanaxRatingIcons(html, rxList) {
+  if (!html || !Array.isArray(rxList) || !rxList.length) return html;
+  const byName = new Map();
+  for (const x of rxList) {
+    if (x && x.name && x.badge) byName.set(x.name.toLowerCase(), x);
+  }
+  if (!byName.size) return html;
+  const re = /(^|[^А-Яа-яЁёA-Za-z])(Легенда|Круто|Хорошо|Норм|Плохо|Ужас)(?=[^А-Яа-яЁёA-Za-z]|$)/gi;
+  const tokens = String(html).split(/(<[^>]*>)/g);
+  let skipDepth = 0;
+  let lastTagHasLblBadge = false;
+  for (let i = 0; i < tokens.length; i++) {
+    const tok = tokens[i];
+    if (!tok) continue;
+    if (tok[0] === "<") {
+      const m = tok.match(/^<\/?([a-zA-Z0-9-]+)/);
+      const tag = m ? m[1].toLowerCase() : "";
+      const isClose = tok.startsWith("</");
+      const selfClose = tok.endsWith("/>") || tag === "img" || tag === "br" || tag === "hr" || tag === "input";
+      if (tag === "style" || tag === "script" || tag === "svg" || tag === "title" || tag === "a" || tag === "button") {
+        if (isClose) skipDepth = Math.max(0, skipDepth - 1);
+        else if (!selfClose) skipDepth += 1;
+      }
+      lastTagHasLblBadge = /class="[^"]*\bpa0[125]-lbl\b/i.test(tok);
+      continue;
+    }
+    if (skipDepth > 0 || lastTagHasLblBadge) continue;
+    tokens[i] = tok.replace(re, (full, lead, word) => {
+      const item = byName.get(word.toLowerCase());
+      if (!item || !item.badge) return full;
+      return `${lead}<img class="gq-rx-ico sm" src="${esc(item.badge)}" alt="" loading="eager">${word}`;
+    });
+  }
+  return tokens.join("");
+}
+
 export function renderExtraGameCard(variantId, d, tools, rxList) {
   const M = extractCardMetrics(d, rxList);
-  if (variantId.startsWith("qwen-")) return renderQwen1(variantId, M, tools || "");
-  if (variantId.startsWith("qwen2-")) return renderQwen2(variantId, M, tools || "");
+  const wantIcons = !!M.showRatingIcons && isPanaxCardVariant(variantId);
+  if (variantId.startsWith("qwen-")) {
+    let out = renderQwen1(variantId, M, "");
+    if (!out) return null;
+    if (wantIcons) out = injectPanaxRatingIcons(out, rxList);
+    return tools ? out.replace(">", ">" + tools) : out;
+  }
+  if (variantId.startsWith("qwen2-")) {
+    let out = renderQwen2(variantId, M, "");
+    if (!out) return null;
+    if (wantIcons) out = injectPanaxRatingIcons(out, rxList);
+    return tools ? out.replace(">", ">" + tools) : out;
+  }
   const tpl = TEMPLATES[variantId];
   if (!tpl) return null;
   const cls = ["w", "w-game", "v-" + variantId];
   if (tpl.tw) cls.push("tw-card");
   if (tpl.extra) cls.push(tpl.extra);
-  return `<div class="${cls.join(" ")}">${tools || ""}${fillTemplate(tpl.html, M)}</div>`;
+  let body = fillTemplate(tpl.html, M);
+  if (wantIcons) body = injectPanaxRatingIcons(body, rxList);
+  return `<div class="${cls.join(" ")}">${tools || ""}${body}</div>`;
 }
