@@ -30,7 +30,9 @@ var IMAGE_HOSTS = [
   "media.rawg.io",
   "d21t60rno19oyf.cloudfront.net",
   "panaxgames.com",
-  "www.panaxgames.com"
+  "www.panaxgames.com",
+  "images.stopgame.ru",
+  "images.steamusercontent.com"
 ];
 export var DEFAULT_INTEG = {
   panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },

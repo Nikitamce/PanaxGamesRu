@@ -8,6 +8,7 @@ import { paletteFor } from "../shared/gq-cover.js";
 import { DEFAULT_THEME, normalizeTheme, themeList } from "../shared/gq-theme.js";
 import { EXTRA_VARIANTS, renderExtraGameCard, isPanaxCardVariant } from "../shared/gq-cards.js";
 import { plain, toEditorReview, cleanInteg, buildIntegMap, steamCover, ytCover, panaxCoverUrl, adaptSteamSearch, adaptSteamDetails, adaptPanaxSearch, steamWidgetPatch, mergeDetails } from "./bridge-core.js";
+import { buildImportUrlCandidates, parseImportedReview } from "./review-importer.js";
 
 var ALLOWED_PARENTS = ["https://panaxgames.com", "https://www.panaxgames.com"];
 if (false) {
@@ -364,6 +365,180 @@ async function steamDetails(app, cc = "KZ") {
   const url = `https://store.steampowered.com/api/appdetails?appids=${app}&cc=${encodeURIComponent(cc)}&l=russian`;
   return adaptSteamDetails(await getJson(url), app);
 }
+async function fetchHtmlText(url) {
+  try {
+    const r = await fetch(url, { credentials: "omit", cache: "no-store" });
+    if (r.ok) return { status: r.status, url: r.url || url, html: await r.text() };
+    const err = new Error("HTTP " + r.status);
+    err.status = r.status;
+    throw err;
+  } catch (e) {
+    if (e && e.status) throw e;
+    if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.sendMessage) {
+      const res = await new Promise((resolve) => {
+        chrome.runtime.sendMessage({ type: "panax_xhr", details: { url, method: "GET" } }, (resp) => resolve(resp));
+      });
+      if (res && res.success && res.status >= 200 && res.status < 400 && typeof res.responseText === "string") {
+        return { status: res.status, url, html: res.responseText };
+      }
+      const err2 = new Error((res && (res.error || ("HTTP " + res.status))) || "Network error");
+      if (res && res.status) err2.status = res.status;
+      throw err2;
+    }
+    throw e;
+  }
+}
+async function fetchYoutubeOembed(url) {
+  try {
+    const data = await getJson(`https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`);
+    if (data && typeof data === "object") {
+      return { title: str(data.title, 200), channel: str(data.author_name, 80) };
+    }
+  } catch {
+  }
+  return null;
+}
+async function fetchWorkshopMeta(url) {
+  try {
+    const { html } = await fetchHtmlText(url);
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const title = str(doc.querySelector(".workshopItemTitle")?.textContent?.trim() || "", 200);
+    const cover = safeImageUrl(doc.querySelector('meta[property="og:image"]')?.getAttribute("content") || "");
+    const game = str(doc.querySelector(".apphub_AppName")?.textContent?.trim() || "", 120);
+    let author = "";
+    const creator = doc.querySelector(".creatorsBlock .friendBlockContent");
+    if (creator) {
+      const clone = creator.cloneNode(true);
+      clone.querySelectorAll(".friendSmallText").forEach((x) => x.remove());
+      author = str(clone.textContent.replace(/\s+/g, " ").trim(), 80);
+    }
+    return { title, cover, game, author };
+  } catch {
+  }
+  return null;
+}
+async function enrichImportedReview(parsed, opts = {}) {
+  const blocks = Array.isArray(parsed.blocks) ? parsed.blocks.slice() : [];
+  const tasks = [];
+
+  if (opts.addGameCard !== false && (parsed.game || parsed.appId) && !blocks.some((b) => b.type === "game")) {
+    tasks.push((async () => {
+      const card = {
+        gameId: "imp_" + Date.now().toString(36),
+        variant: "classic",
+        title: parsed.game || "",
+        year: "",
+        dev: "",
+        pub: "",
+        genres: [],
+        plat: [],
+        cover: "",
+        links: {},
+        ratings: {},
+        panaxReactions: null,
+        source: ""
+      };
+      let appId = parsed.appId || "";
+      if (!appId && parsed.game) {
+        try {
+          const hits = await steamSearch(parsed.game);
+          if (hits && hits[0] && hits[0].id) appId = String(hits[0].id);
+        } catch {
+        }
+      }
+      if (appId) {
+        try {
+          const sd = await steamDetails(appId);
+          if (sd) {
+            if (!card.title && sd.title) card.title = sd.title;
+            mergeDetails(card, sd);
+            if (!card.cover) card.cover = steamCover(appId);
+            card.links.steam = `https://store.steampowered.com/app/${appId}/`;
+            card.source = card.source || "Steam";
+          }
+        } catch {
+        }
+      }
+      if (card.title) {
+        try {
+          const px = await panaxResolveGame({ title: card.title, year: card.year });
+          if (px) {
+            if (px.panaxReactions) card.panaxReactions = px.panaxReactions;
+            if (px.cover && !card.cover) card.cover = px.cover;
+            if (px.panaxUrl) card.links.panax = px.panaxUrl;
+            if (px.ratingScore) card.ratings.panax = px.ratingScore;
+            if (px.genres && px.genres.length && !card.genres.length) card.genres = px.genres;
+            if (px.plat && px.plat.length && !card.plat.length) card.plat = px.plat;
+            if (px.year && !card.year) card.year = px.year;
+            if (px.dev && !card.dev) card.dev = px.dev;
+            if (px.pub && !card.pub) card.pub = px.pub;
+            card.source = "PANAX";
+          }
+        } catch {
+        }
+      }
+      if (card.title) blocks.unshift({ type: "game", data: card });
+    })());
+  }
+
+  for (const b of blocks) {
+    if (b.type === "steam" && b.data && b.data.app) {
+      tasks.push((async () => {
+        try {
+          const sd = await steamDetails(b.data.app);
+          if (sd) Object.assign(b.data, steamWidgetPatch(sd, b.data));
+        } catch {
+        }
+      })());
+    } else if (b.type === "youtube" && b.data && b.data.url) {
+      tasks.push((async () => {
+        const yt = await fetchYoutubeOembed(b.data.url);
+        if (yt) {
+          if (yt.title) b.data.title = yt.title;
+          if (yt.channel) b.data.channel = yt.channel;
+        }
+      })());
+    } else if (b.type === "workshop" && b.data && b.data.url && (!b.data.cover || b.data.title === "Предмет Мастерской Steam")) {
+      tasks.push((async () => {
+        const ws = await fetchWorkshopMeta(b.data.url);
+        if (ws) {
+          if (ws.title) b.data.title = ws.title;
+          if (ws.cover) b.data.cover = ws.cover;
+          if (ws.game) b.data.game = ws.game;
+          if (ws.author) b.data.author = ws.author;
+        }
+      })());
+    }
+  }
+
+  await Promise.allSettled(tasks);
+  parsed.blocks = blocks;
+  const review = toEditorReview(parsed, clean);
+  return { review, warnings: parsed.warnings || [], sourceKind: parsed.sourceKind, stats: { blocks: review.blocks.length, pros: review.pros.length, cons: review.cons.length, aspects: review.aspects.length, score: review.score } };
+}
+async function importReviewFromUrl(rawUrl, opts = {}) {
+  const candidates = buildImportUrlCandidates(rawUrl);
+  if (!candidates.length) throw new Error("Некорректный URL обзора.");
+  let fetched = null;
+  let lastErr = null;
+  for (const cand of candidates) {
+    try {
+      fetched = await fetchHtmlText(cand);
+      break;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  if (!fetched) throw lastErr || new Error("Не удалось загрузить страницу обзора.");
+  const parsed = parseImportedReview(fetched.html, { ...opts, url: fetched.url || candidates[0], win: window });
+  return enrichImportedReview(parsed, opts);
+}
+async function importReviewFromText(rawText, opts = {}) {
+  const text = String(rawText || "").trim();
+  if (!text) throw new Error("Вставьте текст, BBCode или HTML обзора.");
+  const parsed = parseImportedReview(text, { ...opts, win: window });
+  return enrichImportedReview(parsed, opts);
+}
 if (typeof window !== "undefined" && window.document) {
   window.GQ = {
     parentOrigin,
@@ -452,6 +627,8 @@ if (typeof window !== "undefined" && window.document) {
     steamWidgetPatch,
     mergeDetails,
     steamCover,
-    ytCover
+    ytCover,
+    importReviewFromUrl,
+    importReviewFromText
   };
 }

@@ -8444,7 +8444,9 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     "media.rawg.io",
     "d21t60rno19oyf.cloudfront.net",
     "panaxgames.com",
-    "www.panaxgames.com"
+    "www.panaxgames.com",
+    "images.stopgame.ru",
+    "images.steamusercontent.com"
   ];
   var DEFAULT_INTEG = {
     panax: { name: "PANAX", icon: "\u{1F3AE}", color: "#7c5cff" },
