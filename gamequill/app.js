@@ -1914,8 +1914,10 @@ GQ.onMessage(m=>{
     rv.panaxPostId=gqEnv.postId;
     Object.entries(rv.integ||{}).forEach(([k,v])=>{if(!state.settings.integrations.some(x=>x.id===k)){const ni=GQ.cleanInteg({id:k,name:v.name,icon:v.icon,color:v.color,enabled:true});if(ni)state.settings.integrations.push(ni)}});
     delete rv.integ;
-    const ex=rv.panaxPostId?state.reviews.find(x=>x.panaxPostId===rv.panaxPostId):null;
-    if(ex&&m.soft){state.currentId=ex.id;save(true);renderSidebar();renderEditor();return}
+    const ex=rv.panaxPostId
+      ? state.reviews.find(x=>x.panaxPostId===rv.panaxPostId)
+      : state.reviews.find(x=>!x.panaxPostId&&(x.title||'')===(rv.title||'')&&(x.game||'')===(rv.game||'')&&(x.blocks?.length||0)===(rv.blocks?.length||0));
+    if(ex&&(m.soft||!rv.panaxPostId)){state.currentId=ex.id;save(true);renderSidebar();renderEditor();return}
     if(ex){
       if(ex.updatedAt>rv.updatedAt&&!confirm('У вас есть более новый локальный черновик этого поста. Заменить его версией из опубликованного поста?')){state.currentId=ex.id;renderSidebar();renderEditor();return}
       Object.assign(ex,rv,{id:ex.id,createdAt:ex.createdAt});state.currentId=ex.id;
