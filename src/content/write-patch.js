@@ -39,6 +39,7 @@ export function startWritePatch(dict) {
     ["Following", dict.Following || "\u041F\u043E\u0434\u043F\u0438\u0441\u043A\u0438"],
     ["Ratings", dict.Ratings || "\u041E\u0446\u0435\u043D\u043A\u0438"],
     ["Rating", dict.Rating || "\u041E\u0446\u0435\u043D\u043A\u0430"],
+    ["Review", dict.Review || "\u0420\u0435\u0446\u0435\u043D\u0437\u0438\u044F"],
     ["Wishlist", dict.Wishlist || "\u0416\u0435\u043B\u0430\u0435\u043C\u043E\u0435"],
     ["Also Playing", dict["Also Playing"] || "\u0422\u043E\u0436\u0435 \u0438\u0433\u0440\u0430\u044E\u0442"],
     ["Also Wishlisted", dict["Also Wishlisted"] || "\u0422\u043E\u0436\u0435 \u0432 \u0436\u0435\u043B\u0430\u0435\u043C\u043E\u043C"],

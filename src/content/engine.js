@@ -1120,6 +1120,7 @@ export function createEngine(dict) {
       "Get Started",
       "Ratings",
       "Rating",
+      "Review",
       "Also Playing",
       "Also Wishlisted",
       "Similar",
