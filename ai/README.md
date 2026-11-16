@@ -40,6 +40,7 @@
 3. **Иконки реакций**:
    - Для `duet` используются PNG-бейджи `ratings/*-on.png` (`legendary-on.png`, `awesome-on.png`, `good-on.png`, `decent-on.png`, `dislike-on.png`, `awful-on.png`), сбрасывая стили глобального класса `.badge`.
    - Если `chrome.runtime.getURL` недоступен (например, вне контекста расширения), используется fallback на эмодзи.
+4. **Тумблер иконок оценок в PANAX-карточках (`showRatingIcons`)**: подробная архитектура и список файлов описаны в [ai/panax-rating-icons-toggle.md](file:///C:/Users/arist/Gemini/PanaxGamesRu/ai/panax-rating-icons-toggle.md).
 
 ---
 
