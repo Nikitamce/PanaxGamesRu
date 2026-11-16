@@ -503,6 +503,13 @@ function stampBody(body) {
     const forms = UNIT[SHORT[updated[2].toLowerCase()]];
     if (forms) return `\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated[1]} ${plural(updated[1], forms)} \u043D\u0430\u0437\u0430\u0434`;
   }
+  const earned = body.match(
+    /^earned(?:\s+on)?\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i
+  );
+  if (earned) {
+    const ru = MONTHS[earned[1].toLowerCase()];
+    if (ru) return `\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u043E ${earned[2]} ${ru}${earned[3] ? ` ${earned[3]}` : ""}`;
+  }
   const month = body.match(
     /^(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i
   );

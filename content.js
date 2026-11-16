@@ -1826,6 +1826,13 @@
       const forms = UNIT[SHORT[updated[2].toLowerCase()]];
       if (forms) return `\u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E ${updated[1]} ${plural(updated[1], forms)} \u043D\u0430\u0437\u0430\u0434`;
     }
+    const earned = body.match(
+      /^earned(?:\s+on)?\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i
+    );
+    if (earned) {
+      const ru = MONTHS[earned[1].toLowerCase()];
+      if (ru) return `\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u043E ${earned[2]} ${ru}${earned[3] ? ` ${earned[3]}` : ""}`;
+    }
     const month = body.match(
       /^(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?$/i
     );
@@ -2019,7 +2026,7 @@
         const sectionTitle = /^(Preferences|Service|Settings|Account|Language|FAQ|English|Korean|Japanese|Portuguese|Spanish|French|Lv|LV|Ratings|Collections|Collection|Reviews|Review|Posts|Impressions|Playing|Public|Private|Followers only)$/i.test(text);
         const levelLine = /\bLv\.?\s*\d+\b/i.test(text) && text.length < 80;
         const likedLine = /\band\s+(?:\d+\s+)?others?\s+(liked|got help)$/i.test(text) && text.length < 120;
-        const profileLine = /^(?:[·•.\-]\s*)?(follows you|\d+\s*[dhms]\s*ago|posts\s+[\d.,]+\s*[kmb]?|follow back|\d+\s+playing|posts|reviews|collections|following games|top)(?:\s+[\d.,]+\s*[kmb]?)?$/i.test(text);
+        const profileLine = /^(?:[·•.\-]\s*)?(follows you|\d+\s*[dhms]\s*ago|posts\s+[\d.,]+\s*[kmb]?|follow back|\d+\s+playing|posts|reviews|collections|following games|top|more)(?:\s+[\d.,]+\s*[kmb]?)?$/i.test(text);
         if (!timeLike && !multiWord && !sectionTitle && !levelLine && !likedLine && !profileLine) return null;
       }
       if (el && !text.includes(" ")) {
@@ -2757,15 +2764,17 @@
     function moreButton(node) {
       if (!node || node.nodeType !== 3) return null;
       const parent = node.parentElement;
-      if (!parent?.classList?.contains("more-button-inline") && !parent?.closest?.(".more-button-inline")) return null;
-      if (!/^more$/i.test(normalizeKey(node.nodeValue || ""))) return null;
-      return "\u0415\u0449\u0451";
+      if (!parent?.closest?.(".more-button-inline, .view-all-button, .view-all-wrapper")) return null;
+      const val = normalizeKey(node.nodeValue || "");
+      if (!/^more$/i.test(val)) return null;
+      return val === "more" ? "\u0435\u0449\u0451" : "\u0415\u0449\u0451";
     }
     function walkTimestamps(node) {
       if (!node) return;
       if (node.nodeType === 1 && node.querySelectorAll) {
-        node.querySelectorAll(".more-button-inline").forEach((el) => {
-          if (/^more$/i.test(normalizeKey(el.textContent || ""))) el.textContent = "\u0415\u0449\u0451";
+        node.querySelectorAll(".more-button-inline, .view-all-button p, .view-all-button").forEach((el) => {
+          const val = normalizeKey(el.textContent || "");
+          if (/^more$/i.test(val) && el.childElementCount === 0) el.textContent = val === "more" ? "\u0435\u0449\u0451" : "\u0415\u0449\u0451";
         });
       }
       if (node.nodeType === 3) {
