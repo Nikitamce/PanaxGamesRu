@@ -62,9 +62,9 @@ function boot() {
   let n = 0;
   const tick2 = () => {
     engine.run(document.body || document.documentElement);
-    try { runRatingIcons(document); } catch {}
+    try { runRatingIcons(document); } catch { }
     n += 1;
-    setTimeout(tick2, n < 120 ? 150 : n < 240 ? 600 : 3e3);
+    setTimeout(tick2, n < 40 ? 350 : n < 120 ? 1e3 : 3e3);
   };
   setTimeout(tick2, 30);
   globalThis.__PANAX_RU_ENGINE__ = engine;

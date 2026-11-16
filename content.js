@@ -1195,8 +1195,11 @@
     '[class*="PostText"]',
     ".text-content",
     '[style*="color-text-common-user-contents"]',
-    '[class*="color-text-common-user-contents"]'
+    '[class*="color-text-common-user-contents"]',
+    '[class*="notification-content"]',
+    '[class*="NotificationContent"]'
   ];
+  var SKIP_ROOT_QUERY = SKIP_ROOT_SELECTORS.join(",");
   var AMBIGUOUS_SHORT = new Set(
     [
       "Hot",
@@ -1297,10 +1300,14 @@
     if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"], .navbar-title')) {
       return false;
     }
-    for (const sel of SKIP_ROOT_SELECTORS) {
-      try {
-        if (el.matches?.(sel) || el.closest?.(sel)) return true;
-      } catch {
+    try {
+      if (el.closest?.(SKIP_ROOT_QUERY)) return true;
+    } catch {
+      for (const sel of SKIP_ROOT_SELECTORS) {
+        try {
+          if (el.matches?.(sel) || el.closest?.(sel)) return true;
+        } catch {
+        }
       }
     }
     if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
@@ -1319,7 +1326,7 @@
       return false;
     }
     return !!el.closest?.(
-      '[contenteditable="true"], [data-panax-ru-skip], .text-content, [style*="color-text-common-user-contents"], [class*="color-text-common-user-contents"], [class*="comment-content"], [class*="CommentContent"], [class*="comment-body"], [class*="CommentBody"], [class*="post-body"], [class*="PostBody"], [class*="review-body"], [class*="ReviewBody"], .delta-content-renderer, [class*="deltaContent"], [class*="rich-text"], [class*="RichText"], [class*="prose"], [class*="markdown"]'
+      '[contenteditable="true"], [data-panax-ru-skip], [class*="notification-content"], [class*="NotificationContent"], .text-content, [style*="color-text-common-user-contents"], [class*="color-text-common-user-contents"], [class*="comment-content"], [class*="CommentContent"], [class*="comment-body"], [class*="CommentBody"], [class*="post-body"], [class*="PostBody"], [class*="review-body"], [class*="ReviewBody"], .delta-content-renderer, [class*="deltaContent"], [class*="rich-text"], [class*="RichText"], [class*="prose"], [class*="markdown"]'
     );
   }
 
@@ -2431,11 +2438,19 @@
       ].join("\n");
       return pseudoStyle;
     }
+    let lastPseudosAt = 0;
     function translatePseudos(root) {
       if (!root || root.nodeType !== 1) return;
+      const now = Date.now();
+      if (now - lastPseudosAt < 900) return;
+      lastPseudosAt = now;
       ensurePseudoStyle();
-      const nodes = root.querySelectorAll("a, button, span, div, label, p, i, em, small, li, h1, h2, h3, h4");
+      let nodes = root.querySelectorAll("a, button, span, div, label, p, i, em, small, li, h1, h2, h3, h4");
+      if (nodes.length > 1500) {
+        nodes = root.querySelectorAll('button, a, label, [role="button"], [role="tab"], [class*="badge"], [class*="Badge"], [class*="chip"], [class*="tab-button"]');
+      }
       for (const el of nodes) {
+        if (el.tagName === "SPAN" && el.style?.overflowWrap === "anywhere") continue;
         if (shouldSkipRoot(el)) continue;
         if (normalizeKey(el.textContent || "").length > 64) continue;
         for (const side of ["::before", "::after"]) {
@@ -2770,9 +2785,9 @@
       if (!/^more$/i.test(val)) return null;
       return val === "more" ? "\u0435\u0449\u0451" : "\u0415\u0449\u0451";
     }
-    function walkTimestamps(node) {
+    function walkTimestamps(node, isRootCall = true) {
       if (!node) return;
-      if (node.nodeType === 1 && node.querySelectorAll) {
+      if (isRootCall && node.nodeType === 1 && node.querySelectorAll) {
         node.querySelectorAll(".more-button-inline, .view-all-button p, .view-all-button").forEach((el) => {
           const val = normalizeKey(el.textContent || "");
           if (/^more$/i.test(val) && el.childElementCount === 0) el.textContent = val === "more" ? "\u0435\u0449\u0451" : "\u0415\u0449\u0451";
@@ -2787,12 +2802,16 @@
         return;
       }
       if (node.nodeType === 11) {
-        for (const child of node.childNodes) walkTimestamps(child);
+        for (const child of node.childNodes) walkTimestamps(child, false);
         return;
       }
       if (node.nodeType !== 1) return;
       if (node.tagName === "TEXTAREA" || node.isContentEditable) {
         stampComposer(node);
+        return;
+      }
+      if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(node.tagName)) return;
+      if (isUserProseText(node) && !node.querySelector?.('.more-button-inline, .view-all-button, [class*="edit-"], .edit-btn, .edit-label')) {
         return;
       }
       for (const attr of ["placeholder", "title", "aria-label", "data-placeholder"]) {
@@ -2801,7 +2820,6 @@
         const nextPh = translateActivity(ph);
         if (nextPh && normalizeKey(nextPh) !== normalizeKey(ph)) node.setAttribute(attr, nextPh);
       }
-      if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(node.tagName)) return;
       paintNotice(node);
       const graphic = node.querySelector?.("svg, img, input, textarea, video, canvas");
       const text = normalizeKey(node.textContent || "");
@@ -2820,7 +2838,7 @@
           }
         }
       }
-      for (const child of node.childNodes) walkTimestamps(child);
+      for (const child of node.childNodes) walkTimestamps(child, false);
     }
     function translateNode(node) {
       if (!node) return;
@@ -3165,18 +3183,33 @@
     };
     schedule();
     const observer = new MutationObserver((records) => {
+      if (records.length > 60) {
+        schedule();
+        return;
+      }
       let needsFull = false;
+      let ops = 0;
       for (const record of records) {
         if (record.type === "characterData") {
           engine.translateNode(record.target);
           if (record.target.parentElement) engine.translateNode(record.target.parentElement);
+          ops += 1;
         }
         for (const node of record.addedNodes) {
+          if (++ops > 80) {
+            needsFull = true;
+            break;
+          }
           engine.translateNode(node);
           needsFull = true;
         }
         if (record.type === "attributes" && record.target) {
           engine.translateNode(record.target);
+          ops += 1;
+        }
+        if (ops > 80) {
+          needsFull = true;
+          break;
         }
       }
       if (needsFull) schedule();
@@ -14641,7 +14674,7 @@ padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
       } catch {
       }
       n += 1;
-      setTimeout(tick2, n < 120 ? 150 : n < 240 ? 600 : 3e3);
+      setTimeout(tick2, n < 40 ? 350 : n < 120 ? 1e3 : 3e3);
     };
     setTimeout(tick2, 30);
     globalThis.__PANAX_RU_ENGINE__ = engine;

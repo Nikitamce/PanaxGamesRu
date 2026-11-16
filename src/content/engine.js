@@ -580,11 +580,19 @@ export function createEngine(dict) {
     ].join("\n");
     return pseudoStyle;
   }
+  let lastPseudosAt = 0;
   function translatePseudos(root) {
     if (!root || root.nodeType !== 1) return;
+    const now = Date.now();
+    if (now - lastPseudosAt < 900) return;
+    lastPseudosAt = now;
     ensurePseudoStyle();
-    const nodes = root.querySelectorAll("a, button, span, div, label, p, i, em, small, li, h1, h2, h3, h4");
+    let nodes = root.querySelectorAll("a, button, span, div, label, p, i, em, small, li, h1, h2, h3, h4");
+    if (nodes.length > 1500) {
+      nodes = root.querySelectorAll('button, a, label, [role="button"], [role="tab"], [class*="badge"], [class*="Badge"], [class*="chip"], [class*="tab-button"]');
+    }
     for (const el of nodes) {
+      if (el.tagName === "SPAN" && el.style?.overflowWrap === "anywhere") continue;
       if (shouldSkipRoot(el)) continue;
       if (normalizeKey(el.textContent || "").length > 64) continue;
       for (const side of ["::before", "::after"]) {
@@ -919,9 +927,9 @@ export function createEngine(dict) {
     if (!/^more$/i.test(val)) return null;
     return val === "more" ? "\u0435\u0449\u0451" : "\u0415\u0449\u0451";
   }
-  function walkTimestamps(node) {
+  function walkTimestamps(node, isRootCall = true) {
     if (!node) return;
-    if (node.nodeType === 1 && node.querySelectorAll) {
+    if (isRootCall && node.nodeType === 1 && node.querySelectorAll) {
       node.querySelectorAll(".more-button-inline, .view-all-button p, .view-all-button").forEach((el) => {
         const val = normalizeKey(el.textContent || "");
         if (/^more$/i.test(val) && el.childElementCount === 0) el.textContent = val === "more" ? "\u0435\u0449\u0451" : "\u0415\u0449\u0451";
@@ -938,12 +946,16 @@ export function createEngine(dict) {
       return;
     }
     if (node.nodeType === 11) {
-      for (const child of node.childNodes) walkTimestamps(child);
+      for (const child of node.childNodes) walkTimestamps(child, false);
       return;
     }
     if (node.nodeType !== 1) return;
     if (node.tagName === "TEXTAREA" || node.isContentEditable) {
       stampComposer(node);
+      return;
+    }
+    if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(node.tagName)) return;
+    if (isUserProseText(node) && !node.querySelector?.('.more-button-inline, .view-all-button, [class*="edit-"], .edit-btn, .edit-label')) {
       return;
     }
     for (const attr of ["placeholder", "title", "aria-label", "data-placeholder"]) {
@@ -952,7 +964,6 @@ export function createEngine(dict) {
       const nextPh = translateActivity(ph);
       if (nextPh && normalizeKey(nextPh) !== normalizeKey(ph)) node.setAttribute(attr, nextPh);
     }
-    if (["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "CODE", "PRE", "CANVAS"].includes(node.tagName)) return;
     paintNotice(node);
     const graphic = node.querySelector?.("svg, img, input, textarea, video, canvas");
     const text = normalizeKey(node.textContent || "");
@@ -971,7 +982,7 @@ export function createEngine(dict) {
         }
       }
     }
-    for (const child of node.childNodes) walkTimestamps(child);
+    for (const child of node.childNodes) walkTimestamps(child, false);
   }
   function translateNode(node) {
     if (!node) return;

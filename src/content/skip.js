@@ -31,8 +31,11 @@ var SKIP_ROOT_SELECTORS = [
   '[class*="PostText"]',
   ".text-content",
   '[style*="color-text-common-user-contents"]',
-  '[class*="color-text-common-user-contents"]'
+  '[class*="color-text-common-user-contents"]',
+  '[class*="notification-content"]',
+  '[class*="NotificationContent"]'
 ];
+var SKIP_ROOT_QUERY = SKIP_ROOT_SELECTORS.join(",");
 export var AMBIGUOUS_SHORT = new Set(
   [
     "Hot",
@@ -133,10 +136,14 @@ export function shouldSkipRoot(el) {
   if (el.closest?.('button, [role="button"], [role="tab"], [role="menuitem"], [role="option"], select, [data-panax-ru="pill"], [data-panax-ru="label"], .navbar-title')) {
     return false;
   }
-  for (const sel of SKIP_ROOT_SELECTORS) {
-    try {
-      if (el.matches?.(sel) || el.closest?.(sel)) return true;
-    } catch {
+  try {
+    if (el.closest?.(SKIP_ROOT_QUERY)) return true;
+  } catch {
+    for (const sel of SKIP_ROOT_SELECTORS) {
+      try {
+        if (el.matches?.(sel) || el.closest?.(sel)) return true;
+      } catch {
+      }
     }
   }
   if (el.closest?.('[role="dialog"], [role="menu"], [class*="notification"], [class*="Notification"], [class*="popover"]')) {
@@ -155,6 +162,6 @@ export function isUserProseText(el) {
     return false;
   }
   return !!el.closest?.(
-    '[contenteditable="true"], [data-panax-ru-skip], .text-content, [style*="color-text-common-user-contents"], [class*="color-text-common-user-contents"], [class*="comment-content"], [class*="CommentContent"], [class*="comment-body"], [class*="CommentBody"], [class*="post-body"], [class*="PostBody"], [class*="review-body"], [class*="ReviewBody"], .delta-content-renderer, [class*="deltaContent"], [class*="rich-text"], [class*="RichText"], [class*="prose"], [class*="markdown"]'
+    '[contenteditable="true"], [data-panax-ru-skip], [class*="notification-content"], [class*="NotificationContent"], .text-content, [style*="color-text-common-user-contents"], [class*="color-text-common-user-contents"], [class*="comment-content"], [class*="CommentContent"], [class*="comment-body"], [class*="CommentBody"], [class*="post-body"], [class*="PostBody"], [class*="review-body"], [class*="ReviewBody"], .delta-content-renderer, [class*="deltaContent"], [class*="rich-text"], [class*="RichText"], [class*="prose"], [class*="markdown"]'
   );
 }

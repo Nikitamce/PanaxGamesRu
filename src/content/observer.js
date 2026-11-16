@@ -12,18 +12,33 @@ export function startObserver(engine) {
   };
   schedule();
   const observer = new MutationObserver((records) => {
+    if (records.length > 60) {
+      schedule();
+      return;
+    }
     let needsFull = false;
+    let ops = 0;
     for (const record of records) {
       if (record.type === "characterData") {
         engine.translateNode(record.target);
         if (record.target.parentElement) engine.translateNode(record.target.parentElement);
+        ops += 1;
       }
       for (const node of record.addedNodes) {
+        if (++ops > 80) {
+          needsFull = true;
+          break;
+        }
         engine.translateNode(node);
         needsFull = true;
       }
       if (record.type === "attributes" && record.target) {
         engine.translateNode(record.target);
+        ops += 1;
+      }
+      if (ops > 80) {
+        needsFull = true;
+        break;
       }
     }
     if (needsFull) schedule();
