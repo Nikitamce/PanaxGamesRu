@@ -41,6 +41,7 @@
     "Copy link": "\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443",
     Copied: "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E",
     More: "\u0415\u0449\u0451",
+    more: "\u0435\u0449\u0451",
     "See all": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435",
     "See more": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0435\u0449\u0451",
     "Show more": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0435\u0449\u0451",
@@ -2209,6 +2210,16 @@
         return preserveEdges2(raw, `1 ${plural2(1, UNIT2[name] || UNIT2[`${name}s`])} \u043D\u0430\u0437\u0430\u0434`);
       }
       if (/^(?:just\s+)?now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
+      const earned = text.match(
+        /^Earned(?:\s+on)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})(?:,)?(?:\s+(\d{4}))?$/i
+      );
+      if (earned) {
+        const mKey = earned[1].charAt(0).toUpperCase() + earned[1].slice(1, 3).toLowerCase();
+        return preserveEdges2(
+          raw,
+          `\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u043E ${earned[2]} ${MONTHS_SHORT[mKey]}${earned[3] ? ` ${earned[3]}` : ""}`
+        );
+      }
       const month = text.match(
         /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})(?:,)?(?:\s+(\d{4}))?$/
       );
@@ -4127,13 +4138,14 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     if (!next || style.includes(next)) return;
     el.style.backgroundImage = `url("${next}")`;
   }
+  function runRatingIcons(root = document) {
+    if (!chrome?.runtime?.getURL || !root?.querySelectorAll) return;
+    root.querySelectorAll("img, source").forEach(swapImg);
+    root.querySelectorAll('[style*="icon_"]').forEach(swapBg);
+  }
   function startRatingIcons() {
     if (!chrome?.runtime?.getURL) return;
-    const run = (root) => {
-      if (!root?.querySelectorAll) return;
-      root.querySelectorAll("img, source").forEach(swapImg);
-      root.querySelectorAll('[style*="icon_"]').forEach(swapBg);
-    };
+    const run = (root) => runRatingIcons(root);
     const boot2 = () => run(document);
     if (document.body) boot2();
     else document.addEventListener("DOMContentLoaded", boot2, { once: true });
@@ -14553,6 +14565,10 @@ padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
     let n = 0;
     const tick2 = () => {
       engine.run(document.body || document.documentElement);
+      try {
+        runRatingIcons(document);
+      } catch {
+      }
       n += 1;
       setTimeout(tick2, n < 120 ? 150 : n < 240 ? 600 : 3e3);
     };

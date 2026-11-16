@@ -55,13 +55,14 @@ function swapBg(el) {
   if (!next || style.includes(next)) return;
   el.style.backgroundImage = `url("${next}")`;
 }
+export function runRatingIcons(root = document) {
+  if (!chrome?.runtime?.getURL || !root?.querySelectorAll) return;
+  root.querySelectorAll("img, source").forEach(swapImg);
+  root.querySelectorAll('[style*="icon_"]').forEach(swapBg);
+}
 export function startRatingIcons() {
   if (!chrome?.runtime?.getURL) return;
-  const run = (root) => {
-    if (!root?.querySelectorAll) return;
-    root.querySelectorAll("img, source").forEach(swapImg);
-    root.querySelectorAll('[style*="icon_"]').forEach(swapBg);
-  };
+  const run = (root) => runRatingIcons(root);
   const boot2 = () => run(document);
   if (document.body) boot2();
   else document.addEventListener("DOMContentLoaded", boot2, { once: true });

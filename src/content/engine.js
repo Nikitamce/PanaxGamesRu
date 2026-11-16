@@ -367,6 +367,16 @@ export function createEngine(dict) {
       return preserveEdges2(raw, `1 ${plural2(1, UNIT2[name] || UNIT2[`${name}s`])} \u043D\u0430\u0437\u0430\u0434`);
     }
     if (/^(?:just\s+)?now$/i.test(text)) return preserveEdges2(raw, "\u0442\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u043E");
+    const earned = text.match(
+      /^Earned(?:\s+on)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})(?:,)?(?:\s+(\d{4}))?$/i
+    );
+    if (earned) {
+      const mKey = earned[1].charAt(0).toUpperCase() + earned[1].slice(1, 3).toLowerCase();
+      return preserveEdges2(
+        raw,
+        `\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u043E ${earned[2]} ${MONTHS_SHORT[mKey]}${earned[3] ? ` ${earned[3]}` : ""}`
+      );
+    }
     const month = text.match(
       /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})(?:,)?(?:\s+(\d{4}))?$/
     );

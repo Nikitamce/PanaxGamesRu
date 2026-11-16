@@ -722,7 +722,7 @@ $('#blockMenu').addEventListener('click',e=>{
 });
 document.addEventListener('click',e=>{
   if(!e.target.closest('#blockMenu')&&!e.target.closest('[data-act="add"]')&&!e.target.closest('[data-a="add-block"]'))$('#blockMenu').classList.remove('on');
-  if(!e.target.closest('#expMenu')&&!e.target.closest('[data-a="exp-menu"]'))$('#expMenu').classList.remove('on');
+  if(!e.target.closest('#expMenu')&&!e.target.closest('[data-a="exp-menu"]')&&!e.target.closest('#btnExportAll'))$('#expMenu').classList.remove('on');
 });
 
 /* ==========================================================================
@@ -1379,10 +1379,15 @@ function openExpMenu(anchor){
    <div class="pop-sep"></div><div class="pop-h">Все обзоры (${state.reviews.length})</div>
    <button class="pop-i" data-e="mdall"><span class="e">📚</span><span>Markdown — все обзоры<small>один файл .md</small></span></button>
    <button class="pop-i" data-e="gqall"><span class="e">🗃</span><span>GameQuill — все обзоры<small>архив .gq для переноса</small></span></button>`;
-  const r=(anchor&&anchor.getBoundingClientRect())||{left:100,bottom:100};
-  m.style.left=Math.min(r.left,innerWidth-250)+'px';m.style.top=(r.bottom+6)+'px';m.classList.add('on');
+  const r=(anchor&&anchor.getBoundingClientRect())||{left:100,bottom:100,top:100};
+  m.classList.add('on');
+  const mh=m.offsetHeight||240;
+  const mw=m.offsetWidth||250;
+  const top=(r.bottom+6+mh>innerHeight)?Math.max(8,r.top-mh-6):r.bottom+6;
+  m.style.left=Math.max(8,Math.min(r.left,innerWidth-mw-8))+'px';m.style.top=top+'px';
   m.onclick=e=>{const it=e.target.closest('[data-e]');if(!it)return;m.classList.remove('on');
     const k=it.dataset.e;
+    if((k==='md'||k==='gq'||k==='cmd')&&!cur())return toast('Нет открытого обзора','warn');
     if(k==='md')download(reviewToMd(cur()),fileName(cur())+'.md');
     if(k==='gq')downloadGQ(false);
     if(k==='cmd')copyMd();

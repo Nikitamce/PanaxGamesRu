@@ -5,7 +5,7 @@ import { startObserver } from "./observer.js";
 import { injectStyles } from "./styles.js";
 import { startMessagesPatch } from "./messages-patch.js";
 import { startWritePatch } from "./write-patch.js";
-import { startRatingIcons } from "./rating-icons.js";
+import { startRatingIcons, runRatingIcons } from "./rating-icons.js";
 import { startLogo } from "./logo.js";
 import { startEnrichment } from "./enrichment/game-enrichment.js";
 import { startPostTranslate } from "./features/post-translate.js";
@@ -62,6 +62,7 @@ function boot() {
   let n = 0;
   const tick2 = () => {
     engine.run(document.body || document.documentElement);
+    try { runRatingIcons(document); } catch {}
     n += 1;
     setTimeout(tick2, n < 120 ? 150 : n < 240 ? 600 : 3e3);
   };
