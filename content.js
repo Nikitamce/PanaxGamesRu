@@ -13814,7 +13814,7 @@ to{opacity:0;transform:translateX(20px)}\r
   }
 
   // src/content/gamequill/detect.js
-  var FOOTER_RE = /✦\s*Оформлено в GameQuill/;
+  var FOOTER_RE = /✦\s*(?:Оформлено в|Formatted with) GameQuill/;
   var QUICK_VS = /[\uFE00-\uFE0F]|\uDB40[\uDD00-\uDDEF]/;
   function isComposerPath(pathname = "") {
     const p = String(pathname || "").replace(/\/+$/, "") || "/";
