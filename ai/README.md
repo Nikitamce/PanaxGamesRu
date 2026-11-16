@@ -22,7 +22,8 @@
   - **Важно:** любой новый хост картинок (например `d21t60rno19oyf.cloudfront.net`) должен быть в `IMAGE_HOSTS`, иначе `safeImageUrl` вырежет обложку при сохранении/экспорте.
 - `src/shared/gq-demo.js` — демо-данные (`DEMO_GAME`, `makeDemoReview`).
 - `src/gamequill/bridge-core.js` — чистые адаптеры данных (`adaptPanaxSearch`, `panaxCoverUrl`, `adaptSteamSearch`, `adaptSteamDetails`, `mergeDetails`).
-- `src/gamequill/bridge.js` — мост `window.GQ` для редактора: поиск и загрузка деталей с PANAX и Steam (`panaxSearch`, `panaxDetails`, `panaxResolveGame`, `steamSearch`, `steamDetails`), экспорт поста (`exportForPost`).
+- `src/gamequill/bridge.js` — мост `window.GQ` для редактора: поиск и загрузка деталей с PANAX и Steam (`panaxSearch`, `panaxDetails`, `panaxResolveGame`, `steamSearch`, `steamDetails`), импорт обзоров (`importReviewFromUrl`, `importReviewFromText`), экспорт поста (`exportForPost`).
+- `src/gamequill/review-importer.js` — парсеры импорта обзоров со StopGame, Steam (HTML и BBCode) и произвольных страниц. Подробная документация: [ai/review-importer.md](file:///C:/Users/arist/Gemini/PanaxGamesRu/ai/review-importer.md).
 - `gamequill/app.js` и `gamequill/app.css` — UI-редактор обзоров (iframe), вставка и предпросмотр блоков. **Это исходники редактора напрямую** (не перезаписываются `build.mjs`, в отличие от `gamequill/bridge.js`).
 - `src/content/gamequill/render.js` и `src/content/gamequill/render.css` — рендер опубликованных виджетов на сайте `panaxgames.com` (собирается в `content.js`).
 
