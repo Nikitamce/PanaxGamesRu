@@ -14322,7 +14322,12 @@ padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
     toggle.className = "ghost";
     toggle.setAttribute("data-gq-toggle", "");
     toggle.textContent = "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0442\u0435\u043A\u0441\u0442 \u0441\u0430\u0439\u0442\u0430";
-    bar.append(label, editBtn, toggle);
+    const clearBtn = document.createElement("button");
+    clearBtn.type = "button";
+    clearBtn.className = "ghost";
+    clearBtn.setAttribute("data-gq-clear", "");
+    clearBtn.textContent = "\u{1F5D1} \u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C";
+    bar.append(label, editBtn, toggle, clearBtn);
     const body = document.createElement("div");
     body.setAttribute("data-gq-preview-body", "");
     const root = body.attachShadow({ mode: "closed" });
@@ -14352,6 +14357,20 @@ padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
       e.stopPropagation();
       showing = !showing;
       apply();
+    });
+    clearBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      hidePreview();
+      const ed = document.querySelector(".ql-editor");
+      if (ed) {
+        ed.innerHTML = "<p><br></p>";
+        ed.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      try {
+        window.postMessage({ source: "panax-ru-gq-content", type: "gq:insert", ops: [{ insert: "\n" }], plain: "", html: "", carrier: "" }, "*");
+      } catch {
+      }
     });
     apply();
     preview = { host: wrap, showing: () => showing, locked: keepLocked, fresh: Date.now() };
