@@ -1157,7 +1157,8 @@
     "No comments yet. Be the first!": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0435\u0432 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442. \u0411\u0443\u0434\u044C\u0442\u0435 \u043F\u0435\u0440\u0432\u044B\u043C!",
     "Check your profile to see what's new": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
     "Check your profile to see what\u2019s new": "\u0417\u0430\u0433\u043B\u044F\u043D\u0438\u0442\u0435 \u0432 \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C, \u0447\u0442\u043E \u043D\u043E\u0432\u043E\u0433\u043E.",
-    "liked your comment": "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"
+    "liked your comment": "\u043E\u0446\u0435\u043D\u0438\u043B \u0432\u0430\u0448 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+    "Discard this review?": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u0447\u0435\u0440\u043D\u043E\u0432\u0438\u043A \u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0438?"
   };
 
   // src/content/skip.js
@@ -3049,6 +3050,7 @@
       '[class*="Banner"]:not([class*="post"])',
       '[class*="badge"]',
       '[class*="Badge"]',
+      ".navbar-title",
       "main",
       "main button",
       'main a[class*="rounded"]'
@@ -3095,7 +3097,7 @@
         }
         let leaves;
         try {
-          leaves = scope.querySelectorAll("span, button, a, label, li");
+          leaves = scope.querySelectorAll("span, button, a, label, li, h1");
         } catch {
           continue;
         }
@@ -3870,7 +3872,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
       if (parent) {
         if (shouldSkipRoot(parent) || parent.isContentEditable) return null;
         if (!key.includes(" ")) {
-          if (!isChromeContext(parent)) return null;
+          if (!isChromeContext(parent) && !parent.closest?.(".navbar-title")) return null;
           let host2 = parent;
           for (let i = 0; i < 4 && host2.parentElement && normalizeKey2(host2.textContent || "") === key; i += 1) {
             host2 = host2.parentElement;

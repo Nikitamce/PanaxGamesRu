@@ -291,7 +291,7 @@ export function startWritePatch(dict) {
     if (parent) {
       if (shouldSkipRoot(parent) || parent.isContentEditable) return null;
       if (!key.includes(" ")) {
-        if (!isChromeContext(parent)) return null;
+        if (!isChromeContext(parent) && !parent.closest?.(".navbar-title")) return null;
         let host2 = parent;
         for (let i = 0; i < 4 && host2.parentElement && normalizeKey2(host2.textContent || "") === key; i += 1) {
           host2 = host2.parentElement;

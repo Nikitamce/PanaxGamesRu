@@ -1203,6 +1203,7 @@ export function createEngine(dict) {
     '[class*="Banner"]:not([class*="post"])',
     '[class*="badge"]',
     '[class*="Badge"]',
+    ".navbar-title",
     "main",
     "main button",
     'main a[class*="rounded"]'
@@ -1249,7 +1250,7 @@ export function createEngine(dict) {
       }
       let leaves;
       try {
-        leaves = scope.querySelectorAll("span, button, a, label, li");
+        leaves = scope.querySelectorAll("span, button, a, label, li, h1");
       } catch {
         continue;
       }
