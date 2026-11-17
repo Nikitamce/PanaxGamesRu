@@ -1263,6 +1263,7 @@ function openSettings(tab){setTab=tab||'gen';$$('#setModal .tab').forEach(t=>t.c
 $$('#setModal .tab').forEach(t=>t.addEventListener('click',()=>{setTab=t.dataset.st;$$('#setModal .tab').forEach(x=>x.classList.toggle('on',x===t));renderSettings()}));
 function renderSettings(){
   const b=$('#setBody');
+  b.onclick=null;
   if(setTab==='gen'){
     const curTheme = (document.documentElement.getAttribute('data-gq-theme') || (state.settings && state.settings.theme) || 'panax-dark');
     b.innerHTML=`<div class="field"><label>Имя автора (подпись в обзоре и в Markdown)</label><input class="inp" id="stAuthor" value="${esc(state.settings.author||'')}"></div>
@@ -1323,15 +1324,15 @@ function renderSettings(){
       if(!n)return toast('Введите название','warn');
       state.settings.integrations.push({id:n.toLowerCase().replace(/\s+/g,'-')+'-'+uid().slice(0,3),name:n,icon:pickedIcon,color:$('#niColor').value||'#7c5cff',base:bs,enabled:true,ai:true});
       save(true);renderSettings();toast('Интеграция «'+n+'» добавлена ✨','ok')});
-    b.addEventListener('click',e=>{
+    b.onclick=e=>{
       const t=e.target.closest('[data-t]');
-      if(t){const s=state.settings.integrations[+t.dataset.t];s.enabled=!s.enabled;save(true);renderSettings();return}
+      if(t&&/^\d+$/.test(t.dataset.t||'')){const s=state.settings.integrations[+t.dataset.t];if(!s)return;s.enabled=!s.enabled;save(true);renderSettings();return}
       const x=e.target.closest('[data-x]');
-      if(x){const i=+x.dataset.x;const s=state.settings.integrations[i];
+      if(x&&/^\d+$/.test(x.dataset.x||'')){const i=+x.dataset.x;const s=state.settings.integrations[i];if(!s)return;
         if(confirm('Отключить интеграцию «'+s.name+'»?')){state.settings.integrations.splice(i,1);save(true);renderSettings();toast('Интеграция удалена','warn')}return}
       const ed=e.target.closest('[data-e]');
-      if(ed){const s=state.settings.integrations[+ed.dataset.e];const n=prompt('Название сервиса:',s.name);if(n){s.name=n;save(true);renderSettings()}}
-    });
+      if(ed&&/^\d+$/.test(ed.dataset.e||'')){const s=state.settings.integrations[+ed.dataset.e];if(!s)return;const n=prompt('Название сервиса:',s.name);if(n){s.name=n;save(true);renderSettings()}}
+    };
     return;
   }
   if(setTab==='data'){
@@ -1348,13 +1349,13 @@ function renderSettings(){
         📝 <b>Markdown</b> — переносится разметка текста (жирный, курсив, зачёркнутый, код, маркер, ссылки, списки, цитаты, разделители). Подчёркивание, цвет текста, виджеты игр и звёздные оценки передаются текстом/таблицами — то, что Markdown не поддерживает, остаётся читаемым чистым текстом.<br>
         💠 <b>Формат GameQuill (.gq)</b> — полный JSON-снимок: все блоки, виджеты, оценки, аспекты, плюсы/минусы, цвет и дизайн. При импорте в этот же редактор ничего не теряется.
       </div>`;
-    b.addEventListener('click',e=>{
+    b.onclick=e=>{
       const d=e.target.closest('[data-d]');if(!d)return;const k=d.dataset.d;
       if(k==='md')download(allMd(),'GameQuill-все-обзоры.md','md');
       if(k==='gq')downloadGQ(true);
       if(k==='imp'){closeModal('setModal');openImportModal('url')}
       if(k==='clr'&&confirm('Удалить ВСЕ обзоры? Это необратимо.')){state.reviews=[];state.currentId=null;save(true);renderSidebar();renderEditor();closeModal('setModal');toast('Все обзоры удалены','warn')}
-    });
+    };
   }
 }
 function closeModal(id){$('#'+id).classList.remove('on')}

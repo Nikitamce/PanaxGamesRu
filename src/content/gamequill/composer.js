@@ -88,8 +88,15 @@ function removeUi() {
 function openEditor() {
   ensureUi();
   if (!ui.frame) {
+    let url = "";
+    try {
+      url = chrome.runtime.getURL("gamequill/index.html");
+    } catch {
+      toast("\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435 \u0431\u044B\u043B\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u2014 \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 (F5)", true);
+      return;
+    }
     const f = document.createElement("iframe");
-    f.src = chrome.runtime.getURL("gamequill/index.html");
+    f.src = url;
     f.setAttribute("allow", "clipboard-write");
     f.title = "GameQuill";
     ui.overlay.appendChild(f);

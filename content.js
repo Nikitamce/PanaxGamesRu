@@ -13985,7 +13985,14 @@ to{opacity:0;transform:translateX(20px)}\r
   var enabled = true;
   function injectFonts() {
     if (document.getElementById("gq-fonts")) return;
-    const u = (f) => chrome.runtime.getURL("fonts/" + f);
+    let u;
+    try {
+      if (!chrome?.runtime?.id) return;
+      u = (f) => chrome.runtime.getURL("fonts/" + f);
+      u("inter-latin-wght-normal.woff2");
+    } catch {
+      return;
+    }
     const face = (fam, file, style, range) => `@font-face{font-family:'${fam}';font-style:${style};font-weight:100 900;font-display:swap;src:url('${u(file)}') format('woff2');unicode-range:${range}}`;
     const LAT = "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD";
     const CYR = "U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116";
@@ -14223,8 +14230,15 @@ padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
   function openEditor() {
     ensureUi();
     if (!ui.frame) {
+      let url = "";
+      try {
+        url = chrome.runtime.getURL("gamequill/index.html");
+      } catch {
+        toast("\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435 \u0431\u044B\u043B\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u2014 \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 (F5)", true);
+        return;
+      }
       const f = document.createElement("iframe");
-      f.src = chrome.runtime.getURL("gamequill/index.html");
+      f.src = url;
       f.setAttribute("allow", "clipboard-write");
       f.title = "GameQuill";
       ui.overlay.appendChild(f);
