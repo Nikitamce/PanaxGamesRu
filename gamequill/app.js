@@ -1111,10 +1111,9 @@ function drawDetail(){
   if(varDd&&varSel&&varBtn&&varMenu&&varPrev&&varPrevIn){
     const showPreview=v=>{
       varPrevIn.innerHTML=renderGameCard(Object.assign(gameData(g),{variant:v,showRatingIcons:!!insCtx.showRatingIcons}),'');
-      varPrev.classList.add('show');
-      varPrev.classList.remove('flip-left');
+      varPrev.classList.add('show','flip-left');
       const rect=varPrev.getBoundingClientRect();
-      if(rect.right>window.innerWidth-12)varPrev.classList.add('flip-left');
+      if(rect.left<12)varPrev.classList.remove('flip-left');
     };
     const closeDd=()=>{varDd.classList.remove('open');varBtn.setAttribute('aria-expanded','false');varPrev.classList.remove('show')};
     varBtn.addEventListener('click',e=>{
@@ -1160,9 +1159,8 @@ function drawDetail(){
       if(!html){insPrev.classList.remove('show');return}
       insPrevIn.innerHTML=html;
       insPrev.style.top=Math.max(0,btn.offsetTop)+'px';
-      insPrev.classList.add('show');
-      insPrev.classList.remove('flip-left');
-      if(insPrev.getBoundingClientRect().right>window.innerWidth-12)insPrev.classList.add('flip-left');
+      insPrev.classList.add('show','flip-left');
+      if(insPrev.getBoundingClientRect().left<12)insPrev.classList.remove('flip-left');
     };
     $$('[data-ins]',insList).forEach(btn=>{
       btn.addEventListener('mouseenter',()=>showInsPreview(btn.dataset.ins,btn));
