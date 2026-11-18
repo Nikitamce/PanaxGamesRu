@@ -6547,12 +6547,19 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     const container = document.querySelector(".ql-container");
     if (!container) return null;
     if (container.__quill) return container.__quill;
-    let f = fiberOf(container) || fiberOf(container.querySelector(".ql-editor") || container);
+    let f = fiberOf(container) || fiberOf(container.parentElement) || container.parentElement && fiberOf(container.parentElement.parentElement) || fiberOf(container.querySelector(".ql-editor") || container);
     for (let i = 0; f && i < 30; i++, f = f.return) {
       const sn = f.stateNode;
       if (sn && typeof sn === "object") {
         if (sn.quill && typeof sn.quill.setContents === "function") return sn.quill;
         if (sn.editor && typeof sn.editor.setContents === "function") return sn.editor;
+        if (typeof sn.getQuill === "function") {
+          try {
+            const q = sn.getQuill();
+            if (q && typeof q.setContents === "function") return q;
+          } catch {
+          }
+        }
         if (typeof sn.getEditor === "function") {
           try {
             const q = sn.getEditor();
@@ -6562,11 +6569,64 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
         }
       }
       const ref = f.ref && typeof f.ref === "object" ? f.ref.current : null;
-      if (ref && ref.quill && typeof ref.quill.setContents === "function") return ref.quill;
+      if (ref) {
+        if (ref.quill && typeof ref.quill.setContents === "function") return ref.quill;
+        if (typeof ref.getQuill === "function") {
+          try {
+            const q = ref.getQuill();
+            if (q && typeof q.setContents === "function") return q;
+          } catch {
+          }
+        }
+      }
       const pr = f.memoizedProps && f.memoizedProps.ref;
-      if (pr && typeof pr === "object" && pr.current && pr.current.quill) return pr.current.quill;
+      if (pr && typeof pr === "object" && pr.current) {
+        if (pr.current.quill && typeof pr.current.quill.setContents === "function") return pr.current.quill;
+        if (typeof pr.current.getQuill === "function") {
+          try {
+            const q = pr.current.getQuill();
+            if (q && typeof q.setContents === "function") return q;
+          } catch {
+          }
+        }
+      }
     }
     return null;
+  }
+  function onAttachFiles(e) {
+    let msg;
+    try {
+      msg = JSON.parse(String(e.detail || "{}"));
+    } catch {
+      return;
+    }
+    const items = Array.isArray(msg.files) ? msg.files : [];
+    if (!items.length) return;
+    const dragArea = document.querySelector(".drag-area");
+    const fileInput = document.querySelector('input[type="file"][accept*="image"]');
+    if (!dragArea && !fileInput) return;
+    const dt = new DataTransfer();
+    let count = 0;
+    for (const it of items) {
+      if (count >= 10) break;
+      if (!it || !it.b64) continue;
+      try {
+        const bytes = base64ToBytes(it.b64);
+        const ct = it.contentType || "image/jpeg";
+        const ext = ct.includes("png") ? "png" : ct.includes("webp") ? "webp" : ct.includes("gif") ? "gif" : "jpg";
+        const file = new File([bytes], it.name || `photo-${count + 1}.${ext}`, { type: ct });
+        dt.items.add(file);
+        count += 1;
+      } catch {
+      }
+    }
+    if (!dt.files.length) return;
+    if (dragArea) {
+      dragArea.dispatchEvent(new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: dt }));
+    } else if (fileInput) {
+      fileInput.files = dt.files;
+      fileInput.dispatchEvent(new Event("change", { bubbles: true }));
+    }
   }
   function pasteInto(html, text) {
     const ed = document.querySelector(".ql-editor");
@@ -6757,6 +6817,7 @@ background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);color:#d7cc
     document.addEventListener("gq:disarm", onDisarm);
     document.addEventListener("gq:rescan", queueScan);
     document.addEventListener("gq:upload", onUpload);
+    document.addEventListener("gq:attach-files", onAttachFiles);
     const start2 = () => {
       queueScan();
       new MutationObserver(queueScan).observe(document.documentElement, { childList: true, subtree: true });
@@ -14497,9 +14558,39 @@ padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
       }, 2e3);
     });
   }
+  async function attachImagesToDragArea(urls) {
+    if (!Array.isArray(urls) || !urls.length) return;
+    if (!document.querySelector(".drag-area") && !document.querySelector('input[type="file"][accept*="image"]')) return;
+    const files = [];
+    for (const url of urls.slice(0, 10)) {
+      try {
+        const res = await new Promise((resolve) => {
+          try {
+            chrome.runtime.sendMessage({ type: "panax_xhr_blob", url }, (r) => {
+              if (chrome.runtime.lastError) resolve(null);
+              else resolve(r || null);
+            });
+          } catch {
+            resolve(null);
+          }
+        });
+        if (res && res.success && res.b64) {
+          files.push({ contentType: res.contentType || "image/jpeg", b64: res.b64 });
+        }
+      } catch {
+      }
+    }
+    if (files.length) {
+      document.dispatchEvent(new CustomEvent("gq:attach-files", { detail: JSON.stringify({ files }) }));
+    }
+  }
   async function onTransfer(m) {
     if (!Array.isArray(m.ops) || typeof m.plain !== "string") return;
     const res = await armMain({ ops: m.ops, plain: m.plain, html: String(m.html || "") });
+    if (Array.isArray(m.attachUrls) && m.attachUrls.length) {
+      attachImagesToDragArea(m.attachUrls).catch(() => {
+      });
+    }
     const carrier = m.carrier || carrierKeyFromText(m.plain || "") || "";
     const transferred = m.doc && typeof m.doc === "object" ? normalizeReview(m.doc, { sanitizeHtml: (h2) => sanitizeHtml(h2) }) : null;
     const doc = transferred || carrier && await docFromCarrier(carrier) || lastDoc;

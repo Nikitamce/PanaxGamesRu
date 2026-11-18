@@ -355,9 +355,39 @@ function armMain(payload) {
     }, 2e3);
   });
 }
+async function attachImagesToDragArea(urls) {
+  if (!Array.isArray(urls) || !urls.length) return;
+  if (!document.querySelector(".drag-area") && !document.querySelector('input[type="file"][accept*="image"]')) return;
+  const files = [];
+  for (const url of urls.slice(0, 10)) {
+    try {
+      const res = await new Promise((resolve) => {
+        try {
+          chrome.runtime.sendMessage({ type: "panax_xhr_blob", url }, (r) => {
+            if (chrome.runtime.lastError) resolve(null);
+            else resolve(r || null);
+          });
+        } catch {
+          resolve(null);
+        }
+      });
+      if (res && res.success && res.b64) {
+        files.push({ contentType: res.contentType || "image/jpeg", b64: res.b64 });
+      }
+    } catch {
+    }
+  }
+  if (files.length) {
+    document.dispatchEvent(new CustomEvent("gq:attach-files", { detail: JSON.stringify({ files }) }));
+  }
+}
 async function onTransfer(m) {
   if (!Array.isArray(m.ops) || typeof m.plain !== "string") return;
   const res = await armMain({ ops: m.ops, plain: m.plain, html: String(m.html || "") });
+  if (Array.isArray(m.attachUrls) && m.attachUrls.length) {
+    attachImagesToDragArea(m.attachUrls).catch(() => {
+    });
+  }
   const carrier = m.carrier || carrierKeyFromText(m.plain || "") || "";
   const transferred = m.doc && typeof m.doc === "object" ? normalizeReview(m.doc, { sanitizeHtml: (h2) => sanitizeHtml(h2) }) : null;
   const doc = transferred || carrier && await docFromCarrier(carrier) || lastDoc;

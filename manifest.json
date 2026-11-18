@@ -28,7 +28,8 @@
     "https://images.stopgame.ru/*",
     "https://steamcommunity.com/*",
     "https://images.steamusercontent.com/*",
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "https://d21t60rno19oyf.cloudfront.net/*"
   ],
   "icons": {
     "16": "icons/16.png",

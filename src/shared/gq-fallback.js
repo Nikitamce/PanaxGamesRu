@@ -453,10 +453,13 @@ export function buildFallback(r, opts = {}) {
         const items = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
         for (const it of items) {
           const origUrl = safeUserImageUrl(it.url);
-          const panaxUrl = attachedMap && origUrl ? attachedMap[origUrl] : "";
+          const attached = attachedMap && origUrl ? attachedMap[origUrl] : null;
+          const panaxUrl = typeof attached === "string" ? attached : attached && attached.url ? attached.url : "";
+          const w = (attached && attached.width) || it.width || 0;
+          const h = (attached && attached.height) || it.height || 0;
           const url = panaxUrl || origUrl;
           if (url && /^https?:/i.test(url)) {
-            b.embed({ "custom-image": { url, width: it.width || 0, height: it.height || 0 } });
+            b.embed({ "custom-image": { url, width: w, height: h } });
             const cap = String(it.caption || it.alt || "").trim();
             if (attachExt) {
               photoIdx += 1;

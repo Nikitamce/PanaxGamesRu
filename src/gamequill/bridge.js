@@ -109,7 +109,7 @@ async function uploadExternalAttachments(doc, maxCount = 10) {
     const items = Array.isArray(d.items) && d.items.length ? d.items : d.url ? [d] : [];
     for (const it of items) {
       const u = safeUserImageUrl(it && it.url);
-      if (!u || !/^https?:/i.test(u) || isPanaxHostedImage(u) || seen.has(u)) continue;
+      if (!u || !/^https?:/i.test(u) || seen.has(u)) continue;
       seen.add(u);
       urls.push(u);
       if (urls.length >= maxCount) break;
@@ -117,18 +117,32 @@ async function uploadExternalAttachments(doc, maxCount = 10) {
     if (urls.length >= maxCount) break;
   }
   const map = {};
+  const attachUrls = [];
   for (const u of urls) {
+    if (isPanaxHostedImage(u)) {
+      attachUrls.push(u);
+      continue;
+    }
     try {
       const dl = await fetchExternalImageB64(u);
-      if (!dl || !dl.b64) continue;
+      if (!dl || !dl.b64) {
+        attachUrls.push(u);
+        continue;
+      }
       const ct = /^image\/(png|jpeg|jpg|webp|gif)/i.test(dl.contentType) ? dl.contentType.split(";")[0].trim() : "image/jpeg";
       const dim = await measureB64Image(dl.b64, ct);
       const up = await uploadImage({ name: "attachment", contentType: ct, b64: dl.b64, width: dim.width, height: dim.height });
-      if (up && up.ok && up.url) map[u] = up.url;
+      if (up && up.ok && up.url) {
+        map[u] = { url: up.url, width: dim.width, height: dim.height };
+        attachUrls.push(up.url);
+      } else {
+        attachUrls.push(u);
+      }
     } catch {
+      attachUrls.push(u);
     }
   }
-  return map;
+  return { map, attachUrls };
 }
 async function exportForPost(review, settings, win = window) {
   const s = settings || {};
@@ -137,8 +151,8 @@ async function exportForPost(review, settings, win = window) {
   const doc = normalizeReview({ ...review, author, integ, updatedAt: Date.now() }, { sanitizeHtml: (h) => sanitizeHtml(h, win) });
   if (!doc || !hasContent(doc)) throw Object.assign(new Error("\u041E\u0431\u0437\u043E\u0440 \u043F\u0443\u0441\u0442\u043E\u0439"), { code: "empty" });
   const attachExternalImages = !!s.attachExternalImages;
-  const attachedMap = attachExternalImages ? await uploadExternalAttachments(doc, 10) : null;
-  const fbOpts = { win, attachExternalImages, attachedMap };
+  const ext = attachExternalImages ? await uploadExternalAttachments(doc, 10) : { map: null, attachUrls: [] };
+  const fbOpts = { win, attachExternalImages, attachedMap: ext.map };
   const fb0 = buildFallback(doc, fbOpts);
   doc.fp = fb0.fp;
   let enc2;
@@ -172,6 +186,7 @@ async function exportForPost(review, settings, win = window) {
     carrierText: enc2.text,
     fp: fb.fp,
     sizes: { raw: enc2.rawSize, compressed: enc2.compressedSize, vs: vs ? enc2.bytes.length : 0 },
+    attachUrls: ext.attachUrls,
     doc
   };
 }

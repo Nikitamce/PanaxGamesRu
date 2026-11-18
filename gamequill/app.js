@@ -1890,7 +1890,7 @@ async function gqTransfer(){
     const res=await GQ.exportForPost(r,state.settings);
     if(gqEnv.postId)r.panaxPostId=gqEnv.postId;
     save(true);
-    GQ.post({type:'gq:transfer',reviewId:r.id,ops:res.ops,plain:res.plain,html:res.html,carrier:res.carrierText,fp:res.fp,sizes:res.sizes,doc:res.doc||null});
+    GQ.post({type:'gq:transfer',reviewId:r.id,ops:res.ops,plain:res.plain,html:res.html,carrier:res.carrierText,fp:res.fp,sizes:res.sizes,attachUrls:res.attachUrls||[],doc:res.doc||null});
   }catch(e){
     toast(e&&e.code==='too-large'?'Обзор слишком большой для поста (лимит ~48 КБ в сжатом виде) — сократите текст':e&&e.code==='empty'?'Обзор пустой — нечего переносить':'Ошибка переноса: '+(e&&e.message||e),'err');
   }finally{btn.disabled=false}
