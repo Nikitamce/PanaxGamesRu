@@ -81,6 +81,25 @@ function isPanaxHostedImage(url) {
     return false;
   }
 }
+function measureB64Image(b64, ct) {
+  return new Promise((resolve) => {
+    try {
+      const img = new Image();
+      const t = setTimeout(() => resolve({ width: 1280, height: 720 }), 3000);
+      img.onload = () => {
+        clearTimeout(t);
+        resolve({ width: img.naturalWidth || 1280, height: img.naturalHeight || 720 });
+      };
+      img.onerror = () => {
+        clearTimeout(t);
+        resolve({ width: 1280, height: 720 });
+      };
+      img.src = `data:${ct};base64,${b64}`;
+    } catch {
+      resolve({ width: 1280, height: 720 });
+    }
+  });
+}
 async function uploadExternalAttachments(doc, maxCount = 10) {
   const urls = [];
   const seen = new Set();
@@ -103,7 +122,8 @@ async function uploadExternalAttachments(doc, maxCount = 10) {
       const dl = await fetchExternalImageB64(u);
       if (!dl || !dl.b64) continue;
       const ct = /^image\/(png|jpeg|jpg|webp|gif)/i.test(dl.contentType) ? dl.contentType.split(";")[0].trim() : "image/jpeg";
-      const up = await uploadImage({ name: "attachment", contentType: ct, b64: dl.b64, width: 0, height: 0 });
+      const dim = await measureB64Image(dl.b64, ct);
+      const up = await uploadImage({ name: "attachment", contentType: ct, b64: dl.b64, width: dim.width, height: dim.height });
       if (up && up.ok && up.url) map[u] = up.url;
     } catch {
     }
